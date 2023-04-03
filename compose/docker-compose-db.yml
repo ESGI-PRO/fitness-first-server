@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  # postgres
+  postgres:
+    container_name: postgres
+    image: postgres:15.2-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: challenge
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - '5432:5432'
+
+
+  # mongo-db
+  mongo:
+    container_name: nestmongo
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongouser
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - '27017:27017'
+

@@ -1,0 +1,57 @@
+version: '3.9'
+
+services:
+  analytic-api:   
+    build:
+      context: ../analytic-api
+      dockerfile: Dockerfile
+      target: development-build-stage
+    volumes:
+      - ../analytic-api:/app
+      - /app/node_modules
+    ports:
+      - 3000:3000
+
+  nutrition-api:
+    build:
+      context: ../nutrition-api
+      dockerfile: Dockerfile
+      target: development-build-stage
+    volumes:
+      - ../nutrition-api:/app/
+      - /app/node_modules
+    ports:
+      - 3001:3001
+
+  training-api:
+    build:
+      context: ../training-api
+      dockerfile: Dockerfile
+      target: development-build-stage
+    volumes:
+      - ../training-api:/app/
+      - /app/node_modules
+    ports:
+      - 3002:3002
+    
+  users-api:
+    build:
+      context: ../users-api
+      dockerfile: Dockerfile
+      target: development-build-stage
+    volumes:
+      - ../users-api:/app
+      - /app/node_modules
+    ports:
+      - 3003:3003
+
+  auth-api:
+    build:
+      context: ../auth-api
+      dockerfile: Dockerfile
+      target: development-build-stage
+    volumes:
+      - ../auth-api:/app
+      - /app/node_modules
+    ports:
+      - 3004:3004
