@@ -33,3 +33,10 @@ model Ingredients {
   fiber_g               Float
   sugar_g               Float
 }
+
+model Recettes {
+  id Int @id @default(autoincrement())
+  title String 
+  UserId Int
+  instructions Json[]
+}
