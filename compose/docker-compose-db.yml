@@ -14,20 +14,20 @@ services:
     image: postgres:15.2-alpine
     restart: always
     environment:
-      POSTGRES_DB: challenge
-      POSTGRES_USER: user
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     ports:
       - '5432:5432'
-
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d
 
   # mongo-db
   mongo:
-    container_name: nestmongo
+    container_name: mongo
     image: mongo:latest
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: mongouser
+      MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: password
     ports:
       - '27017:27017'
