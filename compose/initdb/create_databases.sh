@@ -2,7 +2,7 @@
 set -e
 
 psql -v ON_ERROR_STOP=1 --username "postgres" <<-EOSQL
-    CREATE DATABASE Users;
-    CREATE DATABASE Training;
-    CREATE DATABASE Nutrition;
+    CREATE DATABASE users;
+    CREATE DATABASE training;
+    CREATE DATABASE nutrition;
 EOSQL
