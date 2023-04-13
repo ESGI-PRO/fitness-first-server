@@ -9,3 +9,19 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+
+model Training {
+  id String @id @default(uuid())
+  name String
+  description String
+  repetition Int
+  category String
+  outils String
+  image String
+  temps Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  userId Int
+}
