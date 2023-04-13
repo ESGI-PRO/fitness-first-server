@@ -20,6 +20,17 @@ services:
     ports:
       - '5432:5432'
 
+  training-db:
+    container_name: training-db
+    image: postgres:15.2-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: trainingdb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - '5434:5432'
+
 
   # mongo-db
   mongo:

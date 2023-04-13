@@ -9,3 +9,20 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model TypeExercices {
+  id Int @id @default(autoincrement())
+  name String
+  exercices Exercices[]
+}
+
+model Exercices {
+  id String @id @default(uuid())
+  name String 
+  type String
+  equipment String 
+  difficulty String 
+  instructions String
+  muscle TypeExercices? @relation(fields: [TypeExercicesId], references: [id])
+  TypeExercicesId Int?
+}
