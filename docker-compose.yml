@@ -16,7 +16,11 @@ services:
     extends:
       file: ./compose/docker-compose-db.yml
       service: postgres
-  
+
+  training-db:
+    extends:
+      file: ./compose/docker-compose-db.yml
+      service: training-db
 
   #ALL APIs
   analytic-api:

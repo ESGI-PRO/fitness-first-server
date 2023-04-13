@@ -10,6 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+<<<<<<< HEAD
 
 model Training {
   id String @id @default(uuid())
@@ -24,4 +25,21 @@ model Training {
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
   userId Int
+=======
+model TypeExercices {
+  id Int @id @default(autoincrement())
+  name String
+  exercices Exercices[]
+}
+
+model Exercices {
+  id String @id @default(uuid())
+  name String 
+  type String
+  equipment String 
+  difficulty String 
+  instructions String
+  muscle TypeExercices? @relation(fields: [TypeExercicesId], references: [id])
+  TypeExercicesId Int?
+>>>>>>> 0d68575a (training seeder done)
 }
