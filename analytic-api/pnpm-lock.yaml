@@ -4,6 +4,7 @@ specifiers:
   '@nestjs/cli': ^9.0.0
   '@nestjs/common': ^9.0.0
   '@nestjs/core': ^9.0.0
+  '@nestjs/microservices': ^9.4.0
   '@nestjs/platform-express': ^9.0.0
   '@nestjs/schematics': ^9.0.0
   '@nestjs/swagger': ^6.3.0
@@ -33,7 +34,8 @@ specifiers:
 
 dependencies:
   '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
-  '@nestjs/core': 9.3.12_qhubmme3ystyvorrsy6sfc2ome
+  '@nestjs/core': 9.3.12_gcsnauwkdd2nsv345kyf5wgtca
+  '@nestjs/microservices': 9.4.0_of4akadhszyqq4nremfoaw2364
   '@nestjs/platform-express': 9.3.12_ge4qplnzbmfyi5znl534zhtkn4
   '@nestjs/swagger': 6.3.0_bgmtsjzu2jyijhogwtog4e3a6e
   helmet: 6.0.1
@@ -43,7 +45,7 @@ dependencies:
 devDependencies:
   '@nestjs/cli': 9.3.0
   '@nestjs/schematics': 9.1.0_typescript@4.9.5
-  '@nestjs/testing': 9.3.12_ckvy3xuqd5ydy3ipiq7jufha44
+  '@nestjs/testing': 9.3.12_xbee55js7sdpnum4tzibvbenmq
   '@types/express': 4.17.17
   '@types/jest': 29.5.0
   '@types/node': 18.15.11
@@ -893,7 +895,7 @@ packages:
       tslib: 2.5.0
       uid: 2.0.1
 
-  /@nestjs/core/9.3.12_qhubmme3ystyvorrsy6sfc2ome:
+  /@nestjs/core/9.3.12_gcsnauwkdd2nsv345kyf5wgtca:
     resolution: {integrity: sha512-Qe0ZjJo7bOlfudn7KHLppYrt5i4k1nR1+9d5ppYat2bb5knCIT4kIqblj666n+22/2zvsHRiTo015cLyLKsLRQ==}
     requiresBuild: true
     peerDependencies:
@@ -912,6 +914,7 @@ packages:
         optional: true
     dependencies:
       '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
+      '@nestjs/microservices': 9.4.0_of4akadhszyqq4nremfoaw2364
       '@nestjs/platform-express': 9.3.12_ge4qplnzbmfyi5znl534zhtkn4
       '@nuxtjs/opencollective': 0.3.2
       fast-safe-stringify: 2.1.1
@@ -941,6 +944,49 @@ packages:
       reflect-metadata: 0.1.13
     dev: false
 
+  /@nestjs/microservices/9.4.0_of4akadhszyqq4nremfoaw2364:
+    resolution: {integrity: sha512-3IlURTijN2whedrfnLbJ3QQ4giDU1SxXcepXxtUL1MMkZAJgw2gN7sTquOXVgy/Ci5OMPO+vOjVyadjFejrgKA==}
+    peerDependencies:
+      '@grpc/grpc-js': '*'
+      '@nestjs/common': ^9.0.0
+      '@nestjs/core': ^9.0.0
+      '@nestjs/websockets': ^9.0.0
+      amqp-connection-manager: '*'
+      amqplib: '*'
+      cache-manager: '*'
+      ioredis: '*'
+      kafkajs: '*'
+      mqtt: '*'
+      nats: '*'
+      reflect-metadata: ^0.1.12
+      rxjs: ^7.1.0
+    peerDependenciesMeta:
+      '@grpc/grpc-js':
+        optional: true
+      '@nestjs/websockets':
+        optional: true
+      amqp-connection-manager:
+        optional: true
+      amqplib:
+        optional: true
+      cache-manager:
+        optional: true
+      ioredis:
+        optional: true
+      kafkajs:
+        optional: true
+      mqtt:
+        optional: true
+      nats:
+        optional: true
+    dependencies:
+      '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
+      '@nestjs/core': 9.3.12_gcsnauwkdd2nsv345kyf5wgtca
+      iterare: 1.2.1
+      reflect-metadata: 0.1.13
+      rxjs: 7.8.0
+      tslib: 2.5.0
+
   /@nestjs/platform-express/9.3.12_ge4qplnzbmfyi5znl534zhtkn4:
     resolution: {integrity: sha512-iQToH9rnZHmm3a2YDKLEN7weU2qC/EVOBnuwTf1lIkqB48yLxlykSJu3KmgtlUUNDt2/HY527QIo+GZSZfCLyg==}
     peerDependencies:
@@ -948,7 +994,7 @@ packages:
       '@nestjs/core': ^9.0.0
     dependencies:
       '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
-      '@nestjs/core': 9.3.12_qhubmme3ystyvorrsy6sfc2ome
+      '@nestjs/core': 9.3.12_gcsnauwkdd2nsv345kyf5wgtca
       body-parser: 1.20.2
       cors: 2.8.5
       express: 4.18.2
@@ -1003,7 +1049,7 @@ packages:
         optional: true
     dependencies:
       '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
-      '@nestjs/core': 9.3.12_qhubmme3ystyvorrsy6sfc2ome
+      '@nestjs/core': 9.3.12_gcsnauwkdd2nsv345kyf5wgtca
       '@nestjs/mapped-types': 1.2.2_dgctl6imyfbk5gdq7xviekxosu
       js-yaml: 4.1.0
       lodash: 4.17.21
@@ -1012,7 +1058,7 @@ packages:
       swagger-ui-dist: 4.18.2
     dev: false
 
-  /@nestjs/testing/9.3.12_ckvy3xuqd5ydy3ipiq7jufha44:
+  /@nestjs/testing/9.3.12_xbee55js7sdpnum4tzibvbenmq:
     resolution: {integrity: sha512-nH274IXEqU4hr4bcb71POe58hYLONt9RcfKKM5ZvOS7wYMnybMpKKR8DkC1WcfE1P2k2GQmQoHeSH5emPtYrBA==}
     peerDependencies:
       '@nestjs/common': ^9.0.0
@@ -1026,7 +1072,8 @@ packages:
         optional: true
     dependencies:
       '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
-      '@nestjs/core': 9.3.12_qhubmme3ystyvorrsy6sfc2ome
+      '@nestjs/core': 9.3.12_gcsnauwkdd2nsv345kyf5wgtca
+      '@nestjs/microservices': 9.4.0_of4akadhszyqq4nremfoaw2364
       '@nestjs/platform-express': 9.3.12_ge4qplnzbmfyi5znl534zhtkn4
       tslib: 2.5.0
     dev: true

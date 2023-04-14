@@ -11,7 +11,7 @@ services:
     extends:
       file: ./compose/docker-compose-db.yml
       service: mongo
-  
+
   postgres:
     extends:
       file: ./compose/docker-compose-db.yml
@@ -32,19 +32,19 @@ services:
     extends:
       file: ./compose/docker-compose-service.yml
       service: training-api
-  
+
   nutrition-api:
     extends:
       file: ./compose/docker-compose-service.yml
       service: nutrition-api
 
-  users-api:
+  user-api:
     extends:
       file: ./compose/docker-compose-service.yml
-      service: users-api
+      service: user-api
 
   auth-api:
     extends:
       file: ./compose/docker-compose-service.yml
       service: auth-api
-  
+

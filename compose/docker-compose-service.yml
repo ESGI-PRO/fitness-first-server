@@ -34,13 +34,13 @@ services:
     ports:
       - 3002:3002
     
-  users-api:
+  user-api:
     build:
-      context: ../users-api
+      context: ../user-api
       dockerfile: Dockerfile
       target: development-build-stage
     volumes:
-      - ../users-api:/app
+      - ../user-api:/app
       - /app/node_modules
     ports:
       - 3003:3003
