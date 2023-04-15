@@ -14,7 +14,7 @@ services:
     image: postgres:15.2-alpine
     restart: always
     environment:
-      POSTGRES_DB: challenge
+      POSTGRES_MULTIPLE_DATABASES: challenge
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
     ports:

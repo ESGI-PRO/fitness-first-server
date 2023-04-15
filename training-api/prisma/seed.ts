@@ -44,7 +44,10 @@ function insertExercices() {
         }),
       ),
     )
-      .then(() => console.info('[SEED] Succussfully create EXERCICES records'))
+      .then(() => {
+        console.info('[SEED] Succussfully create EXERCICES records');
+        // insertTraining()
+      })
       .catch((e) =>
         console.error('[SEED] Failed to create EXERCICES records', e),
       );
@@ -53,4 +56,43 @@ function insertExercices() {
   }
 }
 
-insertTypeExercices();
+function insertTraining() {
+  try {
+    prisma.training
+      .create({
+        data: {
+          name: 'Programme du matin',
+          description:
+            "voici votre programme d'entrenaiment, vous devez le faire tout les matins fait pas chier okay ?",
+          category: 3,
+          userId: 'FEHGFDFGNFDSG,',
+          image:
+            'https://randomwordgenerator.com/img/picture-generator/53e1d04a4c5aa414f1dc8460962e33791c3ad6e04e5074417c2b79d59448cc_640.jpg',
+          listExercices: [],
+          durationStart: new Date(),
+          durationEnd: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          trainingOnExercices: {
+            create: [
+              {
+                exerciceId: 67,
+                series: 5,
+                repetition: 10,
+              },
+            ],
+          },
+        },
+      })
+      .then(() => console.info('[SEED] Succussfully create Training records'))
+      .catch((e) =>
+        console.error('[SEED] Failed to create Training  records', e),
+      );
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+// insertTypeExercices();
+insertTraining();
+
