@@ -7,40 +7,44 @@ services:
       file: ./compose/docker-compose-db.yml
       service: adminer
 
-  mongo:
+  # mongo:
+  #   extends:
+  #     file: ./compose/docker-compose-db.yml
+  #     service: mongo
+  
+  # postgres:
+  #   extends:
+  #     file: ./compose/docker-compose-db.yml
+  #     service: postgres
+
+  training-db:
     extends:
       file: ./compose/docker-compose-db.yml
-      service: mongo
-  
-  postgres:
-    extends:
-      file: ./compose/docker-compose-db.yml
-      service: postgres
-  
+      service: training-db
 
   #ALL APIs
-  analytic-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: analytic-api
+  # analytic-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: analytic-api
 
   training-api:
     extends:
       file: ./compose/docker-compose-service.yml
       service: training-api
   
-  nutrition-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: nutrition-api
+  # nutrition-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: nutrition-api
 
-  users-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: users-api
+  # users-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: users-api
 
-  auth-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: auth-api
+  # auth-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: auth-api
   

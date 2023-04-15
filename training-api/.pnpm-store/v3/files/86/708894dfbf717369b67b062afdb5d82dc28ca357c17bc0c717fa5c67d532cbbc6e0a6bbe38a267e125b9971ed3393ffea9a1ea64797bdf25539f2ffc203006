@@ -1,0 +1,14 @@
+import type { DMMF as PrismaDMMF } from '@prisma/generator-helper';
+import { OptionalKind, SourceFile, DecoratorStructure, Project } from 'ts-morph';
+export declare const generateModelsIndexFile: (prismaClientDmmf: PrismaDMMF.Document, project: Project, outputDir: string) => void;
+export declare const shouldImportPrisma: (fields: PrismaDMMF.Field[]) => boolean;
+export declare const shouldImportHelpers: (fields: PrismaDMMF.Field[]) => boolean;
+export declare const getTSDataTypeFromFieldType: (field: PrismaDMMF.Field) => string;
+export declare const getDecoratorsByFieldType: (field: PrismaDMMF.Field) => OptionalKind<DecoratorStructure>[];
+export declare const getDecoratorsImportsByType: (field: PrismaDMMF.Field) => unknown[];
+export declare const generateClassValidatorImport: (sourceFile: SourceFile, validatorImports: Array<string>) => void;
+export declare const generatePrismaImport: (sourceFile: SourceFile) => void;
+export declare const generateRelationImportsImport: (sourceFile: SourceFile, relationImports: Array<string>) => void;
+export declare const generateHelpersImports: (sourceFile: SourceFile, helpersImports: Array<string>) => void;
+export declare const generateEnumImports: (sourceFile: SourceFile, fields: PrismaDMMF.Field[]) => void;
+export declare function generateEnumsIndexFile(sourceFile: SourceFile, enumNames: string[]): void;

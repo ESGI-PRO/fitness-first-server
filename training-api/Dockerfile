@@ -9,7 +9,7 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install
 RUN npm i -g @nestjs/cli
 
-COPY . .
+# COPY . .
 
 EXPOSE 3002
 

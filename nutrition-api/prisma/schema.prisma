@@ -9,3 +9,34 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Categories {
+  id          Int           @id @default(autoincrement())
+  name        String        @unique
+  ingredients Ingredients[]
+}
+
+model Ingredients {
+  id                    Int         @id @default(autoincrement())
+  name                  String      @unique
+  calories              Float
+  category              Categories? @relation(fields: [CategorieId], references: [id])
+  CategorieId           Int?
+  grammes               Float?      @default(100)
+  fat_total_g           Float
+  fat_saturated_g       Float
+  protein_g             Float
+  sodium_mg             Float
+  potassium_mg          Float
+  cholesterol_mg        Float
+  carbohydrates_total_g Float
+  fiber_g               Float
+  sugar_g               Float
+}
+
+model Recettes {
+  id Int @id @default(autoincrement())
+  title String 
+  UserId Int
+  instructions Json[]
+}

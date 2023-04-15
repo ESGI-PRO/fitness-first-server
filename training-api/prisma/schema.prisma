@@ -9,3 +9,51 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model TypeExercices {
+  id Int @id @default(autoincrement())
+  name String
+  exercices Exercices[]
+  training Training[]
+}
+
+model Exercices {
+  id Int @id @default(autoincrement())
+  name String 
+  type String
+  equipment String 
+  difficulty String 
+  instructions String
+  muscle TypeExercices? @relation(fields: [TypeExercicesId], references: [id])
+  TypeExercicesId Int?
+  exerciceOnTraining ExercicesOnTraining[]
+} 
+
+model Training {
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  muscle TypeExercices? @relation(fields: [category], references: [id])
+  category Int?
+  userId String
+  image String
+  listExercices String[]
+  durationStart DateTime
+  durationEnd DateTime?
+  trainingOnExercices ExercicesOnTraining[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+model ExercicesOnTraining {
+  id Int @id @default(autoincrement())
+  exercice Exercices? @relation(fields: [exerciceId], references: [id])
+  exerciceId Int
+
+  training Training? @relation(fields: [trainingId], references: [id])
+  trainingId Int
+
+  series Int
+  repetition Int
+}
