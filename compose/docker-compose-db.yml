@@ -34,11 +34,11 @@ services:
 
   # mongo-db
   mongo:
-    container_name: nestmongo
+    container_name: mongo
     image: mongo:latest
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: mongouser
+      MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: password
     ports:
       - '27017:27017'
