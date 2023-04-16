@@ -1,7 +1,6 @@
 FROM node:18.15-alpine as common-build-stage
 
-RUN npm install -g pnpm
-RUN npm i -g @nestjs/cli
+RUN npm install -g pnpm & npm install -g @nestjs/cli
 
 RUN mkdir -p /var/www/auth-api
 
@@ -9,7 +8,8 @@ WORKDIR /var/www/auth-api
 
 ADD . /var/www/auth-api/
 RUN pnpm install
-RUN npx prisma generate
+
+COPY . .
 
 EXPOSE 8004
 
