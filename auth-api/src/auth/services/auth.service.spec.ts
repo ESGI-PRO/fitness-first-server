@@ -12,7 +12,12 @@ describe('AuthService', () => {
     service = module.get<AuthService>(AuthService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
+  it('should return access token if login is successful', async () => {
+    const email = 'john@example.com';
+    const password = 'passwordJohn';
+  
+    const result = await service.login(email, password);
+  
+    expect(result.access_token).toBeDefined();
+  });  
 });
