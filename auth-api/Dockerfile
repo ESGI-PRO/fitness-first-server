@@ -1,13 +1,12 @@
 FROM node:18.15-alpine as common-build-stage
 
-RUN npm install -g pnpm
+RUN npm install -g pnpm & npm install -g @nestjs/cli
 
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
 
 RUN pnpm install
-RUN npm i -g @nestjs/cli
 
 COPY . .
 

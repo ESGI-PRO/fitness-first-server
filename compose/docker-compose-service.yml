@@ -8,7 +8,7 @@ services:
       target: development-build-stage
     volumes:
       - ../analytic-api:/app
-      - /app/node_modules
+      - ../analytic-api/node_modules:/app/node_modules
     ports:
       - 3000:3000
 
@@ -52,6 +52,5 @@ services:
       target: development-build-stage
     volumes:
       - ../auth-api:/app
-      - /app/node_modules
     ports:
       - 3004:3004
