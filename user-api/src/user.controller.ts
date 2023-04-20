@@ -6,6 +6,7 @@ import { IUser } from './interfaces/user.interface';
 import { IUserCreateResponse } from './interfaces/user-create-response.interface';
 import { IUserSearchResponse } from './interfaces/user-search-response.interface';
 import { IUserConfirmResponse } from './interfaces/user-confirm-response.interface';
+import { firstValueFrom } from 'rxjs';
 
 @Controller('user')
 export class UserController {
@@ -27,7 +28,7 @@ export class UserController {
       });
 
       if (user && user[0]) {
-        if (await user[0].compareEncryptedPassword(searchParams.password)) {
+        if (user[0].compareEncryptedPassword(searchParams.password)) {
           result = {
             status: HttpStatus.OK,
             message: 'user_search_by_credentials_success',
@@ -133,6 +134,7 @@ export class UserController {
     let result: IUserCreateResponse;
 
     if (userParams) {
+
       const usersWithEmail = await this.userService.searchUser({
         email: userParams.email,
       });
@@ -150,6 +152,7 @@ export class UserController {
           },
         };
       } else {
+
         try {
           userParams.is_confirmed = false;
           const createdUser = await this.userService.createUser(userParams);
@@ -163,7 +166,8 @@ export class UserController {
             user: createdUser,
             errors: null,
           };
-          this.mailerServiceClient
+          await firstValueFrom(
+            this.mailerServiceClient
             .send('mail_send', {
               to: createdUser.email,
               subject: 'Email confirmation',
@@ -175,7 +179,7 @@ export class UserController {
               )}"><b>Confirm The Email</b></a>
               </center>`,
             })
-            .toPromise();
+          );
         } catch (e) {
           result = {
             status: HttpStatus.PRECONDITION_FAILED,

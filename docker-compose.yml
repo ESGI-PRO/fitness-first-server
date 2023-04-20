@@ -17,10 +17,6 @@ services:
       file: ./compose/docker-compose-db.yml
       service: postgres
 
-  training-db:
-    extends:
-      file: ./compose/docker-compose-db.yml
-      service: training-db
 
   #ALL APIs
   analytic-api:
@@ -47,4 +43,20 @@ services:
     extends:
       file: ./compose/docker-compose-service.yml
       service: auth-api
+  token-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: token-api
+  permission-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: permission-api
+  mailer-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: mailer-api
 
+  gateway:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: gateway

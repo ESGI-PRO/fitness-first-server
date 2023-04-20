@@ -30,7 +30,8 @@ let UserService = class UserService {
         return this.userModel.findById(id).exec();
     }
     async updateUserById(id, userParams) {
-        return this.userModel.updateOne({ _id: id }, userParams).exec();
+        this.userModel.updateOne({ _id: id }, userParams).exec();
+        return this.userModel.findById(id).exec();
     }
     async createUser(user) {
         const userModel = new this.userModel(user);
@@ -46,7 +47,8 @@ let UserService = class UserService {
         return this.userLinkModel.find({ link, is_used: false }).exec();
     }
     async updateUserLinkById(id, linkParams) {
-        return this.userLinkModel.updateOne({ _id: id }, linkParams);
+        this.userLinkModel.updateOne({ _id: id }, linkParams);
+        return this.userLinkModel.findById(id).exec();
     }
     getConfirmationLink(link) {
         return `${this.configService.get('baseUri')}:${this.configService.get('gatewayPort')}/users/confirm/${link}`;
