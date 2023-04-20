@@ -3,5 +3,7 @@
 ./**/.env.*
 ./**/.env.local
 ./**/.env.*.local
-/compose/mongodata
-/compose/initdb
+./compose/mongodata
+./compose/mongodata/*
+./compose/initdb
+./compose/initdb/*
