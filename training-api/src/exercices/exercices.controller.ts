@@ -1,6 +1,6 @@
 import { CreateExercicesDTO } from './exercices.dto';
 import { ExercicesService } from './exercices.service';
-import { Body, Controller, Get, HttpCode, Param, ParseUUIDPipe, Patch, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, ParseIntPipe, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 
 @Controller('exercices')
 export class ExercicesController {
@@ -15,29 +15,29 @@ export class ExercicesController {
 
     @Get('/:id')
     @HttpCode(200)
-    public async getByID(@Param('id') id: string) {
+    public async getByID(@Param('id') id: number) {
         const exercices = await this.exercicesAPI.findOne(id);
         return exercices;
     }
 
-    @Get()
+    @Post()
     @HttpCode(200)
     public async create(@Body() data: CreateExercicesDTO) {
         const exercices = await this.exercicesAPI.create(data);
         return exercices;
     }
 
-    @Patch(":id")
+    @Patch("/:id")
     @UsePipes(ValidationPipe)
     @HttpCode(200)
-    public async update(@Param("id", ParseUUIDPipe) id: string, @Body() data: CreateExercicesDTO) {
+    public async update(@Param("id", ParseIntPipe) id: number, @Body() data: CreateExercicesDTO) {
         return this.exercicesAPI.update(id, data);
     }
     
 
-    @Get('/:id')
+    @Delete('/:id')
     @HttpCode(200)
-    public async delete(@Param("id", ParseUUIDPipe) id: string) {
+    public async delete(@Param("id", ParseIntPipe) id: number) {
         const exercices = await this.exercicesAPI.delete(id);
         return exercices;
     }

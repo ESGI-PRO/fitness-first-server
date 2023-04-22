@@ -19,7 +19,7 @@ export class ExercicesService {
     return new Promise(async (resolve, reject) => {
       try {
         const exercices = await prisma.exercices.findUnique({
-          where: { id },
+          where: { id: Number(id) },
           include: {
             muscle: true,
           },
@@ -46,7 +46,7 @@ export class ExercicesService {
     return new Promise(async (resolve, reject) => {
       try {
         const exercices = await prisma.exercices.update({
-          where: { id },
+          where: { id: Number(id) },
           data,
         });
         resolve({ status: true, data: exercices });
@@ -60,7 +60,7 @@ export class ExercicesService {
     return new Promise(async (resolve, reject) => {
       try {
         const exercices = await prisma.exercices.delete({
-          where: { id },
+          where: { id: Number(id) },
         });
         resolve({ status: true, data: exercices });
       } catch (err) {

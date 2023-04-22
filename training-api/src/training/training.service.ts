@@ -29,7 +29,7 @@ export class TrainingService {
 
   public async findOne(id: number): Promise<any> {
     try {
-      const training = await this.prisma.training.findUnique({ where: { id } });
+      const training = await this.prisma.training.findUnique({ where: { id: Number(id) } });
       return training;
     } catch (error) {
       console.log('findOne Training', error);
@@ -39,7 +39,7 @@ export class TrainingService {
   public async update(id: number, data: any): Promise<any> {
     try {
       const updateTraining = await this.prisma.training.update({
-        where: { id },
+        where: { id: Number(id) },
         data: { ...data },
       });
       return updateTraining;

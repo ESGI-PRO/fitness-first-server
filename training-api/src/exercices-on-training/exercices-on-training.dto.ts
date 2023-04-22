@@ -8,37 +8,17 @@ import {
   isDate,
 } from 'class-validator';
 
-export class CreateExercicesDTO {
-  @IsString()
-  public name: string;
-
-  @IsString()
-  public description: string;
-
-  @IsString()
-  public category: number;
-
-  @IsString()
-  public userId: string;
-
-  @IsString()
-  public listExercices: string;
-
-  @IsString()
-  public image: string;
-
-  @IsDate()
-  public durationStart: string;
-
-  @IsDate()
-  public durationEnd: string;
-
-  @IsDate()
-  public createdAt: string;
+export class CreateExercicesOnTrainingDTO {
+  @IsNumber()
+	exerciceId: number;
   
-  @IsDate()
-  public updatedAt: string;
+  @IsNumber()
+	trainingId: number;
+  
+  @IsNumber()
+  series: number;
+	
+  @IsNumber()
+  repetition: number;
 
-  @IsString()
-  public type: string;
 }
