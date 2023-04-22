@@ -32,5 +32,5 @@ services:
       #MONGO_INITDB_ROOT_PASSWORD: password
     ports:
       - '27017:27017'
-    volumes:
-      - ./mongodata:/data/db
+    #volumes:
+    #  - ./mongodata:/data/db
