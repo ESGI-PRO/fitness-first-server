@@ -1,16 +1,16 @@
 version: '3.9'
 
 services:
-  gateway:
+  gateway-api:
     build:
-      context: ../gateway
+      context: ../gateway-api
       dockerfile: Dockerfile
       target: development-build-stage
-    hostname: gateway
+    hostname: gateway-api
     env_file:
       - ../.env
     volumes:
-      - ../gateway:/var/www/gateway
+      - ../gateway-api:/var/www/gateway-pi
     ports:
       - 8000:8000
 

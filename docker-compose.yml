@@ -56,7 +56,7 @@ services:
       file: ./compose/docker-compose-service.yml
       service: mailer-api
 
-  gateway:
+  gateway-api:
     extends:
       file: ./compose/docker-compose-service.yml
-      service: gateway
+      service: gateway-api
