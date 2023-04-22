@@ -3,9 +3,43 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+
+model Training {
+  id String @id @default(uuid())
+  name String
+  description String
+  repetition Int
+  category String
+  outils String
+  image String
+  temps Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  userId Int
+}
+
+model TypeExercices {
+  id Int @id @default(autoincrement())
+  name String
+  exercices Exercices[]
+}
+
+model Exercices {
+  id String @id @default(uuid())
+  name String 
+  type String
+  equipment String 
+  difficulty String 
+  instructions String
+  muscle TypeExercices? @relation(fields: [TypeExercicesId], references: [id])
+  TypeExercicesId Int?
 }
