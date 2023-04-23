@@ -113,10 +113,6 @@ services:
     env_file:
       - ../.env
     volumes:
-<<<<<<< HEAD
         - ../mailer-api:/var/www/mailer-api
-=======
-      - ../auth-api:/app
->>>>>>> 0d07546ba2bb7c1f890575a2b7a4c61a3ef0a3bd
     ports:
       - 8008:8008
