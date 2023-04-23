@@ -866,7 +866,11 @@ packages:
       tslib: 2.5.0
       uid: 2.0.1
 
+<<<<<<< HEAD
   /@nestjs/core/9.3.12_gcsnauwkdd2nsv345kyf5wgtca:
+=======
+  /@nestjs/core@9.3.12(@nestjs/common@9.3.12)(@nestjs/platform-express@9.3.12)(reflect-metadata@0.1.13)(rxjs@7.8.0):
+>>>>>>> 0d07546ba2bb7c1f890575a2b7a4c61a3ef0a3bd
     resolution: {integrity: sha512-Qe0ZjJo7bOlfudn7KHLppYrt5i4k1nR1+9d5ppYat2bb5knCIT4kIqblj666n+22/2zvsHRiTo015cLyLKsLRQ==}
     requiresBuild: true
     peerDependencies:
@@ -884,9 +888,14 @@ packages:
       '@nestjs/websockets':
         optional: true
     dependencies:
+<<<<<<< HEAD
       '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
       '@nestjs/microservices': 9.4.0_of4akadhszyqq4nremfoaw2364
       '@nestjs/platform-express': 9.3.12_ge4qplnzbmfyi5znl534zhtkn4
+=======
+      '@nestjs/common': 9.3.12(reflect-metadata@0.1.13)(rxjs@7.8.0)
+      '@nestjs/platform-express': 9.3.12(@nestjs/common@9.3.12)(@nestjs/core@9.3.12)
+>>>>>>> 0d07546ba2bb7c1f890575a2b7a4c61a3ef0a3bd
       '@nuxtjs/opencollective': 0.3.2
       fast-safe-stringify: 2.1.1
       iterare: 1.2.1
@@ -915,6 +924,7 @@ packages:
       reflect-metadata: 0.1.13
     dev: false
 
+<<<<<<< HEAD
   /@nestjs/microservices/9.4.0_of4akadhszyqq4nremfoaw2364:
     resolution: {integrity: sha512-3IlURTijN2whedrfnLbJ3QQ4giDU1SxXcepXxtUL1MMkZAJgw2gN7sTquOXVgy/Ci5OMPO+vOjVyadjFejrgKA==}
     peerDependencies:
@@ -959,13 +969,21 @@ packages:
       tslib: 2.5.0
 
   /@nestjs/platform-express/9.3.12_ge4qplnzbmfyi5znl534zhtkn4:
+=======
+  /@nestjs/platform-express@9.3.12(@nestjs/common@9.3.12)(@nestjs/core@9.3.12):
+>>>>>>> 0d07546ba2bb7c1f890575a2b7a4c61a3ef0a3bd
     resolution: {integrity: sha512-iQToH9rnZHmm3a2YDKLEN7weU2qC/EVOBnuwTf1lIkqB48yLxlykSJu3KmgtlUUNDt2/HY527QIo+GZSZfCLyg==}
     peerDependencies:
       '@nestjs/common': ^9.0.0
       '@nestjs/core': ^9.0.0
     dependencies:
+<<<<<<< HEAD
       '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
       '@nestjs/core': 9.3.12_gcsnauwkdd2nsv345kyf5wgtca
+=======
+      '@nestjs/common': 9.3.12(reflect-metadata@0.1.13)(rxjs@7.8.0)
+      '@nestjs/core': 9.3.12(@nestjs/common@9.3.12)(@nestjs/platform-express@9.3.12)(reflect-metadata@0.1.13)(rxjs@7.8.0)
+>>>>>>> 0d07546ba2bb7c1f890575a2b7a4c61a3ef0a3bd
       body-parser: 1.20.2
       cors: 2.8.5
       express: 4.18.2
@@ -1005,9 +1023,15 @@ packages:
       class-validator:
         optional: true
     dependencies:
+<<<<<<< HEAD
       '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
       '@nestjs/core': 9.3.12_gcsnauwkdd2nsv345kyf5wgtca
       '@nestjs/mapped-types': 1.2.2_dgctl6imyfbk5gdq7xviekxosu
+=======
+      '@nestjs/common': 9.3.12(reflect-metadata@0.1.13)(rxjs@7.8.0)
+      '@nestjs/core': 9.3.12(@nestjs/common@9.3.12)(@nestjs/platform-express@9.3.12)(reflect-metadata@0.1.13)(rxjs@7.8.0)
+      '@nestjs/mapped-types': 1.2.2(@nestjs/common@9.3.12)(reflect-metadata@0.1.13)
+>>>>>>> 0d07546ba2bb7c1f890575a2b7a4c61a3ef0a3bd
       js-yaml: 4.1.0
       lodash: 4.17.21
       path-to-regexp: 3.2.0
@@ -1015,7 +1039,11 @@ packages:
       swagger-ui-dist: 4.18.2
     dev: false
 
+<<<<<<< HEAD
   /@nestjs/testing/9.3.12_xbee55js7sdpnum4tzibvbenmq:
+=======
+  /@nestjs/testing@9.3.12(@nestjs/common@9.3.12)(@nestjs/core@9.3.12)(@nestjs/platform-express@9.3.12):
+>>>>>>> 0d07546ba2bb7c1f890575a2b7a4c61a3ef0a3bd
     resolution: {integrity: sha512-nH274IXEqU4hr4bcb71POe58hYLONt9RcfKKM5ZvOS7wYMnybMpKKR8DkC1WcfE1P2k2GQmQoHeSH5emPtYrBA==}
     peerDependencies:
       '@nestjs/common': ^9.0.0
@@ -1028,10 +1056,16 @@ packages:
       '@nestjs/platform-express':
         optional: true
     dependencies:
+<<<<<<< HEAD
       '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
       '@nestjs/core': 9.3.12_gcsnauwkdd2nsv345kyf5wgtca
       '@nestjs/microservices': 9.4.0_of4akadhszyqq4nremfoaw2364
       '@nestjs/platform-express': 9.3.12_ge4qplnzbmfyi5znl534zhtkn4
+=======
+      '@nestjs/common': 9.3.12(reflect-metadata@0.1.13)(rxjs@7.8.0)
+      '@nestjs/core': 9.3.12(@nestjs/common@9.3.12)(@nestjs/platform-express@9.3.12)(reflect-metadata@0.1.13)(rxjs@7.8.0)
+      '@nestjs/platform-express': 9.3.12(@nestjs/common@9.3.12)(@nestjs/core@9.3.12)
+>>>>>>> 0d07546ba2bb7c1f890575a2b7a4c61a3ef0a3bd
       tslib: 2.5.0
     dev: true
 
@@ -2816,8 +2850,13 @@ packages:
     dependencies:
       function-bind: 1.1.1
 
+<<<<<<< HEAD
   /helmet/6.1.5:
     resolution: {integrity: sha512-UgAvdoG0BhF9vcCh/j0bWtElo2ZHHk6OzC98NLCM6zK03DEVSM0vUAtT7iR+oTo2Mi6sGelAH3tL6B/uUWxV4g==}
+=======
+  /helmet@6.0.1:
+    resolution: {integrity: sha512-8wo+VdQhTMVBMCITYZaGTbE4lvlthelPYSvoyNvk4RECTmrVjMerp9RfUOQXZWLvCcAn1pKj7ZRxK4lI9Alrcw==}
+>>>>>>> 0d07546ba2bb7c1f890575a2b7a4c61a3ef0a3bd
     engines: {node: '>=14.0.0'}
     dev: false
 
