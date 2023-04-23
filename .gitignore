@@ -1,2 +1,7 @@
-#env
+# IDE
 /.idea
+/.DS_Store
+
+# .env file
+/.env
+/.env/*

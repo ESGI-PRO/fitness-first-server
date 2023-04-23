@@ -7,8 +7,11 @@ RUN mkdir -p /var/www/mailer-api
 
 WORKDIR /var/www/mailer-api
 
-ADD . /var/www/mailer-api/
+COPY package.json pnpm-lock.yaml /var/www/mailer-api/
+
 RUN pnpm install
+
+COPY . /var/www/mailer-api
 
 EXPOSE 8008
 

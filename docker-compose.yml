@@ -19,20 +19,20 @@ services:
 
 
   #ALL APIs
-  analytic-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: analytic-api
+  # analytic-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: analytic-api
 
-  training-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: training-api
+  # training-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: training-api
 
-  nutrition-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: nutrition-api
+  # nutrition-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: nutrition-api
 
   user-api:
     extends:
@@ -43,18 +43,18 @@ services:
     extends:
       file: ./compose/docker-compose-service.yml
       service: auth-api
-  token-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: token-api
-  permission-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: permission-api
-  mailer-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: mailer-api
+  # token-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: token-api
+  # permission-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: permission-api
+  # mailer-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: mailer-api
 
   gateway-api:
     extends:

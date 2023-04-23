@@ -6,10 +6,11 @@ RUN mkdir -p /var/www/auth-api
 
 WORKDIR /var/www/auth-api
 
-ADD . /var/www/auth-api/
+COPY package.json pnpm-lock.yaml /var/www/auth-api/
+
 RUN pnpm install
 
-COPY . .
+COPY . /var/www/auth-api
 
 EXPOSE 8004
 

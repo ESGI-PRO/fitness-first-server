@@ -14,13 +14,13 @@ services:
     image: postgres:15.2-alpine
     restart: always
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
     ports:
       - '5432:5432'
     volumes:
-      - ./initdb:/docker-entrypoint-initdb.d
+      - ./initdb/init-postgres-db.sql:/docker-entrypoint-initdb.d/init-postgres-db.sql:ro
 
   # mongo-db
   mongo:
@@ -28,9 +28,10 @@ services:
     image: mongo:latest
     restart: always
     environment:
-      #MONGO_INITDB_ROOT_USERNAME: mongo_user
-      #MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_ROOT_DATABASE: admin
     ports:
       - '27017:27017'
     volumes:
-      - ./mongodata:/data/db
+      - ./initdb/init-mongo-db.js:/docker-entrypoint-initdb.d/init-mongo-db.js:ro
