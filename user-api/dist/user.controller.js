@@ -16,6 +16,7 @@ exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
 const user_service_1 = require("./services/user.service");
+const rxjs_1 = require("rxjs");
 let UserController = class UserController {
     constructor(userService, mailerServiceClient) {
         this.userService = userService;
@@ -28,7 +29,7 @@ let UserController = class UserController {
                 email: searchParams.email,
             });
             if (user && user[0]) {
-                if (await user[0].compareEncryptedPassword(searchParams.password)) {
+                if (user[0].compareEncryptedPassword(searchParams.password)) {
                     result = {
                         status: common_1.HttpStatus.OK,
                         message: 'user_search_by_credentials_success',
@@ -154,7 +155,7 @@ let UserController = class UserController {
                         user: createdUser,
                         errors: null,
                     };
-                    this.mailerServiceClient
+                    await (0, rxjs_1.firstValueFrom)(this.mailerServiceClient
                         .send('mail_send', {
                         to: createdUser.email,
                         subject: 'Email confirmation',
@@ -163,8 +164,7 @@ let UserController = class UserController {
               Use the following link for this.<br>
               <a href="${this.userService.getConfirmationLink(userLink.link)}"><b>Confirm The Email</b></a>
               </center>`,
-                    })
-                        .toPromise();
+                    }));
                 }
                 catch (e) {
                     result = {
