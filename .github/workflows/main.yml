@@ -27,8 +27,8 @@ jobs:
         id: docker_build_analytics_service
         uses: docker/build-push-action@v2
         with:
-          context: ./workflows/.github/analytic-api
+          context: ./services/analytic-api
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/challenges2-bo-analytics:ci
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenges2-bo-analytic-api:ci
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
