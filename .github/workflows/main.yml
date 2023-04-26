@@ -29,6 +29,6 @@ jobs:
         with:
           context: ./analytic-api
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-analytic-api:ci
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-analytic-api:latest
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
