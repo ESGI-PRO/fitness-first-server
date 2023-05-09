@@ -116,3 +116,28 @@ services:
         - ../mailer-api:/var/www/mailer-api
     ports:
       - 8008:8008
+
+  subscription-api:
+    build:
+      context: ../subscription-api
+      dockerfile: Dockerfile
+      target: development-build-stage
+    hostname: subscription-api
+    env_file:
+      - ../.env
+    volumes:
+        - ../subscription-api:/var/www/subscription-api
+    ports:
+      - 8009:8009
+  messenger-api:
+    build:
+      context: ../messenger-api
+      dockerfile: Dockerfile
+      target: development-build-stage
+    hostname: messenger-api
+    env_file:
+      - ../.env
+    volumes:
+        - ../messenger-api:/var/www/messenger-api
+    ports:
+      - 9000:9000

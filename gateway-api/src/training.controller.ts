@@ -10,6 +10,8 @@ import { ApiTags } from '@nestjs/swagger';
 export class TrainingController {
   constructor(
     @Inject('TRAINING_SERVICE') private readonly trainingServiceClient: ClientProxy,
-  ) {}
+  ) {
+    
+  }
 
 }

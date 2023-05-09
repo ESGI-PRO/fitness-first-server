@@ -55,6 +55,29 @@ export class ConfigService {
       },
       transport: Transport.TCP,
     };
+
+    this.envConfig.subscriptionService = {
+      options: {
+        port: process.env.SUBSCRIPTION_SERVICE_PORT,
+        host: process.env.SUBSCRIPTION_SERVICE_HOST,
+      },
+      transport: Transport.TCP,
+    };
+
+    this.envConfig.mailerService = {
+      options: {
+        port: process.env.MAILER_SERVICE_PORT,
+        host: process.env.MAILER_SERVICE_HOST,
+      },
+      transport: Transport.TCP,
+    };
+
+    this.envConfig.messengerService = {
+      options: {
+        port: process.env.MESSENGER_SERVICE_PORT,
+        host: process.env.MESSENGER_SERVICE_HOST,
+      },
+    }
   }
 
   get(key: string): any {
