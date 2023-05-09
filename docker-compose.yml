@@ -55,6 +55,14 @@ services:
     extends:
       file: ./compose/docker-compose-service.yml
       service: mailer-api
+  messenger-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: messenger-api
+  subscription-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: subscription-api
 
   gateway-api:
     extends:

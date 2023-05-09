@@ -14,9 +14,9 @@ services:
     image: postgres:15.2-alpine
     restart: always
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      #POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - '5432:5432'
     volumes:
@@ -27,9 +27,9 @@ services:
     container_name: mongo
     image: mongo:latest
     restart: always
-    environment:
-      #MONGO_INITDB_ROOT_USERNAME: mongo_user
-      #MONGO_INITDB_ROOT_PASSWORD: password
+    #environment:
+    #MONGO_INITDB_ROOT_USERNAME: mongo_user
+    #MONGO_INITDB_ROOT_PASSWORD: password
     ports:
       - '27017:27017'
     volumes:
