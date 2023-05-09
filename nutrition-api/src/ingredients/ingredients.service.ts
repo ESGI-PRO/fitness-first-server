@@ -8,7 +8,7 @@ export class IngredientsService {
     async getIngredients(){
         return new Promise(async (resolve, reject) => {
           const ingredients = await prisma.ingredients.findMany()
-          resolve(ingredients)
+          resolve({status: true , data: ingredients})
         })
       }
     

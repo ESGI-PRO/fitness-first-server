@@ -44,10 +44,7 @@ function insertExercices() {
         }),
       ),
     )
-      .then(() => {
-        console.info('[SEED] Succussfully create EXERCICES records');
-        // insertTraining()
-      })
+      .then(() => console.info('[SEED] Succussfully create EXERCICES records'))
       .catch((e) =>
         console.error('[SEED] Failed to create EXERCICES records', e),
       );
@@ -96,3 +93,4 @@ function insertTraining() {
 // insertTypeExercices();
 insertTraining();
 
+insertTypeExercices();

@@ -1,57 +1,118 @@
 version: '3.9'
 
 services:
-  analytic-api:   
+  gateway-api:
     build:
-      context: ../analytic-api
+      context: ../gateway-api
       dockerfile: Dockerfile
       target: development-build-stage
+    hostname: gateway-api
+    env_file:
+      - ../.env
     volumes:
-      - ../analytic-api:/app
-      - /app/node_modules
+      - ../gateway-api:/var/www/gateway-pi
     ports:
-      - 3000:3000
+      - 8000:8000
 
   nutrition-api:
     build:
       context: ../nutrition-api
       dockerfile: Dockerfile
       target: development-build-stage
+    hostname: nutrition-api
+    env_file:
+      - ../.env
     volumes:
-      - ../nutrition-api:/app/
-      - /app/node_modules
+      - ../nutrition-api:/var/www/nutrition-api
     ports:
-      - 3001:3001
+      - 8001:8001
+
+  user-api:
+    build:
+      context: ../user-api
+      dockerfile: Dockerfile
+      target: development-build-stage
+    hostname: user-api
+    env_file:
+      - ../.env
+    volumes:
+      - ../user-api:/var/www/user-api
+    ports:
+      - 8002:8002
 
   training-api:
     build:
       context: ../training-api
       dockerfile: Dockerfile
       target: development-build-stage
+    hostname: training-api
+    env_file:
+      - ../.env
     volumes:
-      - ../training-api:/app/
-      - /app/node_modules
+      - ../training-api:/var/www/training-api
     ports:
-      - 3002:3002
-    
-  users-api:
-    build:
-      context: ../users-api
-      dockerfile: Dockerfile
-      target: development-build-stage
-    volumes:
-      - ../users-api:/app
-      - /app/node_modules
-    ports:
-      - 3003:3003
+      - 8003:8003
 
   auth-api:
     build:
       context: ../auth-api
       dockerfile: Dockerfile
       target: development-build-stage
+    hostname: auth-api
+    env_file:
+      - ../.env
     volumes:
-      - ../auth-api:/app
-      - /app/node_modules
+      - ../auth-api:/var/www/auth-api
     ports:
-      - 3004:3004
+        - 8004:8004
+
+  analytic-api:
+    build:
+      context: ../analytic-api
+      dockerfile: Dockerfile
+      target: development-build-stage
+    hostname: analytic-api
+    env_file:
+      - ../.env
+    volumes:
+      - ../analytic-api:/var/www/analytic-api
+    ports:
+      - 8005:8005
+
+  token-api:
+    build:
+      context: ../token-api
+      dockerfile: Dockerfile
+      target: development-build-stage
+    hostname: token-api
+    env_file:
+      - ../.env
+    volumes:
+        - ../token-api:/var/www/token-api
+    ports:
+      - 8006:8006
+  permission-api:
+    build:
+      context: ../permission-api
+      dockerfile: Dockerfile
+      target: development-build-stage
+    hostname: permission-api
+    env_file:
+      - ../.env
+    volumes:
+        - ../permission-api:/var/www/permission-api
+    ports:
+      - 8007:8007
+
+  mailer-api:
+    build:
+      context: ../mailer-api
+      dockerfile: Dockerfile
+      target: development-build-stage
+    hostname: mailer-api
+    env_file:
+      - ../.env
+    volumes:
+        - ../mailer-api:/var/www/mailer-api
+    ports:
+      - 8008:8008
