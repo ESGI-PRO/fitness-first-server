@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Subscription {
+  id                 String   @id @default(uuid())
+  stripeId           String
+  userId             String
+  plan               Plan?    @relation(fields: [planId], references: [id])
+  planId             String?
+  active             Boolean  @default(false)
+  currentPeriodStart DateTime
+  currentPeriodEnd   DateTime
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime? @updatedAt
+  @@index([userId(sort: Asc)])
+}
+
+model Plan {
+  id           String   @id @default(uuid())
+  name         String         @db.VarChar(75)
+  slug         String         @db.VarChar(100)
+  stripeId     String
+  price        Int
+  paymentLink  String
+  Subscription Subscription[]
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime? @updatedAt
+  @@index([id(sort: Asc)])
+}
+
+model Invoice {
+  id               String   @id @default(uuid())
+  stripeId         String
+  userId           String?
+  amountPaid       Int
+  number           String
+  hostedInvoiceUrl String
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime? @updatedAt
+  @@index([createdAt(sort: Asc)])
+}

@@ -14,6 +14,8 @@ async function bootstrap() {
     .addTag('analytics')
     .addTag('training')
     .addTag('nutrition')
+    .addTag('subscription')
+    .addTag('messenger')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, options);
