@@ -24,20 +24,20 @@ services:
       file: ./compose/docker-compose-service.yml
       service: analytic-api
 
-  training-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: training-api
+  # training-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: training-api
 
-  nutrition-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: nutrition-api
+  # nutrition-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: nutrition-api
 
-  user-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: user-api
+  # user-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: user-api
 
   auth-api:
     extends:
