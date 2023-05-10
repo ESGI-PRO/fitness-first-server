@@ -8,7 +8,7 @@ services:
       target: development-build-stage
     hostname: gateway-api
     env_file:
-      - ../.env
+      - ../gateway-api/.env
     volumes:
       - ../gateway-api:/var/www/gateway-api
     ports:
@@ -21,7 +21,7 @@ services:
       target: development-build-stage
     hostname: nutrition-api
     env_file:
-      - ../.env
+      - ../nutrition-api/.env
     volumes:
       - ../nutrition-api:/var/www/nutrition-api
     ports:
@@ -34,7 +34,7 @@ services:
       target: development-build-stage
     hostname: user-api
     env_file:
-      - ../.env
+      - ../user-api/.env
     volumes:
       - ../user-api:/var/www/user-api
     ports:
@@ -47,7 +47,7 @@ services:
       target: development-build-stage
     hostname: training-api
     env_file:
-      - ../.env
+      - ../training-api/.env
     volumes:
       - ../training-api:/var/www/training-api
     ports:
@@ -60,7 +60,7 @@ services:
       target: development-build-stage
     hostname: auth-api
     env_file:
-      - ../.env
+      - ../auth-api/.env
     volumes:
       - ../auth-api:/var/www/auth-api
     ports:
@@ -73,7 +73,7 @@ services:
       target: development-build-stage
     hostname: analytic-api
     env_file:
-      - ../.env
+      - ../analytic-api/.env
     volumes:
       - ../analytic-api:/var/www/analytic-api
     ports:
@@ -86,7 +86,7 @@ services:
       target: development-build-stage
     hostname: token-api
     env_file:
-      - ../.env
+      - ../token-api/.env
     volumes:
         - ../token-api:/var/www/token-api
     ports:
@@ -98,7 +98,7 @@ services:
       target: development-build-stage
     hostname: permission-api
     env_file:
-      - ../.env
+      - ../permission-api/.env
     volumes:
         - ../permission-api:/var/www/permission-api
     ports:
@@ -111,7 +111,7 @@ services:
       target: development-build-stage
     hostname: mailer-api
     env_file:
-      - ../.env
+      - ../mailer-api/.env
     volumes:
         - ../mailer-api:/var/www/mailer-api
     ports:
@@ -124,7 +124,7 @@ services:
       target: development-build-stage
     hostname: subscription-api
     env_file:
-      - ../.env
+      - ../subscription-api/.env
     volumes:
         - ../subscription-api:/var/www/subscription-api
     ports:
@@ -136,7 +136,7 @@ services:
       target: development-build-stage
     hostname: messenger-api
     env_file:
-      - ../.env
+      - ../messenger-api/.env
     volumes:
         - ../messenger-api:/var/www/messenger-api
     ports:

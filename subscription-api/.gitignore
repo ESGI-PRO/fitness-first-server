@@ -33,3 +33,10 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+.pnpm-store
+
+#env
+.env
+.env.local
+.env.*.local
