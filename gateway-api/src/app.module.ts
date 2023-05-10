@@ -78,6 +78,20 @@ import { ConfigService } from './services/config/config.service';
       inject: [ConfigService],
     },
     {
+      provide: 'SUBSCRIPTION_SERVICE',
+      useFactory: (configService: ConfigService) => {
+        return ClientProxyFactory.create(configService.get('subscriptionService'));
+      },
+      inject: [ConfigService],
+    },
+    {
+      provide: 'MESSENGER_SERVICE',
+      useFactory: (configService: ConfigService) => {
+        return ClientProxyFactory.create(configService.get('messengerService'));
+      },
+      inject: [ConfigService],
+    },
+    {
       provide: APP_GUARD,
       useClass: AuthGuard,
     },

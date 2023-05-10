@@ -8,10 +8,13 @@ import { RecettesController } from './recettes/recettes.controller';
 import { RecettesService } from './recettes/recettes.service';
 import { RecettesModule } from './recettes/recettes.module';
 import { ConfigService } from './services/config/config.service';
+import { CategoriesController } from './categories/categories.controller';
+import { CategoriesService } from './categories/categories.service';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
-  imports: [IngredientsModule, RecettesModule],
-  controllers: [AppController, IngredientsController, RecettesController],
-  providers: [ConfigService, AppService, IngredientsService, RecettesService],
+  imports: [IngredientsModule, RecettesModule, CategoriesModule],
+  controllers: [AppController, IngredientsController, RecettesController, CategoriesController],
+  providers: [ConfigService, AppService, IngredientsService, RecettesService, CategoriesService],
 })
 export class AppModule {}

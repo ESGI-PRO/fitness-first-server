@@ -20,10 +20,7 @@ Pour migrer via Prisma vos tables en developement :
 
 ```bash
 npx prisma migrate dev --name init
-<<<<<<< HEAD
 npx prisma db seed
-=======
->>>>>>> origin/dev
 
 ```
 

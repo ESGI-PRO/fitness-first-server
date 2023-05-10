@@ -13,7 +13,10 @@ function insertCategories() {
       }),
     ),
   )
-    .then(() => console.info('[SEED] Succussfully create categories records'))
+    .then(() => {
+      console.info('[SEED] Succussfully create categories records')
+      insertIngredients()
+    })
     .catch((e) =>
       console.error('[SEED] Failed to create categories records', e),
     );
@@ -43,8 +46,7 @@ function insertIngredients() {
   )
     .then(() => {
       console.info('[SEED] Succussfully create ingredients records')
-      insertIngredients();
-
+      insertRecettes()
     })
     .catch((e) =>
       console.error('[SEED] Failed to create ingredients records', e),
@@ -111,4 +113,4 @@ function insertRecettes() {
     );
 }
 insertCategories()
-insertRecettes()
+// insertRecettes()
