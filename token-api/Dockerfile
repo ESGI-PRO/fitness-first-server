@@ -8,7 +8,7 @@ RUN mkdir -p /var/www/token-api
 WORKDIR /var/www/token-api
 
 ADD . /var/www/token-api/
-RUN pnpm install
+RUN npm install
 
 EXPOSE 8006
 

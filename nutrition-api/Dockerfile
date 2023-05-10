@@ -10,6 +10,7 @@ WORKDIR /var/www/nutrition-api
 ADD . /var/www/nutrition-api/
 RUN pnpm install
 RUN npx prisma generate
+# RUN npx prisma migrate dev --name init
 
 EXPOSE 8001
 

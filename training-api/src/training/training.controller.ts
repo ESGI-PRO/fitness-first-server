@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, ParseUUIDPipe, Patch, Post, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
 import { TrainingService } from './training.service';
-import { TrainingRequest, UpdateTrainingRequest } from './training.request.ts/training.request.ts';
+import { TrainingRequest, UpdateTrainingRequest } from './request/training.request';
 import { TrainingInterceptor } from './training.interceptor';
 
 
@@ -20,7 +20,7 @@ export class TrainingController {
 
     @Get(":id")
     @HttpCode(200)
-    public async getTraining(@Param("id", ParseUUIDPipe) id: string) {
+    public async getTraining(@Param("id", ParseUUIDPipe) id: number) {
         const training = await this.trainingService.findOne(id);
         return training;
     }
@@ -36,13 +36,13 @@ export class TrainingController {
     @Patch(":id")
     @UsePipes(ValidationPipe)
     @HttpCode(200)
-    public async updateTraining(@Param("id", ParseUUIDPipe) id: string, @Body() data: UpdateTrainingRequest) {
+    public async updateTraining(@Param("id", ParseUUIDPipe) id: number, @Body() data: UpdateTrainingRequest) {
         return this.trainingService.update(id, data);
     }
 
     @Delete(":id")
     @HttpCode(200)
-    public async deleteTraining(@Param("id", ParseUUIDPipe) id: string ) {
+    public async deleteTraining(@Param("id", ParseUUIDPipe) id: number ) {
         return this.trainingService.remove(id);
     }
 
