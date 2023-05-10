@@ -14,16 +14,16 @@ export declare const UserLinkSchema: mongoose.Schema<any, mongoose.Model<any, an
         transform: typeof transformValue;
     };
 }>, {
-    link: string;
     user_id: string;
+    link: string;
     is_used: boolean;
 }, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
-    link: string;
     user_id: string;
+    link: string;
     is_used: boolean;
 }>> & Omit<mongoose.FlatRecord<{
-    link: string;
     user_id: string;
+    link: string;
     is_used: boolean;
 }> & {
     _id: mongoose.Types.ObjectId;
