@@ -9,7 +9,6 @@ WORKDIR /var/www/auth-api
 
 ADD . /var/www/auth-api/
 RUN pnpm install
-RUN npx prisma generate
 
 EXPOSE 8004
 
@@ -18,7 +17,7 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-CMD pnpm run build && pnpm run start:dev
+CMD pnpm run start:dev
 
 # Production build stage
 FROM common-build-stage as production-build-stage
