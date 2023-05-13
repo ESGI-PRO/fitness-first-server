@@ -15,22 +15,22 @@ import { ClientProxy } from '@nestjs/microservices';
 import { ApiTags, ApiOkResponse, ApiCreatedResponse } from '@nestjs/swagger';
 
 import { Authorization } from './decorators/authorization.decorator';
-import { IAuthorizedRequest } from './requests/common/authorized-request.interface';
-import { IServiceUserCreateResponse } from './requests/user/service-user-create-response.interface';
-import { IServiceUserSearchResponse } from './requests/user/service-user-search-response.interface';
-import { IServiveTokenCreateResponse } from './requests/token/service-token-create-response.interface';
-import { IServiceTokenDestroyResponse } from './requests/token/service-token-destroy-response.interface';
-import { IServiceUserConfirmResponse } from './requests/user/service-user-confirm-response.interface';
-import { IServiceUserGetByIdResponse } from './requests/user/service-user-get-by-id-response.interface';
+import { IAuthorizedRequest } from './interfaces-requests-responses/common/authorized-request.interface';
+import { IServiceUserCreateResponse } from './interfaces-requests-responses/user/service-user-create-response.interface';
+import { IServiceUserSearchResponse } from './interfaces-requests-responses/user/service-user-search-response.interface';
+import { IServiveTokenCreateResponse } from './interfaces-requests-responses/token/service-token-create-response.interface';
+import { IServiceTokenDestroyResponse } from './interfaces-requests-responses/token/service-token-destroy-response.interface';
+import { IServiceUserConfirmResponse } from './interfaces-requests-responses/user/service-user-confirm-response.interface';
+import { IServiceUserGetByIdResponse } from './interfaces-requests-responses/user/service-user-get-by-id-response.interface';
 
-import { GetUserByTokenResponseDto } from './requests/user/dto/get-user-by-token-response.dto';
-import { CreateUserDto } from './requests/user/dto/create-user.dto';
-import { CreateUserResponseDto } from './requests/user/dto/create-user-response.dto';
-import { LoginUserDto } from './requests/user/dto/login-user.dto';
-import { LoginUserResponseDto } from './requests/user/dto/login-user-response.dto';
-import { LogoutUserResponseDto } from './requests/user/dto/logout-user-response.dto';
-import { ConfirmUserDto } from './requests/user/dto/confirm-user.dto';
-import { ConfirmUserResponseDto } from './requests/user/dto/confirm-user-response.dto';
+import { GetUserByTokenResponseDto } from './interfaces-requests-responses/user/dto/get-user-by-token-response.dto';
+import { CreateUserDto } from './interfaces-requests-responses/user/dto/create-user.dto';
+import { CreateUserResponseDto } from './interfaces-requests-responses/user/dto/create-user-response.dto';
+import { LoginUserDto } from './interfaces-requests-responses/user/dto/login-user.dto';
+import { LoginUserResponseDto } from './interfaces-requests-responses/user/dto/login-user-response.dto';
+import { LogoutUserResponseDto } from './interfaces-requests-responses/user/dto/logout-user-response.dto';
+import { ConfirmUserDto } from './interfaces-requests-responses/user/dto/confirm-user.dto';
+import { ConfirmUserResponseDto } from './interfaces-requests-responses/user/dto/confirm-user-response.dto';
 
 @Controller('users')
 @ApiTags('users')
