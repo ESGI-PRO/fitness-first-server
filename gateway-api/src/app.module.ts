@@ -7,23 +7,27 @@ import { TrainingController } from './training.controller';
 import { NutritionController } from './nutrition.controller';
 import { AnalyticController } from './analytic.controller';
 import { AuthController } from './auth.controller';
+import { MessengerGateWay } from './messenger.gateway'
 
 
 import { AuthGuard } from './services/guards/authorization.guard';
 import { PermissionGuard } from './services/guards/permission.guard';
 
 import { ConfigService } from './services/config/config.service';
+import { SubscriptionController } from './subscription.controller'
 
 @Module({
   imports: [],
-  controllers: [UsersController, 
+  controllers: [UsersController,
      TrainingController,
      NutritionController,
      AnalyticController,
-     AuthController
+     AuthController,
+     SubscriptionController
      ],
   providers: [
     ConfigService,
+    MessengerGateWay,
     {
       provide: 'TOKEN_SERVICE',
       useFactory: (configService: ConfigService) => {

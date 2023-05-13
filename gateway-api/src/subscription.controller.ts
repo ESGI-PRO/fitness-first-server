@@ -11,7 +11,7 @@ import { ClientProxy } from '@nestjs/microservices';
 import { Request, Response } from 'express'
 
 @Controller('subscription')
-export class UsersController {
+export class SubscriptionController {
   constructor(
     @Inject('SUBSCRIPTION_SERVICE') private readonly subscriptionServiceClient: ClientProxy,
   ) {}
