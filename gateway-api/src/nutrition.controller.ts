@@ -2,12 +2,12 @@ import { Controller, Inject, Get, Param, Post, Body } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiTags, ApiOkResponse, ApiCreatedResponse } from '@nestjs/swagger';
 import { Authorization } from './decorators/authorization.decorator';
-import { GetNutritionResponseDto } from './requests/nutrition/dto/get-nutrition-response.dto';
+import {GetNutritionResponseDto} from './interfaces-requests-responses/nutrition/dto/get-nutrition-response.dto'
 import { firstValueFrom } from 'rxjs';
-import { CreateIngredientDTO } from './requests/nutrition/dto/CreateIngredientDTO';
-import { getIngredientIdDTO } from './requests//nutrition/dto/getIngredientId';
-import { getIngredientUserIdDTO } from './requests/nutrition/dto/getIngredientUserID';
-import { getCategorieIdDTO } from './requests/nutrition/dto/get-categorie-id-dto';
+import { CreateIngredientDTO } from './interfaces-requests-responses/nutrition/dto/CreateIngredientDTO';
+import { getIngredientIdDTO } from './interfaces-requests-responses//nutrition/dto/getIngredientId';
+import { getIngredientUserIdDTO } from './interfaces-requests-responses/nutrition/dto/getIngredientUserID';
+import { getCategorieIdDTO } from './interfaces-requests-responses/nutrition/dto/get-categorie-id-dto';
 
 @Controller('nutrition')
 @ApiTags('nutrition')
