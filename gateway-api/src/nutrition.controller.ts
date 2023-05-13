@@ -8,7 +8,6 @@ import { CreateIngredientDTO } from './interfaces-requests-responses/nutrition/d
 import { getIngredientIdDTO } from './interfaces-requests-responses//nutrition/dto/getIngredientId';
 import { getIngredientUserIdDTO } from './interfaces-requests-responses/nutrition/dto/getIngredientUserID';
 import { getCategorieIdDTO } from './interfaces-requests-responses/nutrition/dto/get-categorie-id-dto';
-
 @Controller('nutrition')
 @ApiTags('nutrition')
 export class NutritionController {
