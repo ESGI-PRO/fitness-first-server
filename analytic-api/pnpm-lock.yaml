@@ -9,12 +9,15 @@ specifiers:
   '@nestjs/schematics': ^9.0.0
   '@nestjs/swagger': ^6.3.0
   '@nestjs/testing': ^9.0.0
+  '@prisma/client': ^4.14.0
   '@types/express': ^4.17.13
   '@types/jest': 29.5.0
   '@types/node': 18.15.11
   '@types/supertest': ^2.0.11
   '@typescript-eslint/eslint-plugin': ^5.0.0
   '@typescript-eslint/parser': ^5.0.0
+  class-transformer: ^0.5.1
+  class-validator: ^0.14.0
   eslint: ^8.0.1
   eslint-config-prettier: ^8.3.0
   eslint-plugin-prettier: ^4.0.0
@@ -33,11 +36,14 @@ specifiers:
   typescript: ^4.7.4
 
 dependencies:
-  '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
+  '@nestjs/common': 9.3.12_welcnyot5bzd5wa2aovbkxpi4i
   '@nestjs/core': 9.3.12_gcsnauwkdd2nsv345kyf5wgtca
   '@nestjs/microservices': 9.4.0_of4akadhszyqq4nremfoaw2364
   '@nestjs/platform-express': 9.3.12_ge4qplnzbmfyi5znl534zhtkn4
-  '@nestjs/swagger': 6.3.0_bgmtsjzu2jyijhogwtog4e3a6e
+  '@nestjs/swagger': 6.3.0_56wskrocvqeup2a4dyvgnvm62u
+  '@prisma/client': 4.14.0_prisma@4.12.0
+  class-transformer: 0.5.1
+  class-validator: 0.14.0
   helmet: 6.1.5
   reflect-metadata: 0.1.13
   rxjs: 7.8.0
@@ -873,7 +879,7 @@ packages:
       - webpack-cli
     dev: true
 
-  /@nestjs/common/9.3.12_mnr6j2del53muneqly5h4y27ai:
+  /@nestjs/common/9.3.12_welcnyot5bzd5wa2aovbkxpi4i:
     resolution: {integrity: sha512-NtrUG2VgCbhmZEO1yRt/Utq16uFRV+xeHAOtdYIsfHGG0ssAV2lVLlvFFAQYh0SQ+KuYY1Gsxd3GK2JFoJCNqQ==}
     peerDependencies:
       cache-manager: <=5
@@ -889,6 +895,8 @@ packages:
       class-validator:
         optional: true
     dependencies:
+      class-transformer: 0.5.1
+      class-validator: 0.14.0
       iterare: 1.2.1
       reflect-metadata: 0.1.13
       rxjs: 7.8.0
@@ -913,7 +921,7 @@ packages:
       '@nestjs/websockets':
         optional: true
     dependencies:
-      '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
+      '@nestjs/common': 9.3.12_welcnyot5bzd5wa2aovbkxpi4i
       '@nestjs/microservices': 9.4.0_of4akadhszyqq4nremfoaw2364
       '@nestjs/platform-express': 9.3.12_ge4qplnzbmfyi5znl534zhtkn4
       '@nuxtjs/opencollective': 0.3.2
@@ -927,7 +935,7 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /@nestjs/mapped-types/1.2.2_dgctl6imyfbk5gdq7xviekxosu:
+  /@nestjs/mapped-types/1.2.2_5pvgaw2xy5j677zk7xp6almw2q:
     resolution: {integrity: sha512-3dHxLXs3M0GPiriAcCFFJQHoDFUuzTD5w6JDhE7TyfT89YKpe6tcCCIqOZWdXmt9AZjjK30RkHRSFF+QEnWFQg==}
     peerDependencies:
       '@nestjs/common': ^7.0.8 || ^8.0.0 || ^9.0.0
@@ -940,7 +948,9 @@ packages:
       class-validator:
         optional: true
     dependencies:
-      '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
+      '@nestjs/common': 9.3.12_welcnyot5bzd5wa2aovbkxpi4i
+      class-transformer: 0.5.1
+      class-validator: 0.14.0
       reflect-metadata: 0.1.13
     dev: false
 
@@ -980,7 +990,7 @@ packages:
       nats:
         optional: true
     dependencies:
-      '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
+      '@nestjs/common': 9.3.12_welcnyot5bzd5wa2aovbkxpi4i
       '@nestjs/core': 9.3.12_gcsnauwkdd2nsv345kyf5wgtca
       iterare: 1.2.1
       reflect-metadata: 0.1.13
@@ -993,7 +1003,7 @@ packages:
       '@nestjs/common': ^9.0.0
       '@nestjs/core': ^9.0.0
     dependencies:
-      '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
+      '@nestjs/common': 9.3.12_welcnyot5bzd5wa2aovbkxpi4i
       '@nestjs/core': 9.3.12_gcsnauwkdd2nsv345kyf5wgtca
       body-parser: 1.20.2
       cors: 2.8.5
@@ -1031,7 +1041,7 @@ packages:
       - chokidar
     dev: true
 
-  /@nestjs/swagger/6.3.0_bgmtsjzu2jyijhogwtog4e3a6e:
+  /@nestjs/swagger/6.3.0_56wskrocvqeup2a4dyvgnvm62u:
     resolution: {integrity: sha512-Gnig189oa1tD+h0BYIfUwhp/wvvmTn6iO3csR2E4rQrDTgCxSxZDlNdfZo3AC+Rmf8u0KX4ZAX1RZN1qXTtC7A==}
     peerDependencies:
       '@fastify/static': ^6.0.0
@@ -1048,9 +1058,11 @@ packages:
       class-validator:
         optional: true
     dependencies:
-      '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
+      '@nestjs/common': 9.3.12_welcnyot5bzd5wa2aovbkxpi4i
       '@nestjs/core': 9.3.12_gcsnauwkdd2nsv345kyf5wgtca
-      '@nestjs/mapped-types': 1.2.2_dgctl6imyfbk5gdq7xviekxosu
+      '@nestjs/mapped-types': 1.2.2_5pvgaw2xy5j677zk7xp6almw2q
+      class-transformer: 0.5.1
+      class-validator: 0.14.0
       js-yaml: 4.1.0
       lodash: 4.17.21
       path-to-regexp: 3.2.0
@@ -1071,7 +1083,7 @@ packages:
       '@nestjs/platform-express':
         optional: true
     dependencies:
-      '@nestjs/common': 9.3.12_mnr6j2del53muneqly5h4y27ai
+      '@nestjs/common': 9.3.12_welcnyot5bzd5wa2aovbkxpi4i
       '@nestjs/core': 9.3.12_gcsnauwkdd2nsv345kyf5wgtca
       '@nestjs/microservices': 9.4.0_of4akadhszyqq4nremfoaw2364
       '@nestjs/platform-express': 9.3.12_ge4qplnzbmfyi5znl534zhtkn4
@@ -1110,10 +1122,27 @@ packages:
     transitivePeerDependencies:
       - encoding
 
+  /@prisma/client/4.14.0_prisma@4.12.0:
+    resolution: {integrity: sha512-MK/XaA2sFdfaOa7I9MjNKz6dxeIEdeZlnpNRoF2w3JuRLlFJLkpp6cD3yaqw2nUUhbrn3Iqe3ZpVV+VuGGil7Q==}
+    engines: {node: '>=14.17'}
+    requiresBuild: true
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+    dependencies:
+      '@prisma/engines-version': 4.14.0-67.d9a4c5988f480fa576d43970d5a23641aa77bc9c
+      prisma: 4.12.0
+    dev: false
+
+  /@prisma/engines-version/4.14.0-67.d9a4c5988f480fa576d43970d5a23641aa77bc9c:
+    resolution: {integrity: sha512-3jum8/YSudeSN0zGW5qkpz+wAN2V/NYCQ+BPjvHYDfWatLWlQkqy99toX0GysDeaUoBIJg1vaz2yKqiA3CFcQw==}
+    dev: false
+
   /@prisma/engines/4.12.0:
     resolution: {integrity: sha512-0alKtnxhNB5hYU+ymESBlGI4b9XrGGSdv7Ud+8TE/fBNOEhIud0XQsAR+TrvUZgS4na5czubiMsODw0TUrgkIA==}
     requiresBuild: true
-    dev: true
 
   /@sinclair/typebox/0.25.24:
     resolution: {integrity: sha512-XJfwUVUKDHF5ugKwIcxEgc9k8b7HbznCp6eUfWgu710hMPNIO4aw4/zB5RogDQz8nd6gyCDpU9O/m6qYEWY6yQ==}
@@ -1312,6 +1341,9 @@ packages:
     dependencies:
       '@types/superagent': 4.1.16
     dev: true
+
+  /@types/validator/13.7.17:
+    resolution: {integrity: sha512-aqayTNmeWrZcvnG2MG9eGYI6b7S5fl+yKgPs6bAjOTwPS316R5SxBGKvtSExfyoJU7pIeHJfsHI0Ji41RVMkvQ==}
 
   /@types/yargs-parser/21.0.0:
     resolution: {integrity: sha512-iO9ZQHkZxHn4mSakYV0vFHAVDyEOIJQrV2uZ06HxEPcx+mt8swXoZHIbaaJ2crJYFfErySgktuTZ3BeLz+XmFA==}
@@ -1984,6 +2016,16 @@ packages:
   /cjs-module-lexer/1.2.2:
     resolution: {integrity: sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==}
     dev: true
+
+  /class-transformer/0.5.1:
+    resolution: {integrity: sha512-SQa1Ws6hUbfC98vKGxZH3KFY0Y1lm5Zm0SY8XX9zbK7FJCyVEac3ATW0RIpwzW+oOfmHE5PMPufDG9hCfoEOMw==}
+
+  /class-validator/0.14.0:
+    resolution: {integrity: sha512-ct3ltplN8I9fOwUd8GrP8UQixwff129BkEtuWDKL5W45cQuLd19xqmTLu5ge78YDm/fdje6FMt0hGOhl0lii3A==}
+    dependencies:
+      '@types/validator': 13.7.17
+      libphonenumber-js: 1.10.30
+      validator: 13.9.0
 
   /cli-cursor/3.1.0:
     resolution: {integrity: sha512-I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw==}
@@ -3609,6 +3651,9 @@ packages:
       type-check: 0.4.0
     dev: true
 
+  /libphonenumber-js/1.10.30:
+    resolution: {integrity: sha512-PLGc+xfrQrkya/YK2/5X+bPpxRmyJBHM+xxz9krUdSgk4Vs2ZwxX5/Ow0lv3r9PDlDtNWb4u+it8MY5rZ0IyGw==}
+
   /lines-and-columns/1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
     dev: true
@@ -4087,7 +4132,6 @@ packages:
     requiresBuild: true
     dependencies:
       '@prisma/engines': 4.12.0
-    dev: true
 
   /process-nextick-args/2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
@@ -4877,6 +4921,10 @@ packages:
       '@types/istanbul-lib-coverage': 2.0.4
       convert-source-map: 1.9.0
     dev: true
+
+  /validator/13.9.0:
+    resolution: {integrity: sha512-B+dGG8U3fdtM0/aNK4/X8CXq/EcxU2WPrPEkJGslb47qyHsxmbggTWK0yEA4qnYVNF+nxNlN88o14hIcPmSIEA==}
+    engines: {node: '>= 0.10'}
 
   /vary/1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}

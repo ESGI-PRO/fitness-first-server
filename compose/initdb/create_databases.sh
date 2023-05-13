@@ -9,4 +9,5 @@ psql -v ON_ERROR_STOP=1 --username "postgres" <<-EOSQL
     CREATE DATABASE nutrition;
     CREATE DATABASE subscription;
     CREATE DATABASE messenger;
+    CREATE DATABASE analytic;
 EOSQL

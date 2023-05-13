@@ -11,7 +11,7 @@ async function bootstrap() {
     .setTitle('API docs')
     .addTag('auth')
     .addTag('users')
-    .addTag('analytics')
+    .addTag('analytic')
     .addTag('training')
     .addTag('nutrition')
     .addTag('subscription')
