@@ -7,7 +7,7 @@ import { firstValueFrom } from 'rxjs';
 import { CreateIngredientDTO } from './interfaces-requests-responses/nutrition/dto/CreateIngredientDTO';
 import { getIngredientIdDTO } from './interfaces-requests-responses//nutrition/dto/getIngredientId';
 import { getIngredientUserIdDTO } from './interfaces-requests-responses/nutrition/dto/getIngredientUserID';
-
+import { getCategorieIdDTO } from './interfaces-requests-responses/nutrition/dto/get-categorie-id-dto';
 @Controller('nutrition')
 @ApiTags('nutrition')
 export class NutritionController {
@@ -89,6 +89,28 @@ export class NutritionController {
   public async getCategories(): Promise<GetNutritionResponseDto> {
     const nutritionResponse: GetNutritionResponseDto = await firstValueFrom(
       this.nutritionServiceClient.send('get_categories', {}),
+    );
+    return {
+      message: nutritionResponse.message,
+      data: {
+        nutrition: nutritionResponse.data.nutrition,
+      },
+      errors: null,
+    };
+  }
+
+  @Get('/categories/:id')
+  @Authorization(false)
+  @ApiOkResponse({
+    type: GetNutritionResponseDto,
+  })
+  public async getCategorieById(
+    @Param() params: getCategorieIdDTO
+  ): Promise<GetNutritionResponseDto> {
+    const nutritionResponse: GetNutritionResponseDto = await firstValueFrom(
+      this.nutritionServiceClient.send('get_categorie_by_id', {
+        id: params.id
+      }),
     );
     return {
       message: nutritionResponse.message,

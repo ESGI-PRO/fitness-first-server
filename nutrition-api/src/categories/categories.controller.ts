@@ -16,4 +16,19 @@ export class CategoriesController {
         errors: null,
       };
   }
+
+  @MessagePattern('get_categorie_by_id')
+  public async getById(
+    params: {
+      id: number;
+    }
+  ): Promise<any> {
+    return {
+        message: 'success get categories',
+        data: {
+          nutrition: await this.categoriesApi.getByID(params.id),
+        },
+        errors: null,
+      };
+  }
 }

@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaClient } from '@prisma/client';
 import {
   TrainingRequest,
   UpdateTrainingRequest,
 } from './request/training.request';
 
+const prisma = new PrismaClient();
+
 @Injectable()
 export class TrainingService {
-  constructor(private prisma: PrismaService) {}
-
   public async createTraining(data: any) {
     try {
-      const training = await this.prisma.training.create({ data: { ...data } });
+      const training = await prisma.training.create({ data: { ...data } });
       return training;
     } catch (error) {
       console.log('create Trainings', error);
@@ -20,7 +20,7 @@ export class TrainingService {
 
   public async findAllTrainings(): Promise<Array<any>> {
     try {
-      const trainings = await this.prisma.training.findMany();
+      const trainings = await prisma.training.findMany();
       return trainings;
     } catch (error) {
       console.log('findAll Trainings', error);
@@ -29,7 +29,7 @@ export class TrainingService {
 
   public async findOne(id: number): Promise<any> {
     try {
-      const training = await this.prisma.training.findUnique({ where: { id } });
+      const training = await prisma.training.findUnique({ where: { id } });
       return training;
     } catch (error) {
       console.log('findOne Training', error);
@@ -38,7 +38,7 @@ export class TrainingService {
 
   public async update(id: number, data: any): Promise<any> {
     try {
-      const updateTraining = await this.prisma.training.update({
+      const updateTraining = await prisma.training.update({
         where: { id },
         data: { ...data },
       });
@@ -50,7 +50,7 @@ export class TrainingService {
 
   public async remove(id: number) {
     try {
-      const deleteTraining = await this.prisma.training.delete({
+      const deleteTraining = await prisma.training.delete({
         where: {
           id,
         },
