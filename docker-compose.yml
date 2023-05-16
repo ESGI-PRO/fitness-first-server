@@ -7,15 +7,10 @@ services:
       file: ./compose/docker-compose-db.yml
       service: adminer
 
-  # mongo:
-  #   extends:
-  #     file: ./compose/docker-compose-db.yml
-  #     service: mongo
-  
-  # postgres:
-  #   extends:
-  #     file: ./compose/docker-compose-db.yml
-  #     service: postgres
+  mongo:
+    extends:
+      file: ./compose/docker-compose-db.yml
+      service: mongo
 
   postgres:
     extends:
@@ -32,16 +27,22 @@ services:
     extends:
       file: ./compose/docker-compose-service.yml
       service: training-api
+    depends_on:
+      - postgres
 
   nutrition-api:
     extends:
       file: ./compose/docker-compose-service.yml
       service: nutrition-api
+    depends_on:
+      - postgres
 
   user-api:
     extends:
       file: ./compose/docker-compose-service.yml
       service: user-api
+    depends_on:
+      - mongo
 
   auth-api:
     extends:
@@ -51,6 +52,8 @@ services:
     extends:
       file: ./compose/docker-compose-service.yml
       service: token-api
+    depends_on:
+      - mongo
   permission-api:
     extends:
       file: ./compose/docker-compose-service.yml
@@ -63,10 +66,14 @@ services:
     extends:
       file: ./compose/docker-compose-service.yml
       service: messenger-api
+    depends_on:
+      - mongo
   subscription-api:
     extends:
       file: ./compose/docker-compose-service.yml
       service: subscription-api
+    depends_on:
+      - postgres
 
   gateway-api:
     extends:
