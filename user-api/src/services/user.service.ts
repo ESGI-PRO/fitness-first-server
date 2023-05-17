@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -6,13 +6,28 @@ import { ConfigService } from './config/config.service';
 import { IUser } from '../interfaces/user.interface';
 import { IUserLink } from '../interfaces/user-link.interface';
 
+const data = require("../mock/users.json")
+
 @Injectable()
-export class UserService {
+export class UserService  implements OnModuleInit {
   constructor(
     @InjectModel('User') private readonly userModel: Model<IUser>,
     @InjectModel('UserLink') private readonly userLinkModel: Model<IUserLink>,
     private readonly configService: ConfigService,
   ) {}
+
+  onModuleInit() {
+    console.log(`The module has been initialized init db here.`);
+    this.userModel.countDocuments({}).then(async (count) => {
+      console.log(' count is ' + count + '', await this.userModel.find({}).exec());
+      if (count < 2) {
+        console.log('Seeding db', data);
+        await this.userModel.insertMany(data.users);
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
 
   public async searchUser(params: { email: string }): Promise<IUser[]> {
     return this.userModel.find(params).exec();
