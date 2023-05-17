@@ -1,0 +1,45 @@
+"use strict";
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var prismaGraphQLToJSError_exports = {};
+__export(prismaGraphQLToJSError_exports, {
+  prismaGraphQLToJSError: () => prismaGraphQLToJSError
+});
+module.exports = __toCommonJS(prismaGraphQLToJSError_exports);
+var import_PrismaClientKnownRequestError = require("../PrismaClientKnownRequestError");
+var import_PrismaClientUnknownRequestError = require("../PrismaClientUnknownRequestError");
+function prismaGraphQLToJSError({ error, user_facing_error }, clientVersion) {
+  if (user_facing_error.error_code) {
+    return new import_PrismaClientKnownRequestError.PrismaClientKnownRequestError(user_facing_error.message, {
+      code: user_facing_error.error_code,
+      clientVersion,
+      meta: user_facing_error.meta,
+      batchRequestIdx: user_facing_error.batch_request_idx
+    });
+  }
+  return new import_PrismaClientUnknownRequestError.PrismaClientUnknownRequestError(error, {
+    clientVersion,
+    batchRequestIdx: user_facing_error.batch_request_idx
+  });
+}
+__name(prismaGraphQLToJSError, "prismaGraphQLToJSError");
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  prismaGraphQLToJSError
+});
