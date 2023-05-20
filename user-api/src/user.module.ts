@@ -37,7 +37,7 @@ import { UserLinkSchema } from './schemas/user-link.schema';
         return ClientProxyFactory.create(mailerServiceOptions);
       },
       inject: [ConfigService],
-    },
+    }
   ],
 })
 export class UserModule {}

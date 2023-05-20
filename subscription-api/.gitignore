@@ -40,3 +40,8 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 .pnpm-store
+
+#env
+.env
+.env.local
+.env.*.local

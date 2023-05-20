@@ -10,6 +10,7 @@ WORKDIR /var/www/nutrition-api
 ADD . /var/www/nutrition-api/
 RUN pnpm install
 RUN npx prisma generate
+# RUN npx prisma migrate dev --name init
 
 EXPOSE 8001
 
@@ -18,7 +19,7 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-CMD pnpm run start:dev
+CMD pnpm run build && pnpm run start:dev && npx prisma migrate dev --name init && npx prisma db seed
 
 # Production build stage
 FROM common-build-stage as production-build-stage

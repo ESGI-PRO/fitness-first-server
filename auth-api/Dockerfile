@@ -9,6 +9,7 @@ WORKDIR /var/www/auth-api
 COPY package.json pnpm-lock.yaml /var/www/auth-api/
 
 RUN pnpm install
+# RUN npx prisma generate
 
 COPY . /var/www/auth-api
 

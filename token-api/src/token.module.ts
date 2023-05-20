@@ -19,6 +19,7 @@ import { TokenSchema } from './schemas/token.schema';
       {
         name: 'Token',
         schema: TokenSchema,
+        collection: 'tokens',
       },
     ]),
   ],

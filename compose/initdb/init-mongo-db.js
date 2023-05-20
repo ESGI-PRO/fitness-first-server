@@ -1,11 +1,11 @@
 print('Start #################################################################');
 
-db = db.getSiblingDB('api_prod_db');
+db = db.getSiblingDB('users');
 db.createUser(
     {
-        user: 'api_user',
-        pwd: 'api1234',
-        roles: [{ role: 'readWrite', db: 'api_prod_db' }],
+        user: 'mongo_user',
+        pwd: 'password',
+        roles: [{ role: 'readWrite', db: 'users' }],
     },
 );
 db.createCollection('users');

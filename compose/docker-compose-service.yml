@@ -10,7 +10,7 @@ services:
     env_file:
       - ../gateway-api/.env
     volumes:
-      - ../gateway-api:/var/www/gateway-pi
+      - ../gateway-api:/var/www/gateway-api
     ports:
       - 8000:8000
 

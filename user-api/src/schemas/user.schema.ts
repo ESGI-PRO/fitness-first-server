@@ -10,6 +10,10 @@ function transformValue(doc, ret: { [key: string]: any }) {
 
 export interface IUserSchema extends mongoose.Document {
   email: string;
+  userName: string;
+  mobileNumber: string;
+  isTrainer: Boolean;
+  trainerSpeciality: string;
   password: string;
   is_confirmed: boolean;
   comparePassword: (password: string) => Promise<boolean>;
@@ -35,6 +39,25 @@ export const UserSchema = new mongoose.Schema<IUserSchema>(
       required: [true, 'Password can not be empty'],
       minlength: [6, 'Password should include at least 6 chars'],
     },
+    userName: {
+      type: String,
+      required: [true, 'User name can not be empty'],
+      minlength: [3, 'User name should include at least 3 chars']
+    },
+    mobileNumber: {
+      type: String,
+      required: [false, 'Mobile number can not be empty'],
+      minlength: [10, 'Mobile number should include at least 10 chars']
+    },
+    isTrainer: {
+      type: Boolean,
+      required: [false, 'isTrainer can not be empty'],
+    },
+    trainerSpeciality: {
+      type: String,
+      required: [false, 'trainerSpeciality can not be empty']
+    }
+
   },
   {
     toObject: {
