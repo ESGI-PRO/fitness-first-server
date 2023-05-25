@@ -23,6 +23,7 @@ import SplashScreen from "./screens/splashScreen";
 import OnboardingScreen from "./screens/onboarding/onboardingScreen";
 import LoginRegisterScreen from "./screens/auth/loginRegisterScreen";
 import RecettesScreen from './screens/recettes/recettesScreen';
+import RecettesDetailsScreen from './screens/recettesDetails/recettesDetailsScreen';
 
 LogBox.ignoreAllLogs();
 
@@ -51,6 +52,7 @@ const App = () => {
         <Stack.Screen name="Message" component={MessageScreen} />
         <Stack.Screen name="PremiumPlans" component={PremiumPlansScreen} />
         <Stack.Screen name="HealthTipsDetail" component={HealthTipsDetailScreen} />
+        <Stack.Screen name="RecettesDetailsScreen" component={RecettesDetailsScreen} />
         <Stack.Screen name="EditProfile" component={EditProfileScreen}
           sharedElements={(route) => {
             const id = route.params.id;
