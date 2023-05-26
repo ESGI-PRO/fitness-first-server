@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
   View,
@@ -12,49 +12,72 @@ import {
 import { Colors, Fonts, Sizes } from "../../constants/styles";
 import { Snackbar } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
+import axios from "axios";
 
-const healthTipsList = [
-  {
-    id: "1",
-    healthTipImage: require("../../assets/images/tips/tip1.png"),
-    healthTip: "Recette 1",
-    healthTipDetail:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
-    isFavorite: false,
-  },
-  {
-    id: "2",
-    healthTipImage: require("../../assets/images/tips/tip2.png"),
-    healthTip: "Recette 2",
-    healthTipDetail:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
-    isFavorite: false,
-  },
-  {
-    id: "3",
-    healthTipImage: require("../../assets/images/tips/tip3.png"),
-    healthTip: "Recette 3",
-    healthTipDetail:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
-    isFavorite: false,
-  },
-  {
-    id: "4",
-    healthTipImage: require("../../assets/images/tips/tip4.png"),
-    healthTip: "Recette 4",
-    healthTipDetail:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
-    isFavorite: false,
-  },
-];
+
+// const healthTipsList = [
+//   {
+//     id: "1",
+//     healthTipImage: require("../../assets/images/tips/tip1.png"),
+//     healthTip: "Recette 1",
+//     healthTipDetail:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
+//     isFavorite: false,
+//   },
+//   {
+//     id: "2",
+//     healthTipImage: require("../../assets/images/tips/tip2.png"),
+//     healthTip: "Recette 2",
+//     healthTipDetail:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
+//     isFavorite: false,
+//   },
+//   {
+//     id: "3",
+//     healthTipImage: require("../../assets/images/tips/tip3.png"),
+//     healthTip: "Recette 3",
+//     healthTipDetail:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
+//     isFavorite: false,
+//   },
+//   {
+//     id: "4",
+//     healthTipImage: require("../../assets/images/tips/tip4.png"),
+//     healthTip: "Recette 4",
+//     healthTipDetail:
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
+//     isFavorite: false,
+//   },
+// ];
+
 
 const RecettesScreen = ({ navigation }) => {
   const [state, setState] = useState({
-    healthTips: healthTipsList,
+    //ingredients = healthTips
+    healthTips: null,
     showSnackBar: false,
     snackBarMsg: null,
   });
 
+  useEffect(() => {
+    const fetchRecettes = async () => {
+      try {
+        const data = await axios.get("http://localhost:8000/recettes");
+        setState({
+          ...state,
+          healthTips: data.data
+        })
+
+        
+      } catch (e) { 
+        console.log(e)
+      }
+    }
+    
+    fetchRecettes()
+  },[])
+
+  
   const updateState = (data) => setState((state) => ({ ...state, ...data }));
 
   const { healthTips, showSnackBar, snackBarMsg } = state;
