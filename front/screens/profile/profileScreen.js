@@ -210,6 +210,10 @@ const ProfileScreen = ({ navigation }) => {
                 {/* Recettes */}
                 {optionsShort({ option: 'Mes Recettes', navigateTo: 'Recettes' })}
                 {/* Recettes */}
+
+                {/* Training */}
+                {optionsShort({ option: 'Mes Programmes', navigateTo: 'Training' })}
+                {/* Training */}
                 {optionsShort({ option: 'Premium Plan', navigateTo: 'PremiumPlans' })}
                 {optionsShort({ option: 'Share with Friends' })}
                 {optionsShort({ option: 'Privacy Policy' })}

@@ -20,7 +20,14 @@ export class TrainingService {
 
   public async findAllTrainings(): Promise<Array<any>> {
     try {
-      const trainings = await prisma.training.findMany();
+      const trainings = await prisma.training.findMany({
+        include: {
+          muscle: true,
+          trainingOnExercices: true,
+          _count: true
+
+        }
+      });
       return trainings;
     } catch (error) {
       console.log('findAll Trainings', error);
