@@ -76,11 +76,13 @@ export const UserSchema = new mongoose.Schema<IUserSchema>(
 UserSchema.methods.getEncryptedPassword = (
   password: string,
 ): Promise<string> => {
-  return bcrypt.hash(String(password), SALT_ROUNDS);
+  //return bcrypt.hash(String(password), SALT_ROUNDS);
+  return ;
 };
 
 UserSchema.methods.compareEncryptedPassword = function (password: string) {
-  return bcrypt.compare(password, this.password);
+  //return bcrypt.compare(password, this.password);
+  return;
 };
 
 UserSchema.pre('save', async function (next) {

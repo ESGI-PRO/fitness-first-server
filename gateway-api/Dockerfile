@@ -7,7 +7,9 @@ RUN mkdir -p /var/www/gateway-api
 
 WORKDIR /var/www/gateway-api
 
-ADD . /var/www/gateway-api/
+COPY . /var/www/gateway-api/
+
+# RUN pnpm install
 
 EXPOSE 8000
 
@@ -16,7 +18,7 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-CMD pnpm install && pnpm run start:dev
+CMD pnpm run start:dev
 
 # Production build stage
 FROM common-build-stage as production-build-stage

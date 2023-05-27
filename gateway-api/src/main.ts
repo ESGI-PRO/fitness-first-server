@@ -22,6 +22,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.use(helmet());
+  console.log(new ConfigService());
   await app.listen(new ConfigService().get('port'));
 }
 bootstrap();

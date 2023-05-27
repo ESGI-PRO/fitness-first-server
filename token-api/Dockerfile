@@ -7,7 +7,8 @@ RUN mkdir -p /var/www/token-api
 
 WORKDIR /var/www/token-api
 
-ADD . /var/www/token-api/
+COPY . /var/www/token-api/
+# RUN pnpm install
 
 EXPOSE 8006
 
@@ -16,7 +17,7 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-CMD pnpm install && pnpm run start:dev
+CMD pnpm run start:dev
 
 # Production build stage
 FROM common-build-stage as production-build-stage

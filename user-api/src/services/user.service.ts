@@ -6,7 +6,7 @@ import { ConfigService } from './config/config.service';
 import { IUser } from '../interfaces/user.interface';
 import { IUserLink } from '../interfaces/user-link.interface';
 
-const data = require("../mock/users.json")
+import data from '../mock/users.json';
 
 @Injectable()
 export class UserService  implements OnModuleInit {
