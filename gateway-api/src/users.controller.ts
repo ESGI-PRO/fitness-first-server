@@ -70,6 +70,7 @@ export class UsersController {
   @ApiCreatedResponse({
     type: CreateUserResponseDto,
   })
+  @Authorization(false)
   public async createUser(
     @Body() userRequest: CreateUserDto,
   ): Promise<CreateUserResponseDto> {
@@ -110,6 +111,7 @@ export class UsersController {
   @ApiCreatedResponse({
     type: LoginUserResponseDto,
   })
+  @Authorization(false)
   public async loginUser(
     @Body() loginRequest: LoginUserDto,
   ): Promise<LoginUserResponseDto> {
@@ -146,6 +148,7 @@ export class UsersController {
 
   @Put('/logout')
   @Authorization(true)
+  @ApiBearerAuth('access-token')
   @ApiCreatedResponse({
     type: LogoutUserResponseDto,
   })
@@ -217,8 +220,9 @@ export class UsersController {
     @Body() refreshTokenRequest: RefreshTokenDto,
   ): Promise<LoginUserResponseDto> {
     try {
+
       const tokenVerifyResponse: ITokenDataResponse = await firstValueFrom(
-        this.userServiceClient.send('token_verify', {
+        this.tokenServiceClient.send('token_verify', {
           token: refreshTokenRequest.token
         }),
       );

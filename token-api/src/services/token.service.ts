@@ -39,12 +39,7 @@ export class TokenService {
     const jwtServiceOptions = this.configService.get('jwt');
     const accessTokenExpires = moment().add(jwtServiceOptions.accessExpirationMinutes, 'minutes').unix();
     const refreshTokenExpires = moment().add(jwtServiceOptions.refreshExpirationDays, 'days').unix();
-    console.log(
-      'jwtServiceOptions',
-      jwtServiceOptions,
-      accessTokenExpires,
-      refreshTokenExpires
-    )
+
     // access token
     const accessToken = this.generateToken(
       userId,
@@ -57,13 +52,6 @@ export class TokenService {
       userId,
       refreshTokenExpires,
       tokenTypes.REFRESH
-    )
-
-    console.log(
-      'accessToken',
-      accessToken,
-      'refreshToken',
-      refreshToken
     )
 
     const access = await new this.tokenModel({
@@ -91,7 +79,7 @@ export class TokenService {
           exp: accessTokenExpires
         },
         refresh: {
-          token: accessToken,
+          token: refreshToken,
           exp: refreshTokenExpires
         }
     }
