@@ -32,6 +32,23 @@ export class ExercicesService {
     });
   }
 
+  async findAllByCategory(id) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const exercices = await prisma.exercices.findMany({
+          where: { TypeExercicesId : Number(id) },
+          include: {
+            muscle: true,
+            _count: true
+          },
+        });
+        resolve({ status: true, data: exercices });
+      } catch (err) {
+        reject({ status: false, error: err });
+      }
+    });
+  }
+
   async create(data) {
     return new Promise(async (resolve, reject) => {
       try {
@@ -70,11 +87,22 @@ export class ExercicesService {
     });
   }
 
-  async getCategorieExercices(id) {
+  async getCategoriesExercices() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const exercices = await prisma.typeExercices.findMany({});
+        resolve({ status: true, data: exercices });
+      } catch (err) {
+        reject({ status: false, error: err });
+      }
+    });
+  }
+
+  async getCategorieExercicesByID(id) {
     return new Promise(async (resolve, reject) => {
       try {
         const exercices = await prisma.typeExercices.findMany({
-          where: {},
+          where: { id : Number(id)},
         });
         resolve({ status: true, data: exercices });
       } catch (err) {
