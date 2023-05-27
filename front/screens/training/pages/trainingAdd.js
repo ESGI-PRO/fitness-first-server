@@ -24,6 +24,7 @@ import {
   Box,
   Divider,
   Stack,
+  Flex,
 } from "native-base";
 import { Input } from "@rneui/base";
 import { Svg, Path } from "react-native-svg";
@@ -215,7 +216,7 @@ const TrainingAddScreen = ({ navigation }) => {
   };
 
   async function getExercicesFetch() {
-    if (categoriesList?.length > 0) return;
+    categoriesList.length === 0;
     API.getExercices().then((response) => {
       categoriesList.push(...response);
     });
@@ -253,7 +254,7 @@ const TrainingAddScreen = ({ navigation }) => {
       getExercicesFetch();
 
       return () => {
-        if (categoriesList?.length === 0) getExercicesFetch();
+        getExercicesFetch();
       };
     }, []);
     const renderItem = ({ item }) => (
@@ -272,7 +273,9 @@ const TrainingAddScreen = ({ navigation }) => {
           style={{
             textAlign: "center",
             ...Fonts.blackColor14SemiBold,
-            margin: 20,
+            margin: 10,
+            width: 80,
+            textAlign: "center",
           }}
           onPress={() => addOrRemoveExercices(item)}
         >
@@ -292,9 +295,11 @@ const TrainingAddScreen = ({ navigation }) => {
           Exercices ({exercicesSelected?.length} selectionnés){" "}
           {JSON.stringify(exercicesSelected)}
         </Text>
+        
         <FlatList
           data={categoriesList}
-          horizontal
+          horizontal={false}
+          numColumns={3}
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => `${item.id}`}
           renderItem={renderItem}
@@ -303,6 +308,7 @@ const TrainingAddScreen = ({ navigation }) => {
             paddingRight: Sizes.fixPadding - 5.0,
           }}
         />
+        
       </View>
     );
   }

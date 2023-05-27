@@ -25,6 +25,8 @@ import LoginRegisterScreen from "./screens/auth/loginRegisterScreen";
 import RecettesScreen from "./screens/recettes/recettesScreen";
 import TrainingScreen from "./screens/training/trainingScreen";
 import { NativeBaseProvider, Box } from "native-base";
+import RecettesDetailsScreen from './screens/recettesDetails/recettesDetailsScreen';
+
 LogBox.ignoreAllLogs();
 
 const Stack = createSharedElementStackNavigator();

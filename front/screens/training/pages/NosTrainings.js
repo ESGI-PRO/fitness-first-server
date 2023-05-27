@@ -9,33 +9,18 @@ import {
   StyleSheet,
   Text,
 } from "react-native";
-import { Colors, Fonts, Sizes } from "../../constants/styles";
+import { Colors, Fonts, Sizes } from "../../../constants/styles";
 import { MaterialIcons } from "@expo/vector-icons";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { Snackbar } from "react-native-paper";
 import axios from "axios";
 import { ScrollView } from "react-native-gesture-handler";
-import { TrainingsAPI } from "../../api/trainings";
-
+import { TrainingsAPI } from "../../../api/trainings";
 const API = new TrainingsAPI();
 const { width } = Dimensions.get("window");
 
-const favoriteWorkoutsList = [
-  {
-    key: "1",
-    workoutImage: require("../../assets/images/workout/workout1.png"),
-    workoutName: "Weight Loss Training",
-    workoutDescription: "Full body workout",
-    workoutMinute: 9,
-    workoutLevel: 9,
-  },
-  {
-    key: "2",
-    workoutImage: require("../../assets/images/workout/workout12.png"),
-    workoutName: "Arm Workout",
-    workoutMinute: 9,
-    workoutLevel: 9,
-  },
+var recettesList = [
+  
 ];
 
 var trainingsList = [];
@@ -47,18 +32,17 @@ Array(trainingsList.length + 1)
     rowSwipeAnimatedValues[`${i}`] = new Animated.Value(0);
   });
 
-const FavoriteWorkoutsScreen = ({ navigation }) => {
+const NosTrainingsScreen = ({ navigation }) => {
   useEffect(() => {
-    // getTrainingFetch();
+    getTrainingFetch();
     return () => {
-      // getTrainingFetch();
+      getTrainingFetch();
     };
   }, []);
 
   const [showSnackBar, setShowSnackBar] = useState(false);
 
   const [listData, setListData] = useState(trainingsList);
-  const img = require("../../assets/images/workout/workout12.png");
 
   const closeRow = (rowMap, rowKey) => {
     if (rowMap[rowKey]) {
@@ -290,4 +274,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FavoriteWorkoutsScreen;
+export default NosTrainingsScreen;

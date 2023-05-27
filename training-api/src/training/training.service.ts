@@ -24,13 +24,25 @@ export class TrainingService {
         include: {
           muscle: true,
           trainingOnExercices: true,
-          _count: true
-
-        }
+          _count: true,
+        },
       });
       return trainings;
     } catch (error) {
       console.log('findAll Trainings', error);
+    }
+  }
+
+  public async findAllByID(userId: string): Promise<any> {
+    try {
+      const training = await prisma.training.findMany({
+        where: {
+          userId
+        },
+      });
+      return training;
+    } catch (error) {
+      console.log('findAllByID Training', error);
     }
   }
 
@@ -42,6 +54,8 @@ export class TrainingService {
       console.log('findOne Training', error);
     }
   }
+
+  
 
   public async update(id: number, data: any): Promise<any> {
     try {
