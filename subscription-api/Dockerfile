@@ -8,7 +8,7 @@ RUN mkdir -p /var/www/subscription-api
 WORKDIR /var/www/subscription-api
 
 ADD . /var/www/subscription-api/
-RUN pnpm install
+
 RUN npx prisma generate
 
 EXPOSE 8009
@@ -18,7 +18,7 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-CMD pnpm run start:dev
+CMD pnpm install && pnpm run start:dev
 
 # Production build stage
 FROM common-build-stage as production-build-stage

@@ -9,8 +9,6 @@ WORKDIR /var/www/mailer-api
 
 COPY package.json pnpm-lock.yaml /var/www/mailer-api/
 
-RUN pnpm install
-
 COPY . /var/www/mailer-api
 
 EXPOSE 8008
@@ -20,7 +18,7 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-CMD pnpm run start:dev
+CMD pnpm install && pnpm run start:dev
 
 # Production build stage
 FROM common-build-stage as production-build-stage

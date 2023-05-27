@@ -8,7 +8,6 @@ RUN mkdir -p /var/www/permission-api
 WORKDIR /var/www/permission-api
 
 ADD . /var/www/permission-api/
-RUN pnpm install
 
 EXPOSE 8007
 
@@ -17,7 +16,7 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-CMD pnpm run start:dev
+CMD pnpm install && pnpm run start:dev
 
 # Production build stage
 FROM common-build-stage as production-build-stage
