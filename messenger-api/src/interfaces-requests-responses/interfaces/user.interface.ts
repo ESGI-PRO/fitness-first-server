@@ -7,6 +7,8 @@ export interface IUser extends Document {
   mobileNumber?: string;
   is_confirmed: boolean;
   isTrainer?: boolean;
+  trainerId?: string;
+  traineeIds?: Array<string>;
   trainerSpeciality?: string;
   password?: string;
 }

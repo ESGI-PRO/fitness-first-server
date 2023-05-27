@@ -17,7 +17,7 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-CMD pnpm run start:dev
+CMD  pnpm run start:dev
 
 # Production build stage
 FROM common-build-stage as production-build-stage

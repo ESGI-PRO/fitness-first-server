@@ -5,5 +5,5 @@ export class GetAllRoomMessagesDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  id: string;
+  roomId: string;
 }
