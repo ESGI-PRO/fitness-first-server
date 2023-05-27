@@ -75,7 +75,8 @@ export class TokenController {
     token: string;
     type?: string;
   }): Promise<ITokenDataResponse> {
-    const {token, type=tokenTypes.ACCESS} = data
+    const {token, type=tokenTypes.REFRESH} = data
+
     const tokenData = await this.tokenService.verifyToken(token, type);
     return {
       status: tokenData ? HttpStatus.OK : HttpStatus.UNAUTHORIZED,
