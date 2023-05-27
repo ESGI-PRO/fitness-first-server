@@ -15,6 +15,7 @@ specifiers:
   eslint: 8.37.0
   eslint-config-prettier: 8.8.0
   eslint-plugin-prettier: ^4.2.1
+  moment: ^2.29.4
   mongoose: 7.0.3
   prettier: 2.8.7
   reflect-metadata: 0.1.13
@@ -33,6 +34,7 @@ dependencies:
   '@nestjs/microservices': 9.4.0_xalhtr6ys2yxjegvrer44shioe
   '@nestjs/mongoose': 9.2.2_q7bunbhmn75rtufenoauosbeau
   '@nestjs/platform-express': 9.4.0_gqkob5jndcfeb3wjw72wbdwyne
+  moment: 2.29.4
   mongoose: 7.0.3
   reflect-metadata: 0.1.13
   rimraf: 4.4.1
@@ -1522,6 +1524,10 @@ packages:
     hasBin: true
     dependencies:
       minimist: 1.2.8
+    dev: false
+
+  /moment/2.29.4:
+    resolution: {integrity: sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==}
     dev: false
 
   /mongodb-connection-string-url/2.6.0:

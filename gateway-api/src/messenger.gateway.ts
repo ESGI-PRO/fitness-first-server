@@ -67,7 +67,7 @@ import {
       @ConnectedSocket() client: Socket,
       @MessageBody() payload: GetAllRoomsDto,
     ): Promise<void> {
-      const response = await firstValueFrom(this.messengerServiceClient.send("get-all-rooms", payload.id));
+      const response = await firstValueFrom(this.messengerServiceClient.send("get-all-rooms", payload));
       this.server.emit('response-get-all-rooms', response);
     }
 

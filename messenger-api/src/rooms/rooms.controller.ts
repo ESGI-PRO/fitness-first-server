@@ -22,7 +22,9 @@ export class RoomsController {
         result = {
           status: HttpStatus.CREATED,
           message: 'room_create_success',
-          room: room,
+          data: {
+            room: room,
+          },
           errors: null,
         };
 
@@ -30,7 +32,9 @@ export class RoomsController {
         result = {
           status: HttpStatus.PRECONDITION_FAILED,
           message: 'room_create_precondition_failed',
-          room: null,
+          data: {
+            room: null,
+          },
           errors: e.errors,
         };
       }
@@ -39,7 +43,9 @@ export class RoomsController {
       result = {
         status: HttpStatus.BAD_REQUEST,
         message: 'room_create_bad_request',
-        room: null,
+        data: {
+          room: null,
+        },
         errors: null,
       };
     }
@@ -49,23 +55,28 @@ export class RoomsController {
 
 
   @MessagePattern('get-all-rooms')
-  async getAllRoomsByUserId(id: string) {
+  async getAllRoomsByUserId(data: { userId: string}) {
+    const { userId } = data
     let result: IRoomsGetResponse;
 
-    if (id) {
-      const rooms = await this.roomsService.findAllRooms(id);
+    if (userId) {
+      const rooms = await this.roomsService.findAllRooms(userId);
       if (rooms) {
         result = {
           status: HttpStatus.OK,
           message: 'get_rooms_success',
-          rooms: rooms,
+          data: {
+            rooms: rooms,
+          },
           errors: null,
         };
       } else {
         result = {
           status: HttpStatus.NOT_FOUND,
           message: 'rooms_get_by_id_not_found',
-          rooms: null,
+          data: {
+            rooms: null,
+          },
           errors: null,
         };
       }
@@ -73,9 +84,14 @@ export class RoomsController {
       result = {
         status: HttpStatus.BAD_REQUEST,
         message: 'room_create_bad_request',
-        rooms: null,
+        data: {
+          rooms: null,
+        },
         errors: null,
       };
     }
+
+    return result
   }
+
 }

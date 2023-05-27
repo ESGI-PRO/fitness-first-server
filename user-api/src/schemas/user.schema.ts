@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcrypt';
+import { trainerSpecialityTypes } from '../services/config/trainerSpeciality.types'
 
 const SALT_ROUNDS = 10;
 
@@ -14,6 +15,8 @@ export interface IUserSchema extends mongoose.Document {
   mobileNumber: string;
   isTrainer: Boolean;
   trainerSpeciality: string;
+  trainerId: string;
+  traineeIds: Array<string>;
   password: string;
   is_confirmed: boolean;
   comparePassword: (password: string) => Promise<boolean>;
@@ -53,8 +56,17 @@ export const UserSchema = new mongoose.Schema<IUserSchema>(
       type: Boolean,
       required: [false, 'isTrainer can not be empty'],
     },
+    trainerId: {
+      type: String,
+      required: [false, 'trainerId can not be empty']
+    },
+    traineeIds: {
+      type: Array as any,
+      required: [false, 'traineeIds can not be empty']
+    },
     trainerSpeciality: {
       type: String,
+      enum: [trainerSpecialityTypes.YOGA, trainerSpecialityTypes.FITNESS, trainerSpecialityTypes.POWERLIFTING, trainerSpecialityTypes.NONE],
       required: [false, 'trainerSpeciality can not be empty']
     }
 

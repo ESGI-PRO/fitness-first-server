@@ -1,5 +1,7 @@
+import { IToken } from './token.interface';
+
 export interface ITokenResponse {
   status: number;
-  token: string | null;
+  token: IToken;
   message: string;
 }
