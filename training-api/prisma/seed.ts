@@ -1,6 +1,7 @@
 const exercices = require('../datas/exercices');
 const TypeExercices = require('../datas/TypeExercices');
 import { PrismaClient } from '@prisma/client';
+import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
 
@@ -55,36 +56,36 @@ function insertExercices() {
 
 function insertTraining() {
   try {
-    prisma.training
-      .create({
-        data: {
-          name: 'Programme du matin',
-          description:
-            "voici votre programme d'entrenaiment, vous devez le faire tout les matins fait pas chier okay ?",
-          category: 3,
-          userId: 'FEHGFDFGNFDSG,',
-          image:
-            'https://randomwordgenerator.com/img/picture-generator/53e1d04a4c5aa414f1dc8460962e33791c3ad6e04e5074417c2b79d59448cc_640.jpg',
-          listExercices: [],
-          durationStart: new Date(),
-          durationEnd: new Date(),
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          trainingOnExercices: {
-            create: [
-              {
-                exerciceId: 67,
-                series: 5,
-                repetition: 10,
-              },
-            ],
+    for (var i = 0; i < 160; i++) {
+      prisma.training
+        .create({
+          data: {
+            name: faker.lorem.text() ,
+            description: faker.lorem.paragraph() ,
+            category: faker.number.int({ max: 16 }) , // 42
+            userId: faker.string.uuid(),
+            image: faker.image.urlLoremFlickr(),
+            listExercices: [],
+            durationStart: faker.date.birthdate(),
+            durationEnd: faker.date.birthdate(),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            trainingOnExercices: {
+              create: [
+                {
+                  exerciceId: faker.number.int({ max: 160 }),
+                  series: faker.number.int({ max: 10}),
+                  repetition: faker.number.int({ max: 30 }),
+                },
+              ],
+            },
           },
-        },
-      })
-      .then(() => console.info('[SEED] Succussfully create Training records'))
-      .catch((e) =>
-        console.error('[SEED] Failed to create Training  records', e),
-      );
+        })
+        .then(() => console.info('[SEED] Succussfully create Training records'))
+        .catch((e) =>
+          console.error('[SEED] Failed to create Training  records', e),
+        );
+    }
   } catch (e) {
     console.log(e);
   }
@@ -93,4 +94,4 @@ function insertTraining() {
 // insertTypeExercices();
 insertTraining();
 
-insertTypeExercices();
+// insertTypeExercices();

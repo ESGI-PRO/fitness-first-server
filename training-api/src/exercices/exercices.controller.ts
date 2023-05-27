@@ -76,8 +76,8 @@ export class ExercicesController {
   }
 
   @MessagePattern('get_category_exercices_by_id')
-  public async getCategoriesExercices(params: { id: number }) {
-    const exercices = await this.exercicesAPI.getCategorieExercices(params.id);
+  public async getCategoriesExercicesByID(params: { id: number }) {
+    const exercices = await this.exercicesAPI.getCategorieExercicesByID(params.id);
     return {
       message: 'success message from exercicesResponse',
       data: {
@@ -86,4 +86,30 @@ export class ExercicesController {
       errors: null,
     };
   }
+
+  @MessagePattern('get_exercices_by_category')
+  public async getExercicesByCategory(params: { id: number }) {
+    const exercices = await this.exercicesAPI.findAllByCategory(params.id);
+    return {
+      message: 'success message from exercicesResponse',
+      data: {
+        exercices: exercices,
+      },
+      errors: null,
+    };
+  }
+
+  @MessagePattern('get_category_exercices')
+  public async getCategoryExercices() {
+    const exercices = await this.exercicesAPI.getCategoriesExercices();
+    return {
+      message: 'success message from exercicesResponse',
+      data: {
+        exercices: exercices,
+      },
+      errors: null,
+    };
+  }
+
+  
 }
