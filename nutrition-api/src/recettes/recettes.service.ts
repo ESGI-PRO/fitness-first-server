@@ -13,6 +13,7 @@ export class RecettesService {
   }
 
   async getRecetteByID(id) {
+    console.log("id" , id)
     return new Promise(async (resolve, reject) => {
       const recettes = await prisma.recettes.findUnique({
         where: {
@@ -26,7 +27,7 @@ export class RecettesService {
 
   async createRecette(data){
     return new Promise(async (resolve, reject) => {
-      const recettes = await prisma.recettes.findMany()
+      const recettes = await prisma.recettes.create({data: {...data}})
       resolve(recettes)
     })
   }

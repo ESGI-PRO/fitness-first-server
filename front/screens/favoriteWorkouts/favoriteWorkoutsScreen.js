@@ -15,9 +15,9 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import { Snackbar } from "react-native-paper";
 import axios from "axios";
 import { ScrollView } from "react-native-gesture-handler";
-import { TrainingsAPI } from "../../api/trainings";
+import training  from "../../api/trainings";
 
-const API = new TrainingsAPI();
+const API = training
 const { width } = Dimensions.get("window");
 
 const favoriteWorkoutsList = [
@@ -49,9 +49,9 @@ Array(trainingsList.length + 1)
 
 const FavoriteWorkoutsScreen = ({ navigation }) => {
   useEffect(() => {
-    // getTrainingFetch();
+    getMyTrainingFetch();
     return () => {
-      // getTrainingFetch();
+      getMyTrainingFetch();
     };
   }, []);
 
@@ -149,13 +149,13 @@ const FavoriteWorkoutsScreen = ({ navigation }) => {
     </View>
   );
 
-  async function getTrainingFetch() {
+  async function getMyTrainingFetch() {
 
-    API.getTrainings().then((response) => {
+    API.getTrainingsByUserId("ERJHGFGH-FGHJK").then((response) => {
       trainingsList.length = 0
       trainingsList.push(...response);
       setListData(...response);
-      console.log("Categories:", trainingsList?.length, trainingsList);
+      console.log("Categories:", trainingsList?.length );
     });
   }
 

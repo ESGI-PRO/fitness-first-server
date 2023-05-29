@@ -28,9 +28,9 @@ import {
 } from "native-base";
 import { Input } from "@rneui/base";
 import { Svg, Path } from "react-native-svg";
-import { TrainingsAPI } from "../../../api/trainings";
+import training from "../../../api/trainings";
 
-const API = new TrainingsAPI();
+const API = training
 const healthTipsList = [
   {
     key: "1",

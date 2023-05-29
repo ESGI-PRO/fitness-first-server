@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export class TrainingsAPI {
-  API_URL = "http://localhost:8000";
+class TrainingsAPI {
+  API_URL = "http://localhost:8000/training/";
   exercices = [];
   trainings = [];
   userTraining = [];
@@ -18,7 +18,16 @@ export class TrainingsAPI {
 
   async getTrainings() {
     return new Promise(async (resolve, reject) => {
-      const responses = await axios.get(this.API_URL + "/training/");
+      const responses = await axios.get(this.API_URL + "");
+      var data = responses.data.data.training;
+
+      resolve(data);
+    });
+  }
+
+  async getTrainingsByUserId(userId) {
+    return new Promise(async (resolve, reject) => {
+      const responses = await axios.get(this.API_URL + "user/" + "ERJHGFGH-FGHJK");
       var data = responses.data.data.training;
 
       resolve(data);
@@ -43,7 +52,7 @@ export class TrainingsAPI {
       };
       console.log(values);
 
-      await axios.post(this.API_URL + "/training/", values).then((res) => {
+      await axios.post(this.API_URL + "", values).then((res) => {
         console.log(res);
         console.log(res.data);
         if (res.data.data.length > 0) resolve(true);
@@ -52,9 +61,11 @@ export class TrainingsAPI {
     });
   }
 
+
+  //** FETCH EXERCICES */
   async getExercices() {
     return new Promise(async (resolve, reject) => {
-      const responses = await axios.get(this.API_URL + "/training/exercices");
+      const responses = await axios.get(this.API_URL + "exercices");
       var data = responses.data.data.exercices.data;
 
       resolve(data);
@@ -63,9 +74,17 @@ export class TrainingsAPI {
 
   async getExerciceByID(id) {
     return new Promise(async (resolve, reject) => {
-      const responses = await axios.get(this.API_URL + "/training/exercices/" + id);
+      const responses = await axios.get(this.API_URL + "exercices/" + id);
       var data = responses.data.data.exercices.data;
 
+      resolve(data);
+    });
+  }
+
+  async getTypesExercices() {
+    return new Promise(async (resolve, reject) => {
+      const responses = await axios.get(this.API_URL + "category/");
+      var data = responses.data.data.exercices.data;
       resolve(data);
     });
   }
@@ -74,3 +93,7 @@ export class TrainingsAPI {
     return this[string]
   }
 }
+
+const training = new TrainingsAPI()
+
+export default training;

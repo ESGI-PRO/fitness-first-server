@@ -7,7 +7,11 @@ const prisma = new PrismaClient();
 export class IngredientsService {
   async getIngredients() {
     return new Promise(async (resolve, reject) => {
-      const ingredients = await prisma.ingredients.findMany();
+      const ingredients = await prisma.ingredients.findMany({
+        include: {
+          category: true
+        }
+      });
       resolve(ingredients);
     });
   }
