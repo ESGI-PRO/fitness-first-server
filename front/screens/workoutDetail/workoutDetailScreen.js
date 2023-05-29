@@ -13,9 +13,9 @@ import {
 import { Colors, Fonts, Sizes } from "../../constants/styles";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { Snackbar } from "react-native-paper";
-import { TrainingsAPI } from "../../api/trainings";
+import training from "../../api/trainings";
 
-const API = new TrainingsAPI();
+const API = training
 const { width, height } = Dimensions.get("window");
 
 var workoutStepsList = [
@@ -112,10 +112,10 @@ const WorkoutDetailScreen = ({ navigation, route }) => {
     isFavorite: false,
   });
 
-  async function getStarded() {
-    workoutStepsList.length = 0;
+  function getStarded() {
+    workoutStepsList = [];
 
-    item.trainingOnExercices.forEach((item, i) => {
+    item?.trainingOnExercices.forEach((item, i) => {
       API.getExerciceByID(item.exerciceId).then((exercice) => {
         var v = {
           id: item.exerciceId,

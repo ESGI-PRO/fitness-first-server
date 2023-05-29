@@ -118,7 +118,7 @@ export class TrainingController {
   ): Promise<GetTrainingResponseDto> {
     const trainingResponse: GetTrainingResponseDto = await firstValueFrom(
       this.trainingServiceClient.send('get_training_by_UserId', {
-        id: params.userId,
+        userId: params.userId,
       }),
     );
     return {
