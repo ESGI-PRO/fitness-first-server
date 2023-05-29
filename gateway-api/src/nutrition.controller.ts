@@ -2,12 +2,13 @@ import { Controller, Inject, Get, Param, Post, Body } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiTags, ApiOkResponse, ApiCreatedResponse } from '@nestjs/swagger';
 import { Authorization } from './decorators/authorization.decorator';
-import {GetNutritionResponseDto} from './interfaces-requests-responses/nutrition/dto/get-nutrition-response.dto'
+import { GetNutritionResponseDto } from './interfaces-requests-responses/nutrition/dto/get-nutrition-response.dto';
 import { firstValueFrom } from 'rxjs';
 import { CreateIngredientDTO } from './interfaces-requests-responses/nutrition/dto/CreateIngredientDTO';
 import { getIngredientIdDTO } from './interfaces-requests-responses//nutrition/dto/getIngredientId';
 import { getIngredientUserIdDTO } from './interfaces-requests-responses/nutrition/dto/getIngredientUserID';
 import { getCategorieIdDTO } from './interfaces-requests-responses/nutrition/dto/get-categorie-id-dto';
+import { createRecetteDTO } from './interfaces-requests-responses/nutrition/dto/create-recette.dto';
 @Controller('nutrition')
 @ApiTags('nutrition')
 export class NutritionController {
@@ -16,7 +17,46 @@ export class NutritionController {
     private readonly nutritionServiceClient: ClientProxy,
   ) {}
 
-  //! FETCH INGREDIENTS
+  //! FETCH RECETTES
+
+  @Get('/')
+  @Authorization(false)
+  @ApiOkResponse({
+    type: GetNutritionResponseDto,
+  })
+  public async getRecettes(): Promise<GetNutritionResponseDto> {
+    const nutritionResponse: GetNutritionResponseDto = await firstValueFrom(
+      this.nutritionServiceClient.send('get_recettes', {}),
+    );
+    return {
+      message: nutritionResponse.message,
+      data: {
+        nutrition: nutritionResponse.data.nutrition,
+      },
+      errors: null,
+    };
+  }
+
+
+  @Post('/')
+  @Authorization(false)
+  @ApiOkResponse({
+    type: GetNutritionResponseDto,
+  })
+  public async createRecettes(
+    @Body() recettesData: createRecetteDTO,
+  ): Promise<GetNutritionResponseDto> {
+    const nutritionResponse: GetNutritionResponseDto = await firstValueFrom(
+      this.nutritionServiceClient.send('create_recette', recettesData),
+    );
+    return {
+      message: nutritionResponse.message,
+      data: {
+        nutrition: nutritionResponse.data.nutrition,
+      },
+      errors: null,
+    };
+  }
 
   @Get('/ingredients')
   @Authorization(false)
@@ -56,6 +96,45 @@ export class NutritionController {
     };
   }
 
+  @Get('/categories/')
+  @Authorization(false)
+  @ApiOkResponse({
+    type: GetNutritionResponseDto,
+  })
+  public async getCategories(): Promise<GetNutritionResponseDto> {
+    const nutritionResponse: GetNutritionResponseDto = await firstValueFrom(
+      this.nutritionServiceClient.send('get_categories', {}),
+    );
+    return {
+      message: nutritionResponse.message,
+      data: {
+        nutrition: nutritionResponse.data.nutrition,
+      },
+      errors: null,
+    };
+  }
+
+  @Get('/:id')
+  @Authorization(false)
+  @ApiOkResponse({
+    type: GetNutritionResponseDto,
+  })
+  public async getRecetteByID(
+    @Param() params: getIngredientIdDTO,
+  ): Promise<GetNutritionResponseDto> {
+    const nutritionResponse: GetNutritionResponseDto = await firstValueFrom(
+      this.nutritionServiceClient.send('get_recettes_by_id', { id: params.id }),
+    );
+    return {
+      message: nutritionResponse.message,
+      data: {
+        nutrition: nutritionResponse.data.nutrition,
+      },
+      errors: null,
+    };
+  }
+
+
   @Get('/ingredients/:id')
   @Authorization(false)
   @ApiOkResponse({
@@ -79,25 +158,6 @@ export class NutritionController {
     };
   }
 
-  //! FETCH RECETTES
-
-  @Get('/categories')
-  @Authorization(false)
-  @ApiOkResponse({
-    type: GetNutritionResponseDto,
-  })
-  public async getCategories(): Promise<GetNutritionResponseDto> {
-    const nutritionResponse: GetNutritionResponseDto = await firstValueFrom(
-      this.nutritionServiceClient.send('get_categories', {}),
-    );
-    return {
-      message: nutritionResponse.message,
-      data: {
-        nutrition: nutritionResponse.data.nutrition,
-      },
-      errors: null,
-    };
-  }
 
   @Get('/categories/:id')
   @Authorization(false)
@@ -105,11 +165,11 @@ export class NutritionController {
     type: GetNutritionResponseDto,
   })
   public async getCategorieById(
-    @Param() params: getCategorieIdDTO
+    @Param() params: getCategorieIdDTO,
   ): Promise<GetNutritionResponseDto> {
     const nutritionResponse: GetNutritionResponseDto = await firstValueFrom(
       this.nutritionServiceClient.send('get_categorie_by_id', {
-        id: params.id
+        id: params.id,
       }),
     );
     return {

@@ -59,7 +59,7 @@ const BottomTabBarScreen = ({ navigation }) => {
                                     :
                                     { ...Fonts.grayColor10Bold }
                             }}>
-                                WORKOUT
+                               PROGRAMMES
                             </Text>
                         )
                     }}
@@ -79,7 +79,7 @@ const BottomTabBarScreen = ({ navigation }) => {
                                     :
                                     { ...Fonts.grayColor10Bold }
                             }}>
-                                HEALTH TIPS
+                                NUTRITION
                             </Text>
                         )
                     }}
@@ -99,7 +99,7 @@ const BottomTabBarScreen = ({ navigation }) => {
                                     :
                                     { ...Fonts.grayColor10Bold }
                             }}>
-                                MY ACTIVITY
+                               MON ACTIVITE
                             </Text>
                         )
                     }}
@@ -139,7 +139,7 @@ const BottomTabBarScreen = ({ navigation }) => {
                                     :
                                     { ...Fonts.grayColor10Bold }
                             }}>
-                                PROFILE
+                                MON PROFIL
                             </Text>
                         )
                     }}

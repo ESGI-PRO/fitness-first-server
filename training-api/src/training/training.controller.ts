@@ -49,6 +49,19 @@ export class TrainingController {
     };
   }
 
+
+  @MessagePattern('get_training_by_UserId')
+  public async getTrainingByUserId(params: { userId: string }) {
+    const training = await this.trainingService.findAllByID(params.userId);
+    return {
+      message: 'success message from Training Response',
+      data: {
+        training: training,
+      },
+      errors: null,
+    };
+  }
+
   @MessagePattern('create_training')
   public async createTraining(data) {
     const createTraining = await this.trainingService.createTraining(data);

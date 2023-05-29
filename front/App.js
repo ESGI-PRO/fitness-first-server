@@ -1,8 +1,8 @@
-import React from 'react'
-import { NavigationContainer } from '@react-navigation/native';
-import { TransitionPresets } from '@react-navigation/stack';
-import { LogBox } from 'react-native';
-import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { TransitionPresets } from "@react-navigation/stack";
+import { LogBox } from "react-native";
+import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 import LoadingScreen from "./components/loadingScreen";
 import BottomTabBarScreen from "./components/bottomTabBarScreen";
 import SearchScreen from "./screens/search/searchScreen";
@@ -24,6 +24,11 @@ import OnboardingScreen from "./screens/onboarding/onboardingScreen";
 import LoginRegisterScreen from "./screens/auth/loginRegisterScreen";
 import RecettesScreen from './screens/recettes/recettesScreen';
 import RecettesDetailsScreen from './screens/recettesDetails/recettesDetailsScreen';
+import TrainingScreen from "./screens/training/trainingScreen";
+import { NativeBaseProvider, Box } from "native-base";
+import ExercicesDetailsScreen from './screens/training/pages/exercicesDetail';
+import AddRecettesScreen from "./screens/recettes/pages/addRecettes";
+import InstructionsPageScreen from "./screens/recettes/pages/instructionsPage";
 
 LogBox.ignoreAllLogs();
 
@@ -59,16 +64,62 @@ const App = () => {
             return [id];
           }}
         />
-        <Stack.Screen name="Trainers" component={TrainersScreen} />
-        <Stack.Screen name="FavoriteList" component={FavoriteListScreen} />
-        <Stack.Screen name="Notifications" component={NotificationsScreen} />
-        {/* Recettes */}
-        <Stack.Screen name="Recettes" component={RecettesScreen} />
-        {/* Recettes */}
-        <Stack.Screen name="Goal" component={GoalScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+          <Stack.Screen name="Loading" component={LoadingScreen} />
+          <Stack.Screen
+            name="Splash"
+            component={SplashScreen}
+            options={{ ...TransitionPresets.DefaultTransition }}
+          />
+          <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+          <Stack.Screen
+            name="LoginRegister"
+            component={LoginRegisterScreen}
+            options={{ ...TransitionPresets.DefaultTransition }}
+          />
+          <Stack.Screen
+            name="BottomTabBar"
+            component={BottomTabBarScreen}
+            options={{ ...TransitionPresets.DefaultTransition }}
+          />
+          <Stack.Screen name="Search" component={SearchScreen} />
+          <Stack.Screen name="WorkoutDetail" component={WorkoutDetailScreen} />
+          <Stack.Screen name="StepDetail" component={StepDetailScreen} />
+          <Stack.Screen name="StartExercise" component={StartExerciseScreen} />
+          <Stack.Screen name="TakeRest" component={TakeRestScreen} />
+          <Stack.Screen name="TrainerDetail" component={TrainerDetailScreen} />
+          <Stack.Screen name="Message" component={MessageScreen} />
+          <Stack.Screen name="PremiumPlans" component={PremiumPlansScreen} />
+          <Stack.Screen
+            name="HealthTipsDetail"
+            component={HealthTipsDetailScreen}
+          />
+          <Stack.Screen
+            name="EditProfile"
+            component={EditProfileScreen}
+            sharedElements={(route) => {
+              const id = route.params.id;
+              return [id];
+            }}
+          />
+          <Stack.Screen name="Trainers" component={TrainersScreen} />
+          <Stack.Screen name="FavoriteList" component={FavoriteListScreen} />
+          <Stack.Screen name="Notifications" component={NotificationsScreen} />
+          {/* Recettes */}
+          <Stack.Screen name="Recettes" component={RecettesScreen} />
+          <Stack.Screen name="AddRecettes" component={AddRecettesScreen} />
+          <Stack.Screen name="InstructionsPage" component={InstructionsPageScreen} />
+
+          {/* Recettes */}
+
+          {/* Training */}
+          <Stack.Screen name="Training" component={TrainingScreen} />
+          <Stack.Screen name="ExerciceDetail" component={ExercicesDetailsScreen} />
+          {/* Training */}
+          <Stack.Screen name="Goal" component={GoalScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </NativeBaseProvider>
   );
-}
+};
 
 export default App;

@@ -18,6 +18,7 @@ import { CreateTrainingDTO } from './requests/training/dto/create-training-dto';
 import { getTrainingIdDTO } from './requests/training/dto/get-training-id-dto';
 import { GetExercicesResponseDto } from './requests/training/dto/get-exercices-response.dto';
 import { getExercicesIdDTO } from './requests/training/dto/get-exercices-id-dto';
+import { getTrainingUserIdDTO } from './requests/training/dto/get-training-userId-dto';
 
 @Controller('training')
 @ApiTags('training')
@@ -96,6 +97,28 @@ export class TrainingController {
     const trainingResponse: GetTrainingResponseDto = await firstValueFrom(
       this.trainingServiceClient.send('get_training_by_id', {
         id: params.id,
+      }),
+    );
+    return {
+      message: trainingResponse.message,
+      data: {
+        training: trainingResponse.data.training,
+      },
+      errors: null,
+    };
+  }
+
+  @Get('/user/:userId')
+  @Authorization(false)
+  @ApiOkResponse({
+    type: GetTrainingResponseDto,
+  })
+  public async getTrainingByUserID(
+    @Param() params: getTrainingUserIdDTO,
+  ): Promise<GetTrainingResponseDto> {
+    const trainingResponse: GetTrainingResponseDto = await firstValueFrom(
+      this.trainingServiceClient.send('get_training_by_UserId', {
+        userId: params.userId,
       }),
     );
     return {
@@ -194,4 +217,46 @@ export class TrainingController {
       errors: null,
     };
   }
+
+  @Get('/exercices/category/')
+  @Authorization(false)
+  @ApiOkResponse({
+    type: GetExercicesResponseDto,
+  })
+  public async getCategoryExercices(): Promise<GetExercicesResponseDto> {
+    const exercicesResponse: GetExercicesResponseDto = await firstValueFrom(
+      this.trainingServiceClient.send('get_category_exercices', {}),
+    );
+    return {
+      message: exercicesResponse.message,
+      data: {
+        exercices: exercicesResponse.data.exercices,
+      },
+      errors: null,
+    };
+  }
+
+  @Get('/exercices/category/:id')
+  @Authorization(false)
+  @ApiOkResponse({
+    type: GetExercicesResponseDto,
+  })
+  public async getExercicesgByCategory(
+    @Param() params: getExercicesIdDTO,
+  ): Promise<GetExercicesResponseDto> {
+    const exercicesResponse: GetExercicesResponseDto = await firstValueFrom(
+      this.trainingServiceClient.send('get_exercices_by_category', {
+        id: params.id,
+      }),
+    );
+    return {
+      message: exercicesResponse.message,
+      data: {
+        exercices: exercicesResponse.data.exercices,
+      },
+      errors: null,
+    };
+  }
+
+  
 }

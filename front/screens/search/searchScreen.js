@@ -21,7 +21,7 @@ const suggestedWorkoutsList = [
         workoutDescription: ' Full body workout',
         workoutMinute: 9,
         workoutLevel: 9,
-        isFavorite: false,
+        isFavorite: true,
     },
     {
         id: '2',

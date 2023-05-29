@@ -1,44 +1,64 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, View, StatusBar, StyleSheet, Text } from "react-native";
 import { Colors, Fonts, Sizes, } from "../../constants/styles";
 import { MaterialIcons } from '@expo/vector-icons';
 import CollapsingToolbar from "../../components/sliverAppBarScreen";
 import { Snackbar } from "react-native-paper";
+import nutrition from "../../api/nutrition";
+import { Heading } from "native-base";
 
-const importantHealthTipsList = [
-    'Vegetables and legumes or beans.',
-    'Fruits',
-    'Grain (cereal) foods, mostly wholegrain or high cereal fibre varieties.',
-    'Milk, yoghurt, cheese or alternatives, mostly reduced fat.'
+const nutritionAPI = nutrition;
+
+var importantHealthTipsList = [
+    // 'Vegetables and legumes or beans.',
+    // 'Fruits',
+    // 'Grain (cereal) foods, mostly wholegrain or high cereal fibre varieties.',
+    // 'Milk, yoghurt, cheese or alternatives, mostly reduced fat.'
 ];
 
-const healtTipsDetailList = [
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
-    'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-    'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.',
-];
+var healtTipsDetailList = [];
 
-const nutritionTipsList = [
+var nutritionTipsList = [
     {
         id: '1',
         nutritionTip: 'Eat oily fish',
         nutritionTipDetail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
     },
-    {
-        id: '2',
-        nutritionTip: 'Eat whole grains',
-        nutritionTipDetail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
-    },
-    {
-        id: '3',
-        nutritionTip: 'Drink water',
-        nutritionTipDetail: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad',
-    }
 ];
 
 const HealthTipsDetailScreen = ({ navigation, route }) => {
 
     const item = route.params.item;
+
+    useEffect(() => {
+        // console.log("item : ",item)
+        nutritionTipsList = [];
+        importantHealthTipsList = [];
+        return () => {
+            setInstruction()
+        }
+    }, [])
+
+    function setInstruction() {
+        console.log("Instruction", item.instructions)
+        item?.instructions?.[0]?.produits.forEach(async (it) => {
+            console.log(it.ingredients)
+            await nutritionAPI.getIngredientsByID(Number(it.ingredients)).then((resp) => {
+                console.log(nutritionTipsList)
+                nutritionTipsList.push({
+                    ...resp,
+                    ...it,
+                    nutritionTip: resp.name,
+                    nutritionTipDetail: item.instructions?.[0]?.description,
+                },)
+
+                importantHealthTipsList.push(resp.name)
+
+                healtTipsDetailList.push(item.description)
+            });
+
+        })
+    }
 
     const [state, setState] = useState({
         showSnackBar: false,
@@ -110,9 +130,12 @@ const HealthTipsDetailScreen = ({ navigation, route }) => {
                                     •
                                 </Text>
                                 <Text style={{ marginLeft: Sizes.fixPadding - 5.0, ...Fonts.blackColor14SemiBold }}>
-                                    {item.nutritionTip}
+                                   Mettre {item.quantite} g de {item.nutritionTip} - {item.calories} Calories par grammes
                                 </Text>
                             </View>
+                            <Heading style={{ ...Fonts.grayColor13Regular }}>
+                                Instructions de la recette : 
+                            </Heading>
                             <Text style={{ ...Fonts.grayColor13Regular }}>
                                 {item.nutritionTipDetail}
                             </Text>
@@ -124,6 +147,13 @@ const HealthTipsDetailScreen = ({ navigation, route }) => {
     }
 
     function healthTipsDetail() {
+        // useEffect(() => {
+        //     // console.log("item : ",item)
+        //     return () => {
+        //         setInstruction()
+        //     }
+        // }, [])
+
         return (
             <View style={{ marginVertical: Sizes.fixPadding, marginHorizontal: Sizes.fixPadding * 2.0, }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>

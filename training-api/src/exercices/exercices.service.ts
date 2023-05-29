@@ -8,7 +8,12 @@ export class ExercicesService {
     console.log('get all exercices')
     return new Promise(async (resolve, reject) => {
       try {
-        const exercices = await prisma.exercices.findMany();
+        const exercices = await prisma.exercices.findMany({
+          include: {
+            muscle: true,
+            _count: true
+          }
+        });
         resolve({ status: true, data: exercices });
       } catch (err) {
         reject({ status: false, error: err });
@@ -23,6 +28,24 @@ export class ExercicesService {
           where: { id : Number(id) },
           include: {
             muscle: true,
+            _count: true
+          }
+        });
+        resolve({ status: true, data: exercices });
+      } catch (err) {
+        reject({ status: false, error: err });
+      }
+    });
+  }
+
+  async findAllByCategory(id) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const exercices = await prisma.exercices.findMany({
+          where: { TypeExercicesId : Number(id) },
+          include: {
+            muscle: true,
+            _count: true
           },
         });
         resolve({ status: true, data: exercices });
@@ -70,11 +93,23 @@ export class ExercicesService {
     });
   }
 
-  async getCategorieExercices(id) {
+  async getCategoriesExercices() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const exercices = await prisma.typeExercices.findMany();
+        resolve({ status: true, data: exercices });
+      } catch (err) {
+        console.error(err);
+        reject({ status: false, error: err });
+      }
+    });
+  }
+
+  async getCategorieExercicesByID(id) {
     return new Promise(async (resolve, reject) => {
       try {
         const exercices = await prisma.typeExercices.findMany({
-          where: {},
+          where: { id : Number(id)},
         });
         resolve({ status: true, data: exercices });
       } catch (err) {
