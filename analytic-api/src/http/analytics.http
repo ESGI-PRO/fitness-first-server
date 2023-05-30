@@ -1,0 +1,68 @@
+# baseURL
+@baseURL = http://localhost:8000/analytics
+
+###
+# get analytics
+GET {{ baseURL }}/Analytics
+Content-Type: application/json
+
+###
+# get analytics by id
+GET {{ baseURL }}/Analytics/:id="646b2a1b6ea925d2d3dc6b0e"
+Content-Type: application/json
+
+###
+# create analytics
+POST {{ baseURL }}/createAnalytics
+Content-Type: application/json
+
+{
+  "appName" : "Bouba13",
+  "apiKey": "1234",
+  "userAgent": "users apgent",
+  "baseUrl": "www.google.fr",
+  "data": "body"
+}
+
+###
+# update analytics
+PUT {{ baseURL }}/Analytics/uiid
+Content-Type: application/json
+
+{   
+  "appName" : "Bouba13",
+  "apiKey": "1234",
+  "userAgent": "users apgent",
+  "baseUrl": "www.google.fr",
+  "data": "body"
+}
+
+###
+# delete analytics
+DELETE {{ baseURL }}/Analytics/1
+
+
+###
+# create visitors
+POST {{ baseURL }}/createVisitors
+Content-Type: application/json
+
+{
+  "apiKey": "totto",
+  "appName": "bouba1234",
+  "userAgent": "user agent",
+  "baseUrl": "url base"
+}
+
+
+###
+# count visitors
+POST  {{ baseURL }}/AnalyticsVisitors
+Content-Type: application/json
+
+{
+  "apiKey": "toto2",
+  "appName": "bouba2",
+  "userAgent": "user agent",
+  "baseUrl": "url base"
+}
