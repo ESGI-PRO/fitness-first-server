@@ -53,3 +53,16 @@ Content-Type: application/json
   "userAgent": "user agent",
   "baseUrl": "url base"
 }
+
+
+###
+# count visitors
+POST  {{ baseURL }}/AnalyticsVisitors
+Content-Type: application/json
+
+{
+  "apiKey": "toto2",
+  "appName": "bouba2",
+  "userAgent": "user agent",
+  "baseUrl": "url base"
+}

@@ -2,6 +2,7 @@ const finals = require('../datas/final');
 const categories = require('../datas/categories');
 const recettes = require('../datas/recettes');
 import { PrismaClient } from '@prisma/client';
+import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
 
@@ -13,7 +14,10 @@ function insertCategories() {
       }),
     ),
   )
-    .then(() => console.info('[SEED] Succussfully create categories records'))
+    .then(() => {
+      console.info('[SEED] Succussfully create categories records');
+      insertIngredients();
+    })
     .catch((e) =>
       console.error('[SEED] Failed to create categories records', e),
     );
@@ -42,9 +46,8 @@ function insertIngredients() {
     ),
   )
     .then(() => {
-      console.info('[SEED] Succussfully create ingredients records')
-      insertIngredients();
-
+      console.info('[SEED] Succussfully create ingredients records');
+      insertRecettes();
     })
     .catch((e) =>
       console.error('[SEED] Failed to create ingredients records', e),
@@ -52,63 +55,36 @@ function insertIngredients() {
 }
 
 function insertRecettes() {
-  Promise.all(
-    recettes.map((n) =>
-      prisma.recettes.create({
-        data: {
-          title: "Ma premiere recette de nutrition pour mes eleves !",
-          UserId: 4,
-          instructions: {  
-            "instruction1" : {
-              "order" : 1,
-              "produits" : [
-                {
-                  "quantite" : 150,
-                  "ingredients" : 401
-                }
-              ],
-              "description" : "Mettez la farine dans un saladier, ajoutez le sucre et les œufs. "
-            },
-            "instruction2" : {
-              "order" : 2,
-              "produits" : [
-                {
-                  "quantite" : 150,
-                  "ingredients" : 403 
-                }
-              ],
-              "description" : "Récupérez les grains de la gousse de vanille avec la pointe d’un couteau en raclant l’intérieur de la gousse. "
-            },
-            "instruction3" : {
-              "order" : 4,
-              "produits" : [
-                {
-                  "quantite" : 150,
-                  "ingredients" : 407
-                }
-              ],
-              "description" : "À l’aide d’un fouet, battez le tout en y ajoutant petit à petit le lait, jusqu’à obtention d’une pâte lisse et fluide. Si votre pâte est encore trop épaisse, ajoutez-y un peu d’eau ou de bière pour la fluidifier sans l’alourdir.  "
-            },
-            "instruction4" : {
-              "order" : 4,
-              "produits" : [
-                {
-                  "quantite" : 150,
-                  "ingredients" : 408
-                }
-              ],
-              "description" : "Mettez la farine dans un saladier, ajoutez le sucre et les œufs. "
-              
-            }
-          }
-        },
-      }),
-    ),
-  )
-    .then(() => console.info('[SEED] Succussfully create RECETTES records'))
-    .catch((e) =>
-      console.error('[SEED] Failed to create ingredients records', e),
-    );
+  try {
+    for (var i = 0; i < 170 ; i++) {
+      
+      prisma.recettes
+        .create({
+          data: {
+            title: faker.lorem.text(),
+            UserId: faker.number.int({ max: 160 }),
+            instructions: [
+              {
+                order: faker.number.int({ max: 160 }),
+                produits: [
+                  {
+                    quantite: faker.number.int({ max: 360 }),
+                    ingredients: faker.number.int({ max: 191 }),
+                  },
+                ],
+                description: faker.lorem.paragraph(),
+              },
+            ],
+          },
+        })
+        .then(() => console.info('[SEED] Succussfully create RECETTES records'))
+        .catch((e) =>
+          console.error('[SEED] Failed to create ingredients records', e),
+        );
+    }
+  } catch (e) {
+    console.log(e);
+  }
 }
-insertCategories()
-insertRecettes()
+// insertCategories();
+insertRecettes();

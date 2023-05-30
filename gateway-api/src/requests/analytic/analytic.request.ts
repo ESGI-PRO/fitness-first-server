@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Interface } from "readline";
 
+
 export interface AnalyticInterface {
     id: string;
     appId: string;

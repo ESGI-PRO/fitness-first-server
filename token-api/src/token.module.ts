@@ -6,6 +6,7 @@ import { TokenService } from './services/token.service';
 import { JwtConfigService } from './services/config/jwt-config.service';
 import { MongoConfigService } from './services/config/mongo-config.service';
 import { TokenSchema } from './schemas/token.schema';
+import { ConfigService } from './services/config/config.service';
 
 @Module({
   imports: [
@@ -19,10 +20,12 @@ import { TokenSchema } from './schemas/token.schema';
       {
         name: 'Token',
         schema: TokenSchema,
+        collection: 'tokens',
       },
     ]),
+
   ],
   controllers: [TokenController],
-  providers: [TokenService],
+  providers: [TokenService, ConfigService],
 })
 export class TokenModule {}

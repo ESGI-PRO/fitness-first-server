@@ -5,6 +5,12 @@ export interface IUser extends Document {
   email: string;
   password: string;
   is_confirmed: boolean;
+  userName?: string;
+  mobileNumber?: string;
+  isTrainer?: boolean;
+  trainerId?: string;
+  traineeIds?: Array<string>;
+  trainerSpeciality?: string;
   compareEncryptedPassword: (password: string) => boolean;
   getEncryptedPassword: (password: string) => string;
 }

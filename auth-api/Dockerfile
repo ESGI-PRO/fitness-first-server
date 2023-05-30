@@ -9,6 +9,7 @@ WORKDIR /var/www/auth-api
 
 ADD . /var/www/auth-api/
 RUN pnpm install
+# RUN npx prisma generate
 
 EXPOSE 8004
 

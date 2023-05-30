@@ -1,6 +1,7 @@
 const exercices = require('../datas/exercices');
 const TypeExercices = require('../datas/TypeExercices');
 import { PrismaClient } from '@prisma/client';
+import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
 
@@ -53,4 +54,44 @@ function insertExercices() {
   }
 }
 
-insertTypeExercices();
+function insertTraining() {
+  try {
+    for (var i = 0; i < 160; i++) {
+      prisma.training
+        .create({
+          data: {
+            name: faker.lorem.text() ,
+            description: faker.lorem.paragraph() ,
+            category: faker.number.int({ max: 16 }) , // 42
+            userId: faker.string.uuid(),
+            image: faker.image.urlLoremFlickr(),
+            listExercices: [],
+            durationStart: faker.date.birthdate(),
+            durationEnd: faker.date.birthdate(),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            trainingOnExercices: {
+              create: [
+                {
+                  exerciceId: faker.number.int({ max: 160 }),
+                  series: faker.number.int({ max: 10}),
+                  repetition: faker.number.int({ max: 30 }),
+                },
+              ],
+            },
+          },
+        })
+        .then(() => console.info('[SEED] Succussfully create Training records'))
+        .catch((e) =>
+          console.error('[SEED] Failed to create Training  records', e),
+        );
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+// insertTypeExercices();
+insertTraining();
+
+// insertTypeExercices();
