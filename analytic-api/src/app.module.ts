@@ -1,13 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './services/app.service';
-import { UsersModule } from './users/users.module';
-import { TrainingModule } from './training/training.module';
-import { PrismaService } from './services/prisma.service';
+import { AppService } from './app.service';
+import { ConfigService } from './services/config/config.service';
+import { AnalyticsSchema } from './services/config/analytics.schema';
+import { DatabaseModule } from './services/config/database.module';
+import { AnalyticsProviders } from './analytics.providers';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [UsersModule, TrainingModule],
+  imports: [DatabaseModule, ConfigModule.forRoot()],
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [AppService, ...AnalyticsProviders],
 })
 export class AppModule {}

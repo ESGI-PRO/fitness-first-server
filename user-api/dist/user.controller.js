@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
@@ -215,7 +214,8 @@ __decorate([
 UserController = __decorate([
     (0, common_1.Controller)('user'),
     __param(1, (0, common_1.Inject)('MAILER_SERVICE')),
-    __metadata("design:paramtypes", [user_service_1.UserService, typeof (_a = typeof microservices_1.ClientProxy !== "undefined" && microservices_1.ClientProxy) === "function" ? _a : Object])
+    __metadata("design:paramtypes", [user_service_1.UserService,
+        microservices_1.ClientProxy])
 ], UserController);
 exports.UserController = UserController;
 //# sourceMappingURL=user.controller.js.map
