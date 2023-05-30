@@ -14,7 +14,7 @@ import {
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiTags, ApiOkResponse, ApiCreatedResponse, ApiBody } from '@nestjs/swagger';
-import { AnalyticInterface, CreateAnalyticDto, GetAllAnalyticsDto, GetAnalyticDto } from './requests/analytic/analytic.request';
+import { AnalyticInterface, CreateAnalyticDto, GetAllAnalyticsDto, GetAnalyticDto } from './interfaces-requests-responses/analytic/analytic.request';
 import { randomUUID } from 'crypto';
 @Controller('analytics')
 @ApiTags('analytics')
@@ -23,6 +23,7 @@ export class AnalyticController {
     @Inject('ANALYTIC_SERVICE') private readonly analyticServiceClient: ClientProxy,
   ) {}
 
+  //create analytics - count visitors
   @Post("/createAnalytics")
   @HttpCode(200)
   createAnalytics(@Body() data: any) {
@@ -30,6 +31,22 @@ export class AnalyticController {
     return this.analyticServiceClient.send('create_analytics',data);
   }
 
+  @Post("/AnalyticsVisitors")
+  @HttpCode(200)
+  countAnalyticsVisitors(@Body() data: any) {
+    console.log("analyticsVisitors----", data)
+    const analyticsVisitors = this.analyticServiceClient.send('update_analytics_visitors', data);
+    return analyticsVisitors;
+  }
+
+  //create visitors
+  @Post("/createVisitors")
+  @HttpCode(200)
+  createVisitors(@Body() data: any) {
+    return this.analyticServiceClient.send('create_visitors', data);
+  }
+
+  //get analytics - visitors count
   @Get("/Analytics")
   @HttpCode(200)
   findAllAnalytics() {
@@ -46,13 +63,6 @@ export class AnalyticController {
     return analytics;
   }
 
-  //create visitors
-  @Post("/createVisitors")
-  @HttpCode(200)
-  createVisitors(@Body() data: any) {
-    //console.log("data", data)
-    return this.analyticServiceClient.send('create_visitors', data);
-  }
 
   @Get("/AnalyticsVisitors")
   @HttpCode(200)
@@ -78,13 +88,7 @@ export class AnalyticController {
     return analyticsVisitors;
   }
 
-  @Post("/AnalyticsVisitors")
-  @HttpCode(200)
-  updateAnalyticsVisitors(@Body() data: any) {
-    console.log("analyticsVisitors----", data)
-    const analyticsVisitors = this.analyticServiceClient.send('update_analytics_visitors', data);
-    return analyticsVisitors;
-  }
+
 
   // @Get("/islive")
   // @ApiOkResponse({

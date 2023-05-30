@@ -9,7 +9,6 @@ export class AnalytiqueEventinterface {
   readonly events?: JSON;
 } 
 
-
 export interface Analyticsinterface extends Document {
   readonly appName: string;
   readonly apiKey: string;
@@ -17,11 +16,6 @@ export interface Analyticsinterface extends Document {
   readonly baseUrl: string;
   readonly data: AnalytiqueEventinterface;
 }
-
-// export interface CountVisitorsinterface  extends Document {
-//   readonly count: number;
-//   readonly pageCountLabel: string; 
-// }
 
 export interface AnalyticsVisitorsinterface extends Document {
   readonly appName: string;

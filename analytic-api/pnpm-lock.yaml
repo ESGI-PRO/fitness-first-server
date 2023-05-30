@@ -4,7 +4,7 @@ specifiers:
   '@nestjs/cli': ^9.0.0
   '@nestjs/common': ^9.0.0
   '@nestjs/config': ^2.3.2
-  '@nestjs/core': ^9.0.0
+  '@nestjs/core': ^9.3.12
   '@nestjs/microservices': ^9.4.0
   '@nestjs/mongoose': ^9.2.2
   '@nestjs/platform-express': ^9.0.0
