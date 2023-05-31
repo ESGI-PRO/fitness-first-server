@@ -57,7 +57,7 @@ $ WEBHOOK_SECRET=YOUR_WEBHOOK_SECRET #you will get it when running stripe-cli
 
 ```bash
 # migrate prisma schema
-$ npm run migrate:dev
+$ npx prisma migrate dev --name init
 
 # prisma generate
 $ npx prisma generate
