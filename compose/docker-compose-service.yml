@@ -1,6 +1,19 @@
 version: '3.9'
 
 services:
+  front:
+    build:
+      context: ../front
+      dockerfile: Dockerfile
+      target: development-build-stage
+    hostname: front
+    env_file:
+      - ../front/.env
+    volumes:
+      - ../front:/var/www/front
+    ports:
+      - 3000:3000
+
   gateway-api:
     build:
       context: ../gateway-api
@@ -53,19 +66,6 @@ services:
     ports:
       - 8003:8003
 
-  auth-api:
-    build:
-      context: ../auth-api
-      dockerfile: Dockerfile
-      target: development-build-stage
-    hostname: auth-api
-    env_file:
-      - ../auth-api/.env
-    volumes:
-      - ../auth-api:/var/www/auth-api
-    ports:
-        - 8004:8004
-
   analytic-api:
     build:
       context: ../analytic-api
@@ -91,6 +91,7 @@ services:
         - ../token-api:/var/www/token-api
     ports:
       - 8006:8006
+
   permission-api:
     build:
       context: ../permission-api

@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { IsString, IsNotEmpty, IsObject, IsOptional, IsNumber } from "class-validator";
 
 export class AnalytiqueEventinterface {
   readonly eventName: string;

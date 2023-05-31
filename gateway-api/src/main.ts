@@ -9,7 +9,6 @@ async function bootstrap() {
   app.enableCors();
   const options = new DocumentBuilder()
     .setTitle('API docs')
-    .addTag('auth')
     .addTag('users')
     .addTag('analytic')
     .addTag('training')

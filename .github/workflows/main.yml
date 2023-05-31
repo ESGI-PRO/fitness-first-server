@@ -32,14 +32,6 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-analytic-api:latest
           labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-analytic-api:latest
 
-      - name: Build and push auth
-        id: docker_build_auth_service
-        uses: docker/build-push-action@v2
-        with:
-          context: ./auth-api
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-auth-api:latest
-          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-auth-api:latest
 
       - name: Build and push gateway
         id: docker_build_gateway_service
