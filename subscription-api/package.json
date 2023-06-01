@@ -5,6 +5,9 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "scripts": {
     "build": "nest build",
     "start": "nest start",
@@ -13,10 +16,10 @@
     "lint": "eslint \"src/**/*.ts\" --fix"
   },
   "dependencies": {
-    "@nestjs/common": "^9.0.0",
-    "@nestjs/core": "^9.0.0",
+    "@nestjs/common": "^9.4.0",
+    "@nestjs/core": "^9.4.0",
     "@nestjs/mapped-types": "*",
-    "@nestjs/microservices": "^9.0.0",
+    "@nestjs/microservices": "^9.4.0",
     "@nestjs/platform-express": "^9.0.0",
     "@prisma/client": "^4.13.0",
     "class-transformer": "^0.5.0",
@@ -26,6 +29,7 @@
     "reflect-metadata": "0.1.13",
     "rimraf": "4.4.1",
     "rxjs": "7.8.0",
+    "source-map-support": "^0.5.21",
     "stripe": "^11.5.0"
   },
   "devDependencies": {
