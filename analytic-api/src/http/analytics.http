@@ -2,7 +2,7 @@
 @baseURL = http://localhost:8000/analytics
 
 ###
-# get analytics
+# get all analytics
 GET {{ baseURL }}/Analytics
 Content-Type: application/json
 
@@ -21,7 +21,13 @@ Content-Type: application/json
   "apiKey": "1234",
   "userAgent": "users apgent",
   "baseUrl": "www.google.fr",
-  "data": "body"
+  "data": {
+    "eventName": "name",
+    "eventAction": "action",
+    "eventCategory": "category",
+    "eventPage": "page",
+    "date": "date",
+  }
 }
 
 ###
@@ -66,3 +72,10 @@ Content-Type: application/json
   "userAgent": "user agent",
   "baseUrl": "url base"
 }
+
+
+###
+# get all visitors count
+GET {{ baseURL }}/AnalyticsVisitors
+Content-Type: application/json
+

@@ -18,10 +18,10 @@ services:
       service: postgres
 
   #ALL APIs
-  # analytic-api:
-  #   extends:
-  #     file: ./compose/docker-compose-service.yml
-  #     service: analytic-api
+  analytic-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: analytic-api
 
   training-api:
     extends:
@@ -79,3 +79,11 @@ services:
     extends:
       file: ./compose/docker-compose-service.yml
       service: gateway-api
+
+#front
+  front:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: front
+    depends_on:
+      - gateway-api
