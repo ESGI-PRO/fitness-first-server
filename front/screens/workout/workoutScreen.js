@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View, StatusBar, StyleSheet, Dimensions, TouchableOpacity, FlatList, Text, ImageBackground, Image, } from "react-native";
 import { Colors, Fonts, Sizes } from '../../constants/styles';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Snackbar } from 'react-native-paper';
-
+import axios from "axios"
 const { width, height } = Dimensions.get('window');
 
 const topWorkoutsList = [
@@ -118,6 +118,7 @@ const WorkoutScreen = ({ navigation }) => {
                         <>
                             {topWorkoutsInfo()}
                             {categoriesInfo()}
+                            {exercicesInfo()}
                             {premiumInfo()}
                             {topTrainersInfo()}
                         </>
@@ -194,6 +195,58 @@ const WorkoutScreen = ({ navigation }) => {
                     </Text>
                 </ImageBackground>
             </TouchableOpacity>
+        )
+    }
+
+    async function getExercicesFetch(){
+        return new Promise((resolve, reject) => {
+            const response = axios.get("http://localhost:8000/api/training/exercices")
+            console.log("🚀 ~ file: workoutScreen.js:206 ~ returnnewPromise ~ response.data:", response.data)
+
+            resolve(response.data)
+        })
+    }
+    
+    function exercicesInfo() {
+
+        const list = []
+
+        useEffect(() => {
+            return() => {
+                getExercicesFetch()
+            }
+        } , [])
+
+        const renderItem = ({ item }) => (
+            <View style={{
+                backgroundColor: item.bgColor,
+                ...styles.categoryInfoWrapStyle,
+            }}
+            >
+                <Image
+                    source={item.categoryImage}
+                    style={styles.categoryImageStyle}
+                />
+                <Text style={{ textAlign: 'center', ...Fonts.blackColor14SemiBold }}>
+                    {item.categoryName}
+                </Text>
+            </View>
+        )
+        
+        return (
+            <View style={{margin: 10}}>
+                <Text style={{ marginHorizontal: Sizes.fixPadding * 2.0, marginBottom: Sizes.fixPadding + 10.0, ...Fonts.blackColor16SemiBold }}>
+                   Exercices
+                </Text>
+                <FlatList
+                    data={categoriesList}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item) => `${item.id}`}
+                    renderItem={renderItem}
+                    contentContainerStyle={{ paddingLeft: Sizes.fixPadding * 2.0, paddingRight: Sizes.fixPadding - 5.0, }}
+                />
+            </View>
         )
     }
 

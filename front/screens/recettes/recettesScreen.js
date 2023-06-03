@@ -12,72 +12,50 @@ import {
 import { Colors, Fonts, Sizes } from "../../constants/styles";
 import { Snackbar } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
-import axios from "axios";
+import { Button, Flex } from "native-base";
 
-
-// const healthTipsList = [
-//   {
-//     id: "1",
-//     healthTipImage: require("../../assets/images/tips/tip1.png"),
-//     healthTip: "Recette 1",
-//     healthTipDetail:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
-//     isFavorite: false,
-//   },
-//   {
-//     id: "2",
-//     healthTipImage: require("../../assets/images/tips/tip2.png"),
-//     healthTip: "Recette 2",
-//     healthTipDetail:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
-//     isFavorite: false,
-//   },
-//   {
-//     id: "3",
-//     healthTipImage: require("../../assets/images/tips/tip3.png"),
-//     healthTip: "Recette 3",
-//     healthTipDetail:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
-//     isFavorite: false,
-//   },
-//   {
-//     id: "4",
-//     healthTipImage: require("../../assets/images/tips/tip4.png"),
-//     healthTip: "Recette 4",
-//     healthTipDetail:
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
-//     isFavorite: false,
-//   },
-// ];
-
+const healthTipsList = [
+  {
+    id: "1",
+    healthTipImage: require("../../assets/images/tips/tip1.png"),
+    healthTip: "Recette 1",
+    healthTipDetail:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
+    isFavorite: false,
+  },
+  {
+    id: "2",
+    healthTipImage: require("../../assets/images/tips/tip2.png"),
+    healthTip: "Recette 2",
+    healthTipDetail:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
+    isFavorite: false,
+  },
+  {
+    id: "3",
+    healthTipImage: require("../../assets/images/tips/tip3.png"),
+    healthTip: "Recette 3",
+    healthTipDetail:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
+    isFavorite: false,
+  },
+  {
+    id: "4",
+    healthTipImage: require("../../assets/images/tips/tip4.png"),
+    healthTip: "Recette 4",
+    healthTipDetail:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad",
+    isFavorite: false,
+  },
+];
 
 const RecettesScreen = ({ navigation }) => {
   const [state, setState] = useState({
-    //ingredients = healthTips
-    healthTips: null,
+    healthTips: healthTipsList,
     showSnackBar: false,
     snackBarMsg: null,
   });
 
-  useEffect(() => {
-    const fetchRecettes = async () => {
-      try {
-        const data = await axios.get("http://localhost:8000/recettes");
-        setState({
-          ...state,
-          healthTips: data.data
-        })
-
-        
-      } catch (e) { 
-        console.log(e)
-      }
-    }
-    
-    fetchRecettes()
-  },[])
-
-  
   const updateState = (data) => setState((state) => ({ ...state, ...data }));
 
   const { healthTips, showSnackBar, snackBarMsg } = state;
@@ -87,7 +65,6 @@ const RecettesScreen = ({ navigation }) => {
       <StatusBar backgroundColor={Colors.primaryColor} />
       <View style={{ flex: 1 }}>
         {header()}
-       
         {healthTipsInfo()}
       </View>
       <Snackbar
@@ -172,14 +149,25 @@ const RecettesScreen = ({ navigation }) => {
 
   function header() {
     return (
-      <Text
-        style={{
-          margin: Sizes.fixPadding * 2.0,
-          ...Fonts.blackColor18SemiBold,
-        }}
-      >
-        Mes Recettes
-      </Text>
+      <Flex direction="row" className="flex justify-between mx-2">
+        <Text
+          style={{
+            margin: Sizes.fixPadding * 2.0,
+            ...Fonts.blackColor18SemiBold,
+          }}
+        >
+          Mes Recettes
+        </Text>
+
+        <Button
+          colorScheme="primary"
+          onPress={() => {
+            console.log("hello");
+          }}
+        >
+          Primary
+        </Button>
+      </Flex>
     );
   }
 };
