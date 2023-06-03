@@ -102,7 +102,7 @@ const WorkoutDetailScreen = ({ navigation, route }) => {
     return () => {
       getStarded();
     };
-  });
+  } , []);
 
   const [exercices, setExercices] = useState([]);
   const [exercicesD, setExercicesD] = useState([]);
@@ -113,9 +113,12 @@ const WorkoutDetailScreen = ({ navigation, route }) => {
   });
 
   function getStarded() {
-    workoutStepsList = [];
+    workoutStepsList.length = 0;
 
-    item?.trainingOnExercices.forEach((item, i) => {
+    console.log(item?.trainingOnExercices)
+
+    item?.trainingOnExercices?.forEach((item, i) => {
+      console.log(i)
       API.getExerciceByID(item.exerciceId).then((exercice) => {
         var v = {
           id: item.exerciceId,

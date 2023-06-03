@@ -29,8 +29,10 @@ import {
 import { Input } from "@rneui/base";
 import { Svg, Path } from "react-native-svg";
 import training from "../../../api/trainings";
+import { Dimensions } from "react-native";
+const { width, height } = Dimensions.get("window");
 
-const API = training
+const API = training;
 const healthTipsList = [
   {
     key: "1",
@@ -258,7 +260,7 @@ const TrainingAddScreen = ({ navigation }) => {
       };
     }, []);
     const renderItem = ({ item }) => (
-      <View
+      <TouchableOpacity
         style={{
           ...styles.categoryInfoWrapStyle,
           backgroundColor: exercicesSelected.find(
@@ -266,10 +268,15 @@ const TrainingAddScreen = ({ navigation }) => {
           )
             ? "green"
             : "white",
+          width: width / 4,
         }}
+        onPress={() => addOrRemoveExercices(item)}
+        className="flex justify-center items-center align-center shadow-md"
       >
+        <Text fontSize="xs">{item.name}</Text>
+
         {/* <Image source={item.categoryImage} style={styles.categoryImageStyle} /> */}
-        <Button
+        {/* <Button
           style={{
             textAlign: "center",
             ...Fonts.blackColor14SemiBold,
@@ -277,11 +284,12 @@ const TrainingAddScreen = ({ navigation }) => {
             width: 80,
             textAlign: "center",
           }}
+          className=" flex justify-center items-center"
           onPress={() => addOrRemoveExercices(item)}
         >
-          {item.name}
-        </Button>
-      </View>
+         
+        </Button> */}
+      </TouchableOpacity>
     );
     return (
       <View>
@@ -295,8 +303,12 @@ const TrainingAddScreen = ({ navigation }) => {
           Exercices ({exercicesSelected?.length} selectionnés){" "}
           {JSON.stringify(exercicesSelected)}
         </Text>
-        
+
         <FlatList
+          style={{
+            flex: 1,
+            // backgroundColor: "blue",
+          }}
           data={categoriesList}
           horizontal={false}
           numColumns={3}
@@ -304,11 +316,11 @@ const TrainingAddScreen = ({ navigation }) => {
           keyExtractor={(item) => `${item.id}`}
           renderItem={renderItem}
           contentContainerStyle={{
+            // backgroundColor: "yellow",
             paddingLeft: Sizes.fixPadding * 2.0,
-            paddingRight: Sizes.fixPadding - 5.0,
+            paddingRight: Sizes.fixPadding * 2.0,
           }}
         />
-        
       </View>
     );
   }
@@ -505,13 +517,9 @@ const TrainingAddScreen = ({ navigation }) => {
       {listData.length == 0 ? (
         noDataInfo()
       ) : (
-        <ScrollView>
-          <View style={{ flex: 1 }}>
-            <FormControl
-              isRequired
-              isInvalid={name?.length === 0}
-              className="m-3"
-            >
+        <ScrollView >
+          <View className="flex m-5">
+            <FormControl isRequired isInvalid={name?.length === 0} className="">
               <FormControl.Label>Nom </FormControl.Label>
               <Input
                 placeholder="Nom de votre programme"
@@ -529,7 +537,7 @@ const TrainingAddScreen = ({ navigation }) => {
             <FormControl
               isRequired
               isInvalid={description?.length === 0}
-              className="m-3"
+              className=""
             >
               <FormControl.Label>Description</FormControl.Label>
               <TextArea
@@ -539,7 +547,7 @@ const TrainingAddScreen = ({ navigation }) => {
                 value={description}
                 onChangeText={(text) => setDescription(text)}
                 selectionColor={Colors.primaryColor}
-                className="w-full m-1"
+                className="m-1"
                 _light={{
                   placeholderTextColor: "trueGray.700",
                   bg: "coolGray.100",
@@ -574,14 +582,15 @@ const TrainingAddScreen = ({ navigation }) => {
 
             {ActionsheetExercices()}
 
-            <Button
+            
+          </View>
+          <Button
               colorScheme="green"
               className="p-5 mt-7"
               onPress={handleFormSubmit}
             >
               Ajouter
             </Button>
-          </View>
         </ScrollView>
       )}
     </View>
@@ -615,6 +624,13 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.whiteColor,
     elevation: 4.0,
     marginBottom: Sizes.fixPadding * 3.0,
+  },
+  categoryInfoWrapStyle: {
+    borderRadius: Sizes.fixPadding + 5.0,
+    width: width / 4.5,
+    marginRight: Sizes.fixPadding + 5.0,
+    marginVertical: 4,
+    padding: Sizes.fixPadding
   },
   healthTipImageStyle: {
     height: 100.0,

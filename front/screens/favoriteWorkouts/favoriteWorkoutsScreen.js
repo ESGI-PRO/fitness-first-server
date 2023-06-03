@@ -15,9 +15,9 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import { Snackbar } from "react-native-paper";
 import axios from "axios";
 import { ScrollView } from "react-native-gesture-handler";
-import training  from "../../api/trainings";
+import training from "../../api/trainings";
 
-const API = training
+const API = training;
 const { width } = Dimensions.get("window");
 
 const favoriteWorkoutsList = [
@@ -150,18 +150,17 @@ const FavoriteWorkoutsScreen = ({ navigation }) => {
   );
 
   async function getMyTrainingFetch() {
-
     API.getTrainingsByUserId("ERJHGFGH-FGHJK").then((response) => {
-      trainingsList.length = 0
+      trainingsList.length = 0;
       trainingsList.push(...response);
       setListData(...response);
-      console.log("Categories:", trainingsList?.length );
+      console.log("Categories:", trainingsList?.length);
     });
   }
 
   return (
     <View style={{ flex: 1 }}>
-      {listData.length == 0 ? (
+      {listData?.length == 0 ? (
         noDataInfo()
       ) : (
         <ScrollView>
@@ -217,6 +216,13 @@ const FavoriteWorkoutsScreen = ({ navigation }) => {
                       source={item.image}
                       style={styles.suggestedWorkoutImageStyle}
                     />
+                    <Snackbar
+                      style={styles.snackBarStyle}
+                      visible={showSnackBar}
+                      onDismiss={() => setShowSnackBar(false)}
+                    >
+                      Item Remove From Favorite List.
+                    </Snackbar>
                   </TouchableOpacity>
                 </View>
               );
@@ -224,13 +230,6 @@ const FavoriteWorkoutsScreen = ({ navigation }) => {
           </View>
         </ScrollView>
       )}
-      <Snackbar
-        style={styles.snackBarStyle}
-        visible={showSnackBar}
-        onDismiss={() => setShowSnackBar(false)}
-      >
-        Item Remove From Favorite List.
-      </Snackbar>
     </View>
   );
 
