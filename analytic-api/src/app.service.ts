@@ -51,6 +51,8 @@ export class AppService {
         apiKey: data.apiKey
       }, 
       { $inc: {count: 1 },
+        appName: data.appName,
+        baseUrl : data.baseUrl,
         userAgent: data.userAgent
       }, 
       { new: true, upsert: true });
