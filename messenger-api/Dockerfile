@@ -8,6 +8,7 @@ RUN mkdir -p /var/www/messenger-api
 WORKDIR /var/www/messenger-api
 
 ADD . /var/www/messenger-api/
+RUN echo "the path is : " && pwd
 RUN pnpm install
 RUN npx prisma generate
 

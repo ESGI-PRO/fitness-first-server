@@ -1,14 +1,12 @@
 FROM node:18.15-alpine as common-build-stage
 
-RUN npm install -g pnpm
-RUN npm i -g @nestjs/cli
-
-RUN mkdir -p /var/www/gateway-api
-
 WORKDIR /var/www/gateway-api
 
-ADD . /var/www/gateway-api/
-RUN pnpm install
+COPY package*.json ./
+RUN npm install -g @nestjs/cli
+RUN npm install
+
+COPY . .
 
 EXPOSE 8000
 
@@ -17,11 +15,11 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-CMD pnpm run start:dev
+CMD ["npm", "run", "start:dev"]
 
 # Production build stage
 FROM common-build-stage as production-build-stage
 
 ENV NODE_ENV=production
 
-CMD pnpm run build && pnpm run start:dev
+CMD ["npm", "run", "build", "&&", "npm", "run", "start:dev"]

@@ -8,6 +8,7 @@ RUN mkdir -p /var/www/token-api
 WORKDIR /var/www/token-api
 
 ADD . /var/www/token-api/
+RUN echo "the path is : " && pwd
 RUN pnpm install
 
 EXPOSE 8006

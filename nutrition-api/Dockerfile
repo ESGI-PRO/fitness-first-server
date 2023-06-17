@@ -8,6 +8,7 @@ RUN mkdir -p /var/www/nutrition-api
 WORKDIR /var/www/nutrition-api
 
 ADD . /var/www/nutrition-api/
+RUN echo "the path is : " && pwd
 RUN pnpm install
 RUN npx prisma generate
 # RUN npx prisma migrate dev --name init

@@ -8,6 +8,7 @@ RUN mkdir -p /var/www/permission-api
 WORKDIR /var/www/permission-api
 
 ADD . /var/www/permission-api/
+RUN echo "the path is : " && pwd
 RUN pnpm install
 
 EXPOSE 8007

@@ -8,6 +8,7 @@ RUN mkdir -p /var/www/mailer-api
 WORKDIR /var/www/mailer-api
 
 ADD . /var/www/mailer-api/
+RUN echo "the path is : " && pwd
 RUN pnpm install
 
 EXPOSE 8008

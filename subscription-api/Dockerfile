@@ -9,6 +9,7 @@ WORKDIR /var/www/subscription-api
 
 ADD . /var/www/subscription-api/
 RUN pnpm install
+RUN echo "the path is : " && pwd
 RUN npx prisma generate
 #RUN npx prisma migrate dev --name init
 #RUN npx prisma db seed
