@@ -81,9 +81,9 @@ services:
       service: gateway-api
 
 #front
-  front:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: front
-    depends_on:
-      - gateway-api
+  # front:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: front
+  #   depends_on:
+  #     - gateway-api
