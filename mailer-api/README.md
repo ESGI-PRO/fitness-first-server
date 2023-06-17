@@ -1,7 +1,6 @@
-# Analytics
+# Mailer
 
-This is the analytics service for the tracking data
-
+Mailer is a microservice that sends emails to users.
 
 ## Environment Variables
 
@@ -11,19 +10,19 @@ To run this project, you will need to add the following environment variables to
 API_GATEWAY_PORT=8000
 API_GATEWAY_HOST=gateway-api
 
-ANALYTICS_SERVICE_PORT=8005
-ANALYTIC_SERVICE_HOST=analytic-api
+USER_SERVICE_PORT=8002
+USER_SERVICE_HOST=user-api
 
 MAILER_SERVICE_PORT=8008
 MAILER_SERVICE_HOST=mailer-api
 
 MONGO_ROOT_USER=mongo_user
 MONGO_ROOT_PASSWORD=password
-MONGO_DATABASE=analytic_db
+MONGO_DATABASE=user_db
 MONGO_HOST=mongo
 
-MONGO_DSN=mongodb://mongo_user:password@localhost:27017/analytic_db
+MONGO_DSN=mongodb://mongo:27017/user_db
 
-BASE_URI=http://localhost/
+BASE_URI=http://localhost
 ```
 
