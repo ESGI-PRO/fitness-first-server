@@ -1,0 +1,27 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+trigger:
+  branches:
+    include:
+      - master
+
+pr:
+  branches:
+    include:
+      - dev
+
+jobs:
+  - job: Deploy
+    displayName: 'Deploy to AKS'
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:
+      - task: AzureCLI@2
+        inputs:
+          azureSubscription: 'your-azure-subscription'
+          scriptType: 'bash'
+          scriptLocation: 'scriptPath'
+          scriptPath: 'scripts/deploy.sh'
