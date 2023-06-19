@@ -8,7 +8,6 @@ RUN mkdir -p /var/www/training-api
 WORKDIR /var/www/training-api
 
 ADD . /var/www/training-api/
-RUN echo "the path is : " && pwd
 RUN pnpm install
 # RUN npx prisma generate
 
