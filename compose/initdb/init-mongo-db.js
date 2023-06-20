@@ -1,33 +1,33 @@
 print('Start #################################################################');
 
-db = db.getSiblingDB('users');
+db = db.getSiblingDB('db1');
 db.createUser(
     {
-        user: 'mongo_user',
+        user: 'mongo',
         pwd: 'password',
-        roles: [{ role: 'readWrite', db: 'users' }],
+        roles: [{ role: 'readWrite', db: 'db1' }],
     },
 );
-// db.createCollection('users');
+db.createCollection('test');
 
-db = db.getSiblingDB('testdb');
+db = db.getSiblingDB('db2');
 db.createUser(
     {
-        user: 'mongo_user',
+        user: 'mongo',
         pwd: 'password',
-        roles: [{ role: 'readWrite', db: 'testdb' }],
+        roles: [{ role: 'readWrite', db: 'db2' }],
     },
 );
-// db.createCollection('users');
+db.createCollection('test');
 
-db = db.getSiblingDB('api_test_db');
+db = db.getSiblingDB('db3');
 db.createUser(
     {
-        user: 'api_user',
-        pwd: 'api1234',
-        roles: [{ role: 'readWrite', db: 'api_test_db' }],
+        user: 'mongo',
+        pwd: 'password',
+        roles: [{ role: 'readWrite', db: 'db3' }],
     },
 );
-db.createCollection('users');
+db.createCollection('test');
 
 print('END #################################################################');
