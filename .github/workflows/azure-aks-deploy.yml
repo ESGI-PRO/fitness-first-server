@@ -1,0 +1,68 @@
+name: Azure deploy
+
+on:
+  push:
+    branches: "feature/yatera"
+    paths:
+      - ".github/workflows/azure-aks-deploy.yml"
+      - "manifests/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # - name: Create ACR
+      #   id: create-acr
+      #   run: |
+      #     az acr create -n challengecd -g challengecd81d0-rg --location "West Europe" --sku Standard --admin-enabled
+      #     echo "::set-output name=acr_username::`az acr credential show -n challengecd --query username | xargs`"
+      #     echo "::set-output name=acr_password::`az acr credential show -n challengecd --query passwords[0].value | xargs`"
+      #     echo "::add-mask::`az acr credential show -n challengecd --query passwords[0].value | xargs`"
+
+      # - uses: azure/docker-login@v1
+      #   with:
+      #     login-server: challengecd.azurecr.io
+      #     username: ${{ steps.create-acr.outputs.acr_username }}
+      #     password: ${{ steps.create-acr.outputs.acr_password }}
+
+      # - name: Build and push image to ACR
+      #   id: build-image
+      #   run: |
+      #     docker build "$GITHUB_WORKSPACE/api" -f  "api/Dockerfile" -t challengecd.azurecr.io/jokeapp:${{ github.sha }} --label dockerfile-path=api/Dockerfile
+      #     docker push challengecd.azurecr.io/jokeapp:${{ github.sha }}
+
+      - uses: azure/k8s-set-context@v1
+        id: login
+        with:
+          kubeconfig: ${{ secrets.aks_kubeConfig }}
+
+      - name: Create namespace
+        run: |
+          namespacePresent=`kubectl get namespace | grep challenges | wc -l`
+          if [ $namespacePresent -eq 0 ]
+          then
+              echo `kubectl create namespace challenges`
+          fi
+
+      # - uses: azure/k8s-create-secret@v1
+      #   with:
+      #     namespace: joke-app86ff
+      #     container-registry-url: challengecd.azurecr.io
+      #     container-registry-username: ${{ steps.create-acr.outputs.acr_username }}
+      #     container-registry-password: ${{ steps.create-acr.outputs.acr_password }}
+      #     secret-name: jokeappdockerauth
+
+      - uses: azure/k8s-deploy@v1.2
+        with:
+          namespace: challenges
+          manifests: |
+            manifests/deployment.yml
+            manifests/service.yml
+          images: |
+            idboubacar/challenge-semestre2-gateway-api:latest

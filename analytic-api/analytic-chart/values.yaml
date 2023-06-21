@@ -5,6 +5,8 @@ service:
   port: 8005
   targetPort: 8005
 
+
+
 deployment:
   docker:
     host: challengesemestre2.azurecr.io
