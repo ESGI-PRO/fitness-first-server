@@ -33,9 +33,10 @@ jobs:
     steps:
     
     - uses: azure/login@v1
-      with:
+      with: # Set Azure credentials secret as an input
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
+      env: # Or as an environment variable
+        credentials: ${{ secrets.AZURE_CREDENTIALS }}
     - run: |
         az webapp list --query "[?state=='Running']"
 
