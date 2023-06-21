@@ -28,10 +28,9 @@ on:
 
 
 jobs: 
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-    
     - uses: azure/login@v1
       with: # Set Azure credentials secret as an input
         creds: ${{ secrets.AZURE_CREDENTIALS }}
