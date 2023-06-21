@@ -40,21 +40,30 @@ jobs:
         az acr login -n challengesemestre2
         az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
         az aks get-credentials --resource-group FR_CHALLENGE_SEMESTRE2 --name challengeSemestreAKS
-        docker images
       
-      # - name: Create ACR
-      #   id: create-acr
-      #   run: |
-      #     az acr create -n challengecd -g challengecd81d0-rg --location "West Europe" --sku Standard --admin-enabled
-      #     echo "::set-output name=acr_username::`az acr credential show -n challengecd --query username | xargs`"
-      #     echo "::set-output name=acr_password::`az acr credential show -n challengecd --query passwords[0].value | xargs`"
-      #     echo "::add-mask::`az acr credential show -n challengecd --query passwords[0].value | xargs`"
+    - name: Build and push Docker image
+      run: |
+        docker build -t idboubacar/challenge-semestre2-gateway-api:latest .
+        docker login --username idboubacar --password blabla@2023
+        docker push idboubacar/challenge-semestre2-gateway-api:latest
 
-      # - uses: azure/docker-login@v1
-      #   with:
-      #     login-server: challengecd.azurecr.io
-      #     username: ${{ steps.create-acr.outputs.acr_username }}
-      #     password: ${{ steps.create-acr.outputs.acr_password }}
+    - name: Deploy to AKS
+      run: |
+        kubectl apply -f ./manifests/deployment.yaml
+
+    # - name: Create ACR
+    #   id: create-acr
+    #   run: |
+    #     az acr create -n challengecd -g challengecd81d0-rg --location "West Europe" --sku Standard --admin-enabled
+    #     echo "::set-output name=acr_username::`az acr credential show -n challengecd --query username | xargs`"
+    #     echo "::set-output name=acr_password::`az acr credential show -n challengecd --query passwords[0].value | xargs`"
+    #     echo "::add-mask::`az acr credential show -n challengecd --query passwords[0].value | xargs`"
+
+    # - uses: azure/docker-login@v1
+    #   with:
+    #     login-server: challengecd.azurecr.io
+    #     username: ${{ steps.create-acr.outputs.acr_username }}
+    #     password: ${{ steps.create-acr.outputs.acr_password }}
 
       # - name: Build and push image to ACR
       #   id: build-image
