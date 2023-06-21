@@ -22,7 +22,9 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       
       - run: |
-          az webapp list --query "[?state=='Running']"
+          az acr login -n challengesemestre2
+          az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
+          az aks get-credentials --resource-group FR_CHALLENGE_SEMESTRE2 --name challengeSemestreAKS
 
       # - name: Create ACR
       #   id: create-acr
