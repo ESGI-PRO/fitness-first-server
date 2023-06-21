@@ -1,4 +1,4 @@
-FROM node:18.15-alpine as common-build-stage
+FROM --platform=linux/amd64 node:18.15-alpine as common-build-stage
 
 WORKDIR /var/www/gateway-api
 

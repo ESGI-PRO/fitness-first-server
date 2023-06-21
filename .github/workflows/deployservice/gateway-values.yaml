@@ -1,0 +1,24 @@
+label: gateway-api service
+containerPort: 8000
+
+service:
+  port: 8000
+  targetPort: 8000
+
+deployment:
+  docker:
+    host: challengesemestre2.azurecr.io
+    registry:
+    version: gateway
+
+environement: "default"
+
+image:
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+hpa:
+  minReplicas: 1
+  maxReplicas: 3
+  targetAverageUtilization: 50
+  targetAverageValue: 100Mi

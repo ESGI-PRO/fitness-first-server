@@ -5,8 +5,8 @@ on:
     branches: feature/yatera
 
 jobs:
-  BuildAndPush:
-    runs-on: ubuntu-latest
+  BuildAndPush:   
+    runs-on: ubuntu-latest 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -116,3 +116,23 @@ jobs:
   
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+  
+  # deploy to azure
+
+  deploy:
+    needs: BuildAndPush
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd ../../challenge-semestre2
+            docker-compose down
+            docker-compose build
+            
+    

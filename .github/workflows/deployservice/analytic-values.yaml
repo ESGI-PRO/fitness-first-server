@@ -1,0 +1,24 @@
+label: analytic-api service
+containerPort: 8005
+
+service:
+  port: 8005
+  targetPort: 8005
+
+deployment:
+  docker:
+    host: challengesemestre2.azurecr.io
+    registry:
+    version: analytic
+
+environement: "default"
+
+image:
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+hpa:
+  minReplicas: 1
+  maxReplicas: 3
+  targetAverageUtilization: 50
+  targetAverageValue: 100Mi
