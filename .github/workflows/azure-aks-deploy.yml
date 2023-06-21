@@ -14,9 +14,9 @@ jobs:
       - name: Debug
         run: |
           env
-          echo "Azure credentials: ${{ secrets.AZURE_CREDENTIALS }}"
-          echo "AKS kubeconfig: ${{ secrets.AKS_kubeConfig }}"
-          
+          echo "Azure credentials is: ${{ secrets.AZURE_CREDENTIALS }}"
+          echo "AKS kubeconfig is : ${{ secrets.AKS_kubeConfig }}"
+
       - uses: actions/checkout@v3
 
       - uses: azure/login@v1
