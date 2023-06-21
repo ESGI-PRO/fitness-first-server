@@ -43,13 +43,8 @@ jobs:
       
     - name: Build and push Docker image
       run: |
-        docker build -t idboubacar/challenge-semestre2-gateway-api:latest .
-        docker login --username idboubacar --password blabla@2023
-        docker push idboubacar/challenge-semestre2-gateway-api:latest
-
-    - name: Deploy to AKS
-      run: |
-        kubectl apply -f ./manifests/deployment.yaml
+        docker tag challenge-semestre2-gateway-api challengesemestre2.azurecr.io/gateway-api        docker login --username idboubacar --password blabla@2023
+        helm install mon-gateway-api ../../gateway-api/gateway-chart
 
     # - name: Create ACR
     #   id: create-acr
