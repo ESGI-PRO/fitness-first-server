@@ -40,7 +40,7 @@ jobs:
       - uses: azure/k8s-set-context@v1
         id: login
         with:
-          kubeconfig: ${{ secrets.aks_kubeConfig }}
+          kubeconfig: ${{ secrets.AKS_kubeConfig }}
 
       - name: Create namespace
         run: |
