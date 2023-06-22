@@ -15,7 +15,6 @@ services:
       - 3000:3000
 
   gateway-api:
-    platform: linux/arm64
     build:
       context: ../gateway-api
       dockerfile: Dockerfile
@@ -24,7 +23,7 @@ services:
     env_file:
       - ../gateway-api/.env
     volumes:
-      - ../gateway-api:/var/www/gateway-api
+      - ./:/gateway-api
     ports:
       - 8000:8000
 
