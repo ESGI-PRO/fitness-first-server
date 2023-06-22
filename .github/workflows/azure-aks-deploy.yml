@@ -2,7 +2,8 @@ name: Azure deploy
 
 on:
   push:
-    branches: "feature/yatera"
+    branches:
+      - feature/yatera
     paths:
       - ".github/workflows/azure-aks-deploy.yml"
       - "manifests/**"
