@@ -106,11 +106,28 @@ jobs:
       #     secret-name: jokeappdockerauth
 
       ####################ici
-      - uses: azure/k8s-deploy@v1.2
+      - uses: azure/setup-kubectl@v2.0
+      # Set the target AKS cluster.
+      - uses: Azure/aks-set-context@v1
         with:
-          namespace: gateway-api
-          manifests: |
-            manifests/deployment.yml
-            manifests/service.yml
-          images: |
-            idboubacar/challenge-semestre2-gateway-api:latest
+           creds: '${{ secrets.AZURE_CREDENTIALS }}'
+           cluster-name: contoso
+           resource-group: contoso-rg
+
+      - uses: Azure/k8s-create-secret@v1.1
+        with:
+           container-registry-url: challengesemestre2.azurecr.io
+           container-registry-username: challengeSemestre2
+           container-registry-password: XE/RRbBnZzapMIGeVeputMRavSp/aGMGjcXJhtebh4+ACRDjC3CT
+           secret-name: demo-k8s-secret
+
+      - uses: Azure/k8s-deploy@v4
+        with:
+           action: deploy
+           manifests: |
+              manifests/deployment.yml
+              manifests/service.yml
+           images: |
+            challengesemestre2.azurecr.io/gateway-api:latest
+           imagepullsecrets: |
+              demo-k8s-secret

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: "gateway-api"
-          image: "idboubacar/challenge-semestre2-gateway-api:latest"
+          image: "challengesemestre2.azurecr.io/gateway-api:latest"
           imagePullPolicy: Always
           env:
             - name: PORT
