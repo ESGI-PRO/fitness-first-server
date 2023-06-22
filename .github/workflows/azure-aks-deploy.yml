@@ -83,7 +83,6 @@ jobs:
           build-args: |
             BASE_IMAGE=mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim-arm32v7
           file: ./gateway-api/Dockerfile
-
       #################ici
       # - uses: azure/k8s-set-context@v1
       #   id: login
@@ -107,11 +106,11 @@ jobs:
       #     secret-name: jokeappdockerauth
 
       ####################ici
-      # - uses: azure/k8s-deploy@v1.2
-      #   with:
-      #     namespace: challenges
-      #     manifests: |
-      #       manifests/deployment.yml
-      #       manifests/service.yml
-      #     images: |
-      #       idboubacar/challenge-semestre2-gateway-api:latest
+      - uses: azure/k8s-deploy@v1.2
+        with:
+          namespace: gateway-api
+          manifests: |
+            manifests/deployment.yml
+            manifests/service.yml
+          images: |
+            idboubacar/challenge-semestre2-gateway-api:latest
