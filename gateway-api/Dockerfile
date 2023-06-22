@@ -34,6 +34,4 @@ FROM common-build-stage as production-build-stage
 
 ENV NODE_ENV=production
 
-RUN npm run build 
-
 CMD [ "npm", "run", "start:prod" ]
