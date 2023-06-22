@@ -44,7 +44,7 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t challengesemestre2.azurecr.io/gateway-api:latest -f ../../gateway-api/Dockerfile .
+          docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t challengesemestre2.azurecr.io/gateway-api:latest -f /Users/yatech/Documents/ESGI/chalenge_semestriel/challenge-semestre2/gateway-api/Dockerfile .
           docker push challengesemestre2.azurecr.io/gateway-api:latest
 
       - name: Update Kubernetes Deployment
