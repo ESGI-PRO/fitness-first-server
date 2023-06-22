@@ -2,7 +2,6 @@ FROM node:16.14.2-alpine as common-build-stage
 
 RUN npm install -g pnpm
 RUN npm i -g @nestjs/cli
-RUN npm install -g concurrently
 
 RUN mkdir -p /var/www/analytic-api
 
@@ -18,7 +17,7 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-CMD ["concurrently", "pnpm:start:dev", "pnpm:prisma:generate", "pnpm:prisma:migrate", "pnpm:prisma:seed"]
+CMD ["pnpm", "run", "start:dev"]
 
 # Production build stage
 FROM common-build-stage as production-build-stage
