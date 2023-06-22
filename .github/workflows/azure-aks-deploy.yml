@@ -53,13 +53,13 @@ jobs:
 #           kubectl apply -f deployment.yaml
 
 ####################
-      - name: Create ACR
-        id: create-acr
-        run: |
-          az acr create -n challengecd -g challengecd81d0-rg --location "West Europe" --sku Standard --admin-enabled
-          echo "::set-output name=acr_username::`az acr credential show -n challengecd --query username | xargs`"
-          echo "::set-output name=acr_password::`az acr credential show -n challengecd --query passwords[0].value | xargs`"
-          echo "::add-mask::`az acr credential show -n challengecd --query passwords[0].value | xargs`"
+      # - name: Create ACR
+      #   id: create-acr
+      #   run: |
+      #     az acr create -n challengecd -g challengecd81d0-rg --location "West Europe" --sku Standard --admin-enabled
+      #     echo "::set-output name=acr_username::`az acr credential show -n challengecd --query username | xargs`"
+      #     echo "::set-output name=acr_password::`az acr credential show -n challengecd --query passwords[0].value | xargs`"
+      #     echo "::add-mask::`az acr credential show -n challengecd --query passwords[0].value | xargs`"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -70,8 +70,8 @@ jobs:
       - uses: azure/docker-login@v1
         with:
           login-server: challengecd.azurecr.io
-          username: ${{ steps.create-acr.outputs.acr_username }}
-          password: ${{ steps.create-acr.outputs.acr_password }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push image to ACR
         id: build-image
