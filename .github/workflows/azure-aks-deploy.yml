@@ -70,9 +70,9 @@ jobs:
         
       - uses: azure/docker-login@v1
         with:
-          login-server: challengecd.azurecr.io
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          login-server: challengesemestre2.azurecr.io
+          username: challengeSemestre2
+          password: XE/RRbBnZzapMIGeVeputMRavSp/aGMGjcXJhtebh4+ACRDjC3CT
 
       - name: Build and push images to ACR
         id: docker_build
