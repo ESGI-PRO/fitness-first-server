@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from './services/config/config.service';
 import helmet from 'helmet';
+import rawBodyMiddleware from './middlewares/raw-body.middleware'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -32,6 +33,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.use(helmet());
+  app.use(rawBodyMiddleware());
   await app.listen(new ConfigService().get('port'));
 }
 bootstrap();

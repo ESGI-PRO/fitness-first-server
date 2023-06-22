@@ -1,4 +1,4 @@
-FROM node:18.15-alpine as common-build-stage
+FROM node:16.14.2-alpine as common-build-stage
 
 RUN npm install -g pnpm
 RUN npm i -g @nestjs/cli
@@ -9,7 +9,6 @@ WORKDIR /var/www/messenger-api
 
 ADD . /var/www/messenger-api/
 RUN pnpm install
-RUN npx prisma generate
 
 EXPOSE 9000
 

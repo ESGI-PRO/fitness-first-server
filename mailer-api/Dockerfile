@@ -1,4 +1,4 @@
-FROM node:18.15-alpine as common-build-stage
+FROM node:16.14.2-alpine as common-build-stage
 
 RUN npm install -g pnpm
 RUN npm i -g @nestjs/cli
