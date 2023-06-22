@@ -13,7 +13,7 @@ services:
       - ../front:/var/www/front
     ports:
       - 3000:3000
-
+# change some thing in gateway
   gateway-api:
     build:
       context: ../gateway-api
