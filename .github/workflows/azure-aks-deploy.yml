@@ -27,24 +27,30 @@ on:
 #           az aks get-credentials --resource-group FR_CHALLENGE_SEMESTRE2 --name challengeSemestreAKS
 
 
-jobs: 
-  deploy:
+jobs:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: azure/login@v1
-      with: # Set Azure credentials secret as an input
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-      env: # Or as an environment variable
-        credentials: ${{ secrets.AZURE_CREDENTIALS }}
-    - run: |
-        az acr login -n challengesemestre2
-        az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
-        az aks get-credentials --resource-group FR_CHALLENGE_SEMESTRE2 --name challengeSemestreAKS
-      
-    - name: Build and push Docker image
-      run: |
-        docker tag challenge-semestre2-gateway-api challengesemestre2.azurecr.io/gateway-api        docker login --username idboubacar --password blabla@2023
-        helm install mon-gateway-api ../../gateway-api/gateway-chart
+      - uses: actions/checkout@v2
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Configure Docker Buildx
+        run: docker buildx create --use --platform linux/amd64,linux/arm64,linux/arm/v7
+
+      - name: Build and Push Docker Image
+        run: |
+          docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t challengesemestre2.azurecr.io/gateway-api:latest .
+          docker push challengesemestre2.azurecr.io/gateway-api:latest
+
+      - name: Update Kubernetes Deployment
+        run: |
+          az aks get-credentials --resource-group FR_CHALLENGE_SEMESTRE2 --name challengeSemestreAKS
+          kubectl apply -f deployment.yaml
 
     # - name: Create ACR
     #   id: create-acr
