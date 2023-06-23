@@ -22,6 +22,14 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       
+      # - name: Configure Docker Buildx
+      #   run: docker buildx create --use --platform linux/amd64,linux/arm64,linux/arm/v7
+
+      # - name: Build and Push Docker Image
+      #   run: |
+      #     docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t challengesemestre2.azurecr.io/gateway-api:latest -f ./../../../gateway-api/Dockerfile .
+      #     docker push challengesemestre2.azurecr.io/gateway-api:latest
+      
       - run: |
           az acr login -n challengesemestre2
           az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
@@ -53,15 +61,6 @@ jobs:
 #           az aks get-credentials --resource-group FR_CHALLENGE_SEMESTRE2 --name challengeSemestreAKS
 #           kubectl apply -f deployment.yaml
 
-####################
-      # - name: Create ACR
-      #   id: create-acr
-      #   run: |
-      #     az acr create -n challengecd -g challengecd81d0-rg --location "West Europe" --sku Standard --admin-enabled
-      #     echo "::set-output name=acr_username::`az acr credential show -n challengecd --query username | xargs`"
-      #     echo "::set-output name=acr_password::`az acr credential show -n challengecd --query passwords[0].value | xargs`"
-      #     echo "::add-mask::`az acr credential show -n challengecd --query passwords[0].value | xargs`"
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
@@ -74,37 +73,29 @@ jobs:
           username: challengeSemestre2
           password: XE/RRbBnZzapMIGeVeputMRavSp/aGMGjcXJhtebh4+ACRDjC3CT
 
+      - name: Configure Docker Buildx
+        run: docker buildx create --use --platform linux/amd64,linux/arm64,linux/arm/v7
+
       - name: Build and push images to ACR
         id: docker_build
         uses: docker/build-push-action@v2
+        # build with multiplatform
         with:
+          context: .
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: challengesemestre2.azurecr.io/gateway-api:latest
           build-args: |
             BASE_IMAGE=mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim-arm32v7
           file: ./gateway-api/Dockerfile
-      #################ici
-      # - uses: azure/k8s-set-context@v1
-      #   id: login
-      #   with:
-      #     kubeconfig: ${{ secrets.AKS_kubeConfig }}
 
-      # - name: Create namespace
-      #   run: |
-      #     namespacePresent=`kubectl get namespace | grep challenges | wc -l`
-      #     if [ $namespacePresent -eq 0 ]
-      #     then
-      #         echo `kubectl create namespace challenges`
-      #     fi
-#####################fin
-      # - uses: azure/k8s-create-secret@v1
-      #   with:
-      #     namespace: joke-app86ff
-      #     container-registry-url: challengecd.azurecr.io
-      #     container-registry-username: ${{ steps.create-acr.outputs.acr_username }}
-      #     container-registry-password: ${{ steps.create-acr.outputs.acr_password }}
-      #     secret-name: jokeappdockerauth
 
+        # with:
+        #   push: true
+        #   tags: challengesemestre2.azurecr.io/gateway-api:latest
+        #   build-args: |
+        #     BASE_IMAGE=mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim-arm32v7
+        #   file: ./gateway-api/Dockerfile
       ####################ici
       - uses: azure/setup-kubectl@v2.0
       # Set the target AKS cluster.
