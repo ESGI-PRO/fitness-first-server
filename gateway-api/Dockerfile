@@ -4,6 +4,7 @@ RUN mkdir -p /var/www/gateway
 WORKDIR /var/www/gateway
 ADD . /var/www/gateway
 COPY gateway-api/package*.json ./
+COPY gateway-api/tsconfig.json ./
 RUN apk update && apk add --no-cache nodejs npm
 RUN npm cache clean --force
 RUN npm install
