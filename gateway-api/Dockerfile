@@ -15,6 +15,8 @@
 FROM node:18.5-alpine AS builder
 WORKDIR "/var/www/gateway"
 COPY . .
+RUN apk update && apk add --no-cache nodejs npm
+RUN npm cache clean --force
 RUN npm i
 RUN npm run build
 RUN npm prune --production
