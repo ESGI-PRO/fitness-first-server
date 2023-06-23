@@ -7,7 +7,7 @@ FROM node:18.5-alpine as common-build-stage
 WORKDIR /usr/src/app
 
 COPY ./gateway-api/package.json ./
-COPY ./gateway-api/ ./
+# COPY ./gateway-api/ ./
 
 RUN npm i -g @nestjs/cli
 
