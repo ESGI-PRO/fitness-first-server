@@ -23,12 +23,8 @@ services:
     env_file:
       - ../gateway-api/.env
     volumes:
-<<<<<<< HEAD
-      - ./:/gateway-api
-=======
       - ../gateway-api:/var/www/gateway-api
       - /var/www/gateway-api/node_modules
->>>>>>> feature/fix-docker
     ports:
       - 8000:8000
 
