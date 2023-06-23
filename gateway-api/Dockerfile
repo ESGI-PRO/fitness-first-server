@@ -3,9 +3,8 @@ RUN npm install npm@latest -g
 RUN mkdir -p /var/www/gateway
 WORKDIR /var/www/gateway
 ADD . /var/www/gateway
-
+COPY gateway-api/package*.json ./
 RUN apk update && apk add --no-cache nodejs npm
-
 RUN npm cache clean --force
 RUN npm install
 RUN npm install -g @nestjs/cli
