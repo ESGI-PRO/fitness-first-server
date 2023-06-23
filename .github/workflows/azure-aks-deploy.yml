@@ -1,4 +1,4 @@
-name: Azure deploy to azure registry and aks cluster - i got errorrgjtn
+name: Azure deploy to azure registry and aks cluster - i got errorrgjtnssss
 
 on:
   push:

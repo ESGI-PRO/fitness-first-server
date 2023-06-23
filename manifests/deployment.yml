@@ -15,6 +15,7 @@ spec:
       containers:
         - name: "gateway-api"
           image: "challengesemestre2.azurecr.io/gateway-api:latest"
+          workingDir: /var/www/gateway-api 
           imagePullPolicy: Always
           env:
             - name: PORT
