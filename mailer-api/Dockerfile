@@ -6,17 +6,11 @@ FROM node:18.5-alpine as common-build-stage
 
 WORKDIR /var/www/mailer-api
 
-<<<<<<< HEAD
-ADD . /var/www/mailer-api/
-RUN echo "the path is : " && pwd
-RUN pnpm install
-=======
 COPY package*.json ./
 
 RUN npm install
 
 COPY . .
->>>>>>> feature/fix-docker
 
 EXPOSE 8008
 

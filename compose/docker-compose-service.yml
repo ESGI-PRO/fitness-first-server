@@ -33,9 +33,9 @@ services:
     hostname: gateway-api
     env_file:
       - ./../gateway-api/.env
-    volumes:
-      - ./../gateway-api:/var/www/gateway-api
-      - /var/www/gateway-api/node_modules
+    # volumes:
+    #   - ./../gateway-api:/var/www/gateway-api
+    #   - /var/www/gateway-api/node_modules
     ports:
       - 8000:8000
 

@@ -6,17 +6,11 @@ FROM node:18.5-alpine as common-build-stage
 
 WORKDIR /var/www/permission-api
 
-<<<<<<< HEAD
-ADD . /var/www/permission-api/
-RUN echo "the path is : " && pwd
-RUN pnpm install
-=======
 COPY package*.json ./
 
 RUN npm install
 
 COPY . .
->>>>>>> feature/fix-docker
 
 EXPOSE 8007
 

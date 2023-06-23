@@ -6,19 +6,11 @@ FROM node:18.5-alpine as common-build-stage
 
 WORKDIR /var/www/nutrition-api
 
-<<<<<<< HEAD
-ADD . /var/www/nutrition-api/
-RUN echo "the path is : " && pwd
-RUN pnpm install
-RUN npx prisma generate
-# RUN npx prisma migrate dev --name init
-=======
 COPY package*.json ./
 
 RUN npm install
 
 COPY . .
->>>>>>> feature/fix-docker
 
 EXPOSE 8001
 

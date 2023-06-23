@@ -6,18 +6,11 @@ FROM node:18.5-alpine as common-build-stage
 
 WORKDIR /var/www/messenger-api
 
-<<<<<<< HEAD
-ADD . /var/www/messenger-api/
-RUN echo "the path is : " && pwd
-RUN pnpm install
-RUN npx prisma generate
-=======
 COPY package*.json ./
 
 RUN npm install
 
 COPY . .
->>>>>>> feature/fix-docker
 
 EXPOSE 9000
 
