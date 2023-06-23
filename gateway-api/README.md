@@ -1,9 +1,6 @@
 # Gateway
 
-Gateway API is the entry point for all the requests to the application. It is responsible for routing the requests to the appropriate microservice.
-
-###gatewayyyy ajout to aks
-
+Gateway API is the entry point for all the requests to the application. It is responsible for routing the requests to the appropriate microservice. i think blallala
 
 ## Environment Variables
 
