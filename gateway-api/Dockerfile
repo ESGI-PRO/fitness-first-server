@@ -8,7 +8,6 @@ COPY gateway-api/tsconfig.json ./
 COPY gateway-api/nest-cli.json ./
 COPY gateway-api/src ./src
 COPY gateway-api/test ./test
-COPY gateway-api/.env ./
 RUN apk update && apk add --no-cache nodejs npm
 RUN npm cache clean --force
 RUN npm install
