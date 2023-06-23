@@ -6,7 +6,7 @@ FROM node:18.5-alpine as common-build-stage
 
 WORKDIR /var/www/gateway-api
 
-COPY package*.json ./
+COPY gateway-api/package*.json ./
 
 RUN npm install
 
