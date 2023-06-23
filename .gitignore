@@ -37,8 +37,8 @@
 /compose/initdb/*
 .env
 .env.*
-./**/dist
-./**/dist/*
+# ./**/dist
+# ./**/dist/*
 ./**/node_modules
 ./**/node_modules/*
 
