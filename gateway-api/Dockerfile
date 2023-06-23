@@ -4,15 +4,13 @@
 
 FROM node:18.5-alpine as common-build-stage
 
-RUN npm i -g @nestjs/cli
-
-WORKDIR /gateway-api
-
 COPY package*.json .
+
+COPY package*.json ./
 
 RUN npm install
 
-COPY ../. .
+COPY . .
 
 EXPOSE 8000
 
@@ -24,7 +22,7 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-CMD npm run start:dev
+CMD [ "npm", "run", "start:dev" ]
 
 ###################
 # PRODUCTION
@@ -34,4 +32,6 @@ FROM common-build-stage as production-build-stage
 
 ENV NODE_ENV=production
 
-CMD npm run build && npm run start:prod
+RUN npm build
+
+CMD [ "npm", "run", "start:prod" ]
