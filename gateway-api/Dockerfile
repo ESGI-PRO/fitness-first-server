@@ -8,7 +8,7 @@ RUN npm i -g @nestjs/cli
 
 WORKDIR /gateway-api
 
-COPY ../gateway-api/package*.json .
+COPY package*.json .
 
 RUN npm install
 
@@ -24,7 +24,7 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-CMD [ "npm", "run", "start:dev" ]
+CMD npm run start:dev
 
 ###################
 # PRODUCTION
@@ -34,4 +34,4 @@ FROM common-build-stage as production-build-stage
 
 ENV NODE_ENV=production
 
-CMD [ "npm", "run", "start:prod" ]
+CMD npm run build && npm run start:prod

@@ -8,7 +8,6 @@ RUN mkdir -p /var/www/user-api
 WORKDIR /var/www/user-api
 
 ADD . /var/www/user-api/
-RUN echo "the path is : " && pwd
 RUN pnpm install
 
 EXPOSE 8002
