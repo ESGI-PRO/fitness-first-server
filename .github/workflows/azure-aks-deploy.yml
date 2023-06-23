@@ -1,4 +1,4 @@
-name: Azure deploy
+name: Azure deploy to registry and aks cluster
 
 on:
   push:
