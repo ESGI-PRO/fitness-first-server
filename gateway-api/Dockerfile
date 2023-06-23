@@ -9,9 +9,8 @@ COPY package*.json .
 COPY package*.json ./
 
 RUN npm update npm -g
-# RUN npm ci --only=production
 RUN npm cache clean --force
-RUN npm install
+RUN npm i
 
 COPY . .
 
