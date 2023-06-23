@@ -31,10 +31,8 @@ CMD [ "npm", "run", "start:dev" ]
 ###################
 
 FROM common-build-stage as production-build-stage
-WORKDIR /var/www/gateway-api
 ENV NODE_ENV=production
-COPY --from=common-build-stage /var/www/gateway-api/package.json ./package.json
 
-RUN npm run build
+#RUN npm run build
 
 CMD [ "npm", "run", "start:prod" ]
