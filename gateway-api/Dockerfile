@@ -3,6 +3,7 @@ RUN npm install npm@latest -g
 RUN mkdir -p /var/www/gateway
 WORKDIR /var/www/gateway
 ADD . /var/www/gateway
+COPY package*.json ./
 COPY . .
 RUN apk update && apk add --no-cache nodejs npm
 RUN npm cache clean --force
