@@ -14,20 +14,29 @@ services:
     ports:
       - 3000:3000
 # change some thing in gateway
+  # gateway-api:
+  #   build:
+  #     context: ../gateway-api
+  #     dockerfile: Dockerfile
+  #     target: development-build-stage
+  #   hostname: gateway-api
+  #   env_file:
+  #     - ../gateway-api/.env
+  #   volumes:
+  #     - ../gateway-api:/var/www/gateway-api
+  #     - /var/www/gateway-api/node_modules
+  #   ports:
+  #     - 8000:8000
   gateway-api:
-    build:
-      context: ../gateway-api
-      dockerfile: Dockerfile
-      # target: development-build-stage
+    build: ./../gateway-api
+    restart: always
     hostname: gateway-api
     env_file:
-      - ../gateway-api/.env
-    volumes:
-      - ../gateway-api:/var/www/gateway-api
-      - /var/www/gateway-api/node_modules
+      - ./../gateway-api/.env
     ports:
       - 8000:8000
 
+      
   nutrition-api:
     build:
       context: ../nutrition-api
