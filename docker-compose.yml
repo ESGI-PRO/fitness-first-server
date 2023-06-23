@@ -1,19 +1,16 @@
-version: '3.8'
+version: '3.9'
 
 services:
   gateway-api:
-    build:
-      context: ./gateway-api
-      dockerfile: Dockerfile
-      target: development-build-stage
+    build: ./gateway-api
+    restart: always
     hostname: gateway-api
     env_file:
-      - ./gateway-api/.env
-    volumes:
-      - ./gateway-api:/var/www/gateway-api
-      - /var/www/gateway-api/node_modules
+      - .env
     ports:
-      - 8000:8000
+      - "8000:8000"
+    volumes:
+      - ./gateway-api:/usr/src/app
 
   #ALL DATABASES AND ADMINER, MONGO-EXPRESS
   # adminer:
