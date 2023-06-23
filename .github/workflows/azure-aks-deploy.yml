@@ -1,4 +1,4 @@
-name: Azure deploy to azure registry and aks cluster - i got errorrrrr
+name: Azure deploy to azure registry and aks cluster - i got errorr
 
 on:
   push:
