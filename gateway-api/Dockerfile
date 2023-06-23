@@ -4,13 +4,13 @@
 
 FROM node:18.5-alpine as common-build-stage
 
-COPY package*.json .
+WORKDIR /var/www/gateway-api
 
 COPY package*.json ./
 
-RUN npm update npm -g
-RUN npm cache clean --force
-RUN npm i
+RUN npm update npm -g \
+    && npm cache clean --force \
+    && npm install
 
 COPY . .
 

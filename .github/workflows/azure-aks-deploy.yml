@@ -12,11 +12,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Echo variable value -- Debug
-        run: | 
-          echo "Azure credentials is: ${{ secrets.AZURE_CREDENTIALS }}"
-          echo "AKS kubeconfig is : ${{ secrets.AKS_kubeConfig }}"
-
+      # - name: Echo variable value -- Debug
+      #   run: | 
+      #     echo "Azure credentials is: ${{ secrets.AZURE_CREDENTIALS }}"
+      #     echo "AKS kubeconfig is : ${{ secrets.AKS_kubeConfig }}"
       - uses: actions/checkout@v3
       - uses: azure/login@v1
         with:
