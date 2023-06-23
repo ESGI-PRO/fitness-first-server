@@ -20,19 +20,19 @@ EXPOSE 8000
 # DEVELOPMENT
 ###################
 
-FROM common-build-stage as development-build-stage
+# FROM common-build-stage as development-build-stage
 
-ENV NODE_ENV=development
+# ENV NODE_ENV=development
 
-CMD [ "npm", "run", "start:dev" ]
+# CMD [ "npm", "run", "start:dev" ]
 
-###################
-# PRODUCTION
-###################
+# ###################
+# # PRODUCTION
+# ###################
 
-FROM common-build-stage as production-build-stage
-ENV NODE_ENV=production
+# FROM common-build-stage as production-build-stage
+# ENV NODE_ENV=production
 
-#RUN npm run build
+# #RUN npm run build
 
-CMD [ "npm", "run", "start:prod" ]
+# CMD [ "npm", "run", "start:prod" ]
