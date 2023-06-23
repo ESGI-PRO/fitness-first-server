@@ -1,6 +1,20 @@
 version: '3.8'
 
 services:
+  gateway-api:
+    build:
+      context: ./gateway-api
+      dockerfile: Dockerfile
+      target: development-build-stage
+    hostname: gateway-api
+    env_file:
+      - ./gateway-api/.env
+    volumes:
+      - ./gateway-api:/var/www/gateway-api
+      - /var/www/gateway-api/node_modules
+    ports:
+      - 8000:8000
+
   #ALL DATABASES AND ADMINER, MONGO-EXPRESS
   # adminer:
   #   extends:
@@ -75,10 +89,10 @@ services:
   #   depends_on:
   #     - postgres
 
-  gateway-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: gateway-api
+  # gateway-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: gateway-api
 
 #front
   # front:

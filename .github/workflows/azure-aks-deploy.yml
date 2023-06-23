@@ -1,10 +1,11 @@
-name: Azure deploy to azure registry and aks cluster - i got error--
+name: Azure deploy to azure registry and aks cluster - i got errorrooojof
 
 on:
   push:
     branches:
       - feature/yatera
     paths:
+      - "gateway-api/**"
       - ".github/workflows/azure-aks-deploy.yml"
       - "manifests/**"
 
