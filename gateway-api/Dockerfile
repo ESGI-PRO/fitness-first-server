@@ -4,12 +4,10 @@
 
 FROM node:18.5-alpine as common-build-stage
 
-RUN npm install -g npm
-RUN npm i -g @nestjs/cli
-
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY ./gateway-api/package.json ./
+RUN npm i -g @nestjs/cli
 
 RUN npm install
 
