@@ -18,7 +18,7 @@ services:
     build:
       context: ../gateway-api
       dockerfile: Dockerfile
-      target: development-build-stage
+      # target: development-build-stage
     hostname: gateway-api
     env_file:
       - ../gateway-api/.env
