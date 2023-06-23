@@ -41,11 +41,7 @@
 ./**/dist/*
 ./**/node_modules
 ./**/node_modules/*
-<<<<<<< HEAD
-./**/package-lock.json
-=======
 
 .expo
 .vscode
 .DS_Store
->>>>>>> feature/fix-docker
