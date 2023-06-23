@@ -1,4 +1,4 @@
-name: Azure deploy to azure registry and aks cluster - i got errorrooojo
+name: Azure deploy to azure registry and aks cluster - i got errorroooj
 
 on:
   push:
