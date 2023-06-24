@@ -42,3 +42,4 @@
 .expo
 .vscode
 .DS_Store
+*.pnpm-store

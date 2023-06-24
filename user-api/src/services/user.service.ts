@@ -75,8 +75,9 @@ export class UserService implements OnModuleInit {
 
   public async updateUserById(
     id: string,
-    userParams: { is_confirmed: boolean },
+    userParams: any,
   ): Promise<IUser> {
+    console.log("update called", id, userParams)
     this.userModel.updateOne({ _id: id }, userParams).exec()
     return this.userModel.findById(id).exec();
   }

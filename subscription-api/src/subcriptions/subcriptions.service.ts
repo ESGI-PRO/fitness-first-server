@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-//import { CreateSubcriptionDto } from './dto/create-subcription.dto';
-//import { UpdateSubcriptionDto } from './dto/update-subcription.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+
 
 
 @Injectable()
@@ -9,7 +8,9 @@ export class SubcriptionsService {
   constructor(private prisma: PrismaService) {}
 
   create(createData: any) {
-    return this.prisma.subscription.create({ data: createData});
+    console.log("user subscription createData", createData)
+    const {planId, ...rest}=createData
+    return this.prisma.subscription.create({ data: {...rest, plan: {connect: {id: planId}}}});
   }
 
   findAll() {
@@ -36,7 +37,7 @@ export class SubcriptionsService {
   }
 
   //find all user active subscription by userId, currentPeriodStart and currentPeriodEnd from now
-  public findActiveSub(userId: string){
+  findActiveSub(userId: string){
     return this.prisma.subscription.findMany({
       where: {
         userId,
@@ -51,7 +52,7 @@ export class SubcriptionsService {
     });
   }
   // find by stripeId
-  public findByStripeId(stripeId: string) {
+  findByStripeId(stripeId: string) {
     return this.prisma.subscription.findMany({ where: { stripeId } });
   }
 }
