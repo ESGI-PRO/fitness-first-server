@@ -1,4 +1,4 @@
-name: Azure deploy to azure registry and aks cluster - i got errorrgjtnvvgggg
+name: Azure deploy to azure registry and aks cluster - i got errorrgjtnvvggg
 on:
   push:
     branches:
