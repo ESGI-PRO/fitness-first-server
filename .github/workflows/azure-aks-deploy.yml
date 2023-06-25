@@ -6,7 +6,7 @@ on:
     types:
       - completed
   push:
-    branches: ["feature/yateraaaaaa"]
+    branches: ["feature/yatera"]
     paths:
       - ".github/workflows/azure-aks-deploy.yml"
       - "manifests/**"
