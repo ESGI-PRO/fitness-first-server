@@ -111,4 +111,9 @@ export class UserService implements OnModuleInit {
       'gatewayPort',
     )}/users/confirm/${link}`;
   }
+
+  public async getAllUsers(): Promise<IUser[]> {
+    const users = await this.userModel.find({}).exec();
+    return users;
+  }
 }

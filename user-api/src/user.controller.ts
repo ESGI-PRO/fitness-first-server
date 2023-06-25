@@ -271,4 +271,11 @@ export class UserController {
   
       return result;
     }
+
+    @MessagePattern('user_get_all')
+    public async getAllUsers(): Promise<any> {  
+      const users = await this.userService.getAllUsers();
+      return users;
+    }
+
 }

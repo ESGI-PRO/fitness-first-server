@@ -277,4 +277,11 @@ export class UsersController {
     }
 
   }
+
+  @Get('/all')
+  public async getAllUsers(): Promise<any> {
+    const users = await this.userServiceClient.send('user_get_all', {});
+    return users;
+  }
+
 }
