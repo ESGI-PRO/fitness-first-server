@@ -1,4 +1,3 @@
----
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
@@ -19,33 +18,17 @@ spec:
       containers:
         - name: "gateway-api"
           image: "idboubacar/challenge-semestre2-gateway-api:latest"
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "250m"
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
+          imagePullPolicy: Always
+          env:
+            - name: PORT
+              value: "80"
+          ports:
+          - containerPort: 80
+          # resources:
+          #   requests:
+          #     memory: "64Mi"
+          #     cpu: "250m"
+          #   limits:
+          #     memory: "128Mi"
+          #     cpu: "500m"
 
----
-apiVersion: "autoscaling/v2beta1"
-kind: "HorizontalPodAutoscaler"
-metadata:
-  name: "gateway-api-hpa"
-  namespace: "challengespace"
-  labels:
-    app: "gateway-api"
-spec:
-  scaleTargetRef:
-    apiVersion: "apps/v1beta1"
-    kind: "Deployment"
-    name: "gateway-api"
-  minReplicas: 1
-  maxReplicas: 3
-  metrics:
-    - type: "Resource"
-      resource:
-        name: "cpu"
-        target:
-          type: "Utilization"
-          averageUtilization: 50
