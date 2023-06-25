@@ -28,22 +28,24 @@ spec:
               cpu: "500m"
 
 ---
-# apiVersion: "autoscaling/v2beta1"
-# kind: "HorizontalPodAutoscaler"
-# metadata:
-#   name: "gateway-api"
-#   namespace: "challengespace"
-#   labels:
-#     app: "gateway-api"
-# spec:
-#   scaleTargetRef:
-#     kind: "Deployment"
-#     name: "gateway-api"
-#     apiVersion: "apps/v1beta1"
-#   minReplicas: 1
-#   maxReplicas: 3
-#   metrics:
-#     - type: "Resource"
-#       resource:
-#         name: "cpu"
-#         targetAverageUtilization: 80
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "gateway-api-hpa"
+  namespace: "challengespace"
+  labels:
+    app: "gateway-api"
+spec:
+  scaleTargetRef:
+    apiVersion: "apps/v1beta1"
+    kind: "Deployment"
+    name: "gateway-api"
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: "Resource"
+      resource:
+        name: "cpu"
+        target:
+          type: "Utilization"
+          averageUtilization: 50
