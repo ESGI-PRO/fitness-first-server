@@ -1,4 +1,4 @@
-name: Azure deploy to azure registry and aks cluster - i got errorrgjtnvv
+name: Azure deploy to azure registry and aks cluster - i got errorrgjtnvvgggg
 on:
   push:
     branches:
@@ -77,7 +77,7 @@ jobs:
           tags: challengesemestre2.azurecr.io/gateway-api:latest
           build-args: |
             BASE_IMAGE=mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim-arm32v7
-          file: ./Dockerfile
+          file: ./gateway-api/Dockerfile
       ####################ici
       - uses: azure/setup-kubectl@v2.0
       # Set the target AKS cluster.
