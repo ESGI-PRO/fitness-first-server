@@ -26,7 +26,7 @@ services:
     #   - ../gateway-api:/var/www/gateway-api
     #   - /var/www/gateway-api/node_modules
     ports:
-      - 8000
+      - 8000:8000
 
   nutrition-api:
     build:

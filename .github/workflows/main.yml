@@ -2,7 +2,7 @@ name: Pushing images on docker hub
 
 on:
   push:
-    branches: feature/yatera---
+    branches: feature/yatera
 
 jobs:
   BuildAndPush:   
