@@ -1,8 +1,8 @@
-name: Azure deploy to azure registry and aks cluster - i got errorrgjtnvvvvvvvvvv
+name: Azure deploy to azure registry and aks cluster - i got errorrgjtnvvvvvvvv
 on:
   push:
     branches:
-      - feature/yatera
+      - feature/yateraaaaaaaaa
     paths:
       - "gateway-api/**"
       - ".github/workflows/azure-aks-deploy.yml"
