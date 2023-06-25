@@ -17,8 +17,8 @@ services:
 # change some thing in gateway
   gateway-api:
     build:
-      context: ../gateway-api
-      dockerfile: Dockerfile
+      # context: ../gateway-api
+      dockerfile: ../gateway-api/Dockerfile
       # target: development-build-stage
     hostname: gateway-api
     env_file:
