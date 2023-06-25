@@ -1,4 +1,4 @@
-name: Azure deploy to azure registry and aks cluster - i got erronvvgg
+name: Azure deploy to azure registry and aks cluster - i got evg
 on:
   push:
     branches:
