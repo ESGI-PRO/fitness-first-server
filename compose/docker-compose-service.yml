@@ -14,26 +14,18 @@ services:
     ports:
       - 3000:3000
       
-# change some thing in gateway
-  # gateway-api:
-  #   build:
-  #     # context: ../gateway-api
-  #     dockerfile: ../gateway-api/Dockerfile
-  #     # target: development-build-stage
-  #   hostname: gateway-api
-  #   env_file:
-  #     - ../gateway-api/.env
-  #   # volumes:
-  #   #   - ../gateway-api:/var/www/gateway-api
-  #   #   - /var/www/gateway-api/node_modules
-  #   ports:
-  #     - 8000:8000
-
+# change some thing in gateway buil with no cached
   gateway-api:
-    container_name: gateway-api
-    image: idboubacar/challenge-semestre2-gateway-api
+    build:
+      context: ../gateway-api
+      dockerfile: Dockerfile
+      target: development
+    hostname: gateway-api
     env_file:
       - ../gateway-api/.env
+    # volumes:
+    #   - ../gateway-api:/var/www/gateway-api
+    #   - /var/www/gateway-api/node_modules
     ports:
       - 8000:8000
 

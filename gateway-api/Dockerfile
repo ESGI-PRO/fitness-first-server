@@ -8,11 +8,10 @@ WORKDIR /usr/src/gateway-api
 
 RUN pwd
 
-
 COPY --chown=node:node package*.json ./
 
 RUN ls -a
-RUN npm install
+RUN npm ci
 
 COPY --chown=node:node . .
 
