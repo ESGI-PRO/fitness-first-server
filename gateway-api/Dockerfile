@@ -4,8 +4,7 @@
 
 FROM node:18-alpine As development
 
-RUN mkdir -p /var/www/gateway-api
-WORKDIR /var/www/gateway-api
+WORKDIR /usr/src/gateway-api
 
 COPY --chown=node:node package*.json ./
 
@@ -23,11 +22,11 @@ USER node
 
 FROM node:18-alpine As build
 
-WORKDIR /var/www/gateway-api
+WORKDIR /usr/src/gateway-api
 
 COPY --chown=node:node package*.json ./
 
-COPY --chown=node:node --from=development /var/www/gateway-api/node_modules ./node_modules
+COPY --chown=node:node --from=development /usr/src/gateway-api/node_modules ./node_modules
 
 COPY --chown=node:node . .
 
@@ -45,7 +44,7 @@ USER node
 
 FROM node:18-alpine As production
 
-COPY --chown=node:node --from=build /var/www/gateway-api/node_modules ./node_modules
-COPY --chown=node:node --from=build /var/www/gateway-api/dist ./dist
+COPY --chown=node:node --from=build /usr/src/gateway-api/node_modules ./node_modules
+COPY --chown=node:node --from=build /usr/src/gateway-api/dist ./dist
 
 CMD [ "node", "dist/main.js" ]
