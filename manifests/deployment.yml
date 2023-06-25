@@ -1,50 +1,62 @@
----
-apiVersion: "apps/v1"
-kind: "Deployment"
-metadata:
-  name: "gateway"
-  namespace: "default"
-  labels:
-    app: "gateway"
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: "gateway"
-  template:
-    metadata:
-      labels:
-        app: "gateway"
-    spec:
-      containers:
-        - name: "k8s-hello-node"
-          image: "idboubacar/challenge-semestre2-gateway-api:latest"
-          ports:
-            - containerPort: 8000
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "250m"
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
+  - name: gateway
+    image: idboubacar/challenge-semestre2-gateway-api:latest
+    ports:
+    - containerPort: 8000
+    resources:
+      requests:
+        cpu: 250m
+      limits:
+        cpu: 500m
 
----
-apiVersion: autoscaling/v2beta1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: gateway
-  namespace: default
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: gateway
-  minReplicas: 1
-  maxReplicas: 5
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        targetAverageUtilization: 50
+# ---
+# apiVersion: "apps/v1"
+# kind: "Deployment"
+# metadata:
+#   name: "gateway"
+#   namespace: "default"
+#   labels:
+#     app: "gateway"
+# spec:
+#   replicas: 2
+#   selector:
+#     matchLabels:
+#       app: "gateway"
+#   template:
+#     metadata:
+#       labels:
+#         app: "gateway"
+#     spec:
+#       containers:
+#         - name: "k8s-hello-node"
+#           image: "idboubacar/challenge-semestre2-gateway-api:latest"
+#           ports:
+#             - containerPort: 8000
+#           resources:
+#             requests:
+#               memory: "64Mi"
+#               cpu: "250m"
+#             limits:
+#               memory: "128Mi"
+#               cpu: "500m"
+
+# ---
+# apiVersion: autoscaling/v2beta1
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: gateway
+#   namespace: default
+# spec:
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: gateway
+#   minReplicas: 1
+#   maxReplicas: 5
+#   metrics:
+#     - type: Resource
+#       resource:
+#         name: cpu
+#         targetAverageUtilization: 50
+
+        
 
