@@ -76,18 +76,9 @@ services:
   #     - postgres
 
   gateway-api:
-    build:
-      # context: ../gateway-api
-      dockerfile: ./gateway-api/Dockerfile
-      # target: development-build-stage
-    hostname: gateway-api
-    env_file:
-      - ./gateway-api/.env
-    # volumes:
-    #   - ../gateway-api:/var/www/gateway-api
-    #   - /var/www/gateway-api/node_modules
-    ports:
-      - 8000:8000
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: gateway-api
 
 #front
   # front:
