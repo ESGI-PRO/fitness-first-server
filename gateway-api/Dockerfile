@@ -4,6 +4,7 @@
 
 FROM node:18-alpine As development
 
+RUN mkdir -p /var/www/gateway-api
 WORKDIR /var/www/gateway-api
 
 COPY --chown=node:node package*.json ./
