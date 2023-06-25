@@ -8,7 +8,7 @@ WORKDIR /var/www/gateway-api
 
 COPY --chown=node:node package*.json ./
 
-RUN npm ci
+RUN npm install
 
 COPY --chown=node:node . .
 
