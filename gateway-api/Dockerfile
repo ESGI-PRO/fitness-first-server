@@ -6,6 +6,9 @@ FROM node:18-alpine As development
 
 WORKDIR /usr/src/gateway-api
 
+RUN pwd
+RUN ls -a
+
 COPY --chown=node:node package*.json ./
 
 RUN npm install
