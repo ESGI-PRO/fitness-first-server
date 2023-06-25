@@ -1,0 +1,106 @@
+name: Azure deploy to azure registry and aks cluster - i got evg
+on:
+  push:
+    branches:
+      - feature/yatera
+    paths:
+      - "gateway-api/**"
+      - ".github/workflows/azure-aks-deploy.yml"
+      - "manifests/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # - name: Echo variable value -- Debug
+      #   run: | 
+      #     echo "Azure credentials is: ${{ secrets.AZURE_CREDENTIALS }}"
+      #     echo "AKS kubeconfig is : ${{ secrets.AKS_kubeConfig }}"
+      - uses: actions/checkout@v3
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - run: |
+          az acr login -n challengesemestre2
+          az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
+          az aks get-credentials --resource-group FR_CHALLENGE_SEMESTRE2 --name challengeSemestreAKS
+
+################### ajout deployment to aks
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - uses: actions/checkout@v2
+
+#       - name: Login to Azure
+#         uses: azure/login@v1
+#         with:
+#           creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+#       - name: Configure Docker Buildx
+#         run: docker buildx create --use --platform linux/amd64,linux/arm64,linux/arm/v7
+
+#       - name: Build and Push Docker Image
+#         run: |
+#           docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t challengesemestre2.azurecr.io/gateway-api:latest -f ./../../../gateway-api/Dockerfile .
+#           docker push challengesemestre2.azurecr.io/gateway-api:latest
+
+#       - name: Update Kubernetes Deployment
+#         run: |
+#           az aks get-credentials --resource-group FR_CHALLENGE_SEMESTRE2 --name challengeSemestreAKS
+#           kubectl apply -f deployment.yaml
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        
+      - uses: azure/docker-login@v1
+        with:
+          login-server: challengesemestre2.azurecr.io
+          username: challengeSemestre2
+          password: XE/RRbBnZzapMIGeVeputMRavSp/aGMGjcXJhtebh4+ACRDjC3CT
+
+      - name: Configure Docker Buildx
+        run: docker buildx create --use --platform linux/amd64,linux/arm64,linux/arm/v7
+
+      - name: Build and push images to ACR
+        id: docker_build
+        uses: docker/build-push-action@v2
+        # build with multiplatform
+        with:
+          platforms: linux/amd64,linux/arm64
+          context: ./gateway-api
+          push: true
+          tags: challengesemestre2.azurecr.io/gateway-api:latest
+          build-args: |
+            BASE_IMAGE=mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim-arm32v7
+          file: ./gateway-api/Dockerfile
+      ####################ici
+      - uses: azure/setup-kubectl@v2.0
+      # Set the target AKS cluster.
+      - uses: Azure/aks-set-context@v1
+        with:
+           creds: '${{ secrets.AZURE_CREDENTIALS }}'
+           cluster-name: challengeSemestreAKS
+           resource-group: FR_CHALLENGE_SEMESTRE2
+
+      - uses: Azure/k8s-create-secret@v1.1
+        with:
+           container-registry-url: challengesemestre2.azurecr.io
+           container-registry-username: challengeSemestre2
+           container-registry-password: XE/RRbBnZzapMIGeVeputMRavSp/aGMGjcXJhtebh4+ACRDjC3CT
+           secret-name: demo-k8s-secret
+
+      - uses: Azure/k8s-deploy@v4
+        with:
+           action: deploy
+           manifests: |
+              manifests/deployment.yml
+              manifests/service.yml
+           images: |
+            challengesemestre2.azurecr.io/gateway-api:latest
+           imagepullsecrets: |
+              demo-k8s-secret

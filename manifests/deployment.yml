@@ -14,11 +14,18 @@ spec:
     spec:
       containers:
         - name: "gateway-api"
-          image: "challengesemestre2.azurecr.io/gateway-api:latest"
-          workingDir: /var/www/gateway-api 
+          image: "idboubacar/challenge-semestre2-gateway-api:latest"
           imagePullPolicy: Always
           env:
             - name: PORT
               value: "8000"
           ports:
           - containerPort: 8000
+          #limite ressource
+          # resources:
+          #   requests:
+          #     memory: "64Mi"
+          #     cpu: "250m"
+          #   limits:
+          #     memory: "128Mi"
+          #     cpu: "500m"
