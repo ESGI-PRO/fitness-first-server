@@ -21,6 +21,7 @@ spec:
               value: "8000"
           ports:
           - containerPort: 8000
+            name: http
           #limite ressource
           # resources:
           #   requests:

@@ -39,5 +39,6 @@ jobs:
           manifests: |
             manifests/deployment.yml
             manifests/service.yml
+            manifests/ingress.yml
           images: |
             idboubacar/challenge-semestre2-gateway-api:latest
