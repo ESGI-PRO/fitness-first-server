@@ -72,11 +72,12 @@ jobs:
         # build with multiplatform
         with:
           platforms: linux/amd64,linux/arm64
+          context: ./gateway-api
           push: true
           tags: challengesemestre2.azurecr.io/gateway-api:latest
           build-args: |
             BASE_IMAGE=mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim-arm32v7
-          file: ./gateway-api/Dockerfile
+          file: ./Dockerfile
       ####################ici
       - uses: azure/setup-kubectl@v2.0
       # Set the target AKS cluster.

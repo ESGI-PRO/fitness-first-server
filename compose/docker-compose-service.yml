@@ -17,8 +17,8 @@ services:
 # change some thing in gateway buil with no cached
   gateway-api:
     build:
-      context: ../gateway-api
-      dockerfile: Dockerfile
+      # context: ../gateway-api
+      dockerfile: ../gateway-api/Dockerfile
     hostname: gateway-api
     env_file:
       - ../gateway-api/.env

@@ -11,7 +11,7 @@ RUN pwd
 COPY --chown=node:node package*.json ./
 
 RUN ls -a
-RUN npm ci
+RUN npm intall
 
 COPY --chown=node:node . .
 
