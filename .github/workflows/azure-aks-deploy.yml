@@ -2,11 +2,11 @@ name: Azure K8S deploy
 
 on:
   workflow_run:
-    workflows: ["Docker Image CI---"]
+    workflows: ["Docker Image CI"]
     types:
       - completed
   push:
-    branches: ["feature/yatera"]
+    branches: ["feature/yaterabb"]
     paths:
       - ".github/workflows/azure-aks-deploy.yml"
       - "manifests/**"

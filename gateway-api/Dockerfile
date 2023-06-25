@@ -15,6 +15,8 @@ RUN npm ci
 
 COPY --chown=node:node . .
 
+EXPOSE 8000
+
 USER node
 
 ###################

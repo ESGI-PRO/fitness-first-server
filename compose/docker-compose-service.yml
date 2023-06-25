@@ -20,15 +20,13 @@ services:
       context: ../gateway-api
       dockerfile: ../gateway-api/Dockerfile
     hostname: gateway-api
-    environment:
-      - PORT=8000
     env_file:
       - ../gateway-api/.env
     # volumes:
     #   - ../gateway-api:/var/www/gateway-api
     #   - /var/www/gateway-api/node_modules
     ports:
-      - 80:8000
+      - 8000
 
   nutrition-api:
     build:
