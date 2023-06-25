@@ -19,15 +19,27 @@ services:
     build:
       context: ../gateway-api
       dockerfile: Dockerfile
-      target: development-build-stage
+      # target: development-build-stage
     hostname: gateway-api
     env_file:
       - ../gateway-api/.env
-    volumes:
-      - ../gateway-api:/var/www/gateway-api
-      - /var/www/gateway-api/node_modules
+    # volumes:
+    #   - ../gateway-api:/var/www/gateway-api
+    #   - /var/www/gateway-api/node_modules
     ports:
       - 8000:8000
+
+  # gateway-api:
+  #   container_name: gateway-api
+  #   image: my-docker-registry/server-image
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - postgres
+  #   links:
+  #     - postgres
+  #   ports:
+  #     - 3000:3000
 
   nutrition-api:
     build:

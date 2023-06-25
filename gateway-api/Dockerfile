@@ -1,38 +1,50 @@
 ###################
-# COMMON
+# BUILD FOR LOCAL DEVELOPMENT
 ###################
 
-FROM node:18.5-alpine as common-build-stage
+FROM node:18-alpine As development
 
 WORKDIR /var/www/gateway-api
 
-COPY gateway-api/package*.json ./
+COPY --chown=node:node package*.json ./
 
-#COPY package*.json ./
+RUN npm ci
 
-RUN npm install
-
-COPY . .
+COPY --chown=node:node . .
 
 EXPOSE 8000
 
+USER node
+
 ###################
-# DEVELOPMENT
+# BUILD FOR PRODUCTION
 ###################
 
-FROM common-build-stage as development-build-stage
+FROM node:18-alpine As build
 
-ENV NODE_ENV=development
+WORKDIR /var/www/gateway-api
 
-CMD [ "npm", "run", "start:dev" ]
+COPY --chown=node:node package*.json ./
+
+COPY --chown=node:node --from=development /var/www/gateway-api/node_modules ./node_modules
+
+COPY --chown=node:node . .
+
+RUN npm run build
+
+ENV NODE_ENV production
+
+RUN npm ci --only=production && npm cache clean --force
+
+USER node
 
 ###################
 # PRODUCTION
 ###################
 
-FROM common-build-stage as production-build-stage
-ENV NODE_ENV=production
+FROM node:18-alpine As production
 
-#RUN npm run build
+COPY --chown=node:node --from=build /var/www/gateway-api/node_modules ./node_modules
+COPY --chown=node:node --from=build /var/www/gateway-api/dist ./dist
 
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "node", "dist/main.js" ]
