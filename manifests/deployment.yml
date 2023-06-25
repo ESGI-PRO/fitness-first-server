@@ -1,7 +1,7 @@
   - name: gateway
     image: idboubacar/challenge-semestre2-gateway-api:latest
     ports:
-    - containerPort: 8000:8000
+    - containerPort: 8000
     resources:
       requests:
         cpu: 250m
