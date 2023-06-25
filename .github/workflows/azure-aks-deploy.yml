@@ -26,6 +26,7 @@ jobs:
           az aks get-credentials --resource-group FR_CHALLENGE_SEMESTRE2 --name challengeSemestreAKS
           kubectl delete namespace challengespace
           kubectl create namespace challengespace
+          kubectl apply -f https://github.com/kubernetes/autoscaler/releases/latest/download/vertical-pod-autoscaler.yaml
           kubectl get crd
 
 
