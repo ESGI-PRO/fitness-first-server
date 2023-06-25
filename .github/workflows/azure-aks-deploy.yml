@@ -2,7 +2,7 @@ name: Azure K8S deploy
 
 on:
   workflow_run:
-    workflows: ["Docker Image CI"]
+    workflows: ["Docker Image CI---"]
     types:
       - completed
   push:
@@ -39,6 +39,6 @@ jobs:
           manifests: |
             manifests/deployment.yml
             manifests/service.yml
-            manifests/ingress.yml
+ #           manifests/ingress.yml
           images: |
             idboubacar/challenge-semestre2-gateway-api:latest
