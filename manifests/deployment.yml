@@ -31,7 +31,7 @@ spec:
 apiVersion: "autoscaling/v2beta1"
 kind: "HorizontalPodAutoscaler"
 metadata:
-  name: "gateway-api"
+  name: "gateway-api-hpa"
   namespace: "challengespace"
   labels:
     app: "gateway-api"
