@@ -1,4 +1,4 @@
-name: Azure K8S deploy new ressource to depploy
+name: Azure K8S deployment 
 on:
   workflow_run:
     workflows: ["Docker Image CI"]
