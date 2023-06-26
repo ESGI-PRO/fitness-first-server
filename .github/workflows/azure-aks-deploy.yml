@@ -23,7 +23,7 @@ jobs:
           az acr login -n myvoteacr
           az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
           az aks get-credentials --resource-group myVoteGroup --name myAKSCluster
-          docker tag idboubacar/challenge-semestre2-gateway-api:latest myvoteacr.azurecr.io/challenge-gateway:latest
+          docker tag challenge-semestre2-gateway-api:latest myvoteacr.azurecr.io/challenge-gateway:latest
           docker push myvoteacr.azurecr.io/challenge-gateway:latest
           az acr repository list --name myvoteacr --output table
 
