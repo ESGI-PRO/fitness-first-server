@@ -20,7 +20,6 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - run: |
-          docker images
           az acr login -n myvoteacr
           az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
           az aks get-credentials --resource-group myVoteGroup --name myAKSCluster
@@ -28,8 +27,6 @@ jobs:
       - name: Build and push
         run: |
           docker build "./gateway-api" -f  "./gateway-api/Dockerfile" -t myvoteacr.azurecr.io/challenge-gateway:latest
-          docker push myvoteacr.azurecr.io/challenge-gateway:latest
-          docker tag idboubacar/challenge-semestre2-gateway-api:latest myvoteacr.azurecr.io/challenge-gateway:latest
           docker push myvoteacr.azurecr.io/challenge-gateway:latest
           az acr repository list --name myvoteacr --output table
 
