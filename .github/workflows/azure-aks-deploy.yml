@@ -10,39 +10,22 @@ on:
       - ".github/workflows/azure-aks-deploy.yml"
       - "manifests/**"
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - uses: azure/login@v1
         with:
-          client-id: 91535987-15e2-4b95-8939-8c811e6dda18
-          tenant-id: c371d4f5-b34f-4b06-9e66-517fed904220
-          subscription-id: e354bc29-fa51-443a-be90-a1191487a664
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - run: |
-          az login
-          az group create --name myVoteGroup --location eastus
-          az aks create --resource-group myVoteGroup --name myAKSCluster --node-count 2 --enable-addons monitoring --generate-ssh-keys
-          az aks get-credentials --resource-group myVoteGroup --name myAKSCluster
-          az acr create --resource-group myVoteGroup --name myvoteacr --sku Basic
           az acr login -n myvoteacr
-          cd ..
-          docker build -t idboubacar/challenge-semestre2-gateway-api:latest ./gateway-api
+          az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
+          az aks get-credentials --resource-group myVoteGroup --name myAKSCluster
           docker tag idboubacar/challenge-semestre2-gateway-api:latest myvoteacr.azurecr.io/challenge-gateway:latest
           docker push myvoteacr.azurecr.io/challenge-gateway:latest
           az acr repository list --name myvoteacr --output table
-
-      # az acr login -n myvoteacr
-      # az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
-      # az aks get-credentials --resource-group myVoteGroup --name myAKSCluster
-      # docker tag idboubacar/challenge-semestre2-gateway-api:latest myvoteacr.azurecr.io/challenge-gateway:latest
-      # docker push myvoteacr.azurecr.io/challenge-gateway:latest
-      # az acr repository list --name myvoteacr --output table
 
 
       # - uses: Azure/aks-set-context@v1
