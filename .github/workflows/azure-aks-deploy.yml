@@ -20,6 +20,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - run: |
+          docker images
           az acr login -n myvoteacr
           az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
           az aks get-credentials --resource-group myVoteGroup --name myAKSCluster
