@@ -5,7 +5,7 @@ on:
     types:
       - completed
   push:
-    branches: ["feature/yatera"]
+    branches: ["feature/yaterrrrra"]
     paths:
       - ".github/workflows/azure-aks-deploy.yml"
       - "manifests/**"
@@ -38,6 +38,6 @@ jobs:
           manifests: |
             manifests/deployment.yml
             manifests/service.yml
-            manifests/ingress.yml
+ #           manifests/ingress.yml
           images: |
             idboubacar/challenge-semestre2-gateway-api:latest
