@@ -15,10 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: 91535987-15e2-4b95-8939-8c811e6dda18
+          tenant-id: c371d4f5-b34f-4b06-9e66-517fed904220
+          subscription-id: e354bc29-fa51-443a-be90-a1191487a664
       - run: |
           az acr login -n myvoteacr
           az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
