@@ -27,7 +27,7 @@ jobs:
       
       - name: Build and push
         run: |
-          docker build "../gateway-api" -f  "gateway-api/Dockerfile" -t myvoteacr.azurecr.io/challenge-gateway:latest
+          docker build "./gateway-api" -f  "./gateway-api/Dockerfile" -t myvoteacr.azurecr.io/challenge-gateway:latest
           docker push myvoteacr.azurecr.io/challenge-gateway:latest
           docker tag idboubacar/challenge-semestre2-gateway-api:latest myvoteacr.azurecr.io/challenge-gateway:latest
           docker push myvoteacr.azurecr.io/challenge-gateway:latest
