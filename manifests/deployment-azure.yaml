@@ -57,7 +57,7 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: challenge-gateway
-        image: idboubacar/challenge-semestre2-gateway-api:latest
+        image: myvoteacr.azurecr.io/challenge-gateway:latest
         ports:
         - containerPort: 8000
         resources:
@@ -76,3 +76,4 @@ spec:
   - port: 80
   selector:
     app: challenge-gateway
+  
