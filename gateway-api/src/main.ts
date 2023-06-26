@@ -32,6 +32,6 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.use(helmet());
-  await app.listen(new ConfigService().get('port'));
+  await app.listen(new ConfigService().get('port'), '0.0.0.0');
 }
 bootstrap();
