@@ -1,13 +1,16 @@
 ###################
-# COMMON
+# BUILD FOR LOCAL DEVELOPMENT
 ###################
 
-FROM node:18.5-alpine as common-build-stage
+FROM node:18-alpine As development
 
-WORKDIR /var/www/analytic-api
+WORKDIR /usr/src/analytic-api
+
+RUN pwd
 
 COPY package*.json ./
 
+RUN ls -a
 RUN npm install
 
 COPY . .
@@ -15,23 +18,33 @@ COPY . .
 EXPOSE 8005
 
 ###################
-# DEVELOPMENT
+# BUILD FOR PRODUCTION
 ###################
 
-FROM common-build-stage as development-build-stage
+FROM node:18-alpine As build
 
-ENV NODE_ENV=development
+WORKDIR /usr/src/analytic-api
 
-CMD [ "npm", "run", "start:dev" ]
+COPY package*.json ./
+
+COPY --from=development /usr/src/analytic-api/node_modules ./node_modules
+
+COPY . .
+
+RUN npm run build
+
+ENV NODE_ENV production
+
+
+RUN npm install && npm ci --only=production && npm cache clean --force
 
 ###################
 # PRODUCTION
 ###################
 
-FROM common-build-stage as production-build-stage
+FROM node:18-alpine As production
 
-ENV NODE_ENV=production
+COPY --from=build /usr/src/analytic-api/node_modules ./node_modules
+COPY --from=build /usr/src/analytic-api/dist ./dist
 
-RUN npm run build
-
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "node", "dist/main.js" ]

@@ -1,20 +1,6 @@
 version: '3.9'
 
 services:
-  front:
-    build:
-      context: ../front
-      dockerfile: Dockerfile
-      target: development-build-stage
-    hostname: front
-    env_file:
-      - ../front/.env
-    volumes:
-      - ../front:/var/www/front
-    ports:
-      - 3000:3000
-      
-# change some thing in gateway buil with no cached
   gateway-api:
     build:
       context: ../gateway-api
@@ -22,11 +8,22 @@ services:
     hostname: gateway-api
     env_file:
       - ../gateway-api/.env
-    # volumes:
-    #   - ../gateway-api:/var/www/gateway-api
-    #   - /var/www/gateway-api/node_modules
+    volumes:
+      - ../gateway-api:/usr/src/gateway-api
     ports:
       - 8000:8000
+
+  analytic-api:
+    build:
+      context: ../analytic-api
+      dockerfile: ../gateway-api/Dockerfile
+    hostname: analytic-api
+    env_file:
+      - ../analytic-api/.env
+    volumes:
+      - ../analytic-api:/usr/src/analytic-api
+    ports:
+      - 8005:8005
 
   nutrition-api:
     build:
@@ -69,20 +66,6 @@ services:
       - /var/www/training-api/node_modules
     ports:
       - 8003:8003
-
-  analytic-api:
-    build:
-      context: ../analytic-api
-      dockerfile: Dockerfile
-      target: development-build-stage
-    hostname: analytic-api
-    env_file:
-      - ../analytic-api/.env
-    volumes:
-      - ../analytic-api:/var/www/analytic-api
-      - /var/www/analytic-api/node_modules
-    ports:
-      - 8005:8005
 
   token-api:
     build:

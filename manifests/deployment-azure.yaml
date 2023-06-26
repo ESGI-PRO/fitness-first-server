@@ -1,0 +1,78 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: challenge-mongodb
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: challenge-mongodb
+#   template:
+#     metadata:
+#       labels:
+#         app: challenge-mongodb
+#     spec:
+#       nodeSelector:
+#         "beta.kubernetes.io/os": linux
+#       containers:
+#       - name: challenge-mongodb
+#         image: challenge-mongodbimage
+#         env:
+#         - name: ALLOW_EMPTY_PASSWORD
+#           value: "yes"
+#         ports:
+#         - containerPort: 27017
+#           name: mongo
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: challenge-mongodb
+# spec:
+#   ports:
+#   - port: 27017
+#   selector:
+#     app: challenge-mongodb
+# ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: challenge-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: challenge-gateway
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5 
+  template:
+    metadata:
+      labels:
+        app: challenge-gateway
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: challenge-gateway
+        image: idboubacar/challenge-semestre2-gateway-api:latest
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: challenge-gateway
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8000
+  selector:
+    app: challenge-gateway
