@@ -29,6 +29,18 @@ jobs:
           docker build "./gateway-api" -f  "./gateway-api/Dockerfile" -t myvoteacr.azurecr.io/challenge-gateway:latest
           docker push myvoteacr.azurecr.io/challenge-gateway:latest
           az acr repository list --name myvoteacr --output table
+          az acr repository show-tags --name myvoteacr --repository challenge-gateway --output table
+          
+      - name: Deploy to AKS
+        env: 
+          AZURECRNAME: myvoteacr
+          AZURECRUSERNAME: myvoteacr
+          AZURECRPASSWORD: ${{ secrets.AZURE_CREDENTIALS }}
+        run: |
+          az aks get-credentials --resource-group myVoteGroup --name myAKSCluster
+          kubectl apply -f ./manifests/deployment-azure.yaml
+          kubectl get service
+          kubectl get pods
 
       # - uses: Azure/aks-set-context@v1
       #   with:
