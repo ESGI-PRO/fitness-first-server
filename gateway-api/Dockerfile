@@ -15,7 +15,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 8000
 ###################
 # BUILD FOR PRODUCTION
 ###################
@@ -32,7 +31,7 @@ COPY . .
 
 RUN npm run build
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 RUN npm install && npm ci --only=production && npm cache clean --force
 
@@ -44,5 +43,7 @@ FROM node:18-alpine As production
 
 COPY --from=build /usr/src/gateway-api/node_modules ./node_modules
 COPY --from=build /usr/src/gateway-api/dist ./dist
+
+EXPOSE 3000
 
 CMD [ "node", "dist/main.js" ]

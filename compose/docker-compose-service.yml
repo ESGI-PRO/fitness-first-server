@@ -1,5 +1,12 @@
 version: '3.9'
 
+networks:
+  backend:
+    driver: bridge
+  frontend:
+    external:
+      name: infrastructure
+
 services:
   gateway-api:
     build:
@@ -14,7 +21,10 @@ services:
     volumes:
       - ../gateway-api:/usr/src/gateway-api
     ports:
-      - 3000
+      - "3000:3000"
+    networks:
+      - frontend
+      - backend
 
   analytic-api:
     build:
@@ -29,7 +39,9 @@ services:
     volumes:
       - ../analytic-api:/usr/src/analytic-api
     ports:
-      - 3001
+      - "3001:3001"
+    networks:
+      - backend
 
   nutrition-api:
     build:

@@ -15,8 +15,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 8005
-
 ###################
 # BUILD FOR PRODUCTION
 ###################
@@ -46,5 +44,7 @@ FROM node:18-alpine As production
 
 COPY --from=build /usr/src/analytic-api/node_modules ./node_modules
 COPY --from=build /usr/src/analytic-api/dist ./dist
+
+EXPOSE 3001
 
 CMD [ "node", "dist/main.js" ]
