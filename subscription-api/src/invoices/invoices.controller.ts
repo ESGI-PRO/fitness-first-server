@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, HttpStatus } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { InvoicesService } from './invoices.service';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
@@ -18,9 +18,22 @@ export class InvoicesController {
     return this.invoicesService.findAll();
   }
 
-  @MessagePattern('findByUserId')
-  findByUserId(@Payload() id: string){
-    return this.invoicesService.findByUserId(id);
+  @MessagePattern('findInvoicesByUserId')
+  async findByUserId(@Payload() id: string){
+    const invoices = await this.invoicesService.findByUserId(id);
+    if(invoices){
+      return {
+        status: HttpStatus.OK,
+        message: "get_user_invoices_success",
+        invoices: invoices
+      }
+    }else{
+      return {
+        status: HttpStatus.NOT_FOUND,
+        message: 'get_user_invoices_not_found',
+        invoices: null
+      }
+    }
   }
 
   @MessagePattern('findOneInvoice')

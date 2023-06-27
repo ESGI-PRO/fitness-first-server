@@ -67,6 +67,7 @@ services:
       service: messenger-api
     depends_on:
       - mongo
+      - user-api
 
   subscription-api:
     extends:

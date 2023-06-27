@@ -1,0 +1,15 @@
+exit
+exit exit
+mongosh -u userAdmin -p userPassword --authenticationDatabase admi
+show roles
+show roloes
+use token_db
+clear
+cd ..
+exit
+show roles
+use token_db
+show roles
+use admin
+show roles
+show users

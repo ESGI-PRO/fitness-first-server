@@ -26,7 +26,11 @@ export class CreateUserDto {
   })
   isTrainer: boolean;
   @ApiProperty({
-    example: '5d987c3bfb881ec86b476bcc',
+    example: false,
+  })
+  isAdmin: boolean;
+  @ApiProperty({
+    example: true,
   })
   trainerId: string;
   @ApiProperty({

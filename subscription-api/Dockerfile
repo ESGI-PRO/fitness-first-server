@@ -2,7 +2,7 @@
 # COMMON
 ###################
 
-FROM node:18.5-alpine as common-build-stage
+FROM node:16.14.2-alpine as common-build-stage
 
 WORKDIR /var/www/subscriptions-api
 
@@ -24,8 +24,8 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-# CMD [ "npm", "run", "start:dev" ]
-CMD [ "concurrently", "npm:start:dev", "npx:prisma:migrate", "npx:prisma:seed" ]
+
+CMD [ "concurrently","npm:prisma:generate", "npm:prisma:migrate", "npm:prisma:seed", "npm:start:dev" ]
 
 ###################
 # PRODUCTION
