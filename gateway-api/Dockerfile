@@ -4,8 +4,6 @@
 
 FROM node:18-alpine As development
 
-EXPOSE 8000
-
 WORKDIR /usr/src/gateway-api
 
 RUN pwd
@@ -17,6 +15,7 @@ RUN npm install
 
 COPY . .
 
+EXPOSE 8000
 ###################
 # BUILD FOR PRODUCTION
 ###################

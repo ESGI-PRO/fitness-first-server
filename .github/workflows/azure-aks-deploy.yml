@@ -5,7 +5,7 @@ on:
     types:
       - completed
   push:
-    branches: ["feature/yatera"]
+    branches: ["feature/yateraaaaaa"]
     paths:
       - ".github/workflows/azure-aks-deploy.yml"
       - "manifests/**"
@@ -38,7 +38,7 @@ jobs:
           AZURECRPASSWORD: ${{ secrets.AZURE_CREDENTIALS }}
         run: |
           az aks get-credentials --resource-group myVoteGroup --name myAKSCluster
-          kubectl apply -f ./manifests/deployment-azure.yaml
+          kubectl apply -f ./manifests/deployment.yaml
           kubectl get service
           kubectl get pods
 

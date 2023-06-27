@@ -58,8 +58,25 @@ spec:
       containers:
       - name: challenge-gateway
         image: myvoteacr.azurecr.io/challenge-gateway:latest
+        env:
+        - name: NODE_ENV
+          value: production
+        - name: JWT_SECRET
+          value: thisisasamplesecret
+        #Number of minutes after which an access token expires
+        - name: JWT_ACCESS_EXPIRATION_MINUTES
+          value: "360"
+        #Number of days after which a refresh token expires
+        - name: JWT_REFRESH_EXPIRATION_DAYS
+          value: "60"
+        #Number of minutes after which a reset password token expires
+        - name: JWT_RESET_PASSWORD_EXPIRATION_MINUTES 
+          value: "10"
+        #Number of minutes after which a verify email token expires
+        - name: JWT_VERIFY_EMAIL_EXPIRATION_MINUTES
+          value: "10"
         ports:
-        - containerPort: 8000
+        - containerPort: 3000
         resources:
           requests:
             cpu: 250m

@@ -11,7 +11,7 @@ services:
     volumes:
       - ../gateway-api:/usr/src/gateway-api
     ports:
-      - 8000:8000
+      - 3000
 
   analytic-api:
     build:
@@ -23,7 +23,7 @@ services:
     volumes:
       - ../analytic-api:/usr/src/analytic-api
     ports:
-      - 8005:8005
+      - 3001
 
   nutrition-api:
     build:
