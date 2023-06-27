@@ -28,6 +28,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./analytic-api
+          platforms: linux/amd64,linux/arm64,linux/x86_64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-analytic-api:latest
           labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-analytic-api:latest
@@ -38,6 +39,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./gateway-api
+          platforms: linux/amd64,linux/arm64,linux/x86_64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-gateway-api:latest
           labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-gateway-api:latest
