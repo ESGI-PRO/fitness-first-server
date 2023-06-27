@@ -34,6 +34,7 @@
 
 .env
 .env.*
+./dist/*
 ./**/dist
 ./**/dist/*
 ./**/node_modules
@@ -44,4 +45,4 @@
 .DS_Store
 *.pnpm-store
 
-./**/compose/mongodata
+./compose/mongodata/*
