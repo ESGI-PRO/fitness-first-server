@@ -1,13 +1,20 @@
 version: '3.9'
 
-networks:
-  backend:
-    driver: bridge
-  frontend:
-    external:
-      name: infrastructure
-
 services:
+  # gateway-api:
+  #   build:
+  #     context: ../gateway-api
+  #     platforms:
+  #       - "linux/amd64"
+  #       - "linux/x86_64"
+  #     dockerfile: ../gateway-api/Dockerfile
+  #   hostname: gateway-api
+  #   env_file:
+  #     - ../gateway-api/.env
+  #   volumes:
+  #     - ../gateway-api:/usr/src/gateway-api
+  #   ports:
+  #     - "3000:3000"
   gateway-api:
     build:
       context: ../gateway-api
@@ -20,11 +27,10 @@ services:
       - ../gateway-api/.env
     volumes:
       - ../gateway-api:/usr/src/gateway-api
+    environment:
+      - PORT=3000
     ports:
-      - "3000:3000"
-    networks:
-      - frontend
-      - backend
+      - 80:3000
 
   analytic-api:
     build:
@@ -40,8 +46,6 @@ services:
       - ../analytic-api:/usr/src/analytic-api
     ports:
       - "3001:3001"
-    networks:
-      - backend
 
   nutrition-api:
     build:
