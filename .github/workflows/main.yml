@@ -25,24 +25,26 @@ jobs:
 
       - name: Build and push analytics
         id: docker_build_analytic_service
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: ./analytic-api
-          platforms: linux/amd64,linux/arm64,linux/x86_64
+          platforms: linux/x86_64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-analytic-api:latest
           labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-analytic-api:latest
+          provenance: false
 
 
       - name: Build and push gateway
         id: docker_build_gateway_service
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: ./gateway-api
-          platforms: linux/amd64,linux/arm64,linux/x86_64
+          platforms: linux/x86_64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-gateway-api:latest
           labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-gateway-api:latest
+          provenance: false
           
       # - name: Build and push mailer-api
       #   id: docker_build_mailer_service
