@@ -4,6 +4,9 @@ services:
   gateway-api:
     build:
       context: ../gateway-api
+      platforms:
+        - "linux/amd64"
+        - "linux/x86_64"
       dockerfile: ../gateway-api/Dockerfile
     hostname: gateway-api
     env_file:
@@ -16,6 +19,9 @@ services:
   analytic-api:
     build:
       context: ../analytic-api
+      platforms:
+        - "linux/amd64"
+        - "linux/x86_64"
       dockerfile: ../gateway-api/Dockerfile
     hostname: analytic-api
     env_file:
