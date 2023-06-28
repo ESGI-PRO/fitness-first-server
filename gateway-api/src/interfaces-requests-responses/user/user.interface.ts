@@ -5,6 +5,7 @@ export interface IUser {
   mobileNumber?: string;
   is_confirmed: boolean;
   isTrainer?: boolean;
+  isAdmin?: boolean;
   trainerId?: string;
   traineeIds?: Array<string>;
   trainerSpeciality?: string;

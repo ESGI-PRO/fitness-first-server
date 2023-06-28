@@ -21,7 +21,7 @@ export class UserService implements OnModuleInit {
     }
      const seedAlgo = async () => {
            // for all users where !isTrainer and trainerId is null add a valid random user id to trainerId field
-           const users = await this.userModel.find({ isTrainer: false, trainerId: null }).exec();
+           const users = await this.userModel.find({ isTrainer: false, isAdmin: false, trainerId: null }).exec();
            console.log('users', users);
            for (let i = 0; i < users.length; i++) {
              const user = users[i];
@@ -34,7 +34,7 @@ export class UserService implements OnModuleInit {
            }
 
            // for all trainers add some valid random users id to traineeIds field
-           const trainers = await this.userModel.find({ isTrainer: true }).exec();
+           const trainers = await this.userModel.find({ isTrainer: true, isAdmin: false }).exec();
            console.log('trainers', trainers);
            for (let i = 0; i < trainers.length; i++) {
              const trainer = trainers[i];
@@ -48,7 +48,7 @@ export class UserService implements OnModuleInit {
     }
 
 
-    //cleardb()
+   //cleardb()
    this.userModel.countDocuments({}).then(async (count) => {
       //console.log(' count is ' + count + '', await this.userModel.find({}).exec());
       if (count < 2) {

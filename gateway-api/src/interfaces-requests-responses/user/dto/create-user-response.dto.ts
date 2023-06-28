@@ -14,6 +14,7 @@ export class CreateUserResponseDto {
         userName: 'John Doe',
         mobileNumber: '1234567890',
         isTrainer: true,
+        isAdmin: false,
         trainerId: '5d987c3bfb881ec86b476bcc',
         traineeIds: [],
         trainerSpeciality: 'YOGA',
