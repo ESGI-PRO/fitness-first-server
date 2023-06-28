@@ -14,13 +14,14 @@ import { ClientProxy } from '@nestjs/microservices';
 import { Response } from 'express'
 import RequestWithRawBody from './interfaces-requests-responses/subscription/requestWithRawBody.interface';
 import { Stripe } from 'stripe';
-import { ApiOkResponse } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { GetUserSubscriptionResponseDto } from './interfaces-requests-responses/subscription/dto/get-user-subscriptions-response.dto';
 import { GetUserSubscriptionsDto } from './interfaces-requests-responses/subscription/dto/get-user-subcriptions.dto';
 import { GetUserInvoicesResponseDto } from './interfaces-requests-responses/subscription/dto/get-user-invoices-response.dto';
 import { GetUserInvoicesDto } from './interfaces-requests-responses/subscription/dto/get-user-invoices.dto';
 
 @Controller('subscription')
+@ApiTags('subscription')
 export class SubscriptionController {
   private stripe: any;
 
