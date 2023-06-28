@@ -7,13 +7,11 @@ import { ConfigService } from './services/config/config.service';
 import { MongoConfigService } from './services/config/mongo-config.service';
 import { RoomSchema } from './_schemas/room.schema';
 import { MessageSchema } from './_schemas/message.schema';
-
+import { AppService } from './app.service';
+import { ClientProxyFactory } from '@nestjs/microservices';
 
 @Module({
   controllers: [],
-  providers: [
-    ConfigService
-  ],
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRootAsync({
@@ -34,6 +32,18 @@ import { MessageSchema } from './_schemas/message.schema';
     
     RoomsModule,
     MessagesModule,
+  ],
+  providers: [
+    ConfigService,
+    AppService,
+    {
+      provide: 'USER_SERVICE',
+      useFactory: (configService: ConfigService) => {
+        const userServiceOptions = configService.get('userService');
+        return ClientProxyFactory.create(userServiceOptions);
+      },
+      inject: [ConfigService],
+    }
   ],
 })
 

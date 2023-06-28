@@ -1,7 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-
 import { ConfigService } from './config/config.service';
 import { IUser } from '../interfaces/user.interface';
 import { IUserLink } from '../interfaces/user-link.interface';
@@ -65,7 +64,7 @@ export class UserService implements OnModuleInit {
     });
   }
 
-  public async searchUser(params: { email: string }): Promise<IUser[]> {
+  public async searchUser(params: any): Promise<IUser[]> {
     return this.userModel.find(params).exec();
   }
 

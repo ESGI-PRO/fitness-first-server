@@ -8,12 +8,17 @@ import { IUserSearchResponse } from '../interfaces-requests-responses/requests/u
 
 export class RoomsRepository {
   constructor(
-    @InjectModel('room')
-    private roomModel: Model<RoomDo>,
+    @InjectModel('Room') private readonly roomModel: Model<RoomDo>,
     @Inject('USER_SERVICE') private readonly userServiceClient: ClientProxy,
   ) {}
 
   async createRoom(room): Promise<any> {
+    // connect user to trainer
+    const res = await firstValueFrom(this.userServiceClient
+      .send('user_connect_to_trainer', {
+        userId: room.sender_id,
+        trainerId: room.members.filter((m)=> m !== room.sender_id)[0]
+      }));
     const createOne = await this.roomModel.create(room);
     return createOne;
   }

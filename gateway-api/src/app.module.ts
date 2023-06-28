@@ -9,7 +9,8 @@ import { MessengerGateWay } from './messenger.gateway'
 import { AuthGuard } from './services/guards/authorization.guard';
 import { PermissionGuard } from './services/guards/permission.guard';
 import { ConfigService } from './services/config/config.service';
-import { SubscriptionController } from './subscription.controller'
+import { SubscriptionController } from './subscription.controller';
+import { MessengerController } from './messenger.controller';
 
 @Module({
   imports: [],
@@ -17,7 +18,8 @@ import { SubscriptionController } from './subscription.controller'
      TrainingController,
      NutritionController,
      AnalyticController,
-     SubscriptionController
+     SubscriptionController,
+     MessengerController
      ],
   providers: [
     ConfigService,
