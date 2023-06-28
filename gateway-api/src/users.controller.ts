@@ -42,7 +42,7 @@ export class UsersController {
     @Inject('USER_SERVICE') private readonly userServiceClient: ClientProxy,
   ) { }
 
-  @Get()
+  @Get('/me')
   @Authorization(true)
   @ApiBearerAuth('access-token')
   @ApiOkResponse({
@@ -278,10 +278,16 @@ export class UsersController {
 
   }
 
-  @Get('/all')
+  @Get()
   public async getAllUsers(): Promise<any> {
     const users = await this.userServiceClient.send('user_get_all', {});
     return users;
+  }
+
+  @Get(':id')
+  public async getByUserId(@Param('id') id: string): Promise<any> {
+    const user = await this.userServiceClient.send('get_user_by_id', id);
+    return user;
   }
 
 }

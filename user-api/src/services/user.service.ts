@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleInit, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -116,4 +116,11 @@ export class UserService implements OnModuleInit {
     const users = await this.userModel.find({}).exec();
     return users;
   }
+
+  public async getByUserId(id: string): Promise<IUser[]> {
+    const user = await this.userModel.find({ _id: { $in: id } }).exec();
+    if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    return user;
+  }
+
 }

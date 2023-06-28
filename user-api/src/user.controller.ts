@@ -278,4 +278,9 @@ export class UserController {
       return users;
     }
 
+    @MessagePattern('get_user_by_id')
+    public async getByUserId(id: string): Promise<any> {
+      const user = await this.userService.getByUserId(id);
+      return user;
+    }
 }
