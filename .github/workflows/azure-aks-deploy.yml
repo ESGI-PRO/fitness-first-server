@@ -1,11 +1,11 @@
-name: Azure K8S deployment --- azure ---
+name: Azure K8S deployment --- azure --- port gateway 3000
 on:
   workflow_run:
     workflows: ["Docker Image CI"]
     types:
       - completed
   push:
-    branches: ["feature/yateraaaaaa"]
+    branches: ["feature/yatera"]
     paths:
       - ".github/workflows/azure-aks-deploy.yml"
       - "manifests/**"
