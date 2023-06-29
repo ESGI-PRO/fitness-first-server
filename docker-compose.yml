@@ -44,38 +44,46 @@ services:
     depends_on:
       - mongo
 
-  auth-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: auth-api
   token-api:
     extends:
       file: ./compose/docker-compose-service.yml
       service: token-api
     depends_on:
       - mongo
+
   permission-api:
     extends:
       file: ./compose/docker-compose-service.yml
       service: permission-api
-  mailer-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: mailer-api
-  messenger-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: messenger-api
-    depends_on:
-      - mongo
-  subscription-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: subscription-api
-    depends_on:
-      - postgres
+
+  # mailer-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: mailer-api
+
+  # messenger-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: messenger-api
+  #   depends_on:
+  #     - mongo
+
+  # subscription-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: subscription-api
+  #   depends_on:
+  #     - postgres
 
   gateway-api:
     extends:
       file: ./compose/docker-compose-service.yml
       service: gateway-api
+
+#front
+  # front:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: front
+  #   depends_on:
+  #     - gateway-api

@@ -12,7 +12,18 @@ export class RecettesService {
     })
   }
 
+  // async getRecettes() {
+  //   const recettes = await prisma.recettes.findMany();
+  //   return { data: recettes };
+  // }
+
+  // async countRecettes() {
+  //   return prisma.recettes.count();
+  // }
+
+
   async getRecetteByID(id) {
+    console.log("id" , id)
     return new Promise(async (resolve, reject) => {
       const recettes = await prisma.recettes.findUnique({
         where: {
@@ -26,7 +37,7 @@ export class RecettesService {
 
   async createRecette(data){
     return new Promise(async (resolve, reject) => {
-      const recettes = await prisma.recettes.findMany()
+      const recettes = await prisma.recettes.create({data: {...data}})
       resolve(recettes)
     })
   }

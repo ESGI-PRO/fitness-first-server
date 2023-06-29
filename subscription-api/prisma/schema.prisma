@@ -21,6 +21,11 @@ model Subscription {
   @@index([userId(sort: Asc)])
 }
 
+        name: 'SixMonths',
+        slug: 'SixMonths',
+        stripeId: "price_1N2ZjhAor24SfpgrTO5vS3Kx",
+        price: 4599,
+        paymentLink: 'https://buy.stripe.com/test_3cs9Cr6Wy8AygKs6ov',
 model Plan {
   id           String   @id @default(uuid())
   name         String         @db.VarChar(75)

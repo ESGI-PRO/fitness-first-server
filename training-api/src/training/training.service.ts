@@ -37,7 +37,7 @@ export class TrainingService {
     try {
       const training = await prisma.training.findMany({
         where: {
-          userId
+          userId: String(userId)
         },
       });
       return training;

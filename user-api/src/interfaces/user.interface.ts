@@ -8,6 +8,8 @@ export interface IUser extends Document {
   userName?: string;
   mobileNumber?: string;
   isTrainer?: boolean;
+  trainerId?: string;
+  traineeIds?: Array<string>;
   trainerSpeciality?: string;
   compareEncryptedPassword: (password: string) => boolean;
   getEncryptedPassword: (password: string) => string;

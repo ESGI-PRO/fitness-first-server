@@ -8,7 +8,7 @@ RUN mkdir -p /var/www/training-api
 WORKDIR /var/www/training-api
 
 ADD . /var/www/training-api/
-RUN pnpm install
+RUN pnpm install 
 # RUN npx prisma generate
 
 EXPOSE 8003

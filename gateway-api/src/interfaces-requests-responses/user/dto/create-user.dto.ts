@@ -26,7 +26,19 @@ export class CreateUserDto {
   })
   isTrainer: boolean;
   @ApiProperty({
-    example: 'Yoga',
+    example: '5d987c3bfb881ec86b476bcc',
+  })
+  trainerId: string;
+  @ApiProperty({
+    example: [],
+  })
+  traineeIds: Array<string>;
+  @ApiProperty({
+    example: 'YOGA',
   })
   trainerSpeciality: string;
+  @ApiProperty({
+    example: false,
+  })
+  is_confirmed: boolean;
 }

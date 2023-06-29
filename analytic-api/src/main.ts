@@ -1,12 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Transport, TcpOptions } from '@nestjs/microservices';
 import { ConfigService } from './services/config/config.service';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { TcpOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice(AppModule, {
-    cors: true,
-    logger: ['error', 'warn'],
     transport: Transport.TCP,
     options: {
       host: '0.0.0.0',
@@ -15,4 +14,5 @@ async function bootstrap() {
   } as TcpOptions);
   await app.listen();
 }
+console.log("ConfigService().get('port')", new ConfigService().get('port'))
 bootstrap();

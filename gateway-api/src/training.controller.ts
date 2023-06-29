@@ -1,4 +1,4 @@
-import { CreateExercicesDTO } from './requests/training/dto/create-exercices-dto';
+import { CreateExercicesDTO } from './interfaces-requests-responses/training/dto/create-exercices-dto';
 import {
   Body,
   Controller,
@@ -13,12 +13,12 @@ import { ClientProxy } from '@nestjs/microservices';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Authorization } from './decorators/authorization.decorator';
 import { firstValueFrom } from 'rxjs';
-import { GetTrainingResponseDto } from './requests/training/dto/get-training-response.dto';
-import { CreateTrainingDTO } from './requests/training/dto/create-training-dto';
-import { getTrainingIdDTO } from './requests/training/dto/get-training-id-dto';
-import { GetExercicesResponseDto } from './requests/training/dto/get-exercices-response.dto';
-import { getExercicesIdDTO } from './requests/training/dto/get-exercices-id-dto';
-import { getTrainingUserIdDTO } from './requests/training/dto/get-training-userId-dto';
+import { GetTrainingResponseDto } from './interfaces-requests-responses/training/dto/get-training-response.dto';
+import { CreateTrainingDTO } from './interfaces-requests-responses/training/dto/create-training-dto';
+import { getTrainingIdDTO } from './interfaces-requests-responses/training/dto/get-training-id-dto';
+import { GetExercicesResponseDto } from './interfaces-requests-responses/training/dto/get-exercices-response.dto';
+import { getExercicesIdDTO } from './interfaces-requests-responses/training/dto/get-exercices-id-dto';
+import { getTrainingUserIdDTO } from './interfaces-requests-responses/training/dto/get-training-userId-dto';
 
 @Controller('training')
 @ApiTags('training')
@@ -118,7 +118,7 @@ export class TrainingController {
   ): Promise<GetTrainingResponseDto> {
     const trainingResponse: GetTrainingResponseDto = await firstValueFrom(
       this.trainingServiceClient.send('get_training_by_UserId', {
-        id: params.userId,
+        userId: params.userId,
       }),
     );
     return {

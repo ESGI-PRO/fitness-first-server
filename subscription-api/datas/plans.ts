@@ -4,20 +4,20 @@ export const plans = [
         slug: 'Monthly',
         stripeId: "price_1N2XeWAor24SfpgrShusCjZi",
         price: 799,
-        payementLink: 'https://buy.stripe.com/test_6oE3e3ep03gecuc28e',
+        paymentLink: 'https://buy.stripe.com/test_6oE3e3ep03gecuc28e',
     },
     {
         name: 'SixMonths',
         slug: 'SixMonths',
         stripeId: "price_1N2ZjhAor24SfpgrTO5vS3Kx",
         price: 4599,
-        payementLink: 'https://buy.stripe.com/test_3cs9Cr6Wy8AygKs6ov',
+        paymentLink: 'https://buy.stripe.com/test_3cs9Cr6Wy8AygKs6ov',
     },
     {
         name: 'Yearly',
         slug: 'Yearly',
         stripeId: "price_1N2XgKAor24SfpgrsuIXb4KD",
         price: 9000,
-        payementLink: 'https://buy.stripe.com/test_dR65mb6Wy4ki8dW3ck',
+        paymentLink: 'https://buy.stripe.com/test_dR65mb6Wy4ki8dW3ck',
     }
 ];

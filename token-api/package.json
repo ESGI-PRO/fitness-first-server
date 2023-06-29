@@ -18,6 +18,7 @@
     "@nestjs/microservices": "^9.0.0",
     "@nestjs/mongoose": "9.2.2",
     "@nestjs/platform-express": "^9.0.0",
+    "moment": "^2.29.4",
     "mongoose": "7.0.3",
     "reflect-metadata": "0.1.13",
     "rimraf": "4.4.1",

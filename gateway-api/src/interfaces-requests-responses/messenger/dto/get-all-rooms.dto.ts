@@ -5,5 +5,5 @@ export class GetAllRoomsDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
-  id: string;
+  userId: string;
 }
