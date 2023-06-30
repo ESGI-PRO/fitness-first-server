@@ -44,4 +44,17 @@ export class IngredientsService {
       resolve(ingredients);
     });
   }
+
+  async updateIngredient(id: number, data: any): Promise<any> {
+    return prisma.ingredients.update({
+      where: { id: id },
+      data: { ...data },
+    });
+  }
+
+  async deleteIngredient(id: number): Promise<any> {
+    return prisma.ingredients.delete({
+      where: { id: id },
+    });
+  }
 }

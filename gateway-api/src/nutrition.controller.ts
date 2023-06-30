@@ -1,4 +1,4 @@
-import { Controller, Inject, Get, Param, Post, Body } from '@nestjs/common';
+import { Controller, Inject, Get, Param, Post, Body, Delete, Put } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiTags, ApiOkResponse, ApiCreatedResponse } from '@nestjs/swagger';
 import { Authorization } from './decorators/authorization.decorator';
@@ -149,6 +149,47 @@ export class NutritionController {
       }),
     );
     console.log(`Ingredient` + params.id);
+    return {
+      message: nutritionResponse.message,
+      data: {
+        nutrition: nutritionResponse.data.nutrition,
+      },
+      errors: null,
+    };
+  }
+
+  @Put('/ingredients/:id')
+  @Authorization(false)
+  @ApiOkResponse({
+    type: GetNutritionResponseDto,
+  })
+  public async updateIngredient(
+    @Param() params: getIngredientIdDTO,
+    @Body() ingredientData: any,
+  ): Promise<GetNutritionResponseDto> {
+    const nutritionResponse: any = await firstValueFrom(
+      this.nutritionServiceClient.send('edit_ingredient', { id: Number(params.id), ingredientData }),
+    );
+    return {
+      message: nutritionResponse.message,
+      data: {
+        nutrition: nutritionResponse.data.nutrition,
+      },
+      errors: null,
+    };
+  }
+
+  @Delete('/ingredients/:id')
+  @Authorization(false)
+  @ApiOkResponse({
+    type: GetNutritionResponseDto,
+  })
+  public async deleteIngredient(
+    @Param('id') id: string,
+  ): Promise<GetNutritionResponseDto> {
+    const nutritionResponse: any = await firstValueFrom(
+      this.nutritionServiceClient.send('delete_ingredient', { id }),
+    );
     return {
       message: nutritionResponse.message,
       data: {
