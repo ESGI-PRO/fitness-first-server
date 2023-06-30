@@ -31,10 +31,7 @@
 ./**/.env.*
 ./**/.env.local
 ./**/.env.*.local
-/compose/mongodata
-/compose/mongodata/*
-/compose/initdb
-/compose/initdb/*
+
 .env
 .env.*
 # ./**/dist
@@ -45,3 +42,7 @@
 .expo
 .vscode
 .DS_Store
+<<<<<<< HEAD
+=======
+*.pnpm-store
+>>>>>>> feature/fix-docker

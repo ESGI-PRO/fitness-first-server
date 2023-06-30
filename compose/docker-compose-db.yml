@@ -13,14 +13,12 @@ services:
     container_name: postgres
     image: postgres:15.2-alpine
     restart: always
-    hostname: localhost
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+    env_file:
+      - ./.env
     ports:
       - '5432:5432'
     volumes:
-      - ./initdb:/docker-entrypoint-initdb.d
+      - ./initdb/init-postgres-db.sql:/docker-entrypoint-initdb.d/init-postgres-db.sql:ro
 
   # mongo-db
   mongo:
@@ -29,6 +27,3 @@ services:
     restart: always
     ports:
       - '27017:27017'
-    volumes:
-      - ./mongodata:/data/db
-

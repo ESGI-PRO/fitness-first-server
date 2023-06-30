@@ -8,7 +8,8 @@ CHALLENGE pour la deuxième semestre.
 docker compose up -d
 ```
 
-## Variable env 
+## Variable env
+
 Il faut créer un fichier .env dans chaque micro-service backend et ajouter les variables suivantes
 
 ```bash

@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleInit, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -75,8 +75,9 @@ export class UserService implements OnModuleInit {
 
   public async updateUserById(
     id: string,
-    userParams: { is_confirmed: boolean },
+    userParams: any,
   ): Promise<IUser> {
+    console.log("update called", id, userParams)
     this.userModel.updateOne({ _id: id }, userParams).exec()
     return this.userModel.findById(id).exec();
   }
@@ -110,4 +111,16 @@ export class UserService implements OnModuleInit {
       'gatewayPort',
     )}/users/confirm/${link}`;
   }
+
+  public async getAllUsers(): Promise<IUser[]> {
+    const users = await this.userModel.find({}).exec();
+    return users;
+  }
+
+  public async getByUserId(id: string): Promise<IUser[]> {
+    const user = await this.userModel.find({ _id: { $in: id } }).exec();
+    if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    return user;
+  }
+
 }

@@ -19,6 +19,7 @@ export interface IUserSchema extends mongoose.Document {
   traineeIds: Array<string>;
   password: string;
   is_confirmed: boolean;
+  role: string;
   comparePassword: (password: string) => Promise<boolean>;
   getEncryptedPassword: (password: string) => Promise<string>;
 }
@@ -68,8 +69,13 @@ export const UserSchema = new mongoose.Schema<IUserSchema>(
       type: String,
       enum: [trainerSpecialityTypes.YOGA, trainerSpecialityTypes.FITNESS, trainerSpecialityTypes.POWERLIFTING, trainerSpecialityTypes.NONE],
       required: [false, 'trainerSpeciality can not be empty']
-    }
-
+    },
+    role: {
+      type: String,
+      default: 'USER',
+      enum: ['USER', 'ADMIN'],
+      required: [true, 'Role can not be empty'],
+    },
   },
   {
     toObject: {

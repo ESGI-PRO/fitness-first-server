@@ -91,7 +91,7 @@ function insertTraining() {
   }
 }
 
-// insertTypeExercices();
+insertTypeExercices();
 insertTraining();
 
 // insertTypeExercices();

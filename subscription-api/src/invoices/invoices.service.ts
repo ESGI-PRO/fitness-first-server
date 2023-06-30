@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
-//import { CreateInvoiceDto } from './dto/create-invoice.dto';
-//import { UpdateInvoiceDto } from './dto/update-invoice.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+
 
 @Injectable()
 export class InvoicesService {
   constructor(private prisma: PrismaService) {}
 
-  create(createInvoiceDto: any) {
-    return this.prisma.invoice.create({ data: createInvoiceDto });
+  create( createData: any) {
+    console.log("user invoice createData", createData)
+    const {subscriptionId, ...rest}=createData
+    return this.prisma.invoice.create({ data: {...rest, subscription: {connect: {id: subscriptionId}}}});
   }
 
   findAll() {
