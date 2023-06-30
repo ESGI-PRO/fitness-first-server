@@ -7,7 +7,7 @@ export class AnalytiqueEventinterface {
   readonly eventCategory: string;
   readonly eventPage: string;
   readonly date: string;
-  readonly events?: JSON;
+  readonly events?: any;
 } 
 
 export interface AnalyticInterface {
