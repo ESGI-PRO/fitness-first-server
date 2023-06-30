@@ -38,6 +38,8 @@ jobs:
           AZURECRPASSWORD: ${{ secrets.AZURE_CREDENTIALS }}
         run: |
           az aks get-credentials --resource-group myVoteGroup --name myAKSCluster
+          kubectl delete namespaces challengespace
+          kubectl create namespace challengespace
           kubectl apply -f ./manifests/deployment.yaml
           kubectl get service
           kubectl get pods

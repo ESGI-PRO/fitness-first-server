@@ -1,0 +1,51 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: challenge-mongodb
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: challenge-mongodb
+#   template:
+#     metadata:
+#       labels:
+#         app: challenge-mongodb
+#     spec:
+#       nodeSelector:
+#         "beta.kubernetes.io/os": linux
+#       containers:
+#       - name: challenge-mongodb
+#         image: challenge-mongodbimage
+#         env:
+#         - name: ALLOW_EMPTY_PASSWORD
+#           value: "yes"
+#         ports:
+#         - containerPort: 27017
+#           name: mongo
+# ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  namespace: "challengespace"
+  labels:
+    app: gateway
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+      - name: gateway
+        image: idboubacar/challenge-semestre2-gateway-api:latest
+        env:
+          - name: API_GATEWAY_PORT
+            value: "80"
+        ports:
+          - containerPort: 80

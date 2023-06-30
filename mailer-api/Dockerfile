@@ -1,49 +1,40 @@
 ###################
-# BUILD FOR LOCAL DEVELOPMENT
+# COMMON
 ###################
 
-FROM node:18-alpine As development
+FROM node:18.5-alpine as common-build-stage
 
-WORKDIR /usr/src/mailer-api
+WORKDIR /var/www/mailer-api
 
 COPY package*.json ./
 
-RUN npm install -g @nestjs/cli
 RUN npm install
 
 COPY . .
 
 EXPOSE 8008
 
+###################
+# DEVELOPMENT
+###################
+
+FROM common-build-stage as development-build-stage
+
+ENV NODE_ENV=development
+
 CMD [ "npm", "run", "start:dev" ]
-###################
-# BUILD FOR PRODUCTION
-###################
-
-FROM node:18-alpine As build
-
-WORKDIR /usr/src/mailer-api
-
-COPY package*.json ./
-
-COPY --from=development /usr/src/mailer-api/node_modules ./node_modules
-
-COPY . .
-
-RUN npm run build
-
-ENV NODE_ENV production
-
-
-RUN npm install && npm ci --only=production && npm cache clean --force
 
 ###################
 # PRODUCTION
 ###################
 
-FROM node:18-alpine As production
+FROM common-build-stage as production-build-stage
 
-COPY --from=build /usr/src/mailer-api/node_modules ./node_modules
-COPY --from=build /usr/src/mailer-api/dist ./dist
+ENV NODE_ENV=production
+COPY --from=common-build-stage /var/www/mailer-api/node_modules ./node_modules
+COPY --from=common-build-stage /var/www/mailer-api/dist ./dist
 
-CMD [ "node", "dist/main.js" ]
+
+#RUN npm run build
+
+CMD [ "npm", "run", "start:prod" ]

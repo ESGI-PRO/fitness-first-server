@@ -1,4 +1,4 @@
-name: Pushing images on docker hub ---
+name: Pushing images on docker hub
 
 on:
   push:
@@ -46,77 +46,77 @@ jobs:
           labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-gateway-api:latest
           provenance: false
           
-      # - name: Build and push mailer-api
-      #   id: docker_build_mailer_service
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: ./mailer-api
-      #     push: true
-      #     tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-mailer-api:latest
-      #     labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-mailer-api:latest
+      - name: Build and push mailer-api
+        id: docker_build_mailer_service
+        uses: docker/build-push-action@v2
+        with:
+          context: ./mailer-api
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-mailer-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-mailer-api:latest
     
-      # - name: Build and push messenger-api
-      #   id: docker_build_messenger_service
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: ./messenger-api
-      #     push: true
-      #     tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-messenger-api:latest
-      #     labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-messenger-api:latest
+      - name: Build and push messenger-api
+        id: docker_build_messenger_service
+        uses: docker/build-push-action@v2
+        with:
+          context: ./messenger-api
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-messenger-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-messenger-api:latest
           
-      # - name: Build and push nutrition
-      #   id: docker_build_prediction_service
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: ./nutrition-api
-      #     push: true
-      #     tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-nutrition-api:latest
-      #     labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-nutrition-api:latest
+      - name: Build and push nutrition
+        id: docker_build_prediction_service
+        uses: docker/build-push-action@v2
+        with:
+          context: ./nutrition-api
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-nutrition-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-nutrition-api:latest
               
-      # - name: Build and push permission-api
-      #   id: docker_build_permission_service
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: ./permission-api
-      #     push: true
-      #     tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-permission-api:latest
-      #     labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-permission-api:latest
+      - name: Build and push permission-api
+        id: docker_build_permission_service
+        uses: docker/build-push-action@v2
+        with:
+          context: ./permission-api
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-permission-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-permission-api:latest
 
-      # - name: Build and push subscription
-      #   id: docker_build_subscription_service
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: ./subscription-api
-      #     push: true
-      #     tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-subscription-api:latest
-      #     labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-subscription-api:latest
+      - name: Build and push subscription
+        id: docker_build_subscription_service
+        uses: docker/build-push-action@v2
+        with:
+          context: ./subscription-api
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-subscription-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-subscription-api:latest
 
-      # - name: Build and push token
-      #   id: docker_build_token_service
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: ./token-api
-      #     push: true
-      #     tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-token-api:latest
-      #     labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-token-api:latest
+      - name: Build and push token
+        id: docker_build_token_service
+        uses: docker/build-push-action@v2
+        with:
+          context: ./token-api
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-token-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-token-api:latest
 
-      # - name: Build and push training
-      #   id: docker_build_training_service
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: ./training-api
-      #     push: true
-      #     tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-training-api:latest
-      #     labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-training-api:latest
+      - name: Build and push training
+        id: docker_build_training_service
+        uses: docker/build-push-action@v2
+        with:
+          context: ./training-api
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-training-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-training-api:latest
   
-      # - name: Build and push user
-      #   id: docker_build_user_service
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: ./user-api
-      #     push: true
-      #     tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-user-api:latest
-      #     labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-user-api:latest
+      - name: Build and push user
+        id: docker_build_user_service
+        uses: docker/build-push-action@v2
+        with:
+          context: ./user-api
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-user-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-user-api:latest
   
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

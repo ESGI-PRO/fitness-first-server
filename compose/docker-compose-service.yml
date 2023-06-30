@@ -1,26 +1,73 @@
 version: '3.9'
 
 services:
-<<<<<<< HEAD
-=======
-
->>>>>>> feature/fix-docker
   gateway-api:
     build:
       context: ../gateway-api
       platforms:
         - "linux/amd64"
         - "linux/x86_64"
-      dockerfile: Dockerfile      
-      target: production-build-stage
+      dockerfile: Dockerfile
+      target: development-build-stage
     hostname: gateway-api
     env_file:
       - ../gateway-api/.env
     volumes:
-      - ../gateway-api:/usr/src/gateway-api
-      - /usr/src/gateway-api/node_modules
+      - ../gateway-api:/var/www/gateway-api
+      - /var/www/gateway-api/node_modules
     ports:
-      - "8000:8000"
+      - 8000:8000
+
+  nutrition-api:
+    build:
+      context: ../nutrition-api
+      platforms:
+        - "linux/amd64"
+        - "linux/x86_64"
+      dockerfile: Dockerfile
+      target: development-build-stage
+    hostname: nutrition-api
+    env_file:
+      - ../nutrition-api/.env
+    volumes:
+      - ../nutrition-api:/var/www/nutrition-api
+      - /var/www/nutrition-api/node_modules
+    ports:
+      - 8001:8001
+
+  user-api:
+    build:
+      context: ../user-api
+      platforms:
+        - "linux/amd64"
+        - "linux/x86_64"
+      dockerfile: Dockerfile
+      target: development-build-stage
+    hostname: user-api
+    env_file:
+      - ../user-api/.env
+    volumes:
+      - ../user-api:/var/www/user-api
+      - /var/www/user-api/node_modules
+    ports:
+      - 8002:8002
+
+  training-api:
+    build:
+      context: ../training-api
+      platforms:
+        - "linux/amd64"
+        - "linux/x86_64"
+      dockerfile: Dockerfile
+      target: development-build-stage
+    hostname: training-api
+    env_file:
+      - ../training-api/.env
+    volumes:
+      - ../training-api:/var/www/training-api
+      - /var/www/training-api/node_modules
+    ports:
+      - 8003:8003
 
   analytic-api:
     build:
@@ -29,139 +76,97 @@ services:
         - "linux/amd64"
         - "linux/x86_64"
       dockerfile: Dockerfile
-      target: development
+      target: development-build-stage
     hostname: analytic-api
     env_file:
       - ../analytic-api/.env
     volumes:
-      - ../analytic-api:/usr/src/analytic-api
+      - ../analytic-api:/var/www/analytic-api
+      - /var/www/analytic-api/node_modules
     ports:
-      - "8005:8005"
-
-  nutrition-api:
-    build:
-      context: ../nutrition-api      
-      platforms:
-        - "linux/amd64"
-        - "linux/x86_64"
-      dockerfile: Dockerfile
-      target: development
-    hostname: nutrition-api
-    env_file:
-      - ../nutrition-api/.env
-    volumes:
-      - ../nutrition-api:/usr/src/nutrition-api
-    ports:
-      - 8001:8001
-
-  user-api:
-    build:
-      platforms:
-        - "linux/amd64"
-        - "linux/x86_64"
-      context: ../user-api
-      dockerfile: Dockerfile
-      target: development
-    hostname: user-api
-    env_file:
-      - ../user-api/.env
-    volumes:
-      - ../user-api:/usr/src/user-api
-    ports:
-      - 8002:8002
-
-  training-api:
-    build:
-      platforms:
-        - "linux/amd64"
-        - "linux/x86_64"
-      context: ../training-api
-      dockerfile: Dockerfile
-      target: development
-    hostname: training-api
-    env_file:
-      - ../training-api/.env
-    volumes:
-      - ../training-api:/usr/src/training-api
-    ports:
-      - 8003:8003
+      - 8005:8005
 
   token-api:
     build:
+      context: ../token-api
       platforms:
         - "linux/amd64"
         - "linux/x86_64"
-      context: ../token-api
       dockerfile: Dockerfile
-      target: development
+      target: development-build-stage
     hostname: token-api
     env_file:
       - ../token-api/.env
     volumes:
-        - ../token-api:/usr/src/token-api
+        - ../token-api:/var/www/token-api
+        - /var/www/token-api/node_modules
     ports:
       - 8006:8006
 
   permission-api:
     build:
+      context: ../permission-api
       platforms:
         - "linux/amd64"
         - "linux/x86_64"
-      context: ../permission-api
       dockerfile: Dockerfile
-      target: development
+      target: development-build-stage
     hostname: permission-api
     env_file:
       - ../permission-api/.env
     volumes:
-        - ../permission-api:/usr/src/permission-api
+        - ../permission-api:/var/www/permission-api
+        - /var/www/permission-api/node_modules
     ports:
       - 8007:8007
 
   mailer-api:
     build:
+      context: ../mailer-api
       platforms:
         - "linux/amd64"
         - "linux/x86_64"
-      context: ../mailer-api
       dockerfile: Dockerfile
-      target: development
+      target: development-build-stage
     hostname: mailer-api
     env_file:
       - ../mailer-api/.env
     volumes:
-        - ../mailer-api:/usr/src/mailer-api
+        - ../mailer-api:/var/www/mailer-api
+        - /var/www/mailer-api/node_modules
     ports:
       - 8008:8008
 
   subscription-api:
     build:
+      context: ../subscription-api
       platforms:
         - "linux/amd64"
         - "linux/x86_64"
-      context: ../subscription-api
       dockerfile: Dockerfile
-      target: development
+      target: development-build-stage
     hostname: subscription-api
     env_file:
       - ../subscription-api/.env
     volumes:
-        - ../subscription-api:/usr/src/subscription-api
+        - ../subscription-api:/var/www/subscription-api
+        - /var/www/subscription-api/node_modules
     ports:
       - 8009:8009
 
   messenger-api:
     build:
+      context: ../messenger-api
       platforms:
         - "linux/amd64"
         - "linux/x86_64"
-      context: ../messenger-api
       dockerfile: Dockerfile
-      target: development
+      target: development-build-stage
     hostname: messenger-api
     env_file:
       - ../messenger-api/.env
     volumes:
-        - ../messenger-api:/usr/src/messenger-api
+        - ../messenger-api:/var/www/messenger-api
+        - /var/www/messenger-api/node_modules
     ports:
       - 9000:9000
