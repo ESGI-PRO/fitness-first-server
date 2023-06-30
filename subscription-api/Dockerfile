@@ -14,6 +14,8 @@ RUN npm install -g concurrently
 
 COPY . .
 
+RUN npm run build
+
 EXPOSE 8009
 
 ###################
