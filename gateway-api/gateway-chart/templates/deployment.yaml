@@ -6,15 +6,15 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gateway-api
+      app: gateway
   template:
     metadata:
       labels:
-        app: gateway-api
+        app: gateway
     spec:
       containers:
-        - name: gateway-api
-          image: challengesemestre2.azurecr.io/gateway-api
+        - name: gateway
+          image: idboubacar/challenge-semestre2-gateway-api
           ports:
-            - containerPort: 8000
+            - containerPort: 3000
 

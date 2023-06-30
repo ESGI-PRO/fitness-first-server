@@ -7,10 +7,10 @@ services:
   #     file: ./compose/docker-compose-db.yml
   #     service: adminer
 
-  mongo:
-    extends:
-      file: ./compose/docker-compose-db.yml
-      service: mongo
+  # mongo:
+  #   extends:
+  #     file: ./compose/docker-compose-db.yml
+  #     service: mongo
 
   # postgres:
   #   extends:
@@ -23,10 +23,10 @@ services:
       file: ./compose/docker-compose-service.yml
       service: gateway-api
 
-  analytic-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: analytic-api
+  # analytic-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.yml
+  #     service: analytic-api
 
   # training-api:
   #   extends:

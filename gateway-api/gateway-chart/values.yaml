@@ -1,11 +1,10 @@
 gateway-api:
   image:
-    repository: challengesemestre2.azurecr.io/gateway-api
+    repository: idboubacar/challenge-semestre2-gateway-api
     tag: latest
   service:
-    port: 8000
-    targetPort: 8000
-
+    port: 3000
+    targetPort: 3000
   ingress:
     enabled: true
     hostname: gateway-api.example.com
