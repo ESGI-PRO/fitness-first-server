@@ -51,6 +51,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./mailer-api
+          platforms: linux/x86_64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-mailer-api:latest
           labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-mailer-api:latest
@@ -60,6 +61,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./messenger-api
+          platforms: linux/x86_64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-messenger-api:latest
           labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-messenger-api:latest
@@ -69,6 +71,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./nutrition-api
+          platforms: linux/x86_64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-nutrition-api:latest
           labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-nutrition-api:latest
@@ -78,6 +81,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./permission-api
+          platforms: linux/x86_64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-permission-api:latest
           labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-permission-api:latest
@@ -87,6 +91,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./subscription-api
+          platforms: linux/x86_64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-subscription-api:latest
           labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-subscription-api:latest
@@ -96,6 +101,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./token-api
+          platforms: linux/x86_64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-token-api:latest
           labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-token-api:latest
@@ -105,6 +111,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./training-api
+          platforms: linux/x86_64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-training-api:latest
           labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-training-api:latest
@@ -114,6 +121,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./user-api
+          platforms: linux/x86_64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-user-api:latest
           labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-user-api:latest

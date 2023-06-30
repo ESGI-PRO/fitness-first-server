@@ -42,7 +42,4 @@
 .expo
 .vscode
 .DS_Store
-<<<<<<< HEAD
-=======
 *.pnpm-store
->>>>>>> feature/fix-docker
