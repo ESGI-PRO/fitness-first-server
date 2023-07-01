@@ -188,7 +188,7 @@ export class NutritionController {
     @Param('id') id: string,
   ): Promise<GetNutritionResponseDto> {
     const nutritionResponse: any = await firstValueFrom(
-      this.nutritionServiceClient.send('delete_ingredient', { id }),
+      this.nutritionServiceClient.send('delete_ingredient', { id: Number(id) }),
     );
     return {
       message: nutritionResponse.message,
