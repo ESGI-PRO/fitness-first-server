@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: token
+  namespace: "challengespace"
+  labels:
+    app: token
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: token
+  template:
+    metadata:
+      labels:
+        app: token
+    spec:
+      containers:
+      - name: token
+        #image: mychallengeregistry.azurecr.io/challenge-token:latest
+        image: idboubacar/challenge-semestre2-token-api
+        env:
+          - name: TOKEN_SERVICE_PORT
+            value: "80"
+        ports:
+          - containerPort: 80

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analytic
+  namespace: "challengespace"
+  labels:
+    app: analytic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: analytic
+  template:
+    metadata:
+      labels:
+        app: analytic
+    spec:
+      containers:
+      - name: analytic
+        #image: mychallengeregistry.azurecr.io/challenge-analytic:latest
+        image: idboubacar/challenge-semestre2-analytic-api
+        env:
+          - name: ANALYTIC_SERVICE_PORT
+            value: "80"
+        ports:
+          - containerPort: 80

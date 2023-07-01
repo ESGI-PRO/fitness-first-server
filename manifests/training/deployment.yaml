@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: training
+  namespace: "challengespace"
+  labels:
+    app: training
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: training
+  template:
+    metadata:
+      labels:
+        app: training
+    spec:
+      containers:
+      - name: training
+        #image: mychallengeregistry.azurecr.io/challenge-training:latest
+        image: idboubacar/challenge-semestre2-training-api
+        env:
+          - name: TRAINING_SERVICE_PORT
+            value: "80"
+        ports:
+          - containerPort: 80

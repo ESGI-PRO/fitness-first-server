@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: messenger
+  namespace: "challengespace"
+  labels:
+    app: messenger
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: messenger
+  template:
+    metadata:
+      labels:
+        app: messenger
+    spec:
+      containers:
+      - name: messenger
+        #image: mychallengeregistry.azurecr.io/challenge-messenger:latest
+        image: idboubacar/challenge-semestre2-messenger-api
+        env:
+          - name: MESSENGER_SERVICE_PORT
+            value: "80"
+        ports:
+          - containerPort: 80

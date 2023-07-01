@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mailer
+  namespace: "challengespace"
+  labels:
+    name: mailer
+    app: mailer
+spec:
+  type: NodePort
+  ports:
+    - port: 8008
+      targetPort: 80
+  selector:
+    app: mailer

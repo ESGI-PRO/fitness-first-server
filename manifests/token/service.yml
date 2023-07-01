@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: token
+  namespace: "challengespace"
+  labels:
+    name: token
+    app: token
+spec:
+  type: NodePort
+  ports:
+    - port: 8006
+      targetPort: 80
+  selector:
+    app: token

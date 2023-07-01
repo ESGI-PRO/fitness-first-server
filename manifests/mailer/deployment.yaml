@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailer
+  namespace: "challengespace"
+  labels:
+    app: mailer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mailer
+  template:
+    metadata:
+      labels:
+        app: mailer
+    spec:
+      containers:
+      - name: mailer
+        #image: mychallengeregistry.azurecr.io/challenge-mailer:latest
+        image: idboubacar/challenge-semestre2-mailer-api
+        env:
+          - name: MAILER_SERVICE_PORT
+            value: "80"
+        ports:
+          - containerPort: 80

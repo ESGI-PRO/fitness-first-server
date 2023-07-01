@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subscription
+  namespace: "challengespace"
+  labels:
+    app: subscription
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: subscription
+  template:
+    metadata:
+      labels:
+        app: subscription
+    spec:
+      containers:
+      - name: subscription
+        #image: mychallengeregistry.azurecr.io/challenge-subscription:latest
+        image: idboubacar/challenge-semestre2-subscription-api
+        env:
+          - name: SUBSCRIPTION_SERVICE_PORT
+            value: "80"
+        ports:
+          - containerPort: 80
