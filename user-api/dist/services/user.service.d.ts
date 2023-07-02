@@ -13,9 +13,7 @@ export declare class UserService implements OnModuleInit {
         email: string;
     }): Promise<IUser[]>;
     searchUserById(id: string): Promise<IUser>;
-    updateUserById(id: string, userParams: {
-        is_confirmed: boolean;
-    }): Promise<IUser>;
+    updateUserById(id: string, userParams: any): Promise<IUser>;
     createUser(user: IUser): Promise<IUser>;
     createUserLink(id: string): Promise<IUserLink>;
     getUserLink(link: string): Promise<IUserLink[]>;
@@ -23,4 +21,6 @@ export declare class UserService implements OnModuleInit {
         is_used: boolean;
     }): Promise<IUserLink>;
     getConfirmationLink(link: string): string;
+    getAllUsers(): Promise<IUser[]>;
+    getByUserId(id: string): Promise<IUser[]>;
 }

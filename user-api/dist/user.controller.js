@@ -186,6 +186,73 @@ let UserController = class UserController {
         }
         return result;
     }
+    async updateUser(data) {
+        let result;
+        const { id, userParams } = data;
+        if (id && userParams) {
+            const user = await this.userService.updateUserById(id, userParams);
+            if (user) {
+                result = {
+                    status: common_1.HttpStatus.OK,
+                    message: 'user_update',
+                    user: user,
+                };
+            }
+            else {
+                result = {
+                    status: common_1.HttpStatus.BAD_REQUEST,
+                    message: 'user_update_bad_request',
+                    user: null,
+                };
+            }
+        }
+        else {
+            result = {
+                status: common_1.HttpStatus.BAD_REQUEST,
+                message: 'user_update_bad_request',
+                user: null,
+            };
+        }
+        return result;
+    }
+    async searchUserByEmail(email) {
+        let result;
+        if (email) {
+            const user = await this.userService.searchUser({
+                email: email,
+            });
+            if (user && user[0]) {
+                result = {
+                    status: common_1.HttpStatus.OK,
+                    message: 'user_search_by_email',
+                    user: user[0],
+                };
+            }
+            else {
+                result = {
+                    status: common_1.HttpStatus.NOT_FOUND,
+                    message: 'user_search_by_email_not_found',
+                    user: null,
+                };
+            }
+        }
+        else {
+            result = {
+                status: common_1.HttpStatus.NOT_FOUND,
+                message: 'user_search_by_email_not_found',
+                user: null,
+            };
+        }
+        return result;
+    }
+    async getAllUsers() {
+        const users = await this.userService.getAllUsers();
+        return users;
+    }
+    async getByUserId(id) {
+        const user = await this.userService.getByUserId(id);
+        return user;
+    }
 };
 __decorate([
     (0, microservices_1.MessagePattern)('user_search_by_credentials'),
@@ -211,6 +278,30 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "createUser", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('user_update'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "updateUser", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('user_search_by_email'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "searchUserByEmail", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('user_get_all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getAllUsers", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('get_user_by_id'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getByUserId", null);
 UserController = __decorate([
     (0, common_1.Controller)('user'),
     __param(1, (0, common_1.Inject)('MAILER_SERVICE')),

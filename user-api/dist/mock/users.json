@@ -7,7 +7,8 @@
             "mobileNumber": "1234567345",
             "isTrainer": false,
             "trainerSpeciality": "",
-            "is_confirmed": true
+            "is_confirmed": true,
+            "role": "USER"
         },
         {
             "email": "micheal97@gmail.com",
@@ -16,7 +17,8 @@
             "mobileNumber": "1234567765",
             "isTrainer": false,
             "trainerSpeciality": "",
-            "is_confirmed": true
+            "is_confirmed": true,
+            "role": "USER"
         },
         {
             "email": "jack97@gmail.com",
@@ -25,7 +27,8 @@
             "mobileNumber": "1234567187",
             "isTrainer": false,
             "trainerSpeciality": "",
-            "is_confirmed": true
+            "is_confirmed": true,
+            "role": "USER"
         },
         {
             "email": "daniel97@gmail.com",
@@ -34,7 +37,8 @@
             "mobileNumber": "1234567894",
             "isTrainer": true,
             "trainerSpeciality": "POWERLIFTING",
-            "is_confirmed": true
+            "is_confirmed": true,
+            "role": "USER"
         },
         {
             "email": "thomas97@gmail.com",
@@ -43,7 +47,8 @@
             "mobileNumber": "1234567898",
             "isTrainer": true,
             "trainerSpeciality": "FITNESS",
-            "is_confirmed": true
+            "is_confirmed": true,
+            "role": "USER"
         },
         {
             "email": "test1@denrox.com",
@@ -52,7 +57,8 @@
             "mobileNumber": "1234567450",
             "isTrainer": true,
             "trainerSpeciality": "POWERLIFTING",
-            "is_confirmed": true
+            "is_confirmed": true,
+            "role": "USER"
         },
         {
             "email": "test2@denrox.com",
@@ -61,7 +67,8 @@
             "mobileNumber": "1234567876",
             "isTrainer": false,
             "trainerSpeciality": "",
-            "is_confirmed": true
+            "is_confirmed": true,
+            "role": "USER"
         },
         {
             "email": "test3@denrox.com",
@@ -70,7 +77,8 @@
             "mobileNumber": "1234568894",
             "isTrainer": true,
             "trainerSpeciality": "FITNESS",
-            "is_confirmed": false
+            "is_confirmed": false,
+            "role": "USER"
         },
         {
             "email": "test4@denrox.com",
@@ -79,7 +87,8 @@
             "mobileNumber": "1234567893",
             "isTrainer": true,
             "trainerSpeciality": "YOGA",
-            "is_confirmed": false
+            "is_confirmed": false,
+            "role": "USER"
         },
         {
             "email": "test5@denrox.com",
@@ -88,7 +97,8 @@
             "mobileNumber": "1234567899",
             "isTrainer": true,
             "trainerSpeciality": "FITNESS",
-            "is_confirmed": false
+            "is_confirmed": false,
+            "role": "USER"
         },
         {
             "email": "test6@denrox.com",
@@ -97,7 +107,8 @@
             "mobileNumber": "1234567898",
             "isTrainer": false,
             "trainerSpeciality": "",
-            "is_confirmed": false
+            "is_confirmed": false,
+            "role": "USER"
         },
         {
             "email": "test7@denrox.com",
@@ -106,7 +117,8 @@
             "mobileNumber": "1234567811",
             "isTrainer": false,
             "trainerSpeciality": "",
-            "is_confirmed": true
+            "is_confirmed": true,
+            "role": "ADMIN"
         },
         {
             "email": "test8@denrox.com",
@@ -115,7 +127,8 @@
             "mobileNumber": "1234567887",
             "isTrainer": false,
             "trainerSpeciality": "",
-            "is_confirmed": true
+            "is_confirmed": true,
+            "role": "ADMIN"
         }
     ]
 }

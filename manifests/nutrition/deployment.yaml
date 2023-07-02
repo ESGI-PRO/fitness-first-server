@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gateway
+  name: nutrition
   namespace: "challengespace"
   labels:
-    app: gateway
+    app: nutrition
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: gateway
+      app: nutrition
   template:
     metadata:
       labels:
-        app: gateway
+        app: nutrition
     spec:
       containers:
-      - name: gateway
-        #image: mychallengeregistry.azurecr.io/challenge-gateway:latest
-        image: idboubacar/challenge-semestre2-gateway-api
+      - name: nutrition
+        #image: mychallengeregistry.azurecr.io/challenge-nutrition:latest
+        image: idboubacar/challenge-semestre2-nutrition-api
         env:
-          - name: API_GATEWAY_PORT
+          - name: NUTRITION_SERVICE_PORT
             value: "80"
         ports:
           - containerPort: 80

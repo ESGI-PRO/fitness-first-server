@@ -17,4 +17,11 @@ export declare class UserController {
         link: string;
     }): Promise<IUserConfirmResponse>;
     createUser(userParams: IUser): Promise<IUserCreateResponse>;
+    updateUser(data: {
+        id: string;
+        userParams: any;
+    }): Promise<IUserSearchResponse>;
+    searchUserByEmail(email: string): Promise<IUserSearchResponse>;
+    getAllUsers(): Promise<any>;
+    getByUserId(id: string): Promise<any>;
 }

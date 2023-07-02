@@ -71,6 +71,7 @@ let UserService = class UserService {
         return this.userModel.findById(id).exec();
     }
     async updateUserById(id, userParams) {
+        console.log("update called", id, userParams);
         this.userModel.updateOne({ _id: id }, userParams).exec();
         return this.userModel.findById(id).exec();
     }
@@ -93,6 +94,16 @@ let UserService = class UserService {
     }
     getConfirmationLink(link) {
         return `${this.configService.get('baseUri')}:${this.configService.get('gatewayPort')}/users/confirm/${link}`;
+    }
+    async getAllUsers() {
+        const users = await this.userModel.find({}).exec();
+        return users;
+    }
+    async getByUserId(id) {
+        const user = await this.userModel.find({ _id: { $in: id } }).exec();
+        if (!user)
+            throw new common_1.HttpException('User not found', common_1.HttpStatus.NOT_FOUND);
+        return user;
     }
 };
 UserService = __decorate([

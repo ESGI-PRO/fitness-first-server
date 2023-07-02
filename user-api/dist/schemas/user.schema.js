@@ -53,7 +53,13 @@ exports.UserSchema = new mongoose.Schema({
         type: String,
         enum: [trainerSpeciality_types_1.trainerSpecialityTypes.YOGA, trainerSpeciality_types_1.trainerSpecialityTypes.FITNESS, trainerSpeciality_types_1.trainerSpecialityTypes.POWERLIFTING, trainerSpeciality_types_1.trainerSpecialityTypes.NONE],
         required: [false, 'trainerSpeciality can not be empty']
-    }
+    },
+    role: {
+        type: String,
+        default: 'USER',
+        enum: ['USER', 'ADMIN'],
+        required: [true, 'Role can not be empty'],
+    },
 }, {
     toObject: {
         virtuals: true,

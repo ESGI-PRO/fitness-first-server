@@ -31,7 +31,7 @@ CMD [ "npm", "run", "start:dev" ]
 ###################
 
 FROM common-build-stage as production-build-stage
-
+WORKDIR /var/www/messenger-api
 ENV NODE_ENV=production
 COPY --from=common-build-stage /var/www/messenger-api/node_modules ./node_modules
 COPY --from=common-build-stage /var/www/messenger-api/dist ./dist

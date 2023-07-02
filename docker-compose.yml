@@ -2,10 +2,10 @@ version: '3.9'
 
 services:
   #ALL DATABASES AND ADMINER, MONGO-EXPRESS
-  # adminer:
-  #   extends:
-  #     file: ./compose/docker-compose-db.yml
-  #     service: adminer
+  adminer:
+    extends:
+      file: ./compose/docker-compose-db.yml
+      service: adminer
 
   mongo:
     extends:

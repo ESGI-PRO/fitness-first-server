@@ -9,6 +9,7 @@ export interface IUserSchema extends mongoose.Document {
     traineeIds: Array<string>;
     password: string;
     is_confirmed: boolean;
+    role: string;
     comparePassword: (password: string) => Promise<boolean>;
     getEncryptedPassword: (password: string) => Promise<string>;
 }
