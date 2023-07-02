@@ -22,5 +22,13 @@ spec:
         env:
           - name: USER_SERVICE_PORT
             value: "80"
+          - name: MONGO_DSN
+            value: mongodb://44.212.32.217:27017/user_db
+          - name: API_GATEWAY_PORT
+            value: "8000"
+          - name: MAILER_SERVICE_PORT
+            value: "8008"
+          - name: MAILER_SERVICE_HOST
+            value: mailer-api
         ports:
           - containerPort: 80

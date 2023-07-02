@@ -6,7 +6,7 @@ metadata:
   labels:
     app: training
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: training
@@ -18,9 +18,17 @@ spec:
       containers:
       - name: training
         #image: mychallengeregistry.azurecr.io/challenge-training:latest
-        image: idboubacar/challenge-semestre2-training-api
+        image: idboubacar/challenge-semestre2-training-api:latest
         env:
           - name: TRAINING_SERVICE_PORT
             value: "80"
+          - name: DATABASE_URL
+            value: postgresql://postgres:password@44.212.32.217:8080/training?schema=public
+          - name: API_GATEWAY_PORT
+            value: "8000"
+          - name: MAILER_SERVICE_PORT
+            value: "8008"
+          - name: MAILER_SERVICE_HOST
+            value: mailer-api
         ports:
           - containerPort: 80

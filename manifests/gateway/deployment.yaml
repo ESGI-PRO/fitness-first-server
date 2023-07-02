@@ -22,5 +22,25 @@ spec:
         env:
           - name: API_GATEWAY_PORT
             value: "80"
+          - name: ANALYTIC_SERVICE_PORT
+            value: "8005"
+          - name: MESSENGER_SERVICE_PORT
+            value: "8010"
+          - name: TOKEN_SERVICE_PORT
+            value: "8006"
+          - name: USER_SERVICE_PORT
+            value: "8002"
+          - name: NUTRITION_SERVICE_PORT
+            value: "8001"
+          - name: TRAINING_SERVICE_PORT
+            value: "8003"
+          - name: AUTH_SERVICE_PORT
+            value: "8004"
+          - name: PERMISSION_SERVICE_PORT
+            value: "8007"
+          - name: MAILER_SERVICE_PORT
+            value: "8008"
+          - name: SUBSCRIPTION_SERVICE_PORT
+            value: "8009"
         ports:
           - containerPort: 80

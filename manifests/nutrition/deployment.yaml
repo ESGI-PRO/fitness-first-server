@@ -22,5 +22,19 @@ spec:
         env:
           - name: NUTRITION_SERVICE_PORT
             value: "80"
+          - name: DATABASE_URL
+            value: postgresql://postgres:password@44.212.32.217:8080/nutrition?schema=public
+          - name: API_GATEWAY_PORT
+            value: "8000"
+          - name: API_GATEWAY_HOST
+            value: gateway-api
+          - name: PERMISSION_SERVICE_PORT
+            value: "8007"
+          - name: PERMISSION_SERVICE_HOST
+            value: permission-api
+          - name: MAILER_SERVICE_PORT
+            value: "8008"
+          - name: MAILER_SERVICE_HOST
+            value: mailer-api
         ports:
           - containerPort: 80

@@ -22,5 +22,7 @@ spec:
         env:
           - name: TOKEN_SERVICE_PORT
             value: "80"
+          - name: MONGO_DSN
+            value: mongodb://44.212.32.217:27017/token_db
         ports:
           - containerPort: 80
