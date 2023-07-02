@@ -117,10 +117,24 @@ export class UserService implements OnModuleInit {
     return users;
   }
 
-  public async getByUserId(id: string): Promise<IUser[]> {
-    const user = await this.userModel.find({ _id: { $in: id } }).exec();
+  public async getByUserId(id: string): Promise<IUser> {
+    const user = await this.userModel.findById(id).exec();
     if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     return user;
+  }
+
+  public async deleteUserById(id: string): Promise<IUser> {
+    const user = await this.userModel.findByIdAndDelete(id).exec();
+    if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    return user;  
+  }
+
+  public async updateUser(id: string, user: IUser): Promise<IUser> {
+    const updatedUser = await this.userModel.findByIdAndUpdate(id, user, {
+      new: true,
+    });
+    if (!updatedUser) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    return updatedUser;
   }
 
 }

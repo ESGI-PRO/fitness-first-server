@@ -283,4 +283,16 @@ export class UserController {
       const user = await this.userService.getByUserId(id);
       return user;
     }
+
+    @MessagePattern('user_delete_by_id')
+    public async deleteUser(id: string): Promise<any> {
+      const user = await this.userService.deleteUserById(id);
+      return user;
+    }
+
+    @MessagePattern('user_update_by_id')
+    public async updateUserById(id: string, user: any): Promise<any> {
+      const updatedUser = await this.userService.updateUserById(id, user);
+      return updatedUser;
+    }
 }
