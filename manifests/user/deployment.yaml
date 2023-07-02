@@ -18,7 +18,7 @@ spec:
       containers:
       - name: user
         #image: mychallengeregistry.azurecr.io/challenge-user:latest
-        image: idboubacar/challenge-semestre2-user-api:latest
+        image: idboubacar/challenge-semestre2-user-api
         env:
           - name: USER_SERVICE_PORT
             value: "80"

@@ -23,6 +23,6 @@ spec:
           - name: ANALYTICS_SERVICE_PORT
             value: "80"
           - name: MONGO_DSN
-            value: http://44.212.32.217:27017/analytic_db
+            value: mongodb://44.212.32.217:27017/analytic_db
         ports:
           - containerPort: 80
