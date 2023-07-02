@@ -41,7 +41,9 @@ WORKDIR /var/www/subscription-api
 ENV NODE_ENV=production
 COPY --from=common-build-stage /var/www/subscription-api/node_modules ./node_modules
 COPY --from=common-build-stage /var/www/subscription-api/dist ./dist
+COPY --from=common-build-stage /var/www/subscription-api/prisma ./prisma
+COPY --from=common-build-stage /var/www/subscription-api/package*.json ./
 
 #RUN npm run build
 
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "npm", "run", "start:migrate:prod" ]

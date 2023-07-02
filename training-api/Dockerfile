@@ -41,7 +41,9 @@ FROM common-build-stage as production-build-stage
 ENV NODE_ENV=production
 COPY --from=common-build-stage /var/www/training-api/node_modules ./node_modules
 COPY --from=common-build-stage /var/www/training-api/dist ./dist
+COPY --from=common-build-stage /var/www/training-api/prisma ./prisma
+COPY --from=common-build-stage /var/www/training-api/package*.json ./
 
 #RUN npm run build
 
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "npm", "run", "start:migrate:prod" ]

@@ -40,7 +40,9 @@ WORKDIR /var/www/nutrition-api
 ENV NODE_ENV=production
 COPY --from=common-build-stage /var/www/nutrition-api/node_modules ./node_modules
 COPY --from=common-build-stage /var/www/nutrition-api/dist ./dist
+COPY --from=common-build-stage /var/www/nutrition-api/prisma ./prisma
+COPY --from=common-build-stage /var/www/nutrition-api/package*.json ./
 
 #RUN npm run build
 
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "npm", "run", "start:migrate:prod" ]

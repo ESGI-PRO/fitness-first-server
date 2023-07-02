@@ -34,6 +34,9 @@ WORKDIR /var/www/analytic-api
 ENV NODE_ENV=production
 COPY --from=common-build-stage /var/www/analytic-api/node_modules ./node_modules
 COPY --from=common-build-stage /var/www/analytic-api/dist ./dist
+COPY --from=common-build-stage  /var/www/analytic-api/package*.json ./
+
+EXPOSE 3000
 
 #RUN npm build
 
