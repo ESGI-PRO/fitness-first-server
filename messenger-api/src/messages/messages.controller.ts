@@ -10,12 +10,13 @@ export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
 
 
-  @MessagePattern('create-message')
+  @MessagePattern('create_message')
   async createMessage(createMessageDto: CreateMessageDto) {
     let result: IMessageCreateResponse;
 
     if (createMessageDto) {
       const message =  await this.messagesService.createMessage(createMessageDto);
+
       if (message) {
         result = {
           status: HttpStatus.CREATED,

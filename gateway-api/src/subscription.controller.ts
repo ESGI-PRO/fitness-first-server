@@ -3,6 +3,7 @@ import {
   Post,
   Req,
   Res,
+  Body,
   Inject,
   Headers,
   BadRequestException,
@@ -13,8 +14,14 @@ import { ClientProxy } from '@nestjs/microservices';
 import { Response } from 'express'
 import RequestWithRawBody from './interfaces-requests-responses/subscription/requestWithRawBody.interface';
 import { Stripe } from 'stripe';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { GetUserSubscriptionResponseDto } from './interfaces-requests-responses/subscription/dto/get-user-subscriptions-response.dto';
+import { GetUserSubscriptionsDto } from './interfaces-requests-responses/subscription/dto/get-user-subcriptions.dto';
+import { GetUserInvoicesResponseDto } from './interfaces-requests-responses/subscription/dto/get-user-invoices-response.dto';
+import { GetUserInvoicesDto } from './interfaces-requests-responses/subscription/dto/get-user-invoices.dto';
 
 @Controller('subscription')
+@ApiTags('subscription')
 export class SubscriptionController {
   private stripe: any;
 
@@ -30,14 +37,13 @@ export class SubscriptionController {
   @Post('/webhook/stripe')
   public async webhook( @Headers('stripe-signature') signature: string,
   @Req() req: RequestWithRawBody, @Res() res: Response){
-    console.log("[/webhook/stripe]-req")
+
     if (!signature) {
       throw new BadRequestException('Missing stripe-signature header');
     }
 
     const event = this.stripe.webhooks.constructEvent(req.rawBody, signature, process.env.WEBHOOK_SECRET)
-    console.log("[/webhook/stripe]-res", res)
-    console.log("[/webhook/stripe]-event.data.object", event.data.object)
+
     const session = event.data.object
 
 
@@ -75,6 +81,45 @@ export class SubscriptionController {
     }
 
     return res
+  }
+
+  // find user  subscriptions
+  @ApiOkResponse({
+    type: GetUserSubscriptionResponseDto,
+  })
+  @Post('/find-user-subscriptions')
+  public async findSubscriptionByUserId(@Body() req: GetUserSubscriptionsDto): Promise<GetUserSubscriptionResponseDto>  {
+    const { userId } = req;
+
+    const response = await firstValueFrom(
+      this.subscriptionServiceClient.send('findUserSubcriptions', userId),
+    );
+
+    return {
+      status: response.status,
+      message: response.message,
+      subscriptions: response.subscriptions,
+      errors: null
+    }
+  }
+
+  //find user invoices
+  @ApiOkResponse({
+    type: GetUserInvoicesResponseDto,
+  })
+  @Post('/find-user-invoices')
+  public async findUserInvoices(@Body() req: GetUserInvoicesDto): Promise<GetUserInvoicesResponseDto>  {
+    const { userId } = req;
+
+    const response = await firstValueFrom(
+      this.subscriptionServiceClient.send('findInvoicesByUserId', userId),
+    );
+    return {
+      status: response.status,
+      message: response.message,
+      invoices: response.invoices,
+      errors: null
+    }
   }
 
 }

@@ -2,7 +2,7 @@
 # COMMON
 ###################
 
-FROM node:18.5-alpine as common-build-stage
+FROM node:16.14.2-alpine as common-build-stage
 
 WORKDIR /var/www/permission-api
 

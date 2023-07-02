@@ -2,7 +2,7 @@
 # COMMON
 ###################
 
-FROM node:18.5-alpine as common-build-stage
+FROM node:16.14.2-alpine as common-build-stage
 
 WORKDIR /var/www/training-api
 
@@ -14,8 +14,6 @@ RUN npm install -g concurrently
 
 COPY . .
 
-RUN npx prisma generate
-
 EXPOSE 8003
 
 ###################
@@ -26,9 +24,7 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-# CMD [ "npm", "run", "start:dev" ]
-# CMD [ "concurrently", "npm:start:dev", "npm:prisma:migrate", "npm:prisma:seed" ]
-CMD [ "concurrently", "npm run start:dev", "npx prisma migrate dev" ]
+CMD [ "concurrently", "npm:start:dev","npm:prisma:generate", "npm:prisma:migrate", "npm:prisma:seed" ]
 
 ###################
 # PRODUCTION

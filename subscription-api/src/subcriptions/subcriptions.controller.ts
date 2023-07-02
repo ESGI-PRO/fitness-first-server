@@ -1,8 +1,9 @@
-import { Controller } from '@nestjs/common';
+import { Controller, HttpStatus } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { SubcriptionsService } from './subcriptions.service';
 import { CreateSubcriptionDto } from './dto/create-subcription.dto';
 import { UpdateSubcriptionDto } from './dto/update-subcription.dto';
+import { ISubcriptionResponse } from '../interfaces/findSubscriptionsByUserId.interface';
 
 @Controller()
 export class SubcriptionsController {
@@ -18,9 +19,23 @@ export class SubcriptionsController {
     return this.subcriptionsService.findAll();
   }
 
-  @MessagePattern('findByUserId')
-  findByUserId(@Payload() id: string){
-    return this.subcriptionsService.findByUserId(id);
+  @MessagePattern('findUserSubcriptions')
+  async findByUserId(@Payload() id: string) : Promise<ISubcriptionResponse>  {
+    const subcriptions =  await this.subcriptionsService.findByUserId(id);
+    if(subcriptions){
+      return {
+        status: HttpStatus.OK,
+        message: "get_user_subscription_success",
+        subscriptions: subcriptions
+      }
+    }else{
+      return {
+        status: HttpStatus.NOT_FOUND,
+        message: 'get_user_id_not_found',
+        subscriptions: null
+      }
+    }
+
   }
 
   @MessagePattern('findOneSubcription')
