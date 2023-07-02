@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { AnalyticsInterface, AnalyticsVisitorsinterface, BrowserInterface } from './dto_interface/analytics.interface';
 import { CreateAnalyticsDto, CreateAnalyticsVisitorsDto, FindAnalyticsDtoBy, FindAnalyticsVisitorsDto, GetAnalyticEventDto, GetAnalyticsDto } from './dto_interface/analytics.dto';
-import { firstValueFrom } from 'rxjs';
+
 import { faker } from '@faker-js/faker';
 @Injectable()
 export class AppService {
@@ -68,14 +68,21 @@ export class AppService {
         const continentNames = [
           "Asia", "Africa", "North America", "South America", "Antarctica", "Europe", "Australia"
         ]
-
+        const dateList=[
+          faker.date.past().toISOString(),
+          faker.date.past().toISOString(),
+          faker.date.past().toISOString(),
+          faker.date.past().toISOString(),
+          faker.date.past().toISOString(),
+          faker.date.past().toISOString(),
+        ]
 
         // for each category and for each action create 10 analytic events
         for (let i = 0; i < eventCategories.length; i++) {
           const category = eventCategories[i];
-          for (let i = 0; i < eventActions[category].length; i++) {
-            const action = eventActions[category][i];
-            for (let i = 0; i < 10; i++) {
+          for (let j = 0; j < eventActions[category].length; j++) {
+            const action = eventActions[category][j];
+            for (let k = 0; k < Math.floor(Math.random() * 10) + 5; k++) {
               const analyticEvent = {
                 appName: app.appName,
                 apiKey: app.apiKey,
@@ -86,11 +93,12 @@ export class AppService {
                   eventAction: action,
                   eventCategory: category,
                   eventPage: faker.internet.url(),
-                  date: faker.date.past().toISOString(),
+                  date: dateList[Math.floor(Math.random() * 5)],
                   events:{
                     event: faker.lorem.word(),
                     value: faker.lorem.word(),
-                    continent:  continentNames[Math.floor(Math.random() * 7)]
+                    continent:  continentNames[Math.floor(Math.random() * 7)],
+                    country: faker.location.country()
                   }
                 }
               }
@@ -157,8 +165,17 @@ export class AppService {
   }
 
   //find analytics by params
-  async findAnalyticsByParams(data: FindAnalyticsDtoBy): Promise<AnalyticsInterface[]> {
-    return this.analyticsModel.find(data).exec();
+  async findAnalyticsByParams(params: FindAnalyticsDtoBy): Promise<AnalyticsInterface[]> {
+   const {data, ...rest} = params
+   let options = {...rest}
+    if(data){
+      const new_options = Object.keys(data).reduce(function (previous, key) {
+        previous[`data.${key}`] = data[`${key}`];
+        return previous
+      },{});
+      options = {...options, ...new_options}
+    }
+    return this.analyticsModel.find(options).exec();
   }
   //find analytics visitors by params
   async findAnalyticsVisitorsByParams(data: FindAnalyticsVisitorsDto): Promise<AnalyticsVisitorsinterface[]> {

@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from './services/config/config.service';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { TcpOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
@@ -11,6 +10,7 @@ async function bootstrap() {
       host: '0.0.0.0',
       port: new ConfigService().get('port'),
     },
+    logger: ['error', 'warn', 'log']
   } as TcpOptions);
   await app.listen();
 }

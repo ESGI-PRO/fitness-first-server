@@ -133,10 +133,9 @@ export class AppController {
 
   //find analytics by params
   @MessagePattern('find_analytics_by_params')
-  async findAnalyticsBy(@Body() data: FindAnalyticsDtoBy) : Promise<IAnalyticsResponse>  {
+  async findAnalyticsByParams(@Body() data: FindAnalyticsDtoBy) : Promise<IAnalyticsResponse>  {
 
     let result: IAnalyticsResponse;
-
     if (data) {
       try{
         const analytics =   await this.appService.findAnalyticsByParams(data);

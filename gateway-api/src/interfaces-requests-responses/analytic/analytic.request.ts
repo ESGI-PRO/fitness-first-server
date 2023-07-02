@@ -51,7 +51,7 @@ export class CreateAnalyticDto {
             "buttonId": "button1",
         }
     }})
-    data: object;
+    data: AnalytiqueEventinterface;
 }
 
 export class GetAnalyticDto {
@@ -78,7 +78,7 @@ export class GetAnalyticDto {
             "buttonId": "button1",
         }
     }})
-    data: object;
+    data: AnalytiqueEventinterface;
 }
 
 
