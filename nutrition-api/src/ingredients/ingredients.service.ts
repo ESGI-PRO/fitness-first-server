@@ -27,9 +27,10 @@ export class IngredientsService {
     });
   }
 
-  async createIngredient(data) {
+  async createIngredient(data: any) {
     return new Promise(async (resolve, reject) => {
-      const ingredients = await prisma.ingredients.findMany();
+      console.log(data);
+      const ingredients = await prisma.ingredients.create({data});
       resolve(ingredients);
     });
   }

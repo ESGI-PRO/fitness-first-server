@@ -96,6 +96,28 @@ export class NutritionController {
     };
   }
 
+
+  @Put('/ingredients/:id')
+  @Authorization(false)
+  @ApiOkResponse({
+    type: GetNutritionResponseDto,
+  })
+  public async updateIngredient(
+    @Param() params: getIngredientIdDTO,
+    @Body() ingredientData: any,
+  ): Promise<GetNutritionResponseDto> {
+    const nutritionResponse: any = await firstValueFrom(
+      this.nutritionServiceClient.send('edit_ingredient', { id: Number(params.id), ingredientData }),
+    );
+    return {
+      message: nutritionResponse.message,
+      data: {
+        nutrition: nutritionResponse.data.nutrition,
+      },
+      errors: null,
+    };
+  }
+
   @Get('/categories/')
   @Authorization(false)
   @ApiOkResponse({
@@ -158,26 +180,7 @@ export class NutritionController {
     };
   }
 
-  @Put('/ingredients/:id')
-  @Authorization(false)
-  @ApiOkResponse({
-    type: GetNutritionResponseDto,
-  })
-  public async updateIngredient(
-    @Param() params: getIngredientIdDTO,
-    @Body() ingredientData: any,
-  ): Promise<GetNutritionResponseDto> {
-    const nutritionResponse: any = await firstValueFrom(
-      this.nutritionServiceClient.send('edit_ingredient', { id: Number(params.id), ingredientData }),
-    );
-    return {
-      message: nutritionResponse.message,
-      data: {
-        nutrition: nutritionResponse.data.nutrition,
-      },
-      errors: null,
-    };
-  }
+
 
   @Delete('/ingredients/:id')
   @Authorization(false)

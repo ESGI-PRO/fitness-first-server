@@ -35,11 +35,11 @@ export class IngredientsController {
   }
 
   @MessagePattern('create_ingredient')
-  public async create(data): Promise<any> {
+  public async create(ingredientData: any): Promise<any> {
     return {
       message: 'success message from nutritionResponse',
       data: {
-        nutrition: await this.ingredientsApi.createIngredient(data)
+        nutrition: await this.ingredientsApi.createIngredient(ingredientData)
       },
       errors: null,
     };
