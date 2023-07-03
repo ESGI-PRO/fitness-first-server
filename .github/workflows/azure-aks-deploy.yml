@@ -5,7 +5,7 @@ on:
     types:
       - completed
   push:
-    branches: ["feature/yateraaaa"]
+    branches: ["feature/yatera"]
     paths:
       - ".github/workflows/azure-aks-deploy.yml"
       - "manifests/**"
@@ -15,7 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
       - uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -59,20 +58,17 @@ jobs:
           az acr repository show-tags --name mychallengeregistry --repository challenge-token --output table
           az acr repository show-tags --name mychallengeregistry --repository challenge-training --output table
 
-          
 
-
-
-      - name: Deploy to AKS
-        env: 
-          AZURECRNAME: mychallengeregistry
-          AZURECRUSERNAME: mychallengeregistry
-          AZURECRPASSWORD: ${{ secrets.AZURE_CREDENTIALS }}
-        run: |
-          az aks get-credentials --resource-group myVoteGroup --name myAKSCluster
-          kubectl delete namespaces challengespace
-          kubectl create namespace challengespace
-          kubectl apply -f ./manifests/gateway/
+      # - name: Deploy to AKS
+      #   env: 
+      #     AZURECRNAME: mychallengeregistry
+      #     AZURECRUSERNAME: mychallengeregistry
+      #     AZURECRPASSWORD: ${{ secrets.AZURE_CREDENTIALS }}
+      #   run: |
+      #     az aks get-credentials --resource-group myVoteGroup --name myAKSCluster
+      #     kubectl delete namespaces challengespace
+      #     kubectl create namespace challengespace
+      #     kubectl apply -f ./manifests/gateway/
       #     kubectl apply -f ./manifests/analytic/
       #     kubectl apply -f ./manifests/mailer/
       #     kubectl apply -f ./manifests/messenger/

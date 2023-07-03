@@ -6,7 +6,7 @@ metadata:
   labels:
     app: permission
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: permission
@@ -19,6 +19,14 @@ spec:
       - name: permission
         #image: mychallengeregistry.azurecr.io/challenge-permission:latest
         image: idboubacar/challenge-semestre2-permission-api
+        ressource:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 250m
+          memory: 128Mi
+          
         env:
           - name: PERMISSION_SERVICE_PORT
             value: "80"

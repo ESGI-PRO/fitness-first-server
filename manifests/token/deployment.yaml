@@ -6,7 +6,7 @@ metadata:
   labels:
     app: token
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: token
@@ -19,6 +19,14 @@ spec:
       - name: token
         #image: mychallengeregistry.azurecr.io/challenge-token:latest
         image: idboubacar/challenge-semestre2-token-api
+        ressource:
+          limits:
+            cpu: 500m
+            memory: 128Mi
+          requests:
+            cpu: 250m
+            memory: 128Mi
+
         env:
           - name: TOKEN_SERVICE_PORT
             value: "80"

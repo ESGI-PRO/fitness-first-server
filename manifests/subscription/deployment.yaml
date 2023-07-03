@@ -6,7 +6,7 @@ metadata:
   labels:
     app: subscription
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: subscription
@@ -19,11 +19,19 @@ spec:
       - name: subscription
         #image: mychallengeregistry.azurecr.io/challenge-subscription:latest
         image: idboubacar/challenge-semestre2-subscription-api
+        ressource:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 250m
+          memory: 128Mi
+          
         env:
           - name: SUBSCRIPTION_SERVICE_PORT
             value: "80"
           - name: DATABASE_URL
-            value: postgresql://postgres:password@44.212.32.217:8080/subscription?schema=public
+            value: postgresql://postgres:password@44.212.32.217:5432/subscription?schema=public
           - name: API_GATEWAY_PORT
             value: "8000"
           - name: API_GATEWAY_HOST
@@ -36,8 +44,6 @@ spec:
             value: "8008"
           - name: MAILER_SERVICE_HOST
             value: mailer-api
-          - name: SUBSCRIPTION_SERVICE_PORT
-            value: "8009"
           - name: SUBSCRIPTION_SERVICE_HOST
             value: subscription-api
           - name: STRIPE_SECRET_KEY

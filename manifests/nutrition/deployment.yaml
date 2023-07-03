@@ -6,7 +6,7 @@ metadata:
   labels:
     app: nutrition
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: nutrition
@@ -19,11 +19,19 @@ spec:
       - name: nutrition
         #image: mychallengeregistry.azurecr.io/challenge-nutrition:latest
         image: idboubacar/challenge-semestre2-nutrition-api
+        ressource:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 250m
+          memory: 128Mi
+          
         env:
           - name: NUTRITION_SERVICE_PORT
             value: "80"
           - name: DATABASE_URL
-            value: postgresql://postgres:password@44.212.32.217:8080/nutrition?schema=public
+            value: postgresql://postgres:password@44.212.32.217:5432/nutrition?schema=public
           - name: API_GATEWAY_PORT
             value: "8000"
           - name: API_GATEWAY_HOST

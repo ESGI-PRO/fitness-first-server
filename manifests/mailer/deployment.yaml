@@ -19,6 +19,14 @@ spec:
       - name: mailer
         #image: mychallengeregistry.azurecr.io/challenge-mailer:latest
         image: idboubacar/challenge-semestre2-mailer-api
+        ressource:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 250m
+          memory: 128Mi
+          
         env:
           - name: MAILER_SERVICE_PORT
             value: "80"
