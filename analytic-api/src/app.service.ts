@@ -3,8 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { AnalyticsInterface, AnalyticsVisitorsinterface, BrowserInterface } from './dto_interface/analytics.interface';
 import { CreateAnalyticsDto, CreateAnalyticsVisitorsDto, FindAnalyticsDtoBy, FindAnalyticsVisitorsDto, GetAnalyticEventDto, GetAnalyticsDto } from './dto_interface/analytics.dto';
-
 import { faker } from '@faker-js/faker';
+
 @Injectable()
 export class AppService {
   constructor(

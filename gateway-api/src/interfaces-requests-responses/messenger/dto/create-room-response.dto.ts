@@ -15,7 +15,7 @@ export class CreateRoomResponseDto {
     nullable: true,
   })
   data: {
-    user: IRoom;
+    room: IRoom;
   };
   @ApiProperty({ example: null, nullable: true })
   errors: { [key: string]: any };

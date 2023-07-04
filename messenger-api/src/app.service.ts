@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IRoom } from './interfaces/room.interface';
 import { IMessage } from './interfaces/message.interface';
+import { IMeetingCreate } from './interfaces/meeting.interface';
 import { firstValueFrom } from 'rxjs';
 import { faker } from '@faker-js/faker';
 
@@ -13,6 +14,7 @@ export class AppService {
     @Inject('USER_SERVICE') private readonly userServiceClient: ClientProxy,
     @InjectModel('Room') private readonly roomModel: Model<IRoom>,
     @InjectModel('Message') private readonly messageModel: Model<IMessage>,
+    @InjectModel('Meeting') private readonly meetingModel: Model<IMeetingCreate>,
   ) { }
 
 
@@ -29,26 +31,38 @@ export class AppService {
             for (let i = 0; i < trainers.length; i++) {
               const trainer = trainers[i];
               const trainees = trainer.traineeIds;
-      
+
               for (let j = 0; j < trainees.length; j++) {
                 const traineeId = trainees[j];
                 const room = await this.roomModel.create({
                   sender_id: traineeId,
                   members: [trainer.id, traineeId] });
-  
+
+                // for each trainer and trainee create 2 meetings
+                for (let k = 0; k < 2; k++) {
+                  await this.meetingModel.create({
+                    sender_id: traineeId,
+                    members: [trainer.id, traineeId],
+                    date:  faker.date.soon().toISOString(),
+                    time: faker.date.anytime()
+                   });
+                }
+
                 // for each room create 10 messages
                 for (let k = 0; k < 10; k++) {
-                  const message = await this.messageModel.create({ sender_id: trainer.id, room_id: room.id, message: faker.lorem.sentence() });
+                  await this.messageModel.create({
+                    sender_id: trainer.id,
+                    room_id: room.id,
+                    message: faker.lorem.sentence() });
                 }
 
               }
             }
      }
- 
- 
+
     //cleardb()
     this.roomModel.countDocuments({}).then(async (count) => {
-       //console.log(' count is ' + count + '', await this.userModel.find({}).exec());
+       //console.log(' count is ' + count + '', await this.roomModel.find({}).exec());
        if (count < 1) {
          await seedAlgo()
        }
