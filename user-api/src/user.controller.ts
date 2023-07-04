@@ -200,4 +200,135 @@ export class UserController {
 
     return result;
   }
+
+  // user update
+  @MessagePattern('user_update')
+  public async updateUser(data: {
+    id: string,
+    userParams: any,
+  }): Promise<IUserSearchResponse> {
+    let result: IUserSearchResponse;
+    const { id, userParams } = data;
+
+    if (id && userParams) {
+      const user = await this.userService.updateUserById(id, userParams);
+
+      if (user) {
+        result = {
+          status: HttpStatus.OK,
+          message: 'user_update',
+          user: user,
+        };
+      } else {
+        result = {
+          status: HttpStatus.BAD_REQUEST,
+          message: 'user_update_bad_request',
+          user: null,
+        };
+      }
+    } else {
+      result = {
+        status: HttpStatus.BAD_REQUEST,
+        message: 'user_update_bad_request',
+        user: null,
+      };
+    }
+
+    return result;
+  }
+
+
+  // search user by email
+  @MessagePattern('user_search_by_email')
+    public async searchUserByEmail(email: string): Promise<IUserSearchResponse> {
+      let result: IUserSearchResponse;
+  
+      if (email) {
+        const user = await this.userService.searchUser({
+          email: email,
+        });
+  
+        if (user && user[0]) {
+          result = {
+            status: HttpStatus.OK,
+            message: 'user_search_by_email',
+            user: user[0],
+          };
+        } else {
+          result = {
+            status: HttpStatus.NOT_FOUND,
+            message: 'user_search_by_email_not_found',
+            user: null,
+          };
+        }
+      } else {
+        result = {
+          status: HttpStatus.NOT_FOUND,
+          message: 'user_search_by_email_not_found',
+          user: null,
+        };
+      }
+  
+      return result;
+    }
+
+  // search user by params object
+  @MessagePattern('user_search_by_params')
+  public async searchUserByParams(userParams: any): Promise<any> {
+    return await this.userService.searchUser(userParams);
+  }
+
+  // connect user to trainer
+  @MessagePattern('user_connect_to_trainer')
+  public async connectUserToTrainer(data: {
+    userId: string,
+    trainerId: string,
+  }): Promise<IUserSearchResponse> {
+    let result: IUserSearchResponse;
+    const { userId, trainerId } = data;
+
+    if (userId && trainerId) {
+      const user = await this.userService.updateUserById(userId, {
+        trainerId: trainerId,
+      });
+      // if user had trainerId before, remove user from trainer traineesIds list
+      if(user.trainerId){
+        let trainer = await this.userService.searchUserById(user.trainerId);
+        trainer = await this.userService.updateUserById(trainer.id, {
+          traineeIds: trainer.traineeIds.filter((id) => id !== userId),
+        });
+      }
+     // update trainer traineesIds list
+     let trainer = await this.userService.searchUserById(trainerId);
+     if(!trainer.traineeIds.includes(userId)){
+      trainer = await this.userService.updateUserById(trainerId, {
+        traineeIds:[...trainer.traineeIds, userId],
+       })
+     }
+
+
+
+      if (user && trainer) {
+        result = {
+          status: HttpStatus.OK,
+          message: 'user_connect_to_trainer',
+          user: null,
+        };
+      } else {
+        result = {
+          status: HttpStatus.BAD_REQUEST,
+          message: 'user_connect_to_trainer_bad_request',
+          user: null,
+        };
+      }
+    } else {
+      result = {
+        status: HttpStatus.BAD_REQUEST,
+        message: 'user_connect_to_trainer_bad_request',
+        user: null,
+      };
+    }
+
+    return result;
+  }
 }

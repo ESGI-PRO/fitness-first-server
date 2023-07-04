@@ -37,7 +37,6 @@ export class NutritionController {
     };
   }
 
-
   @Post('/')
   @Authorization(false)
   @ApiOkResponse({
@@ -134,7 +133,6 @@ export class NutritionController {
     };
   }
 
-
   @Get('/ingredients/:id')
   @Authorization(false)
   @ApiOkResponse({
@@ -158,7 +156,6 @@ export class NutritionController {
     };
   }
 
-
   @Get('/categories/:id')
   @Authorization(false)
   @ApiOkResponse({
@@ -181,27 +178,27 @@ export class NutritionController {
     };
   }
 
-  // @Post('/ingredients/:userId/user')
-  // @Authorization(false)
-  // @ApiOkResponse({
-  //   type: GetNutritionResponseDto,
-  // })
-  // public async getIngredientByUserId(
-  //   @Param() params: getIngredientUserIdDTO,
-  // ): Promise<GetNutritionResponseDto> {
-  //   const nutritionResponse: GetNutritionResponseDto = await firstValueFrom(
-  //     this.nutritionServiceClient.send('get_ingredients_for_userId', {
-  //       userId: params.userId,
-  //     }),
-  //   );
-  //   return {
-  //     message: nutritionResponse.message,
-  //     data: {
-  //       nutrition: nutritionResponse.data.nutrition,
-  //     },
-  //     errors: null,
-  //   };
-  // }
+  @Get('/:userId/user')
+  @Authorization(false)
+  @ApiOkResponse({
+    type: GetNutritionResponseDto,
+  })
+  public async getRecettesByUserId(
+    @Param() params: getIngredientUserIdDTO,
+  ): Promise<GetNutritionResponseDto> {
+    const nutritionResponse: GetNutritionResponseDto = await firstValueFrom(
+      this.nutritionServiceClient.send('get_recettes_by_userId', {
+        userId: params.userId,
+      }),
+    );
+    return {
+      message: nutritionResponse.message,
+      data: {
+        nutrition: nutritionResponse.data.nutrition,
+      },
+      errors: null,
+    };
+  }
 
   // @Get()
   // public async getIngredients(): Promise<any> {

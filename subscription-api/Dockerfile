@@ -1,30 +1,40 @@
-FROM node:18.15-alpine as common-build-stage
+###################
+# COMMON
+###################
 
-RUN npm install -g pnpm
-RUN npm i -g @nestjs/cli
+FROM node:16.14.2-alpine as common-build-stage
 
-RUN mkdir -p /var/www/subscription-api
+WORKDIR /var/www/subscriptions-api
 
-WORKDIR /var/www/subscription-api
+COPY package*.json ./
 
-ADD . /var/www/subscription-api/
-RUN pnpm install
-RUN npx prisma generate
-#RUN npx prisma migrate dev --name init
-#RUN npx prisma db seed
+RUN npm install
+
+RUN npm install -g concurrently
+
+COPY . .
 
 EXPOSE 8009
 
-# Development build stage
+###################
+# DEVELOPMENT
+###################
+
 FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-CMD pnpm run start:dev
 
-# Production build stage
+CMD [ "concurrently","npm:prisma:generate", "npm:prisma:migrate", "npm:prisma:seed", "npm:start:dev" ]
+
+###################
+# PRODUCTION
+###################
+
 FROM common-build-stage as production-build-stage
 
 ENV NODE_ENV=production
 
-CMD pnpm run build && pnpm run start:dev
+RUN npm build
+
+CMD [ "npm", "run", "start:prod" ]

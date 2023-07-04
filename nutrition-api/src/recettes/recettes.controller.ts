@@ -14,16 +14,14 @@ export class RecettesController {
     return {
       message: 'success get ingredients',
       data: {
-        nutrition: await this.recettesApi.getRecettes()
+        nutrition: await this.recettesApi.getRecettes(),
       },
       errors: null,
     };
   }
 
   @MessagePattern('get_recettes_by_id')
-  public async getbyID(params: {
-    id: number;
-  }): Promise<any> {
+  public async getbyID(params: { id: number }): Promise<any> {
     return {
       message: 'success get ingredients',
       data: {
@@ -38,18 +36,18 @@ export class RecettesController {
     return {
       message: 'success get ingredients',
       data: {
-        nutrition: await this.recettesApi.createRecette(data)
+        nutrition: await this.recettesApi.createRecette(data),
       },
       errors: null,
     };
   }
 
   @MessagePattern('get_recettes_by_userId')
-  public async getRecetteForUserByID(@Param('userId') userId: number): Promise<any> {
+  public async getRecetteForUserByID(params: { userId: string }): Promise<any> {
     return {
       message: 'success get ingredients',
       data: {
-        nutrition: await this.recettesApi.getRecetteForUserByID(userId)
+        nutrition: await this.recettesApi.getRecetteForUserByID(params.userId),
       },
       errors: null,
     };

@@ -11,6 +11,7 @@ async function bootstrap() {
       host: '0.0.0.0',
       port: new ConfigService().get('port'),
     },
+    logger: ['error', 'warn', 'log']
   } as TcpOptions);
   app.useGlobalPipes(new ValidationPipe({}));
   await app.listen();

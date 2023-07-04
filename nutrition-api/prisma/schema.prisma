@@ -3,7 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
+  binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x", "linux-musl-arm64-openssl-3.0.x"]
 }
 
 datasource db {
@@ -38,6 +38,6 @@ model Ingredients {
 model Recettes {
   id Int @id @default(autoincrement())
   title String 
-  UserId Int
+  UserId String
   instructions Json[]
 }

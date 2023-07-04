@@ -1,2 +1,0 @@
-import { TrainingsAPI } from "./trainings";
-

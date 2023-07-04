@@ -7,7 +7,7 @@ export class AnalytiqueEventinterface {
   readonly eventCategory: string;
   readonly eventPage: string;
   readonly date: string;
-  readonly events?: JSON;
+  readonly events?: any;
 } 
 
 export interface AnalyticInterface {
@@ -51,7 +51,7 @@ export class CreateAnalyticDto {
             "buttonId": "button1",
         }
     }})
-    data: object;
+    data: AnalytiqueEventinterface;
 }
 
 export class GetAnalyticDto {
@@ -78,7 +78,7 @@ export class GetAnalyticDto {
             "buttonId": "button1",
         }
     }})
-    data: object;
+    data: AnalytiqueEventinterface;
 }
 
 

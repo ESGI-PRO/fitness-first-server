@@ -1,18 +1,6 @@
 version: '3.9'
 
 services:
-  front:
-    build:
-      context: ../front
-      dockerfile: Dockerfile
-      target: development-build-stage
-    hostname: front
-    env_file:
-      - ../front/.env
-    volumes:
-      - ../front:/var/www/front
-    ports:
-      - 3000:3000
 
   gateway-api:
     build:
@@ -24,6 +12,7 @@ services:
       - ../gateway-api/.env
     volumes:
       - ../gateway-api:/var/www/gateway-api
+      - /var/www/gateway-api/node_modules
     ports:
       - 8000:8000
 
@@ -37,6 +26,7 @@ services:
       - ../nutrition-api/.env
     volumes:
       - ../nutrition-api:/var/www/nutrition-api
+      - /var/www/nutrition-api/node_modules
     ports:
       - 8001:8001
 
@@ -50,6 +40,7 @@ services:
       - ../user-api/.env
     volumes:
       - ../user-api:/var/www/user-api
+      - /var/www/user-api/node_modules
     ports:
       - 8002:8002
 
@@ -63,6 +54,7 @@ services:
       - ../training-api/.env
     volumes:
       - ../training-api:/var/www/training-api
+      - /var/www/training-api/node_modules
     ports:
       - 8003:8003
 
@@ -76,6 +68,7 @@ services:
       - ../analytic-api/.env
     volumes:
       - ../analytic-api:/var/www/analytic-api
+      - /var/www/analytic-api/node_modules
     ports:
       - 8005:8005
 
@@ -89,6 +82,7 @@ services:
       - ../token-api/.env
     volumes:
         - ../token-api:/var/www/token-api
+        - /var/www/token-api/node_modules
     ports:
       - 8006:8006
 
@@ -102,6 +96,7 @@ services:
       - ../permission-api/.env
     volumes:
         - ../permission-api:/var/www/permission-api
+        - /var/www/permission-api/node_modules
     ports:
       - 8007:8007
 
@@ -115,6 +110,7 @@ services:
       - ../mailer-api/.env
     volumes:
         - ../mailer-api:/var/www/mailer-api
+        - /var/www/mailer-api/node_modules
     ports:
       - 8008:8008
 
@@ -128,8 +124,10 @@ services:
       - ../subscription-api/.env
     volumes:
         - ../subscription-api:/var/www/subscription-api
+        - /var/www/subscription-api/node_modules
     ports:
       - 8009:8009
+
   messenger-api:
     build:
       context: ../messenger-api
@@ -140,5 +138,6 @@ services:
       - ../messenger-api/.env
     volumes:
         - ../messenger-api:/var/www/messenger-api
+        - /var/www/messenger-api/node_modules
     ports:
       - 9000:9000

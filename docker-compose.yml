@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  #ALL DATABASES AND ADMINER, MONGO-EXPRESS
+  #ALL DATABASES AND ADMINER,MONGO-EXPRESS
   adminer:
     extends:
       file: ./compose/docker-compose-db.yml
@@ -67,6 +67,7 @@ services:
       service: messenger-api
     depends_on:
       - mongo
+      - user-api
 
   subscription-api:
     extends:
@@ -79,11 +80,3 @@ services:
     extends:
       file: ./compose/docker-compose-service.yml
       service: gateway-api
-
-#front
-  front:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: front
-    depends_on:
-      - gateway-api
