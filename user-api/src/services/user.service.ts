@@ -5,6 +5,7 @@ import { ConfigService } from './config/config.service';
 import { IUser } from '../interfaces/user.interface';
 import { IUserLink } from '../interfaces/user-link.interface';
 import * as data from "../mock/users.json";
+import { UserSchema } from 'src/schemas/user.schema';
 
 @Injectable()
 export class UserService implements OnModuleInit {
@@ -49,10 +50,15 @@ export class UserService implements OnModuleInit {
 
    //cleardb()
    this.userModel.countDocuments({}).then(async (count) => {
-      //console.log(' count is ' + count + '', await this.userModel.find({}).exec());
       if (count < 2) {
-        //console.log('Seeding db', data);
-        await this.userModel.insertMany(data.users);
+        //encrypt all users password
+        let userList = []
+        for (let i = 0; i < data.users.length; i++) {
+          const user = data.users[i];
+          user.password = await UserSchema.methods.getEncryptedPassword(user.password);
+          userList = [...userList, user]
+        }
+        await this.userModel.insertMany(userList);
         await seedAlgo()
       }else{
         await seedAlgo()
