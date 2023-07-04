@@ -69,7 +69,7 @@ export class UserController {
         result = {
           status: HttpStatus.OK,
           message: 'user_get_by_id_success',
-          user,
+          user: user,
         };
       } else {
         result = {
