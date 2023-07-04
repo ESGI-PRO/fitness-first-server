@@ -1,5 +1,6 @@
 import {
   Controller,
+  Get,
   Post,
   Req,
   Res,
@@ -120,6 +121,12 @@ export class SubscriptionController {
       invoices: response.invoices,
       errors: null
     }
+  }
+
+  @Get('/find-all-subscriptions')
+  public async findAllSubscriptions() {
+    const response = await this.subscriptionServiceClient.send('findAllSubcriptions', {});
+    return response;
   }
 
 }
