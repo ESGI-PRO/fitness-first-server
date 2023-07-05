@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { IngredientsService } from './ingredients.service';
 import { MessagePattern } from '@nestjs/microservices';
 import { getIngredientDTO } from 'src/dto/getIngredientsDTO';
@@ -35,11 +35,11 @@ export class IngredientsController {
   }
 
   @MessagePattern('create_ingredient')
-  public async create(data): Promise<any> {
+  public async create(ingredientData: any): Promise<any> {
     return {
       message: 'success message from nutritionResponse',
       data: {
-        nutrition: await this.ingredientsApi.createIngredient(data)
+        nutrition: await this.ingredientsApi.createIngredient(ingredientData)
       },
       errors: null,
     };
@@ -61,4 +61,32 @@ export class IngredientsController {
     };
 
   }
+
+
+  @MessagePattern('edit_ingredient')
+  public async updateIngredient(params: { id: number, ingredientData: any }): Promise<any> {
+    console.log(params.id, params.ingredientData);
+    const updatedIngredient = await this.ingredientsApi.updateIngredient(params.id, params.ingredientData);
+    return {
+      message: 'success update ingredient',
+      data: {
+        nutrition: updatedIngredient,
+      },
+      errors: null,
+    };
+  }
+
+  @MessagePattern('delete_ingredient')
+  public async deleteIngredient(data: { id: number }): Promise<any> {
+    const { id } = data;
+    const deletedIngredient = await this.ingredientsApi.deleteIngredient(id);
+    return {
+      message: 'success delete ingredient',
+      data: {
+        nutrition: deletedIngredient,
+      },
+      errors: null,
+    };
+  }
+
 }
