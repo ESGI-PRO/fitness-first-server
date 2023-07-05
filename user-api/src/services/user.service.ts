@@ -128,7 +128,7 @@ export class UserService implements OnModuleInit {
   }
 
   public async searchUserById(id: string): Promise<IUser> {
-    return this.userModel.findById(id).exec();
+    return this.userModel.findById(id).exec()
   }
 
   public async updateUserById(
@@ -191,6 +191,11 @@ export class UserService implements OnModuleInit {
     const updatedUser = await this.userModel.findByIdAndUpdate(id, user);
     if (!updatedUser) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     return updatedUser;
+  }
+
+  public async getUsersByIds(userIds: string[]): Promise<IUser[]> {
+    const users = await this.userModel.find({ _id: { $in: userIds } }).exec();
+    return users;
   }
 
 }
