@@ -4,6 +4,7 @@ export declare class CreateUserDto {
     userName: string;
     mobileNumber: string;
     isTrainer: boolean;
+    isAdmin: boolean;
     trainerId: string;
     traineeIds: Array<string>;
     trainerSpeciality: string;

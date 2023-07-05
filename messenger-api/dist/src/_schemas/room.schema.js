@@ -9,18 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RoomSchema = exports.room = void 0;
+exports.RoomSchema = exports.Room = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
-let room = class room {
+let Room = class Room {
 };
+__decorate([
+    (0, mongoose_1.Prop)({ type: mongoose_2.SchemaTypes.ObjectId }),
+    __metadata("design:type", Object)
+], Room.prototype, "sender_id", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ type: [mongoose_2.SchemaTypes.ObjectId] }),
     __metadata("design:type", Array)
-], room.prototype, "members", void 0);
-room = __decorate([
+], Room.prototype, "members", void 0);
+Room = __decorate([
     (0, mongoose_1.Schema)({ versionKey: false, timestamps: true })
-], room);
-exports.room = room;
-exports.RoomSchema = mongoose_1.SchemaFactory.createForClass(room);
+], Room);
+exports.Room = Room;
+exports.RoomSchema = mongoose_1.SchemaFactory.createForClass(Room);
 //# sourceMappingURL=room.schema.js.map

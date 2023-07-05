@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  #ALL DATABASES AND ADMINER, MONGO-EXPRESS
+  #ALL DATABASES AND ADMINER,MONGO-EXPRESS
   adminer:
     extends:
       file: ./compose/docker-compose-db.yml
@@ -72,6 +72,7 @@ services:
       service: messenger-api
     depends_on:
       - mongo
+      - user-api
 
   subscription-api:
     extends:

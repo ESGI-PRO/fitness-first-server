@@ -4,6 +4,7 @@ exports.RoomDo = void 0;
 class RoomDo {
     constructor(props) {
         this._id = props._id || null;
+        this.sender_id = props.sender_id || null;
         this.members = props.members || null;
     }
 }

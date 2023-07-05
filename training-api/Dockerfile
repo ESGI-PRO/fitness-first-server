@@ -13,8 +13,11 @@ RUN npm install
 
 COPY . .
 
+<<<<<<< HEAD
 RUN npm run build
 
+=======
+>>>>>>> dev
 EXPOSE 8003
 
 ###################
@@ -25,12 +28,16 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
+<<<<<<< HEAD
 CMD npm run start:dev \
     npm run prisma:generate \
     npm run prisma:migrate \
     npm run prisma:seed
 
 #CMD [ "concurrently", "npm:start:dev","npm:prisma:generate", "npm:prisma:migrate", "npm:prisma:seed" ]
+=======
+CMD [ "concurrently", "npm:start:dev","npm:prisma:generate", "npm:prisma:migrate", "npm:prisma:seed" ]
+>>>>>>> dev
 
 ###################
 # PRODUCTION

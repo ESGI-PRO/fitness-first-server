@@ -12,14 +12,20 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TrainingController = void 0;
+exports.MessengerController = void 0;
 const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
 const swagger_1 = require("@nestjs/swagger");
 const create_message_dto_1 = require("./interfaces-requests-responses/messenger/dto/create-message.dto");
 const rxjs_1 = require("rxjs");
 const create_room_dto_1 = require("./interfaces-requests-responses/messenger/dto/create-room.dto");
-let TrainingController = class TrainingController {
+const create_message_response_dto_1 = require("./interfaces-requests-responses/messenger/dto/create-message-response.dto");
+const create_room_response_dto_1 = require("./interfaces-requests-responses/messenger/dto/create-room-response.dto");
+const get_all_room_messages_response_dto_1 = require("./interfaces-requests-responses/messenger/dto/get-all-room-messages-response.dto");
+const get_all_rooms_response_dto_1 = require("./interfaces-requests-responses/messenger/dto/get-all-rooms-response.dto");
+const video_meeting_request_1 = require("./interfaces-requests-responses/messenger/dto/video-meeting.request");
+const video_meeting_response_1 = require("./interfaces-requests-responses/messenger/dto/video-meeting.response");
+let MessengerController = class MessengerController {
     constructor(messengerServiceClient) {
         this.messengerServiceClient = messengerServiceClient;
     }
@@ -39,40 +45,108 @@ let TrainingController = class TrainingController {
         const response = await (0, rxjs_1.firstValueFrom)(this.messengerServiceClient.send("get-all-rooms", { userId }));
         return response;
     }
+    async createMeeting(meeting) {
+        const response = await (0, rxjs_1.firstValueFrom)(this.messengerServiceClient.send("create_video_meeting", meeting));
+        return response;
+    }
+    async updateMeeting(meeting) {
+        const response = await (0, rxjs_1.firstValueFrom)(this.messengerServiceClient.send("update_video_meeting", meeting));
+        return response;
+    }
+    async getAllMeetings(userId) {
+        const response = await (0, rxjs_1.firstValueFrom)(this.messengerServiceClient.send("find_all_video_meeting", userId));
+        return response;
+    }
+    async getTwilioToken(userId) {
+        const response = await (0, rxjs_1.firstValueFrom)(this.messengerServiceClient.send("get_twilio_token", userId));
+        return response;
+    }
 };
 __decorate([
     (0, common_1.Post)('/create_message'),
+    (0, swagger_1.ApiCreatedResponse)({
+        type: create_message_response_dto_1.CreateMessageResponseDto,
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_message_dto_1.CreateMessageDto]),
     __metadata("design:returntype", Promise)
-], TrainingController.prototype, "send", null);
+], MessengerController.prototype, "send", null);
 __decorate([
     (0, common_1.Post)('/create_room'),
+    (0, swagger_1.ApiCreatedResponse)({
+        type: create_room_response_dto_1.CreateRoomResponseDto,
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_room_dto_1.CreateRoomDto]),
     __metadata("design:returntype", Promise)
-], TrainingController.prototype, "createRoom", null);
+], MessengerController.prototype, "createRoom", null);
 __decorate([
     (0, common_1.Get)('/get-room-messages/:roomId'),
+    (0, swagger_1.ApiOkResponse)({
+        type: get_all_room_messages_response_dto_1.GetAllRoomMessagesResponseDto,
+    }),
     __param(0, (0, common_1.Param)('roomId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], TrainingController.prototype, "getRoomMessages", null);
+], MessengerController.prototype, "getRoomMessages", null);
 __decorate([
     (0, common_1.Get)('/get-all-rooms/:userId'),
+    (0, swagger_1.ApiOkResponse)({
+        type: get_all_rooms_response_dto_1.GetAllRoomsResponseDto,
+    }),
     __param(0, (0, common_1.Param)('userId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], TrainingController.prototype, "getAllRooms", null);
-TrainingController = __decorate([
+], MessengerController.prototype, "getAllRooms", null);
+__decorate([
+    (0, common_1.Post)('/create_meeting'),
+    (0, swagger_1.ApiCreatedResponse)({
+        type: video_meeting_response_1.CreateMeetingResponseDto,
+    }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [video_meeting_request_1.CreateMeetingDto]),
+    __metadata("design:returntype", Promise)
+], MessengerController.prototype, "createMeeting", null);
+__decorate([
+    (0, common_1.Put)('/update_meeting'),
+    (0, swagger_1.ApiCreatedResponse)({
+        type: video_meeting_response_1.UpdateMeetingResponseDto,
+    }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [video_meeting_request_1.UpdateMeetingDto]),
+    __metadata("design:returntype", Promise)
+], MessengerController.prototype, "updateMeeting", null);
+__decorate([
+    (0, common_1.Get)('/get-all-meetings/:userId'),
+    (0, swagger_1.ApiOkResponse)({
+        type: get_all_rooms_response_dto_1.GetAllRoomsResponseDto,
+    }),
+    __param(0, (0, common_1.Param)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], MessengerController.prototype, "getAllMeetings", null);
+__decorate([
+    (0, common_1.Get)('/get-twilio-token/:userId'),
+    (0, swagger_1.ApiOkResponse)({
+        type: video_meeting_response_1.GetTwilioTokenResponseDto,
+    }),
+    __param(0, (0, common_1.Param)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], MessengerController.prototype, "getTwilioToken", null);
+MessengerController = __decorate([
     (0, common_1.Controller)('messenger'),
     (0, swagger_1.ApiTags)('messenger'),
     __param(0, (0, common_1.Inject)('MESSENGER_SERVICE')),
     __metadata("design:paramtypes", [microservices_1.ClientProxy])
-], TrainingController);
-exports.TrainingController = TrainingController;
+], MessengerController);
+exports.MessengerController = MessengerController;
 //# sourceMappingURL=messenger.controller.js.map

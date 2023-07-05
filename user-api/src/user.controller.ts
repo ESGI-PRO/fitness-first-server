@@ -69,7 +69,7 @@ export class UserController {
         result = {
           status: HttpStatus.OK,
           message: 'user_get_by_id_success',
-          user,
+          user: user,
         };
       } else {
         result = {
@@ -283,4 +283,76 @@ export class UserController {
       const user = await this.userService.getByUserId(id);
       return user;
     }
+
+    @MessagePattern('user_delete_by_id')
+    public async deleteUser(id: string): Promise<any> {
+      const user = await this.userService.deleteUserById(id);
+      return user;
+    }
+
+    @MessagePattern('user_update_by_id')
+    public async updateUserById(id: string, user: any): Promise<any> {
+      const updatedUser = await this.userService.updateUserById(id, user);
+      return updatedUser;
+    }
+    
+  // search user by params object
+  @MessagePattern('user_search_by_params')
+  public async searchUserByParams(userParams: any): Promise<any> {
+    return await this.userService.searchUser(userParams);
+  }
+
+  // connect user to trainer
+  @MessagePattern('user_connect_to_trainer')
+  public async connectUserToTrainer(data: {
+    userId: string,
+    trainerId: string,
+  }): Promise<IUserSearchResponse> {
+    let result: IUserSearchResponse;
+    const { userId, trainerId } = data;
+
+    if (userId && trainerId) {
+      const user = await this.userService.updateUserById(userId, {
+        trainerId: trainerId,
+      });
+      // if user had trainerId before, remove user from trainer traineesIds list
+      if(user.trainerId){
+        let trainer = await this.userService.searchUserById(user.trainerId);
+        trainer = await this.userService.updateUserById(trainer.id, {
+          traineeIds: trainer.traineeIds.filter((id) => id !== userId),
+        });
+      }
+     // update trainer traineesIds list
+     let trainer = await this.userService.searchUserById(trainerId);
+     if(!trainer.traineeIds.includes(userId)){
+      trainer = await this.userService.updateUserById(trainerId, {
+        traineeIds:[...trainer.traineeIds, userId],
+       })
+     }
+
+
+
+      if (user && trainer) {
+        result = {
+          status: HttpStatus.OK,
+          message: 'user_connect_to_trainer',
+          user: null,
+        };
+      } else {
+        result = {
+          status: HttpStatus.BAD_REQUEST,
+          message: 'user_connect_to_trainer_bad_request',
+          user: null,
+        };
+      }
+    } else {
+      result = {
+        status: HttpStatus.BAD_REQUEST,
+        message: 'user_connect_to_trainer_bad_request',
+        user: null,
+      };
+    }
+
+    return result;
+  }
 }

@@ -24,6 +24,11 @@ let RoomsRepository = class RoomsRepository {
         this.userServiceClient = userServiceClient;
     }
     async createRoom(room) {
+        const res = await (0, rxjs_1.firstValueFrom)(this.userServiceClient
+            .send('user_connect_to_trainer', {
+            userId: room.sender_id,
+            trainerId: room.members.filter((m) => m !== room.sender_id)[0]
+        }));
         const createOne = await this.roomModel.create(room);
         return createOne;
     }
@@ -42,7 +47,7 @@ let RoomsRepository = class RoomsRepository {
     }
 };
 RoomsRepository = __decorate([
-    __param(0, (0, mongoose_1.InjectModel)('room')),
+    __param(0, (0, mongoose_1.InjectModel)('Room')),
     __param(1, (0, common_1.Inject)('USER_SERVICE')),
     __metadata("design:paramtypes", [mongoose_2.Model,
         microservices_1.ClientProxy])

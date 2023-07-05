@@ -49,7 +49,13 @@ __decorate([
 ], CreateUserDto.prototype, "isTrainer", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        example: '5d987c3bfb881ec86b476bcc',
+        example: false,
+    }),
+    __metadata("design:type", Boolean)
+], CreateUserDto.prototype, "isAdmin", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: true,
     }),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "trainerId", void 0);

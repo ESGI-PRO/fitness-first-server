@@ -95,7 +95,7 @@ let RoomsController = class RoomsController {
     }
 };
 __decorate([
-    (0, microservices_1.MessagePattern)('create-room'),
+    (0, microservices_1.MessagePattern)('create_room'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_room_dto_1.CreateRoomDto]),
     __metadata("design:returntype", Promise)

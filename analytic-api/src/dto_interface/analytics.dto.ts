@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsJSON, IsObject, IsNumber } from "class-validator";
+import { IsString, IsOptional, IsObject, IsNumber } from "class-validator";
 
 export class AnalytiqueEventDto {
   @IsString()
@@ -12,8 +12,7 @@ export class AnalytiqueEventDto {
   @IsString()
   readonly date: string;
   @IsOptional()
-  @IsJSON()
-  readonly events?: JSON;
+  readonly events?: any;
 } 
 
 export class CreateAnalyticsDto {
@@ -57,8 +56,7 @@ export class GetAnalyticEventDto {
   @IsString()
   readonly date: string;
   @IsOptional()
-  @IsJSON()
-  readonly events?: JSON;
+  readonly events?: any;
 } 
 
 

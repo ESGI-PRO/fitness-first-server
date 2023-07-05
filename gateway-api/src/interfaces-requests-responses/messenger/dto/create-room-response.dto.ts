@@ -7,14 +7,15 @@ export class CreateRoomResponseDto {
   @ApiProperty({
     example: {
       room: {
-        id: '5d987c3bfb881ec86b476bcc',
-        members: ['5d987c3bfb881ec86b476bcc', '5d987c3bfb881ec86b476bcc']
+        id: '5d987c3bfb881ec86b476b89',
+        sender_id: '5d987c3bfb881ec86b476bcc',
+        members: ['5d987c3bfb881ec86b476bcc', '5d987c3bfb881ec86b476b09']
       },
     },
     nullable: true,
   })
   data: {
-    user: IRoom;
+    room: IRoom;
   };
   @ApiProperty({ example: null, nullable: true })
   errors: { [key: string]: any };

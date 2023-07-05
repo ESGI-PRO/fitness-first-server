@@ -17,6 +17,11 @@ class CreateRoomDto {
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateRoomDto.prototype, "sender_id", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsArray)(),
     __metadata("design:type", Array)
 ], CreateRoomDto.prototype, "members", void 0);

@@ -22,7 +22,7 @@ MONGO_ROOT_PASSWORD=password
 MONGO_DATABASE=analytic_db
 MONGO_HOST=mongo
 
-MONGO_DSN=mongodb://mongo_user:password@localhost:27017/analytic_db
+MONGO_DSN=mongodb://mongo:27017/analytic_db
 
 BASE_URI=http://localhost/
 ```

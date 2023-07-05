@@ -11,7 +11,7 @@ async function bootstrap() {
   const options = new DocumentBuilder()
     .setTitle('API docs')
     .addTag('users')
-    .addTag('analytic')
+    .addTag('analytics')
     .addTag('training')
     .addTag('nutrition')
     .addTag('subscription')

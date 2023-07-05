@@ -10,7 +10,7 @@ export class RoomsController {
   constructor(private readonly roomsService: RoomsService) { }
 
 
-  @MessagePattern('create-room')
+  @MessagePattern('create_room')
   async createRoom(createRoomDto: CreateRoomDto) {
     let result: IRoomCreateResponse;
 

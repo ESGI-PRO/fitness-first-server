@@ -4,7 +4,7 @@ export declare class AnalytiqueEventinterface {
     readonly eventCategory: string;
     readonly eventPage: string;
     readonly date: string;
-    readonly events?: JSON;
+    readonly events?: any;
 }
 export interface AnalyticInterface {
     readonly appName: string;
@@ -25,14 +25,14 @@ export declare class CreateAnalyticDto {
     apiKey: string;
     userAgent: string;
     baseUrl: string;
-    data: object;
+    data: AnalytiqueEventinterface;
 }
 export declare class GetAnalyticDto {
     appName: string;
     apiKey: string;
     userAgent: string;
     baseUrl: string;
-    data: object;
+    data: AnalytiqueEventinterface;
 }
 export declare class GetAllAnalyticsDto {
     Analytics: Array<GetAnalyticDto>;

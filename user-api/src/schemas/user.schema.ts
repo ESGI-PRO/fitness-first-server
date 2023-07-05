@@ -14,6 +14,7 @@ export interface IUserSchema extends mongoose.Document {
   userName: string;
   mobileNumber: string;
   isTrainer: Boolean;
+  isAdmin: Boolean;
   trainerSpeciality: string;
   trainerId: string;
   traineeIds: Array<string>;
@@ -55,20 +56,24 @@ export const UserSchema = new mongoose.Schema<IUserSchema>(
     },
     isTrainer: {
       type: Boolean,
-      required: [false, 'isTrainer can not be empty'],
+      required: [false, ''],
+    },
+    isAdmin: {
+      type: Boolean,
+      required: [false, ''],
     },
     trainerId: {
       type: String,
-      required: [false, 'trainerId can not be empty']
+      required: [false, ''],
     },
     traineeIds: {
       type: Array as any,
-      required: [false, 'traineeIds can not be empty']
+      required: [false, ''],
     },
     trainerSpeciality: {
       type: String,
       enum: [trainerSpecialityTypes.YOGA, trainerSpecialityTypes.FITNESS, trainerSpecialityTypes.POWERLIFTING, trainerSpecialityTypes.NONE],
-      required: [false, 'trainerSpeciality can not be empty']
+      required: [false, '']
     },
     role: {
       type: String,

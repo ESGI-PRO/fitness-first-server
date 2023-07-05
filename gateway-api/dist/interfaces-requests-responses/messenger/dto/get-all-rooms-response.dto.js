@@ -22,8 +22,9 @@ __decorate([
         example: {
             rooms: [
                 {
-                    id: '5d987c3bfb881ec86b476bcc',
-                    members: ['5d987c3bfb881ec86b476bcc', '5d987c3bfb881ec86b476bcc']
+                    id: '5d987c3bfb881ec86b476b89',
+                    sender_id: '5d987c3bfb881ec86b476bcc',
+                    members: ['5d987c3bfb881ec86b476bcc', '5d987c3bfb881ec86b476b09']
                 }
             ]
         },

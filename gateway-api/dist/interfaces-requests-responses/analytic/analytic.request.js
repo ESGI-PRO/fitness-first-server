@@ -44,7 +44,7 @@ __decorate([
                 "buttonId": "button1",
             }
         } }),
-    __metadata("design:type", Object)
+    __metadata("design:type", AnalytiqueEventinterface)
 ], CreateAnalyticDto.prototype, "data", void 0);
 exports.CreateAnalyticDto = CreateAnalyticDto;
 class GetAnalyticDto {
@@ -77,7 +77,7 @@ __decorate([
                 "buttonId": "button1",
             }
         } }),
-    __metadata("design:type", Object)
+    __metadata("design:type", AnalytiqueEventinterface)
 ], GetAnalyticDto.prototype, "data", void 0);
 exports.GetAnalyticDto = GetAnalyticDto;
 class GetAllAnalyticsDto {

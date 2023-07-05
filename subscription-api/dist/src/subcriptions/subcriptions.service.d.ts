@@ -6,8 +6,8 @@ export declare class SubcriptionsService {
     findAll(): any;
     findByUserId(id: string): any;
     findOne(id: string): any;
+    findByStripeId(stripeId: string): any;
     update(id: string, updateData: any): any;
     remove(id: string): any;
     findActiveSub(userId: string): any;
-    findByStripeId(stripeId: string): any;
 }

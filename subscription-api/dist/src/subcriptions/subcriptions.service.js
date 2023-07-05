@@ -41,6 +41,10 @@ let SubcriptionsService = class SubcriptionsService {
     findOne(id) {
         return this.prisma.subscription.findUnique({ where: { id } });
     }
+    findByStripeId(stripeId) {
+        console.log("[findByStripeId]", stripeId);
+        return this.prisma.subscription.findMany({ where: { stripeId } }) || [];
+    }
     update(id, updateData) {
         return this.prisma.subscription.update({
             where: { id },
@@ -62,10 +66,7 @@ let SubcriptionsService = class SubcriptionsService {
                     gte: new Date(),
                 },
             },
-        });
-    }
-    findByStripeId(stripeId) {
-        return this.prisma.subscription.findMany({ where: { stripeId } });
+        }) || [];
     }
 };
 SubcriptionsService = __decorate([

@@ -3,6 +3,7 @@ import {
   Post,
   Put,
   Get,
+  Delete,
   Body,
   Req,
   Inject,
@@ -290,4 +291,15 @@ export class UsersController {
     return user;
   }
 
+  @Put(':id')
+  public async updateUser(@Param('id') id: string, @Body() user: any): Promise<any> {
+    const updatedUser = await this.userServiceClient.send('user_update_by_id', { id, user });
+    return updatedUser;
+  }
+
+  @Delete(':id')
+  public async deleteUser(@Param('id') id: string): Promise<any> {
+    const deletedUser = await this.userServiceClient.send('user_delete_by_id', id);
+    return deletedUser;
+  }
 }

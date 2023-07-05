@@ -85,7 +85,7 @@ let MessagesController = class MessagesController {
     }
 };
 __decorate([
-    (0, microservices_1.MessagePattern)('create-message'),
+    (0, microservices_1.MessagePattern)('create_message'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_message_dto_1.CreateMessageDto]),
     __metadata("design:returntype", Promise)

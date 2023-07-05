@@ -23,12 +23,13 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
 import { Document, ObjectId } from 'mongoose';
-export type RoomDocument = room & Document;
-export declare class room {
+export type RoomDocument = Room & Document;
+export declare class Room {
+    sender_id: ObjectId;
     members: [ObjectId];
 }
-export declare const RoomSchema: import("mongoose").Schema<room, import("mongoose").Model<room, any, any, any, Document<unknown, any, room> & Omit<room & {
+export declare const RoomSchema: import("mongoose").Schema<Room, import("mongoose").Model<Room, any, any, any, Document<unknown, any, Room> & Omit<Room & {
     _id: import("mongoose").Types.ObjectId;
-}, never>, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, room, Document<unknown, {}, import("mongoose").FlatRecord<room>> & Omit<import("mongoose").FlatRecord<room> & {
+}, never>, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Room, Document<unknown, {}, import("mongoose").FlatRecord<Room>> & Omit<import("mongoose").FlatRecord<Room> & {
     _id: import("mongoose").Types.ObjectId;
 }, never>>;

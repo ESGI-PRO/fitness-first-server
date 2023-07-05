@@ -34,8 +34,14 @@
 
 .env
 .env.*
+<<<<<<< HEAD
 # ./**/dist
 # ./**/dist/*
+=======
+./dist/*
+./**/dist
+./**/dist/*
+>>>>>>> dev
 ./**/node_modules
 ./**/node_modules/*
 
@@ -43,3 +49,5 @@
 .vscode
 .DS_Store
 *.pnpm-store
+
+./compose/mongodata/*

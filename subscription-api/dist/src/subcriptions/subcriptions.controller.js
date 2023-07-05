@@ -28,8 +28,22 @@ let SubcriptionsController = class SubcriptionsController {
     findAll() {
         return this.subcriptionsService.findAll();
     }
-    findByUserId(id) {
-        return this.subcriptionsService.findByUserId(id);
+    async findByUserId(id) {
+        const subcriptions = await this.subcriptionsService.findByUserId(id);
+        if (subcriptions) {
+            return {
+                status: common_1.HttpStatus.OK,
+                message: "get_user_subscription_success",
+                subscriptions: subcriptions
+            };
+        }
+        else {
+            return {
+                status: common_1.HttpStatus.NOT_FOUND,
+                message: 'get_user_id_not_found',
+                subscriptions: null
+            };
+        }
     }
     findOne(id) {
         return this.subcriptionsService.findOne(id);
@@ -55,11 +69,11 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], SubcriptionsController.prototype, "findAll", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('findByUserId'),
+    (0, microservices_1.MessagePattern)('findUserSubcriptions'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], SubcriptionsController.prototype, "findByUserId", null);
 __decorate([
     (0, microservices_1.MessagePattern)('findOneSubcription'),

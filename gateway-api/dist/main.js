@@ -12,7 +12,7 @@ async function bootstrap() {
     const options = new swagger_1.DocumentBuilder()
         .setTitle('API docs')
         .addTag('users')
-        .addTag('analytic')
+        .addTag('analytics')
         .addTag('training')
         .addTag('nutrition')
         .addTag('subscription')

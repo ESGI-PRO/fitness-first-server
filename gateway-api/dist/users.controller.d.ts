@@ -21,4 +21,6 @@ export declare class UsersController {
     refreshToken(refreshTokenRequest: RefreshTokenDto): Promise<LoginUserResponseDto>;
     getAllUsers(): Promise<any>;
     getByUserId(id: string): Promise<any>;
+    updateUser(id: string, user: any): Promise<any>;
+    deleteUser(id: string): Promise<any>;
 }

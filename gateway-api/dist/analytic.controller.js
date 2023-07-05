@@ -16,110 +16,109 @@ exports.AnalyticController = void 0;
 const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
 const swagger_1 = require("@nestjs/swagger");
+const analytic_request_1 = require("./interfaces-requests-responses/analytic/analytic.request");
+const analytic_response_1 = require("./interfaces-requests-responses/analytic/analytic.response");
+const rxjs_1 = require("rxjs");
 let AnalyticController = class AnalyticController {
     constructor(analyticServiceClient) {
         this.analyticServiceClient = analyticServiceClient;
     }
-    createAnalytics(data) {
-        console.log("data", data);
-        return this.analyticServiceClient.send('create_analytics', data);
+    async createAnalytics(data) {
+        return await (0, rxjs_1.firstValueFrom)(this.analyticServiceClient.send('create_analytics', data));
     }
-    countAnalyticsVisitors(data) {
-        console.log("analyticsVisitors----", data);
-        const analyticsVisitors = this.analyticServiceClient.send('update_analytics_visitors', data);
-        return analyticsVisitors;
+    async createVisitors(data) {
+        const visitor = await (0, rxjs_1.firstValueFrom)(this.analyticServiceClient.send('create_visitors', data));
+        return visitor;
     }
-    createVisitors(data) {
-        return this.analyticServiceClient.send('create_visitors', data);
+    async updateAnalyticsVisitors(data) {
+        const visitors = await (0, rxjs_1.firstValueFrom)(this.analyticServiceClient.send('update_analytics_visitors', data));
+        return visitors;
     }
-    findAllAnalytics() {
-        const analytics = this.analyticServiceClient.send('find_all_analytics', {});
-        console.log("all analytics", analytics);
+    async findAllAnalytics() {
+        const data = await (0, rxjs_1.firstValueFrom)(this.analyticServiceClient.send('find_all_analytics', {}));
+        return data;
+    }
+    async findAllAnalyticsVisitors() {
+        const data = await (0, rxjs_1.firstValueFrom)(this.analyticServiceClient.send('find_all_analytics_visitors', {}));
+        return data;
+    }
+    async findAnalyticsBy(data) {
+        const analytics = await (0, rxjs_1.firstValueFrom)(this.analyticServiceClient.send('find_analytics_by_params', data));
         return analytics;
     }
-    findAnalyticsById(data) {
-        const analytics = this.analyticServiceClient.send('find_analytics_by_id', data);
-        console.log("analytics", analytics);
-        return analytics;
-    }
-    findAllAnalyticsVisitors() {
-        const analyticsVisitors = this.analyticServiceClient.send('find_all_analytics_visitors', {});
-        console.log("all analyticsVisitors", analyticsVisitors);
-        return analyticsVisitors;
-    }
-    findAnalyticsVisitorsById(appKey) {
-        console.log("analyticsVisitors", appKey);
-        const analyticsVisitors = this.analyticServiceClient.send('find_analytics_visitors_by_id', appKey);
-        return analyticsVisitors;
-    }
-    findAnalyticsVisitorsByAppName(appName) {
-        const analyticsVisitors = this.analyticServiceClient.send('find_analytics_visitors_by_app_name', appName);
-        console.log("analyticsVisitors", analyticsVisitors);
+    async findAnalyticsVisitorsBy(data) {
+        const analyticsVisitors = await (0, rxjs_1.firstValueFrom)(this.analyticServiceClient.send('find_analytics_visitors_by_params', data));
         return analyticsVisitors;
     }
 };
 __decorate([
-    (0, common_1.Post)("/createAnalytics"),
-    (0, common_1.HttpCode)(200),
+    (0, common_1.Post)("/create_analytics"),
+    (0, swagger_1.ApiCreatedResponse)({
+        type: analytic_response_1.IAnalyticCreateResponse
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [analytic_request_1.CreateAnalyticDto]),
+    __metadata("design:returntype", Promise)
 ], AnalyticController.prototype, "createAnalytics", null);
 __decorate([
-    (0, common_1.Post)("/AnalyticsVisitors"),
-    (0, common_1.HttpCode)(200),
+    (0, common_1.Post)("/create_visitors"),
+    (0, swagger_1.ApiCreatedResponse)({
+        type: analytic_response_1.IAnalyticsVisitorCreateResponse
+    }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], AnalyticController.prototype, "countAnalyticsVisitors", null);
-__decorate([
-    (0, common_1.Post)("/createVisitors"),
-    (0, common_1.HttpCode)(200),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [analytic_request_1.CreateAnalyticVisitorsCountDto]),
+    __metadata("design:returntype", Promise)
 ], AnalyticController.prototype, "createVisitors", null);
 __decorate([
-    (0, common_1.Get)("/Analytics"),
-    (0, common_1.HttpCode)(200),
+    (0, common_1.Post)("/update_analytics_visitors"),
+    (0, swagger_1.ApiCreatedResponse)({
+        type: analytic_response_1.IAnalyticsVisitorResponse
+    }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [analytic_request_1.CreateAnalyticVisitorsCountDto]),
+    __metadata("design:returntype", Promise)
+], AnalyticController.prototype, "updateAnalyticsVisitors", null);
+__decorate([
+    (0, common_1.Get)("/find_all_analytics"),
+    (0, swagger_1.ApiOkResponse)({
+        type: analytic_response_1.IAnalyticsResponse
+    }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], AnalyticController.prototype, "findAllAnalytics", null);
 __decorate([
-    (0, common_1.Get)("/Analytics/:id"),
-    (0, common_1.HttpCode)(200),
-    __param(0, (0, common_1.Param)("id", new common_1.ParseUUIDPipe)),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], AnalyticController.prototype, "findAnalyticsById", null);
-__decorate([
-    (0, common_1.Get)("/AnalyticsVisitors"),
-    (0, common_1.HttpCode)(200),
+    (0, common_1.Get)("/analytics_visitors"),
+    (0, swagger_1.ApiOkResponse)({
+        type: analytic_response_1.IAnalyticsVisitorResponse
+    }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], AnalyticController.prototype, "findAllAnalyticsVisitors", null);
 __decorate([
-    (0, common_1.Get)("/AnalyticsVisitors/:appKey"),
-    (0, common_1.HttpCode)(200),
-    __param(0, (0, common_1.Param)("appKey")),
+    (0, common_1.Post)("/find_analytics_by_params"),
+    (0, swagger_1.ApiOkResponse)({
+        type: analytic_response_1.IAnalyticsResponse
+    }),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], AnalyticController.prototype, "findAnalyticsVisitorsById", null);
+    __metadata("design:paramtypes", [analytic_request_1.CreateAnalyticDto]),
+    __metadata("design:returntype", Promise)
+], AnalyticController.prototype, "findAnalyticsBy", null);
 __decorate([
-    (0, common_1.Get)("/AnalyticsVisitors/:appName"),
-    (0, common_1.HttpCode)(200),
-    __param(0, (0, common_1.Param)("appName")),
+    (0, common_1.Post)("/find_analytics_visitors_by_params"),
+    (0, swagger_1.ApiOkResponse)({
+        type: analytic_response_1.IAnalyticsVisitorResponse
+    }),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], AnalyticController.prototype, "findAnalyticsVisitorsByAppName", null);
+    __metadata("design:paramtypes", [analytic_request_1.CreateAnalyticVisitorsCountDto]),
+    __metadata("design:returntype", Promise)
+], AnalyticController.prototype, "findAnalyticsVisitorsBy", null);
 AnalyticController = __decorate([
     (0, common_1.Controller)('analytics'),
     (0, swagger_1.ApiTags)('analytics'),

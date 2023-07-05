@@ -16,14 +16,15 @@ const config_service_1 = require("./services/config/config.service");
 const mongo_config_service_1 = require("./services/config/mongo-config.service");
 const room_schema_1 = require("./_schemas/room.schema");
 const message_schema_1 = require("./_schemas/message.schema");
+const meeting_schema_1 = require("./_schemas/meeting.schema");
+const app_service_1 = require("./app.service");
+const microservices_1 = require("@nestjs/microservices");
+const video_meeting_module_1 = require("./video-meeting/video-meeting.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         controllers: [],
-        providers: [
-            config_service_1.ConfigService
-        ],
         imports: [
             config_1.ConfigModule.forRoot(),
             mongoose_1.MongooseModule.forRootAsync({
@@ -40,9 +41,27 @@ AppModule = __decorate([
                     schema: message_schema_1.MessageSchema,
                     collection: 'messages',
                 },
+                {
+                    name: 'Meeting',
+                    schema: meeting_schema_1.MeetingSchema,
+                    collection: 'meetings',
+                }
             ]),
             rooms_module_1.RoomsModule,
             messages_module_1.MessagesModule,
+            video_meeting_module_1.VideoMeetingModule
+        ],
+        providers: [
+            config_service_1.ConfigService,
+            app_service_1.AppService,
+            {
+                provide: 'USER_SERVICE',
+                useFactory: (configService) => {
+                    const userServiceOptions = configService.get('userService');
+                    return microservices_1.ClientProxyFactory.create(userServiceOptions);
+                },
+                inject: [config_service_1.ConfigService],
+            }
         ],
     })
 ], AppModule);

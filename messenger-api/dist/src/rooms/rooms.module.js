@@ -20,7 +20,7 @@ let RoomsModule = class RoomsModule {
 RoomsModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forFeature([{ name: room_schema_1.room.name, schema: room_schema_1.RoomSchema }]),
+            mongoose_1.MongooseModule.forFeature([{ name: room_schema_1.Room.name, schema: room_schema_1.RoomSchema }]),
         ],
         controllers: [rooms_controller_1.RoomsController],
         providers: [rooms_service_1.RoomsService, rooms_repository_1.RoomsRepository,

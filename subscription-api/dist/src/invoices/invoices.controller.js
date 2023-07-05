@@ -28,8 +28,22 @@ let InvoicesController = class InvoicesController {
     findAll() {
         return this.invoicesService.findAll();
     }
-    findByUserId(id) {
-        return this.invoicesService.findByUserId(id);
+    async findByUserId(id) {
+        const invoices = await this.invoicesService.findByUserId(id);
+        if (invoices) {
+            return {
+                status: common_1.HttpStatus.OK,
+                message: "get_user_invoices_success",
+                invoices: invoices
+            };
+        }
+        else {
+            return {
+                status: common_1.HttpStatus.NOT_FOUND,
+                message: 'get_user_invoices_not_found',
+                invoices: null
+            };
+        }
     }
     findOne(id) {
         return this.invoicesService.findOne(id);
@@ -55,11 +69,11 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], InvoicesController.prototype, "findAll", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('findByUserId'),
+    (0, microservices_1.MessagePattern)('findInvoicesByUserId'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], InvoicesController.prototype, "findByUserId", null);
 __decorate([
     (0, microservices_1.MessagePattern)('findOneInvoice'),

@@ -38,33 +38,22 @@ let StripeService = class StripeService {
         };
         try {
             const subscriptionStripe = await this.stripe.subscriptions.retrieve(session.subscription);
+            const { user } = await (0, rxjs_1.firstValueFrom)(this.userServiceClient.send('user_search_by_email', session.customer_details.email));
             switch (type) {
                 case 'checkout.session.completed':
-                    const { user } = await (0, rxjs_1.firstValueFrom)(this.userServiceClient.send('user_search_by_email', session.customer_details.email));
-                    console.log("checkout.session.completed user", user);
                     if (!user) {
                         res.status = common_1.HttpStatus.NOT_FOUND;
                         res.message = "Webhook Stripe user not found";
                         return res;
                     }
                     const activeSub = await this.subcriptionsService.findActiveSub(user === null || user === void 0 ? void 0 : user.id);
-                    console.log("activeSub", activeSub);
                     if (activeSub && activeSub.length > 0) {
                         this.stripe.subscriptions.update(activeSub[0].stripeId, {
                             cancel_at_period_end: false,
                         });
                     }
                     const plan = await this.plansService.findOneByStripeId(subscriptionStripe.plan.id);
-                    console.log("[plan id]", plan);
                     if (plan && plan[0]) {
-                        console.log("[sub to create]", {
-                            userId: user === null || user === void 0 ? void 0 : user.id,
-                            planId: plan[0].id,
-                            stripeId: subscriptionStripe.id,
-                            currentPeriodStart: new Date(subscriptionStripe.current_period_start),
-                            currentPerionEnd: new Date(subscriptionStripe.current_period_end),
-                            active: true
-                        });
                         await this.subcriptionsService.create({
                             userId: user === null || user === void 0 ? void 0 : user.id,
                             planId: plan[0].id,
@@ -73,15 +62,10 @@ let StripeService = class StripeService {
                             currentPeriodEnd: new Date(subscriptionStripe.current_period_end),
                             active: true
                         });
-                        console.log("user to update", {
-                            id: user === null || user === void 0 ? void 0 : user.id,
-                            userParams: { stripeId: session.customer }
-                        });
                         const usr = await (0, rxjs_1.firstValueFrom)(this.userServiceClient.send('user_update', {
                             id: user === null || user === void 0 ? void 0 : user.id,
                             userParams: { stripeId: session.customer }
                         }));
-                        console.log(`payment_succeeded: ${session.status}`);
                     }
                     else {
                         res.status = common_1.HttpStatus.NOT_FOUND;
@@ -91,29 +75,30 @@ let StripeService = class StripeService {
                     break;
                 case 'invoice.paid':
                     if (session.subscription) {
-                        console.log("[session.subscription]", session.subscription);
-                        const subscription = await this.subcriptionsService.findByStripeId(session.subscription);
-                        console.log("[subscription]", subscription);
-                        if (subscription && subscription.length > 0) {
-                            console.log("[invoice to create]", {
-                                subscriptionId: subscription[0].id,
-                                userId: user === null || user === void 0 ? void 0 : user.id,
-                                stripeId: session.id,
-                                amountPaid: session.amount_paid,
-                                number: session.number,
-                                hostedInvoiceUrl: session.hosted_invoice_url,
-                            });
-                            await this.invoicesService.create({
-                                subscriptionId: subscription[0].id,
-                                userId: user === null || user === void 0 ? void 0 : user.id,
-                                stripeId: session.id,
-                                amountPaid: session.amount_paid,
-                                number: session.number,
-                                hostedInvoiceUrl: session.hosted_invoice_url,
-                            });
-                        }
+                        let subscription = null;
+                        let count = 0;
+                        const getSubscription = () => {
+                            setTimeout(async () => {
+                                subscription = await this.subcriptionsService.findByStripeId(session.subscription);
+                                if (subscription && subscription.length > 0 || count > 4) {
+                                    await this.invoicesService.create({
+                                        subscriptionId: subscription[0].id,
+                                        userId: user === null || user === void 0 ? void 0 : user.id,
+                                        stripeId: session.id,
+                                        amountPaid: session.amount_paid,
+                                        number: session.number,
+                                        hostedInvoiceUrl: session.hosted_invoice_url,
+                                    });
+                                    return;
+                                }
+                                else {
+                                    count++;
+                                    getSubscription();
+                                }
+                            }, 3000);
+                        };
+                        getSubscription();
                     }
-                    console.log(`Invoice.paid: ${session.status}`);
                     break;
                 default:
                     res.status = common_1.HttpStatus.BAD_REQUEST;

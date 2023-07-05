@@ -1,11 +1,11 @@
 import { Injectable, OnModuleInit, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-
 import { ConfigService } from './config/config.service';
 import { IUser } from '../interfaces/user.interface';
 import { IUserLink } from '../interfaces/user-link.interface';
 import * as data from "../mock/users.json";
+import { UserSchema } from 'src/schemas/user.schema';
 
 @Injectable()
 export class UserService implements OnModuleInit {
@@ -21,7 +21,7 @@ export class UserService implements OnModuleInit {
     }
      const seedAlgo = async () => {
            // for all users where !isTrainer and trainerId is null add a valid random user id to trainerId field
-           const users = await this.userModel.find({ isTrainer: false, trainerId: null }).exec();
+           const users = await this.userModel.find({ isTrainer: false, isAdmin: false, trainerId: null }).exec();
            console.log('users', users);
            for (let i = 0; i < users.length; i++) {
              const user = users[i];
@@ -34,7 +34,7 @@ export class UserService implements OnModuleInit {
            }
 
            // for all trainers add some valid random users id to traineeIds field
-           const trainers = await this.userModel.find({ isTrainer: true }).exec();
+           const trainers = await this.userModel.find({ isTrainer: true, isAdmin: false }).exec();
            console.log('trainers', trainers);
            for (let i = 0; i < trainers.length; i++) {
              const trainer = trainers[i];
@@ -48,12 +48,17 @@ export class UserService implements OnModuleInit {
     }
 
 
-    //cleardb()
+   //cleardb()
    this.userModel.countDocuments({}).then(async (count) => {
-      //console.log(' count is ' + count + '', await this.userModel.find({}).exec());
       if (count < 2) {
-        //console.log('Seeding db', data);
-        await this.userModel.insertMany(data.users);
+        //encrypt all users password
+        let userList = []
+        for (let i = 0; i < data.users.length; i++) {
+          const user = data.users[i];
+          user.password = await UserSchema.methods.getEncryptedPassword(user.password);
+          userList = [...userList, user]
+        }
+        await this.userModel.insertMany(userList);
         await seedAlgo()
       }else{
         await seedAlgo()
@@ -65,7 +70,7 @@ export class UserService implements OnModuleInit {
     });
   }
 
-  public async searchUser(params: { email: string }): Promise<IUser[]> {
+  public async searchUser(params: any): Promise<IUser[]> {
     return this.userModel.find(params).exec();
   }
 
@@ -117,10 +122,22 @@ export class UserService implements OnModuleInit {
     return users;
   }
 
-  public async getByUserId(id: string): Promise<IUser[]> {
-    const user = await this.userModel.find({ _id: { $in: id } }).exec();
+  public async getByUserId(id: string): Promise<IUser> {
+    const user = await this.userModel.findById(id).exec();
     if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     return user;
+  }
+
+  public async deleteUserById(id: string): Promise<IUser> {
+    const user = await this.userModel.findByIdAndDelete(id).exec();
+    if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    return user;  
+  }
+
+  public async updateUser(id: string, user: IUser): Promise<IUser> {
+    const updatedUser = await this.userModel.findByIdAndUpdate(id, user);
+    if (!updatedUser) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    return updatedUser;
   }
 
 }

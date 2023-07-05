@@ -19,6 +19,7 @@ const authorization_guard_1 = require("./services/guards/authorization.guard");
 const permission_guard_1 = require("./services/guards/permission.guard");
 const config_service_1 = require("./services/config/config.service");
 const subscription_controller_1 = require("./subscription.controller");
+const messenger_controller_1 = require("./messenger.controller");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -28,7 +29,8 @@ AppModule = __decorate([
             training_controller_1.TrainingController,
             nutrition_controller_1.NutritionController,
             analytic_controller_1.AnalyticController,
-            subscription_controller_1.SubscriptionController
+            subscription_controller_1.SubscriptionController,
+            messenger_controller_1.MessengerController
         ],
         providers: [
             config_service_1.ConfigService,

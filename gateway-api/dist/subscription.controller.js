@@ -17,6 +17,11 @@ const common_1 = require("@nestjs/common");
 const rxjs_1 = require("rxjs");
 const microservices_1 = require("@nestjs/microservices");
 const stripe_1 = require("stripe");
+const swagger_1 = require("@nestjs/swagger");
+const get_user_subscriptions_response_dto_1 = require("./interfaces-requests-responses/subscription/dto/get-user-subscriptions-response.dto");
+const get_user_subcriptions_dto_1 = require("./interfaces-requests-responses/subscription/dto/get-user-subcriptions.dto");
+const get_user_invoices_response_dto_1 = require("./interfaces-requests-responses/subscription/dto/get-user-invoices-response.dto");
+const get_user_invoices_dto_1 = require("./interfaces-requests-responses/subscription/dto/get-user-invoices.dto");
 let SubscriptionController = class SubscriptionController {
     constructor(subscriptionServiceClient) {
         this.subscriptionServiceClient = subscriptionServiceClient;
@@ -25,13 +30,10 @@ let SubscriptionController = class SubscriptionController {
         });
     }
     async webhook(signature, req, res) {
-        console.log("[/webhook/stripe]-req");
         if (!signature) {
             throw new common_1.BadRequestException('Missing stripe-signature header');
         }
         const event = this.stripe.webhooks.constructEvent(req.rawBody, signature, process.env.WEBHOOK_SECRET);
-        console.log("[/webhook/stripe]-res", res);
-        console.log("[/webhook/stripe]-event.data.object", event.data.object);
         const session = event.data.object;
         const response = await (0, rxjs_1.firstValueFrom)(this.subscriptionServiceClient.send('webhook_stripe', {
             session: {
@@ -65,6 +67,26 @@ let SubscriptionController = class SubscriptionController {
         }
         return res;
     }
+    async findSubscriptionByUserId(req) {
+        const { userId } = req;
+        const response = await (0, rxjs_1.firstValueFrom)(this.subscriptionServiceClient.send('findUserSubcriptions', userId));
+        return {
+            status: response.status,
+            message: response.message,
+            subscriptions: response.subscriptions,
+            errors: null
+        };
+    }
+    async findUserInvoices(req) {
+        const { userId } = req;
+        const response = await (0, rxjs_1.firstValueFrom)(this.subscriptionServiceClient.send('findInvoicesByUserId', userId));
+        return {
+            status: response.status,
+            message: response.message,
+            invoices: response.invoices,
+            errors: null
+        };
+    }
 };
 __decorate([
     (0, common_1.Post)('/webhook/stripe'),
@@ -75,8 +97,29 @@ __decorate([
     __metadata("design:paramtypes", [String, Object, Object]),
     __metadata("design:returntype", Promise)
 ], SubscriptionController.prototype, "webhook", null);
+__decorate([
+    (0, swagger_1.ApiOkResponse)({
+        type: get_user_subscriptions_response_dto_1.GetUserSubscriptionResponseDto,
+    }),
+    (0, common_1.Post)('/find-user-subscriptions'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [get_user_subcriptions_dto_1.GetUserSubscriptionsDto]),
+    __metadata("design:returntype", Promise)
+], SubscriptionController.prototype, "findSubscriptionByUserId", null);
+__decorate([
+    (0, swagger_1.ApiOkResponse)({
+        type: get_user_invoices_response_dto_1.GetUserInvoicesResponseDto,
+    }),
+    (0, common_1.Post)('/find-user-invoices'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [get_user_invoices_dto_1.GetUserInvoicesDto]),
+    __metadata("design:returntype", Promise)
+], SubscriptionController.prototype, "findUserInvoices", null);
 SubscriptionController = __decorate([
     (0, common_1.Controller)('subscription'),
+    (0, swagger_1.ApiTags)('subscription'),
     __param(0, (0, common_1.Inject)('SUBSCRIPTION_SERVICE')),
     __metadata("design:paramtypes", [microservices_1.ClientProxy])
 ], SubscriptionController);
