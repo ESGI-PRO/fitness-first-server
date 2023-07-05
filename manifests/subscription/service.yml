@@ -3,11 +3,12 @@ kind: Service
 metadata:
   name: subscription
   namespace: "challengespace"
+  #namespace: "ingress-nginx"
   labels:
     name: subscription
     app: subscription
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - port: 8009
       targetPort: 80

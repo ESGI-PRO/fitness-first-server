@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: nutrition
   namespace: "challengespace"
+  #namespace: "ingress-nginx"
   labels:
     app: nutrition
 spec:
@@ -17,16 +18,16 @@ spec:
     spec:
       containers:
       - name: nutrition
-        #image: mychallengeregistry.azurecr.io/challenge-nutrition:latest
-        image: idboubacar/challenge-semestre2-nutrition-api
-        ressource:
-        limits:
-          cpu: 500m
-          memory: 128Mi
-        requests:
-          cpu: 250m
-          memory: 128Mi
-          
+        image: mychallengeregistry.azurecr.io/challenge-nutrition:latest
+        #image: idboubacar/challenge-semestre2-nutrition-api
+        # ressource:
+        # limits:
+        #   cpu: 500m
+        #   memory: 128Mi
+        # requests:
+        #   cpu: 250m
+        #   memory: 128Mi
+
         env:
           - name: NUTRITION_SERVICE_PORT
             value: "80"

@@ -7,7 +7,7 @@ metadata:
     name: mailer
     app: mailer
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - port: 8008
       targetPort: 80

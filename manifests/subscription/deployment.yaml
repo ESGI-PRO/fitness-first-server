@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: subscription
   namespace: "challengespace"
+  #namespace: "ingress-nginx"
   labels:
     app: subscription
 spec:
@@ -17,16 +18,16 @@ spec:
     spec:
       containers:
       - name: subscription
-        #image: mychallengeregistry.azurecr.io/challenge-subscription:latest
-        image: idboubacar/challenge-semestre2-subscription-api
-        ressource:
-        limits:
-          cpu: 500m
-          memory: 128Mi
-        requests:
-          cpu: 250m
-          memory: 128Mi
-          
+        image: mychallengeregistry.azurecr.io/challenge-subscription:latest
+        #image: idboubacar/challenge-semestre2-subscription-api
+        # ressource:
+        # limits:
+        #   cpu: 500m
+        #   memory: 128Mi
+        # requests:
+        #   cpu: 250m
+        #   memory: 128Mi
+
         env:
           - name: SUBSCRIPTION_SERVICE_PORT
             value: "80"

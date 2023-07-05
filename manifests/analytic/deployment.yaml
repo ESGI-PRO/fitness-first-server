@@ -17,15 +17,15 @@ spec:
     spec:
       containers:
       - name: analytic
-        #image: mychallengeregistry.azurecr.io/challenge-analytic:latest
-        image: idboubacar/challenge-semestre2-analytic-api
-        ressource:
-        limits:
-          cpu: 500m
-          memory: 128Mi
-        requests:
-          cpu: 250m
-          memory: 128Mi
+        image: mychallengeregistry.azurecr.io/challenge-analytic:latest
+        #image: idboubacar/challenge-semestre2-analytic-api
+        # ressource:
+        # limits:
+        #   cpu: 500m
+        #   memory: 128Mi
+        # requests:
+        #   cpu: 250m
+        #   memory: 128Mi
 
         env:
           - name: ANALYTICS_SERVICE_PORT

@@ -3,11 +3,12 @@ kind: Service
 metadata:
   name: nutrition
   namespace: "challengespace"
+  #namespace: "ingress-nginx"
   labels:
     name: nutrition
     app: nutrition
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - port: 8001
       targetPort: 80

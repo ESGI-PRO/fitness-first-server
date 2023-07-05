@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: training
   namespace: "challengespace"
+  #namespace: "ingress-nginx"
   labels:
     app: training
 spec:
@@ -17,15 +18,15 @@ spec:
     spec:
       containers:
       - name: training
-        #image: mychallengeregistry.azurecr.io/challenge-training:latest
-        image: idboubacar/challenge-semestre2-training-api:latest
-        ressource:
-        limits:
-          cpu: 500m
-          memory: 128Mi
-        requests:
-          cpu: 250m
-          memory: 128Mi
+        image: mychallengeregistry.azurecr.io/challenge-training:latest
+        #image: idboubacar/challenge-semestre2-training-api:latest
+        # ressource:
+        # limits:
+        #   cpu: 500m
+        #   memory: 128Mi
+        # requests:
+        #   cpu: 250m
+        #   memory: 128Mi
         env:
           - name: TRAINING_SERVICE_PORT
             value: "80"

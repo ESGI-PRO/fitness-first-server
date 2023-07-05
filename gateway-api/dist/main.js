@@ -31,7 +31,7 @@ async function bootstrap() {
     swagger_1.SwaggerModule.setup('api', app, document);
     app.use((0, helmet_1.default)());
     app.use((0, raw_body_middleware_1.default)());
-    await app.listen(new config_service_1.ConfigService().get('port'));
+    await app.listen(new config_service_1.ConfigService().get('port'), '0.0.0.0');
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

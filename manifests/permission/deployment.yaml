@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: permission
   namespace: "challengespace"
+  #namespace: "ingress-nginx"
   labels:
     app: permission
 spec:
@@ -17,16 +18,16 @@ spec:
     spec:
       containers:
       - name: permission
-        #image: mychallengeregistry.azurecr.io/challenge-permission:latest
-        image: idboubacar/challenge-semestre2-permission-api
-        ressource:
-        limits:
-          cpu: 500m
-          memory: 128Mi
-        requests:
-          cpu: 250m
-          memory: 128Mi
-          
+        image: mychallengeregistry.azurecr.io/challenge-permission:latest
+        #image: idboubacar/challenge-semestre2-permission-api
+        # ressource:
+        # limits:
+        #   cpu: 500m
+        #   memory: 128Mi
+        # requests:
+        #   cpu: 250m
+        #   memory: 128Mi
+
         env:
           - name: PERMISSION_SERVICE_PORT
             value: "80"

@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: user
   namespace: "challengespace"
+  #namespace: "ingress-nginx"
   labels:
     app: user
 spec:
@@ -17,16 +18,16 @@ spec:
     spec:
       containers:
       - name: user
-        #image: mychallengeregistry.azurecr.io/challenge-user:latest
-        image: idboubacar/challenge-semestre2-user-api
-        ressource:
-        limits:
-          cpu: 500m
-          memory: 128Mi
-        requests:
-          cpu: 250m
-          memory: 128Mi
-          
+        image: mychallengeregistry.azurecr.io/challenge-user:latest
+        #image: idboubacar/challenge-semestre2-user-api
+        # ressource:
+        # limits:
+        #   cpu: 500m
+        #   memory: 128Mi
+        # requests:
+        #   cpu: 250m
+        #   memory: 128Mi
+
         env:
           - name: USER_SERVICE_PORT
             value: "80"

@@ -3,11 +3,12 @@ kind: Service
 metadata:
   name: training
   namespace: "challengespace"
+  #namespace: "ingress-nginx"
   labels:
     name: training
     app: training
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - port: 8003
       targetPort: 80

@@ -3,11 +3,12 @@ kind: Service
 metadata:
   name: permission
   namespace: "challengespace"
+  #namespace: "ingress-nginx"
   labels:
     name: permission
     app: permission
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - port: 8007
       targetPort: 80

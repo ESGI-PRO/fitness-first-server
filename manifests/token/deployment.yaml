@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: token
   namespace: "challengespace"
+  #namespace: "ingress-nginx"
   labels:
     app: token
 spec:
@@ -17,15 +18,15 @@ spec:
     spec:
       containers:
       - name: token
-        #image: mychallengeregistry.azurecr.io/challenge-token:latest
-        image: idboubacar/challenge-semestre2-token-api
-        ressource:
-          limits:
-            cpu: 500m
-            memory: 128Mi
-          requests:
-            cpu: 250m
-            memory: 128Mi
+        image: mychallengeregistry.azurecr.io/challenge-token:latest
+        #image: idboubacar/challenge-semestre2-token-api
+        # ressource:
+        #   limits:
+        #     cpu: 500m
+        #     memory: 128Mi
+        #   requests:
+        #     cpu: 250m
+        #     memory: 128Mi
 
         env:
           - name: TOKEN_SERVICE_PORT
