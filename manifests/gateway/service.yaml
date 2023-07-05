@@ -16,22 +16,22 @@
 #     type: LoadBalancer
 
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: gateway
-  namespace: "challengespace"
-  labels:
-    name: gateway
-    app: gateway
-spec:
-  type: NodePort
-  ports:
-    - name: http
-      port: 80
-      targetPort: 80
-  selector:
-    app: gateway
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: gateway
+#   namespace: "challengespace"
+#   labels:
+#     name: gateway
+#     app: gateway
+# spec:
+#   type: NodePort
+#   ports:
+#     - name: http
+#       port: 80
+#       targetPort: 80
+#   selector:
+#     app: gateway
 
 
 

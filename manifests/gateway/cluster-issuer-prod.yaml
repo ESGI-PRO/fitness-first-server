@@ -1,0 +1,11 @@
+apiVersion: certificates.cert-manager.io/v1alpha1
+kind: Issuer
+metadata: 
+  name: letsencrypt-prod
+spec: 
+  acme: 
+    email: "boubacaryatera@live.fr"
+    http01: {}
+    privateKeySecretRef: 
+      name: letsencrypt-prod
+    server: "https://acme-v02.api.letsencrypt.org/directory"

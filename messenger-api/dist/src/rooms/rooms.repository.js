@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RoomsRepository = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
@@ -49,8 +50,7 @@ let RoomsRepository = class RoomsRepository {
 RoomsRepository = __decorate([
     __param(0, (0, mongoose_1.InjectModel)('Room')),
     __param(1, (0, common_1.Inject)('USER_SERVICE')),
-    __metadata("design:paramtypes", [mongoose_2.Model,
-        microservices_1.ClientProxy])
+    __metadata("design:paramtypes", [typeof (_a = typeof mongoose_2.Model !== "undefined" && mongoose_2.Model) === "function" ? _a : Object, typeof (_b = typeof microservices_1.ClientProxy !== "undefined" && microservices_1.ClientProxy) === "function" ? _b : Object])
 ], RoomsRepository);
 exports.RoomsRepository = RoomsRepository;
 //# sourceMappingURL=rooms.repository.js.map

@@ -31,19 +31,7 @@ export declare class TrainingController {
     createTraining(data: any): Promise<{
         message: string;
         data: {
-            training: import("@prisma/client/runtime").GetResult<{
-                id: number;
-                name: string;
-                description: string;
-                category: number;
-                userId: string;
-                image: string;
-                listExercices: string[];
-                durationStart: Date;
-                durationEnd: Date;
-                createdAt: Date;
-                updatedAt: Date;
-            }, unknown, never> & {};
+            training: any;
         };
         errors: any;
     }>;
@@ -61,19 +49,7 @@ export declare class TrainingController {
     }): Promise<{
         message: string;
         data: {
-            training: import("@prisma/client/runtime").GetResult<{
-                id: number;
-                name: string;
-                description: string;
-                category: number;
-                userId: string;
-                image: string;
-                listExercices: string[];
-                durationStart: Date;
-                durationEnd: Date;
-                createdAt: Date;
-                updatedAt: Date;
-            }, unknown, never> & {};
+            training: any;
         };
         errors: any;
     }>;
