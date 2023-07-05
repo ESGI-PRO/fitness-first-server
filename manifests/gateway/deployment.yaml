@@ -6,7 +6,7 @@ metadata:
   labels:
     app: gateway
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: gateway
@@ -17,18 +17,10 @@ spec:
     spec:
       containers:
       - name: gateway
-        #image: mychallengeregistry.azurecr.io/challenge-gateway:latest
-        image: idboubacar/challenge-semestre2-gateway-api
-        ressources:
-          limits:
-            cpu: 500m
-            memory: 128Mi
-          requests:
-            cpu: 250m
-            memory: 128Mi
+        image: mychallengeregistry.azurecr.io/challenge-gateway:latest
         env:
           - name: API_GATEWAY_PORT
-            value: "80"
+            value: "8000"
           - name: ANALYTIC_SERVICE_PORT
             value: "8005"
           - name: MESSENGER_SERVICE_PORT
@@ -50,4 +42,17 @@ spec:
           - name: SUBSCRIPTION_SERVICE_PORT
             value: "8009"
         ports:
-          - containerPort: 80
+          - containerPort: 8000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway 
+  namespace: "challengespace"
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8000
+  selector:
+    app: gateway
