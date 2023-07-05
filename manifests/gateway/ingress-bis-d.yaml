@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+name: guestbook-letsencrypt-staging
+annotations:
+    kubernetes.io/ingress.class: azure/application-gateway
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+spec:
+  tls:
+  - hosts:
+    - api.challengecup.fr
+    secretName: challengesecret
+  rules:
+  - host: api.challengecup.fr
+    http:
+    paths:
+    - backend:
+        serviceName: gateway
+        servicePort: 8000

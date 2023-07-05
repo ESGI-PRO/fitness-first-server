@@ -2,8 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: subscription
-  namespace: "challengespace"
-  #namespace: "ingress-nginx"
+  #namespace: "challengespace"
+  namespace: "ingress-nginx"
   labels:
     app: subscription
 spec:

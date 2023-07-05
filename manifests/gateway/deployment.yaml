@@ -2,7 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: gateway
-  namespace: "challengespace"
+  #namespace: "challengespace"
+  namespace: "ingress-nginx"
   labels:
     app: gateway
 spec:
@@ -49,9 +50,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: gateway 
-  namespace: "challengespace"
+  #namespace: "challengespace"
+  namespace: "ingress-nginx"
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 8000
   selector:

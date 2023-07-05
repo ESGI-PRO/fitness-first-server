@@ -2,8 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: permission
-  namespace: "challengespace"
-  #namespace: "ingress-nginx"
+  #namespace: "challengespace"
+  namespace: "ingress-nginx"
   labels:
     app: permission
 spec:

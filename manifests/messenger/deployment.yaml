@@ -2,7 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: messenger
-  namespace: "challengespace"
+  #namespace: "challengespace"
+  namespace: "ingress-nginx"
   labels:
     app: messenger
 spec:

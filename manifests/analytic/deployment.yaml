@@ -2,7 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: analytic
-  namespace: "challengespace"
+  #namespace: "challengespace"
+  namespace: "ingress-nginx"
   labels:
     app: analytic
 spec:
