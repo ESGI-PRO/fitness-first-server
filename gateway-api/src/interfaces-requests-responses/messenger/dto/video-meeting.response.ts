@@ -13,7 +13,8 @@ class CreateMeetingResponseDto {
         sender_id: '5d987c3bfb881ec86b476bcc',
         members: ['5d987c3bfb881ec86b476bcc', '5d987c3bfb881ec86b476b09'],
         date: '2023-07-05T12:26:58.225Z',
-        time: '2023-07-05T12:24:58.225Z'
+        time: '2023-07-05T12:24:58.225Z',
+        description: 'This is a description',
       },
     },
     nullable: true,
@@ -37,7 +38,8 @@ class UpdateMeetingResponseDto {
           sender_id: '5d987c3bfb881ec86b476bcc',
           members: ['5d987c3bfb881ec86b476bcc', '5d987c3bfb881ec86b476b09'],
           date: '23/07/2023',
-          time: '08:12'
+          time: '08:12',
+          description: 'This is a description',
         },
       },
       nullable: true,
@@ -78,7 +80,8 @@ class GetAllMeetingResponseDto {
         sender_id: '5d987c3bfb881ec86b476bcc',
         members: ['5d987c3bfb881ec86b476bcc', '5d987c3bfb881ec86b476b09'],
         date: '23/07/2023',
-        time: '08:12'
+        time: '08:12',
+        description: 'This is a description',
       }]
     },
     nullable: true,

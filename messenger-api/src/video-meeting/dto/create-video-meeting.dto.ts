@@ -16,5 +16,8 @@ export class CreateVideoMeetingDto {
     @ApiProperty()
     @IsNotEmpty()
     time: string;
+    @ApiProperty()
+    @IsNotEmpty()
+    description: string;
 }
 

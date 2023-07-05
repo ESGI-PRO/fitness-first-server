@@ -14,6 +14,8 @@ export class Meeting {
   date: String;
   @Prop({ type: String })
   time: String;
+  @Prop({ type: String })
+  description: String;
 }
 
 export const MeetingSchema = SchemaFactory.createForClass(Meeting);
