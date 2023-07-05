@@ -203,6 +203,27 @@ export class NutritionController {
   }
 
 
+  @Delete('/:id')
+  @Authorization(false)
+  @ApiOkResponse({
+    type: GetNutritionResponseDto,
+  })
+  public async deleteRecette(
+    @Param('id') id: string,
+  ): Promise<GetNutritionResponseDto> {
+    const nutritionResponse: any = await firstValueFrom(
+      this.nutritionServiceClient.send('delete_recette', { id: Number(id) }),
+    );
+    return {
+      message: nutritionResponse.message,
+      data: {
+        nutrition: nutritionResponse.data.nutrition,
+      },
+      errors: null,
+    };
+  }
+
+
   @Get('/categories/:id')
   @Authorization(false)
   @ApiOkResponse({

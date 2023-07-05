@@ -78,4 +78,17 @@ export class RecettesController {
       errors: null,
     };
   }
+
+  @MessagePattern('delete_recette')
+  public async deleteIngredient(data: { id: number }): Promise<any> {
+    const { id } = data;
+    const deletedIngredient = await this.recettesApi.deleteRecette(id);
+    return {
+      message: 'success delete recette',
+      data: {
+        nutrition: deletedIngredient,
+      },
+      errors: null,
+    };
+  }
 }
