@@ -8,27 +8,27 @@ import { UpdatePlanDto } from './dto/update-plan.dto';
 export class PlansController {
   constructor(private readonly plansService: PlansService) {}
 
-  @MessagePattern('createPlan')
+  @MessagePattern('create_plan')
   create(@Payload() createPlanDto: CreatePlanDto) {
     return this.plansService.create(createPlanDto);
   }
 
-  @MessagePattern('findAllPlans')
+  @MessagePattern('find_all_plans')
   findAll() {
     return this.plansService.findAll();
   }
 
-  @MessagePattern('findOnePlan')
+  @MessagePattern('find_one_plan')
   findOne(@Payload() id: string) {
     return this.plansService.findOne(id);
   }
 
-  @MessagePattern('updatePlan')
+  @MessagePattern('update_plan')
   update(@Payload() updatePlanDto: UpdatePlanDto) {
     return this.plansService.update(updatePlanDto.id, updatePlanDto);
   }
 
-  @MessagePattern('removePlan')
+  @MessagePattern('remove_plan')
   remove(@Payload() id: string) {
     return this.plansService.remove(id);
   }
