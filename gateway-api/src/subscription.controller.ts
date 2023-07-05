@@ -92,7 +92,7 @@ export class SubscriptionController {
     const { userId } = req;
 
     const response = await firstValueFrom(
-      this.subscriptionServiceClient.send('findUserSubcriptions', userId),
+      this.subscriptionServiceClient.send('find_user_subscriptions', userId),
     );
 
     return {
@@ -112,7 +112,7 @@ export class SubscriptionController {
     const { userId } = req;
 
     const response = await firstValueFrom(
-      this.subscriptionServiceClient.send('findInvoicesByUserId', userId),
+      this.subscriptionServiceClient.send('find_invoices_by_userId', userId),
     );
     return {
       status: response.status,

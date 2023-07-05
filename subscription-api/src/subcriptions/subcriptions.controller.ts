@@ -9,17 +9,17 @@ import { ISubcriptionResponse } from '../interfaces/findSubscriptionsByUserId.in
 export class SubcriptionsController {
   constructor(private readonly subcriptionsService: SubcriptionsService) {}
 
-  @MessagePattern('createSubcription')
+  @MessagePattern('create_subscription')
   create(@Payload() createSubcriptionDto: CreateSubcriptionDto) {
     return this.subcriptionsService.create(createSubcriptionDto);
   }
 
-  @MessagePattern('findAllSubcriptions')
+  @MessagePattern('find_all_subscriptions')
   findAll() {
     return this.subcriptionsService.findAll();
   }
 
-  @MessagePattern('findUserSubcriptions')
+  @MessagePattern('find_user_subscriptions')
   async findByUserId(@Payload() id: string) : Promise<ISubcriptionResponse>  {
     const subcriptions =  await this.subcriptionsService.findByUserId(id);
     if(subcriptions){
@@ -38,17 +38,17 @@ export class SubcriptionsController {
 
   }
 
-  @MessagePattern('findOneSubcription')
+  @MessagePattern('find_one_subscription')
   findOne(@Payload() id: string) {
     return this.subcriptionsService.findOne(id);
   }
 
-  @MessagePattern('updateSubcription')
+  @MessagePattern('update_subscription')
   update(@Payload() updateSubcriptionDto: UpdateSubcriptionDto) {
     return this.subcriptionsService.update(updateSubcriptionDto.id, updateSubcriptionDto);
   }
 
-  @MessagePattern('removeSubcription')
+  @MessagePattern('remove_subscription')
   remove(@Payload() id: string) {
     return this.subcriptionsService.remove(id);
   }

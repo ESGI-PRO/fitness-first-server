@@ -2,7 +2,6 @@
 
 A simple messenger app built with Node.js, Express.js, MongoDB, and Socket.io
 
-
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
@@ -30,4 +29,9 @@ MONGO_HOST=mongo
 MONGO_DSN=mongodb://mongo:27017/messenger_db
 
 BASE_URI=http://localhost
+
+TWILIO_ACCOUNT_SID=ACb7be5b2ad88287744fe18bfd19acf3b9
+TWILIO_API_KEY_SID=SKb6b7d8abc0c0ca4254b35a658d07b574
+TWILIO_API_KEY_SECRET=LZgcXmE23tp2WPvV5bhZ8NN9gH6cwl7J
+
 ```

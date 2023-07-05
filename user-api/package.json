@@ -12,6 +12,7 @@
     "lint": "eslint \"src/**/*.ts\" --fix"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.0.2",
     "@nestjs/common": "^9.4.0",
     "@nestjs/core": "^9.4.0",
     "@nestjs/microservices": "^9.4.0",
