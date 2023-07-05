@@ -31,6 +31,14 @@ import { UserLinkSchema } from './schemas/user-link.schema';
     UserService,
     ConfigService,
     {
+      provide: 'SUBSCRIPTION_SERVICE',
+      useFactory: (configService: ConfigService) => {
+        const subscriptionServiceOptions = configService.get('subscriptionService');
+        return ClientProxyFactory.create(subscriptionServiceOptions);
+      },
+      inject: [ConfigService],
+    },
+    {
       provide: 'MAILER_SERVICE',
       useFactory: (configService: ConfigService) => {
         const mailerServiceOptions = configService.get('mailerService');
