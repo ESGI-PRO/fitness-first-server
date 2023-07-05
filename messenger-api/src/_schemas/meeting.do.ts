@@ -6,6 +6,7 @@ export class MeetingDo {
   members: Array<Types.ObjectId>;
   date: String;
   time: String;
+  description: String;
 
   constructor(props: Partial<MeetingDo>) {
     this._id = props._id || null;

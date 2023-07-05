@@ -3,6 +3,7 @@ interface IMeetingCreate {
     members: Array<string>;
     date: string;
     time: string;
+    description: string;
 }
 
 interface IMeetingUpdate {
@@ -11,6 +12,7 @@ interface IMeetingUpdate {
     members: Array<string>;
     date: string;
     time: string;
+    description: string;
 }
 
 export {
