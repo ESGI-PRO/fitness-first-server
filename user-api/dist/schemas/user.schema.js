@@ -39,20 +39,24 @@ exports.UserSchema = new mongoose.Schema({
     },
     isTrainer: {
         type: Boolean,
-        required: [false, 'isTrainer can not be empty'],
+        required: [false, ''],
+    },
+    isAdmin: {
+        type: Boolean,
+        required: [false, ''],
     },
     trainerId: {
         type: String,
-        required: [false, 'trainerId can not be empty']
+        required: [false, ''],
     },
     traineeIds: {
         type: Array,
-        required: [false, 'traineeIds can not be empty']
+        required: [false, ''],
     },
     trainerSpeciality: {
         type: String,
         enum: [trainerSpeciality_types_1.trainerSpecialityTypes.YOGA, trainerSpeciality_types_1.trainerSpecialityTypes.FITNESS, trainerSpeciality_types_1.trainerSpecialityTypes.POWERLIFTING, trainerSpeciality_types_1.trainerSpecialityTypes.NONE],
-        required: [false, 'trainerSpeciality can not be empty']
+        required: [false, '']
     },
     role: {
         type: String,

@@ -69,7 +69,7 @@ let UserController = class UserController {
                 result = {
                     status: common_1.HttpStatus.OK,
                     message: 'user_get_by_id_success',
-                    user,
+                    user: user,
                 };
             }
             else {
@@ -253,6 +253,60 @@ let UserController = class UserController {
         const user = await this.userService.getByUserId(id);
         return user;
     }
+    async deleteUser(id) {
+        const user = await this.userService.deleteUserById(id);
+        return user;
+    }
+    async updateUserById(id, user) {
+        const updatedUser = await this.userService.updateUserById(id, user);
+        return updatedUser;
+    }
+    async searchUserByParams(userParams) {
+        return await this.userService.searchUser(userParams);
+    }
+    async connectUserToTrainer(data) {
+        let result;
+        const { userId, trainerId } = data;
+        if (userId && trainerId) {
+            const user = await this.userService.updateUserById(userId, {
+                trainerId: trainerId,
+            });
+            if (user.trainerId) {
+                let trainer = await this.userService.searchUserById(user.trainerId);
+                trainer = await this.userService.updateUserById(trainer.id, {
+                    traineeIds: trainer.traineeIds.filter((id) => id !== userId),
+                });
+            }
+            let trainer = await this.userService.searchUserById(trainerId);
+            if (!trainer.traineeIds.includes(userId)) {
+                trainer = await this.userService.updateUserById(trainerId, {
+                    traineeIds: [...trainer.traineeIds, userId],
+                });
+            }
+            if (user && trainer) {
+                result = {
+                    status: common_1.HttpStatus.OK,
+                    message: 'user_connect_to_trainer',
+                    user: null,
+                };
+            }
+            else {
+                result = {
+                    status: common_1.HttpStatus.BAD_REQUEST,
+                    message: 'user_connect_to_trainer_bad_request',
+                    user: null,
+                };
+            }
+        }
+        else {
+            result = {
+                status: common_1.HttpStatus.BAD_REQUEST,
+                message: 'user_connect_to_trainer_bad_request',
+                user: null,
+            };
+        }
+        return result;
+    }
 };
 __decorate([
     (0, microservices_1.MessagePattern)('user_search_by_credentials'),
@@ -302,6 +356,30 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getByUserId", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('user_delete_by_id'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "deleteUser", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('user_update_by_id'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "updateUserById", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('user_search_by_params'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "searchUserByParams", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('user_connect_to_trainer'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "connectUserToTrainer", null);
 UserController = __decorate([
     (0, common_1.Controller)('user'),
     __param(1, (0, common_1.Inject)('MAILER_SERVICE')),

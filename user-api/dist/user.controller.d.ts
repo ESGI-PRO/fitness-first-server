@@ -24,4 +24,11 @@ export declare class UserController {
     searchUserByEmail(email: string): Promise<IUserSearchResponse>;
     getAllUsers(): Promise<any>;
     getByUserId(id: string): Promise<any>;
+    deleteUser(id: string): Promise<any>;
+    updateUserById(id: string, user: any): Promise<any>;
+    searchUserByParams(userParams: any): Promise<any>;
+    connectUserToTrainer(data: {
+        userId: string;
+        trainerId: string;
+    }): Promise<IUserSearchResponse>;
 }

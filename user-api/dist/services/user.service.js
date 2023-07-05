@@ -18,6 +18,7 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const config_service_1 = require("./config/config.service");
 const data = require("../mock/users.json");
+const user_schema_1 = require("../schemas/user.schema");
 let UserService = class UserService {
     constructor(userModel, userLinkModel, configService) {
         this.userModel = userModel;
@@ -29,7 +30,7 @@ let UserService = class UserService {
             this.userModel.deleteMany({}).exec();
         };
         const seedAlgo = async () => {
-            const users = await this.userModel.find({ isTrainer: false, trainerId: null }).exec();
+            const users = await this.userModel.find({ isTrainer: false, isAdmin: false, trainerId: null }).exec();
             console.log('users', users);
             for (let i = 0; i < users.length; i++) {
                 const user = users[i];
@@ -40,7 +41,7 @@ let UserService = class UserService {
                 user.trainerId = randomTrainer.id;
                 await user.save();
             }
-            const trainers = await this.userModel.find({ isTrainer: true }).exec();
+            const trainers = await this.userModel.find({ isTrainer: true, isAdmin: false }).exec();
             console.log('trainers', trainers);
             for (let i = 0; i < trainers.length; i++) {
                 const trainer = trainers[i];
@@ -54,7 +55,13 @@ let UserService = class UserService {
         };
         this.userModel.countDocuments({}).then(async (count) => {
             if (count < 2) {
-                await this.userModel.insertMany(data.users);
+                let userList = [];
+                for (let i = 0; i < data.users.length; i++) {
+                    const user = data.users[i];
+                    user.password = await user_schema_1.UserSchema.methods.getEncryptedPassword(user.password);
+                    userList = [...userList, user];
+                }
+                await this.userModel.insertMany(userList);
                 await seedAlgo();
             }
             else {
@@ -100,10 +107,22 @@ let UserService = class UserService {
         return users;
     }
     async getByUserId(id) {
-        const user = await this.userModel.find({ _id: { $in: id } }).exec();
+        const user = await this.userModel.findById(id).exec();
         if (!user)
             throw new common_1.HttpException('User not found', common_1.HttpStatus.NOT_FOUND);
         return user;
+    }
+    async deleteUserById(id) {
+        const user = await this.userModel.findByIdAndDelete(id).exec();
+        if (!user)
+            throw new common_1.HttpException('User not found', common_1.HttpStatus.NOT_FOUND);
+        return user;
+    }
+    async updateUser(id, user) {
+        const updatedUser = await this.userModel.findByIdAndUpdate(id, user);
+        if (!updatedUser)
+            throw new common_1.HttpException('User not found', common_1.HttpStatus.NOT_FOUND);
+        return updatedUser;
     }
 };
 UserService = __decorate([

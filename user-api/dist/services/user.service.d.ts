@@ -9,9 +9,7 @@ export declare class UserService implements OnModuleInit {
     private readonly configService;
     constructor(userModel: Model<IUser>, userLinkModel: Model<IUserLink>, configService: ConfigService);
     onModuleInit(): void;
-    searchUser(params: {
-        email: string;
-    }): Promise<IUser[]>;
+    searchUser(params: any): Promise<IUser[]>;
     searchUserById(id: string): Promise<IUser>;
     updateUserById(id: string, userParams: any): Promise<IUser>;
     createUser(user: IUser): Promise<IUser>;
@@ -22,5 +20,7 @@ export declare class UserService implements OnModuleInit {
     }): Promise<IUserLink>;
     getConfirmationLink(link: string): string;
     getAllUsers(): Promise<IUser[]>;
-    getByUserId(id: string): Promise<IUser[]>;
+    getByUserId(id: string): Promise<IUser>;
+    deleteUserById(id: string): Promise<IUser>;
+    updateUser(id: string, user: IUser): Promise<IUser>;
 }

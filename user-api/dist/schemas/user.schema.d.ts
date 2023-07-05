@@ -4,6 +4,7 @@ export interface IUserSchema extends mongoose.Document {
     userName: string;
     mobileNumber: string;
     isTrainer: Boolean;
+    isAdmin: Boolean;
     trainerSpeciality: string;
     trainerId: string;
     traineeIds: Array<string>;
