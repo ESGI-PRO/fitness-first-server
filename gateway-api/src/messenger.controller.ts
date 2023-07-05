@@ -102,4 +102,11 @@ export class MessengerController {
     return response;
   }
 
+  // get rooms from ids list
+  @Post('/get_rooms_by_member_ids')
+  async getRoomsByIds(@Body() ids: string[]): Promise<any> {
+    const response = await firstValueFrom(this.messengerServiceClient.send("get_rooms_by_member_ids", { ids }));
+    return response;
+  }
+
 }

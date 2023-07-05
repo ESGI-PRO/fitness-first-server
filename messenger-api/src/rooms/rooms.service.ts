@@ -13,4 +13,8 @@ export class RoomsService {
   async findAllRooms(id: string) {
     return await this.roomsRepository.findAllRooms(id);
   }
+  // get romms from ids list
+  async getRoomsByIds(ids: string[]) {
+    return await this.roomsRepository.getRoomsByIds(ids);
+  }
 }

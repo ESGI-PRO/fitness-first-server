@@ -44,4 +44,11 @@ export class RoomsRepository {
     return rooms;
 
   }
+
+  // get rooms from members ids
+  async getRoomsByIds(ids: string[]): Promise<any> {
+    const rooms = await this.roomModel.find({ members: { $all: ids } });
+    return rooms;
+  }
+
 }
