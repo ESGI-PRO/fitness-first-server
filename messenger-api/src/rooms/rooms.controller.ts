@@ -94,4 +94,16 @@ export class RoomsController {
     return result
   }
 
+  // get rooms from ids list
+  @MessagePattern('get_rooms_by_member_ids')
+  async getRoomsByIds(data: { ids: string[] }) {
+    const { ids } = data
+    let result: any;
+
+    if (ids && ids.length > 0) {
+      result = await this.roomsService.getRoomsByIds(ids);
+    }
+
+    return result
+  }
 }
