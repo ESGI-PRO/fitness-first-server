@@ -302,6 +302,12 @@ export class UserController {
     return await this.userService.searchUser(userParams);
   }
 
+    // get users from array of ids
+    @MessagePattern('user_get_by_ids')
+    public async getUsersByIds(ids: string[]): Promise<any> {
+      return await this.userService.getUsersByIds(ids);
+    }
+
   // connect user to trainer
   @MessagePattern('user_connect_to_trainer')
   public async connectUserToTrainer(data: {
@@ -355,4 +361,5 @@ export class UserController {
 
     return result;
   }
+
 }
