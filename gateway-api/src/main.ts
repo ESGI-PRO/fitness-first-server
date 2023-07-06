@@ -7,7 +7,11 @@ import rawBodyMiddleware from './middlewares/raw-body.middleware'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  app.enableCors({
+    origin: true,
+    credentials : true,
+    exposedHeaders: 'X-Total-Count', // Expose X-Total-Count header
+  });
   const options = new DocumentBuilder()
     .setTitle('API docs')
     .addTag('users')

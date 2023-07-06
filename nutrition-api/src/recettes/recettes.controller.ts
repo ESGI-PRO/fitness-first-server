@@ -1,7 +1,8 @@
 import { RecettesService } from './recettes.service';
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post, Res } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { PrismaClient, Prisma } from '@prisma/client';
+import { Response } from 'express';
 
 const prisma = new PrismaClient();
 
@@ -9,8 +10,14 @@ const prisma = new PrismaClient();
 export class RecettesController {
   constructor(private readonly recettesApi: RecettesService) {}
 
+  // @MessagePattern('get_recettes')
+  // public async get(): Promise<any[]> {
+  //   const nutritions = await this.recettesApi.getRecettes();
+  //   return nutritions;
+  // }
+
   @MessagePattern('get_recettes')
-  public async get(): Promise<any> {
+    public async get(): Promise<any> {
     return {
       message: 'success get ingredients',
       data: {
@@ -19,6 +26,21 @@ export class RecettesController {
       errors: null,
     };
   }
+
+  
+  // public async get(): Promise<any> {
+  //   return {
+  //     // message: 'success get ingredients',
+  //     data: {
+  //       nutrition: await this.recettesApi.getRecettes()
+  //     },
+  //     errors: null,
+  //   };
+  //   // const recettes = await this.recettesApi.getRecettes()
+  //   // return recettes
+  //   // return { data: await this.recettesApi.getRecettes() };
+  // }
+
 
   @MessagePattern('get_recettes_by_id')
   public async getbyID(params: { id: number }): Promise<any> {
@@ -48,6 +70,19 @@ export class RecettesController {
       message: 'success get ingredients',
       data: {
         nutrition: await this.recettesApi.getRecetteForUserByID(params.userId),
+      },
+      errors: null,
+    };
+  }
+
+  @MessagePattern('delete_recette')
+  public async deleteIngredient(data: { id: number }): Promise<any> {
+    const { id } = data;
+    const deletedIngredient = await this.recettesApi.deleteRecette(id);
+    return {
+      message: 'success delete recette',
+      data: {
+        nutrition: deletedIngredient,
       },
       errors: null,
     };

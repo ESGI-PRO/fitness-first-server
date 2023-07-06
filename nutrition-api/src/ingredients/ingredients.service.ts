@@ -27,9 +27,10 @@ export class IngredientsService {
     });
   }
 
-  async createIngredient(data) {
+  async createIngredient(data: any) {
     return new Promise(async (resolve, reject) => {
-      const ingredients = await prisma.ingredients.findMany();
+      console.log(data);
+      const ingredients = await prisma.ingredients.create({data});
       resolve(ingredients);
     });
   }
@@ -42,6 +43,19 @@ export class IngredientsService {
         },
       });
       resolve(ingredients);
+    });
+  }
+
+  async updateIngredient(id: number, data: any): Promise<any> {
+    return prisma.ingredients.update({
+      where: { id: id },
+      data: { ...data },
+    });
+  }
+
+  async deleteIngredient(id: number): Promise<any> {
+    return prisma.ingredients.delete({
+      where: { id: id },
     });
   }
 }
