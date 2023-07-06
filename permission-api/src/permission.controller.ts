@@ -1,7 +1,6 @@
 import { Controller, HttpStatus } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { ConfirmedStrategyService } from './services/confirmed-strategy.service';
-import { permissions } from './constants/permissions';
 import { IPermissionCheckResponse } from './interfaces/permission-check-response.interface';
 import { IUser } from './interfaces/user.interface';
 
@@ -23,10 +22,7 @@ export class PermissionController {
         errors: null,
       };
     } else {
-      const allowedPermissions = this.confirmedStrategy.getAllowedPermissions(
-        permissionParams.user,
-        permissions,
-      );
+      const allowedPermissions = this.confirmedStrategy.getAllowedPermissions(permissionParams.user);
       const isAllowed = allowedPermissions.includes(
         permissionParams.permission,
       );

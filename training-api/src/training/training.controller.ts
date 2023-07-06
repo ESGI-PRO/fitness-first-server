@@ -50,7 +50,7 @@ export class TrainingController {
   }
 
 
-  @MessagePattern('get_training_by_UserId')
+  @MessagePattern('get_training_by_user_id')
   public async getTrainingByUserId(params: { userId: string }) {
     const training = await this.trainingService.findAllByID(params.userId);
     return {
