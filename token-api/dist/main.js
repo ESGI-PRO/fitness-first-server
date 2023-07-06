@@ -14,6 +14,7 @@ async function bootstrap() {
         logger: ['error', 'warn', 'log']
     });
     await app.listen();
+    console.info(`jwt token secret ${await (new config_service_1.ConfigService()).get('jwt')}`);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

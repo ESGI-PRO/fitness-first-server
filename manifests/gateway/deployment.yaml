@@ -43,6 +43,16 @@ spec:
             value: "8008"
           - name: SUBSCRIPTION_SERVICE_PORT
             value: "8009"
+          - name: JWT_SECRET
+            value: "thisisasamplesecret"
+          - name: JWT_ACCESS_EXPIRATION_MINUTES
+            value: "360"
+          - name: JWT_REFRESH_EXPIRATION_DAYS
+            value: "60"    
+          - name: JWT_RESET_PASSWORD_EXPIRATION_MINUTES
+            value: "10"
+          - name: JWT_VERIFY_EMAIL_EXPIRATION_MINUTES
+            value: "10"
         ports:
           - containerPort: 8000
 

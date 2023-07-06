@@ -36,7 +36,7 @@ COPY --from=common-build-stage /var/www/analytic-api/node_modules ./node_modules
 COPY --from=common-build-stage /var/www/analytic-api/dist ./dist
 COPY --from=common-build-stage  /var/www/analytic-api/package*.json ./
 
-EXPOSE 3000
+EXPOSE 8005
 
 #RUN npm build
 

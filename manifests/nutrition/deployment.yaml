@@ -21,14 +21,6 @@ spec:
         image: mychallengeregistry.azurecr.io/challenge-nutrition:latest
         imagePullPolicy: Always
         #image: idboubacar/challenge-semestre2-nutrition-api
-        # ressource:
-        # limits:
-        #   cpu: 500m
-        #   memory: 128Mi
-        # requests:
-        #   cpu: 250m
-        #   memory: 128Mi
-
         env:
           - name: NUTRITION_SERVICE_PORT
             value: "80"
