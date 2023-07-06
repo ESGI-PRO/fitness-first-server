@@ -18,10 +18,10 @@ services:
       service: postgres
 
   #ALL APIs
-  # analytic-api:
-  #   extends:
-  #     file: ./compose/docker-compose-service.yml
-  #     service: analytic-api
+  analytic-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: analytic-api
 
   training-api:
     extends:
@@ -56,10 +56,10 @@ services:
       file: ./compose/docker-compose-service.yml
       service: permission-api
 
-  # mailer-api:
-  #   extends:
-  #     file: ./compose/docker-compose-service.yml
-  #     service: mailer-api
+  mailer-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: mailer-api
 
   messenger-api:
     extends:
@@ -69,12 +69,12 @@ services:
       - mongo
       - user-api
 
-  # subscription-api:
-  #   extends:
-  #     file: ./compose/docker-compose-service.yml
-  #     service: subscription-api
-  #   depends_on:
-  #     - postgres
+  subscription-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: subscription-api
+    depends_on:
+      - postgres
 
   gateway-api:
     extends:
