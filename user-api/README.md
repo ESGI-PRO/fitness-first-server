@@ -18,6 +18,9 @@ USER_SERVICE_HOST=user-api
 MAILER_SERVICE_PORT=8008
 MAILER_SERVICE_HOST=mailer-api
 
+SUBSCRIPTION_SERVICE_PORT=8009
+SUBSCRIPTION_SERVICE_HOST=subscription-api
+
 MONGO_ROOT_USER=mongo_user
 MONGO_ROOT_PASSWORD=password
 MONGO_DATABASE=user_db
@@ -25,6 +28,6 @@ MONGO_HOST=mongo
 
 MONGO_DSN=mongodb://mongo:27017/user_db
 
-BASE_URI=http://localhost
+BASE_URI=http://localhost/
 ```
 

@@ -291,7 +291,8 @@ export class UserController {
     }
 
     @MessagePattern('user_update_by_id')
-    public async updateUserById(id: string, user: any): Promise<any> {
+    public async updateUserById(data: {id: string, user: any}): Promise<any> {
+      const { id, user } = data;
       const updatedUser = await this.userService.updateUser(id, user);
       return updatedUser;
     }

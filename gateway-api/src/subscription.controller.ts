@@ -125,8 +125,25 @@ export class SubscriptionController {
 
   @Get('/find-all-subscriptions')
   public async findAllSubscriptions() {
-    const response = await this.subscriptionServiceClient.send('findAllSubcriptions', {});
+    const response = await this.subscriptionServiceClient.send('find_all_subscriptions', {});
     return response;
   }
 
+  @Get('/find-all-invoices')
+  public async findAllInvoices() {
+    const response = await this.subscriptionServiceClient.send('find_all_invoices', {});
+    return response;
+  }
+
+  @Get('/find-all-plans')
+  public async findAllPlans() {
+    const response = await this.subscriptionServiceClient.send('find_all_plans', {});
+    return response;
+  }
+
+  @Post('/create-plan')
+  public async createPlan(@Body() req: any) {
+    const response = await this.subscriptionServiceClient.send('create_plan', req);
+    return response;
+  }
 }
