@@ -17,7 +17,7 @@
 ./gateway-api/.env.*
 ./mailer-api/.env.*
 ./messenger-api/.env.*
-./nutrition-api/.env
+./nutrition-api/.env.*
 ./permission-api/.env.*
 ./subscripton-api/.env.*
 ./token-api/.env.*
@@ -25,6 +25,17 @@
 ./user-api/.env.*
 
 
+./analytic-api/node_modules
+./auth-api/node_modules
+./gateway-api/node_modules
+./mailer-api/node_modules
+./messenger-api/node_modules
+./nutrition-api/node_modules
+./permission-api/node_modules
+./subscripton-api/node_modules
+./token-api/node_modules
+./training-api/node_modules
+./user-api/node_modules
 
 
 ./**/.env
@@ -34,14 +45,8 @@
 
 .env
 .env.*
-<<<<<<< HEAD
 # ./**/dist
 # ./**/dist/*
-=======
-./dist/*
-./**/dist
-./**/dist/*
->>>>>>> dev
 ./**/node_modules
 ./**/node_modules/*
 

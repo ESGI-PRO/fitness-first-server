@@ -8,17 +8,17 @@ import { UpdateInvoiceDto } from './dto/update-invoice.dto';
 export class InvoicesController {
   constructor(private readonly invoicesService: InvoicesService) {}
 
-  @MessagePattern('createInvoice')
+  @MessagePattern('create_invoice')
   create(@Payload() createInvoiceDto: CreateInvoiceDto) {
     return this.invoicesService.create(createInvoiceDto);
   }
 
-  @MessagePattern('findAllInvoices')
+  @MessagePattern('find_all_invoices')
   findAll() {
     return this.invoicesService.findAll();
   }
 
-  @MessagePattern('findInvoicesByUserId')
+  @MessagePattern('find_invoices_by_userId')
   async findByUserId(@Payload() id: string){
     const invoices = await this.invoicesService.findByUserId(id);
     if(invoices){

@@ -28,7 +28,8 @@ export class UserController {
       });
 
       if (user && user[0]) {
-        if (user[0].compareEncryptedPassword(searchParams.password)) {
+        const isValidePassword = await user[0].compareEncryptedPassword(searchParams.password)
+        if (isValidePassword) {
           result = {
             status: HttpStatus.OK,
             message: 'user_search_by_credentials_success',
@@ -291,9 +292,16 @@ export class UserController {
     }
 
     @MessagePattern('user_update_by_id')
-    public async updateUserById(id: string, user: any): Promise<any> {
-      const updatedUser = await this.userService.updateUserById(id, user);
+    public async updateUserById(data: {id: string, user: any}): Promise<any> {
+      const { id, user } = data;
+      const updatedUser = await this.userService.updateUser(id, user);
       return updatedUser;
+    }
+
+    @MessagePattern('user_new')
+    public async newUser(user: any): Promise<any> {
+      const newUser = await this.userService.newUser(user);
+      return newUser;
     }
     
   // search user by params object
@@ -301,6 +309,13 @@ export class UserController {
   public async searchUserByParams(userParams: any): Promise<any> {
     return await this.userService.searchUser(userParams);
   }
+
+    // get users from array of ids
+    @MessagePattern('user_get_by_ids')
+    public async getUsersByIds(data:{ids: string[]}): Promise<any> {
+      const {ids} = data;
+      return await this.userService.getUsersByIds(ids);
+    }
 
   // connect user to trainer
   @MessagePattern('user_connect_to_trainer')
@@ -355,4 +370,5 @@ export class UserController {
 
     return result;
   }
+
 }

@@ -32,7 +32,6 @@ export class VideoMeetingController {
   @MessagePattern('find_all_video_meeting')
   async findAllUserMeetings(@Payload() id: string) {
     const data = await this.videoMeetingService.findAllUserMeetings(id);
-    console.log("find_all_video_meeting", data)
     if(data){
       return {
         status: HttpStatus.OK,

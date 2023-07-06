@@ -56,11 +56,21 @@ function insertExercices() {
 
 function insertTraining() {
   try {
-    for (var i = 0; i < 160; i++) {
+    for (var i = 164; i < 300; i++) {
+      var exos = []
+
+      for (var j = 0; j < 6; j++) {
+        exos.push({
+          exerciceId: faker.number.int({ max: 160 }),
+          series: faker.number.int({ max: 10}),
+          repetition: faker.number.int({ max: 30 }),
+        })
+      }
+
       prisma.training
         .create({
           data: {
-            name: faker.lorem.text() ,
+            name: "Programme n° " + i   ,
             description: faker.lorem.paragraph() ,
             category: faker.number.int({ max: 16 }) , // 42
             userId: faker.string.uuid(),
@@ -71,17 +81,11 @@ function insertTraining() {
             createdAt: new Date(),
             updatedAt: new Date(),
             trainingOnExercices: {
-              create: [
-                {
-                  exerciceId: faker.number.int({ max: 160 }),
-                  series: faker.number.int({ max: 10}),
-                  repetition: faker.number.int({ max: 30 }),
-                },
-              ],
+              create: exos,
             },
           },
         })
-        .then(() => console.info('[SEED] Succussfully create Training records'))
+        .then(() => { exos.length = 0; console.info('[SEED] Succussfully create Training records')})
         .catch((e) =>
           console.error('[SEED] Failed to create Training  records', e),
         );
@@ -91,7 +95,7 @@ function insertTraining() {
   }
 }
 
-insertTypeExercices();
+// insertTypeExercices();
 insertTraining();
 
 // insertTypeExercices();

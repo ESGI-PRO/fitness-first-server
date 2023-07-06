@@ -21,7 +21,7 @@ MAILER_SERVICE_HOST=mailer-api
 BASE_URI=http://localhost
 
 POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
+POSTGRES_PASSWORD=password
 POSTGRES_DB=training
 POSTGRES_HOST=postgres
 

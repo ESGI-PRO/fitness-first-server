@@ -48,7 +48,7 @@ To begin you need to create a user with the route POST /users/register, or use t
     
 ```json
 {
-    "email": "test8@denrox.com",
+    "email": "admin@denrox.com",
     "password": "password"
 }
 ```

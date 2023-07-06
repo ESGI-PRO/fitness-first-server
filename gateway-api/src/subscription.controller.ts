@@ -1,5 +1,6 @@
 import {
   Controller,
+  Get,
   Post,
   Req,
   Res,
@@ -14,11 +15,13 @@ import { ClientProxy } from '@nestjs/microservices';
 import { Response } from 'express'
 import RequestWithRawBody from './interfaces-requests-responses/subscription/requestWithRawBody.interface';
 import { Stripe } from 'stripe';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { GetUserSubscriptionResponseDto } from './interfaces-requests-responses/subscription/dto/get-user-subscriptions-response.dto';
 import { GetUserSubscriptionsDto } from './interfaces-requests-responses/subscription/dto/get-user-subcriptions.dto';
 import { GetUserInvoicesResponseDto } from './interfaces-requests-responses/subscription/dto/get-user-invoices-response.dto';
 import { GetUserInvoicesDto } from './interfaces-requests-responses/subscription/dto/get-user-invoices.dto';
+import { Authorization } from './decorators/authorization.decorator';
+import { Permission } from './decorators/permission.decorator';
 
 @Controller('subscription')
 @ApiTags('subscription')
@@ -87,12 +90,15 @@ export class SubscriptionController {
   @ApiOkResponse({
     type: GetUserSubscriptionResponseDto,
   })
-  @Post('/find-user-subscriptions')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Post('/find_user_subscriptions')
+  @Permission('find_user_subscriptions')
   public async findSubscriptionByUserId(@Body() req: GetUserSubscriptionsDto): Promise<GetUserSubscriptionResponseDto>  {
     const { userId } = req;
 
     const response = await firstValueFrom(
-      this.subscriptionServiceClient.send('findUserSubcriptions', userId),
+      this.subscriptionServiceClient.send('find_user_subscriptions', userId),
     );
 
     return {
@@ -107,12 +113,15 @@ export class SubscriptionController {
   @ApiOkResponse({
     type: GetUserInvoicesResponseDto,
   })
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('find_invoices_by_userId')
   @Post('/find-user-invoices')
   public async findUserInvoices(@Body() req: GetUserInvoicesDto): Promise<GetUserInvoicesResponseDto>  {
     const { userId } = req;
 
     const response = await firstValueFrom(
-      this.subscriptionServiceClient.send('findInvoicesByUserId', userId),
+      this.subscriptionServiceClient.send('find_invoices_by_userId', userId),
     );
     return {
       status: response.status,
@@ -122,4 +131,27 @@ export class SubscriptionController {
     }
   }
 
+  @Get('/find-all-subscriptions')
+  public async findAllSubscriptions() {
+    const response = await this.subscriptionServiceClient.send('find_all_subscriptions', {});
+    return response;
+  }
+
+  @Get('/find-all-invoices')
+  public async findAllInvoices() {
+    const response = await this.subscriptionServiceClient.send('find_all_invoices', {});
+    return response;
+  }
+
+  @Get('/find-all-plans')
+  public async findAllPlans() {
+    const response = await this.subscriptionServiceClient.send('find_all_plans', {});
+    return response;
+  }
+
+  @Post('/create-plan')
+  public async createPlan(@Body() req: any) {
+    const response = await this.subscriptionServiceClient.send('create_plan', req);
+    return response;
+  }
 }

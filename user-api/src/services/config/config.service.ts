@@ -16,6 +16,13 @@ export class ConfigService {
       },
       transport: Transport.TCP,
     };
+    this.envConfig.subscriptionService = {
+      options: {
+        port: process.env.SUBSCRIPTION_SERVICE_PORT,
+        host: process.env.SUBSCRIPTION_SERVICE_HOST,
+      },
+      transport: Transport.TCP,
+    };
   }
 
   get(key: string): any {
