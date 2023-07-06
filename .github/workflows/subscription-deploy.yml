@@ -5,9 +5,10 @@ on:
     types:
       - completed
   push:
-    branches: ["feature/yatera"]
+    branches: ["feature/yateraaa"]
     paths:
       - ".github/workflows/subscription-deploy.yml"
+      - "subscription-api/**"
       - "manifests/subscription"
 
 jobs:

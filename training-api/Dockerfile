@@ -2,22 +2,16 @@
 # COMMON
 ###################
 
-FROM node:16.14.2-alpine as common-build-stage
+FROM node:18.15-alpine as common-build-stage
 
 WORKDIR /var/www/training-api
 
-<<<<<<< HEAD
 COPY package*.json ./
 
 RUN npm install npm@latest -g
 RUN npm install
 
 COPY . .
-=======
-ADD . /var/www/training-api/
-RUN pnpm install 
-# RUN npx prisma generate
->>>>>>> origin/feature/recettes_by_api
 
 RUN npm run build
 

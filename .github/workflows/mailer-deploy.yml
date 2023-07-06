@@ -5,9 +5,10 @@ on:
     types:
       - completed
   push:
-    branches: ["feature/yatera"]
+    branches: ["feature/yateraaa"]
     paths:
       - ".github/workflows/mailer-deploy.yml"
+      - "mailer-api/**"
       - "manifests/mailer"
 
 jobs:

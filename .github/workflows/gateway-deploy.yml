@@ -5,9 +5,10 @@ on:
     types:
       - completed
   push:
-    branches: ["feature/yatera"]
+    branches: ["feature/yateraaa"]
     paths:
       - ".github/workflows/gateway-deploy.yml"
+      - "gateway-api/**"
       - "manifests/gateway"
 
 jobs:

@@ -5,9 +5,10 @@ on:
     types:
       - completed
   push:
-    branches: ["feature/yatera"]
+    branches: ["feature/yateraaa"]
     paths:
       - ".github/workflows/token-deploy.yml"
+      - "token-api/**"
       - "manifests/token"
 
 jobs:

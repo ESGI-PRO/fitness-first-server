@@ -2,7 +2,7 @@
 # COMMON
 ###################
 
-FROM node:16.14.2-alpine as common-build-stage
+FROM node:18.15-alpine as common-build-stage
 
 WORKDIR /var/www/subscription-api
 
