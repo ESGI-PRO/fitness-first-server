@@ -19,6 +19,7 @@ spec:
       containers:
       - name: gateway
         image: mychallengeregistry.azurecr.io/challenge-gateway:latest
+        imagePullPolicy: Always
         env:
           - name: API_GATEWAY_PORT
             value: "8000"

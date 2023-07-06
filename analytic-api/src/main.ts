@@ -15,4 +15,7 @@ async function bootstrap() {
   await app.listen();
 }
 console.log("ConfigService().get('port')", new ConfigService().get('port'))
+console.log("mongoDnsDb", new ConfigService().get('mongoDnsDb'))
+console.log("process.env.ANALYTIC_SERVICE_PORT", process.env.ANALYTICS_SERVICE_PORT)
+
 bootstrap();

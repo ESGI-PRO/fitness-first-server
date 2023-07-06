@@ -5,7 +5,7 @@ on:
     types:
       - completed
   push:
-    branches: ["feature/yateraaaa"]
+    branches: ["feature/yatera"]
     paths:
       - ".github/workflows/azure-aks-deploy.yml"
       - "manifests/**"
@@ -66,6 +66,16 @@ jobs:
           AZURECRPASSWORD: ${{ secrets.AZURE_CREDENTIALS }}
         run: |
           az aks get-credentials --resource-group Challenge_RG --name myAKSCluster
+          kubectl rollout restart deployment gateway -n ingress-nginx
+          kubectl rollout restart deployment analytic -n ingress-nginx
+          kubectl rollout restart deployment mailer -n ingress-nginx
+          kubectl rollout restart deployment messenger -n ingress-nginx
+          kubectl rollout restart deployment nutrition -n ingress-nginx
+          kubectl rollout restart deployment user -n ingress-nginx
+          kubectl rollout restart deployment permission -n ingress-nginx
+          kubectl rollout restart deployment subscription -n ingress-nginx
+          kubectl rollout restart deployment token -n ingress-nginx
+          kubectl rollout restart deployment training -n ingress-nginx
       # kubectl delete namespaces challengespace
       # kubectl create namespace challengespace
       # kubectl apply -f ./manifests/gateway/

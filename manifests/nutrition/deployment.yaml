@@ -19,6 +19,7 @@ spec:
       containers:
       - name: nutrition
         image: mychallengeregistry.azurecr.io/challenge-nutrition:latest
+        imagePullPolicy: Always
         #image: idboubacar/challenge-semestre2-nutrition-api
         # ressource:
         # limits:

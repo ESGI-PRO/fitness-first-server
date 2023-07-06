@@ -19,6 +19,7 @@ spec:
       containers:
       - name: mailer
         image: mychallengeregistry.azurecr.io/challenge-mailer:latest
+        imagePullPolicy: Always
         #image: idboubacar/challenge-semestre2-mailer-api
         # ressource:
         # limits:

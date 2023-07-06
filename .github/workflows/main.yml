@@ -8,6 +8,10 @@ jobs:
   BuildAndPush:   
     runs-on: ubuntu-latest 
     steps:
+      - run: | 
+          export GIT_SHA=$(git rev-parse HEAD)
+          echo $GIT_SHA
+
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -31,9 +35,9 @@ jobs:
           platforms: linux/x86_64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-analytic-api:latest
-          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-analytic-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-analytic-api:$GIT_SHA
           provenance: false
-
+          
 
       - name: Build and push gateway
         id: docker_build_gateway_service
