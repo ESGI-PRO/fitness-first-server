@@ -188,9 +188,14 @@ export class UserService implements OnModuleInit {
   }
 
   public async updateUser(id: string, user: IUser): Promise<IUser> {
-    const updatedUser = await this.userModel.findByIdAndUpdate(id, user);
+    const updatedUser = await this.userModel.findByIdAndUpdate(id, user, { new: true }).exec();
     if (!updatedUser) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     return updatedUser;
+  }
+
+  public async newUser(user: IUser): Promise<IUser> {
+    const newUser = new this.userModel(user);
+    return await newUser.save();
   }
 
   public async getUsersByIds(userIds: string[]): Promise<IUser[]> {

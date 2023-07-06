@@ -292,8 +292,14 @@ export class UserController {
 
     @MessagePattern('user_update_by_id')
     public async updateUserById(id: string, user: any): Promise<any> {
-      const updatedUser = await this.userService.updateUserById(id, user);
+      const updatedUser = await this.userService.updateUser(id, user);
       return updatedUser;
+    }
+
+    @MessagePattern('user_new')
+    public async newUser(user: any): Promise<any> {
+      const newUser = await this.userService.newUser(user);
+      return newUser;
     }
     
   // search user by params object

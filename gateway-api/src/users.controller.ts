@@ -303,6 +303,12 @@ export class UsersController {
     return deletedUser;
   }
 
+  @Post('/new_user')
+  public async createNewUser(@Body() user: any): Promise<any> {
+    const createdUser = await firstValueFrom(this.userServiceClient.send('user_new', user));
+    return createdUser;
+  }
+
   // get users from array of ids
   @Post('/get_users_by_ids')
   public async getUsersByIds(@Body() ids: string[]): Promise<any> {
