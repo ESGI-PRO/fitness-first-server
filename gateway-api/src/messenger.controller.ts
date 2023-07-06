@@ -104,8 +104,8 @@ export class MessengerController {
 
   // get rooms from ids list
   @Post('/get_rooms_by_member_ids')
-  async getRoomsByIds(@Body() ids: string[]): Promise<any> {
-    const response = await firstValueFrom(this.messengerServiceClient.send("get_rooms_by_member_ids", { ids }));
+  async getRoomsByIds(@Body() data: {ids: string[]}): Promise<any> {
+    const response = await firstValueFrom(this.messengerServiceClient.send("get_rooms_by_member_ids", data));
     return response;
   }
 

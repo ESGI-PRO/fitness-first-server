@@ -305,8 +305,8 @@ export class UsersController {
 
   // get users from array of ids
   @Post('/get_users_by_ids')
-  public async getUsersByIds(@Body() ids: string[]): Promise<any> {
-    const users = await firstValueFrom(this.userServiceClient.send('user_get_by_ids', ids));
+  public async getUsersByIds(@Body() data: {ids: string[]}): Promise<any> {
+    const users = await firstValueFrom(this.userServiceClient.send('user_get_by_ids', data));
     return users;
   }
 }
