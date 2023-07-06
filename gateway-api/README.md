@@ -2,7 +2,6 @@
 
 Gateway API is the entry point for all the requests to the application. It is responsible for routing the requests to the appropriate microservice.
 
-
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file

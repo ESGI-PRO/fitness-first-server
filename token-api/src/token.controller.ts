@@ -1,4 +1,4 @@
-import { Controller, HttpStatus } from '@nestjs/common';
+import { Controller, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { TokenService } from './services/token.service';
 import { ITokenResponse } from './interfaces/token-response.interface';
@@ -6,25 +6,28 @@ import { ITokenDataResponse } from './interfaces/token-data-response.interface';
 import { ITokenDestroyResponse } from './interfaces/token-destroy-response.interface';
 import { tokenTypes } from './services/config/token.types';
 @Controller('token')
+@Injectable()
 export class TokenController {
   constructor(private readonly tokenService: TokenService) {}
-
+  private readonly logger = new Logger(TokenController.name);
+  
   @MessagePattern('token_create')
   public async createToken(data: { userId: string }): Promise<ITokenResponse> {
     let result: ITokenResponse;
 
-    console.log('createToken', data)
+    this.logger.log('createToken', data)
 
     if (data && data.userId) {
       try {
         const createResult = await this.tokenService.createToken(data.userId);
-        console.log('createResult', data.userId, createResult)
+        this.logger.log('createResult', data.userId, createResult)
         result = {
           status: HttpStatus.CREATED,
           message: 'token_create_success',
           token: createResult,
         };
       } catch (e) {
+        this.logger.error(e.message, e)
         result = {
           status: HttpStatus.BAD_REQUEST,
           message: 'token_create_bad_request',
@@ -32,7 +35,7 @@ export class TokenController {
         };
       }
     } else {
-      console.log('BAD_REQUEST', data)
+      this.logger.log('BAD_REQUEST', data)
       result = {
         status: HttpStatus.BAD_REQUEST,
         message: 'token_create_bad_request',
@@ -85,3 +88,4 @@ export class TokenController {
     };
   }
 }
+

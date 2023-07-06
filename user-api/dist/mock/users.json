@@ -1,0 +1,154 @@
+{
+    "users": [
+        {
+            "email": "james97@denrox.com",
+            "password": "password",
+            "userName": "james97",
+            "mobileNumber": "1234567345",
+            "isTrainer": false,
+            "isAdmin": false,
+            "trainerSpeciality": "",
+            "is_confirmed": true
+        },
+        {
+            "email": "micheal97@denrox.com",
+            "password": "password",
+            "userName": "micheal97",
+            "mobileNumber": "1234567765",
+            "isTrainer": false,
+            "isAdmin": false,
+            "trainerSpeciality": "",
+            "is_confirmed": true
+        },
+        {
+            "email": "jack97@denrox.com",
+            "password": "password",
+            "userName": "jack97",
+            "mobileNumber": "1234567187",
+            "isTrainer": false,
+            "isAdmin": false,
+            "trainerSpeciality": "",
+            "is_confirmed": true
+        },
+        {
+            "email": "daniel97@denrox.com",
+            "password": "password",
+            "userName": "daniel97",
+            "mobileNumber": "1234567894",
+            "isTrainer": true,
+            "isAdmin": false,
+            "trainerSpeciality": "POWERLIFTING",
+            "is_confirmed": true
+        },
+        {
+            "email": "trainer@denrox.com",
+            "password": "password",
+            "userName": "trainer account",
+            "mobileNumber": "1234567898",
+            "isTrainer": true,
+            "isAdmin": false,
+            "trainerSpeciality": "FITNESS",
+            "is_confirmed": true
+        },
+        {
+            "email": "test1@denrox.com",
+            "password": "password",
+            "userName": "test11",
+            "mobileNumber": "1234567450",
+            "isTrainer": true,
+            "isAdmin": false,
+            "trainerSpeciality": "POWERLIFTING",
+            "is_confirmed": true
+        },
+        {
+            "email": "user@denrox.com",
+            "password": "password",
+            "userName": "user account",
+            "mobileNumber": "1234567876",
+            "isTrainer": false,
+            "isAdmin": false,
+            "trainerSpeciality": "",
+            "is_confirmed": true
+        },
+        {
+            "email": "test3@denrox.com",
+            "password": "password",
+            "userName": "test33",
+            "mobileNumber": "1234568894",
+            "isTrainer": true,
+            "isAdmin": false,
+            "trainerSpeciality": "FITNESS",
+            "is_confirmed": false
+        },
+        {
+            "email": "test4@denrox.com",
+            "password": "password",
+            "userName": "test44",
+            "mobileNumber": "1234567893",
+            "isTrainer": true,
+            "isAdmin": false,
+            "trainerSpeciality": "YOGA",
+            "is_confirmed": false
+        },
+        {
+            "email": "test5@denrox.com",
+            "password": "password",
+            "userName": "test55",
+            "mobileNumber": "1234567899",
+            "isTrainer": true,
+            "isAdmin": false,
+            "trainerSpeciality": "FITNESS",
+            "is_confirmed": false
+        },
+        {
+            "email": "test6@denrox.com",
+            "password": "password",
+            "userName": "test66",
+            "mobileNumber": "1234567898",
+            "isTrainer": false,
+            "isAdmin": false,
+            "trainerSpeciality": "",
+            "is_confirmed": false
+        },
+        {
+            "email": "test7@denrox.com",
+            "password": "password",
+            "userName": "test77",
+            "mobileNumber": "1234567811",
+            "isTrainer": false,
+            "isAdmin": false,
+            "trainerSpeciality": "",
+            "is_confirmed": true
+        },
+        {
+            "email": "test8@denrox.com",
+            "password": "password",
+            "userName": "test88",
+            "mobileNumber": "1234567887",
+            "isTrainer": false,
+            "isAdmin": false,
+            "trainerSpeciality": "",
+            "is_confirmed": true
+        },
+        {
+            "email": "admin@denrox.com",
+            "password": "password",
+            "userName": "admin",
+            "mobileNumber": "1234567000",
+            "isTrainer": false,
+            "isAdmin": true,
+            "trainerSpeciality": "",
+            "is_confirmed": true
+        },
+        {
+            "email": "myadmin@denrox.com",
+            "password": "password",
+            "userName": "myAdmin",
+            "mobileNumber": "1234567080",
+            "isTrainer": false,
+            "isAdmin": true,
+            "trainerSpeciality": "",
+            "is_confirmed": true
+        }
+    ]
+}

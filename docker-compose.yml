@@ -1,11 +1,11 @@
-version: '3.8'
+version: '3.9'
 
 services:
   #ALL DATABASES AND ADMINER,MONGO-EXPRESS
-  adminer:
-    extends:
-      file: ./compose/docker-compose-db.yml
-      service: adminer
+  # adminer:
+  #   extends:
+  #     file: ./compose/docker-compose-db.yml
+  #     service: adminer
 
   mongo:
     extends:
@@ -18,6 +18,11 @@ services:
       service: postgres
 
   #ALL APIs
+  gateway-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: gateway-api
+
   analytic-api:
     extends:
       file: ./compose/docker-compose-service.yml
@@ -75,8 +80,3 @@ services:
       service: subscription-api
     depends_on:
       - postgres
-
-  gateway-api:
-    extends:
-      file: ./compose/docker-compose-service.yml
-      service: gateway-api

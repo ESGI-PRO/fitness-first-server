@@ -16,5 +16,6 @@ async function bootstrap() {
   });
 
   await app.listen();
+  console.info(`jwt token secret ${await (new ConfigService()).get('jwt')}`)
 }
 bootstrap();

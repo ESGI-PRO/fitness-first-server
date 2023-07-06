@@ -1,0 +1,69 @@
+name: user deployment
+on:
+  workflow_run:
+    workflows: ["Docker Image CI"]
+    types:
+      - completed
+  push:
+    branches: ["feature/yateraaa"]
+    paths:
+      - ".github/workflows/user-deploy.yml"
+      - "user-api/**"
+      - "manifests/user"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - run: |
+          az acr login -n mychallengeregistry
+          az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
+          az aks get-credentials --resource-group Challenge_RG --name myAKSCluster
+      
+      - name: Build and push
+        run: |
+          docker build "./user-api" -f  "./user-api/Dockerfile" -t mychallengeregistry.azurecr.io/challenge-user:latest
+
+          docker push mychallengeregistry.azurecr.io/challenge-user:latest
+
+          az acr repository list --name mychallengeregistry --output table
+          az acr repository show-tags --name mychallengeregistry --repository challenge-user --output table
+
+      - name: Deploy to AKS
+        env: 
+          AZURECRNAME: mychallengeregistry
+          AZURECRUSERNAME: mychallengeregistry
+          AZURECRPASSWORD: ${{ secrets.AZURE_CREDENTIALS }}
+        run: |
+          az aks get-credentials --resource-group Challenge_RG --name myAKSCluster
+          kubectl rollout restart deployment user -n ingress-nginx
+
+      # kubectl delete namespaces challengespace
+      # kubectl create namespace challengespace
+      # kubectl apply -f ./manifests/user/
+
+
+
+
+
+
+
+
+
+      # - uses: Azure/aks-set-context@v1
+      #   with:
+      #       creds: '${{ secrets.AZURE_CREDENTIALS }}'
+      #       cluster-name: myAKSCluster
+      #       resource-group: myVoteGroup
+
+      # - uses: azure/k8s-deploy@v1.2
+      #   with:
+      #     namespace: "default"
+      #     manifests: |
+      #       manifests/deployment-azure.yaml
+      #     images: |
+      #       idboubacar/challenge-semestre2-user-api:latest

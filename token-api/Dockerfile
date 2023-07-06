@@ -2,7 +2,7 @@
 # COMMON
 ###################
 
-FROM node:16.14.2-alpine as common-build-stage
+FROM node:18.15-alpine as common-build-stage
 
 WORKDIR /var/www/token-api
 
@@ -11,6 +11,8 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
+
+RUN npm run build
 
 EXPOSE 8006
 
@@ -29,9 +31,11 @@ CMD [ "npm", "run", "start:dev" ]
 ###################
 
 FROM common-build-stage as production-build-stage
-
+WORKDIR /var/www/token-api
 ENV NODE_ENV=production
+COPY --from=common-build-stage /var/www/token-api/node_modules ./node_modules
+COPY --from=common-build-stage /var/www/token-api/dist ./dist
 
-RUN npm build
+#RUN npm run build
 
 CMD [ "npm", "run", "start:prod" ]

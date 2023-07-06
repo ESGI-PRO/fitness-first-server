@@ -60,6 +60,8 @@ After you need to login with the route POST /users/login, and add the token in t
 ### Uninstall the project
 
 ```bash
+npx prisma migrate dev --name init && npx prisma db seed
+npx prisma generate
 docker-compose down --volumes --remove-orphans --rmi all
 ```
 

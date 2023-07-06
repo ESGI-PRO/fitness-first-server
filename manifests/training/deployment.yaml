@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: training
+  namespace: "challengespace"
+  #namespace: "ingress-nginx"
+  labels:
+    app: training
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: training
+  template:
+    metadata:
+      labels:
+        app: training
+    spec:
+      containers:
+      - name: training
+        image: mychallengeregistry.azurecr.io/challenge-training:latest
+        imagePullPolicy: Always
+        #image: idboubacar/challenge-semestre2-training-api:latest
+        # ressource:
+        # limits:
+        #   cpu: 500m
+        #   memory: 128Mi
+        # requests:
+        #   cpu: 250m
+        #   memory: 128Mi
+        env:
+          - name: TRAINING_SERVICE_PORT
+            value: "80"
+          - name: DATABASE_URL
+            value: postgresql://postgres:password@44.212.32.217:5432/training?schema=public
+          - name: API_GATEWAY_PORT
+            value: "8000"
+          - name: MAILER_SERVICE_PORT
+            value: "8008"
+          - name: MAILER_SERVICE_HOST
+            value: mailer-api
+        ports:
+          - containerPort: 80

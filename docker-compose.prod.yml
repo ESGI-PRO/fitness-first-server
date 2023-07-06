@@ -1,0 +1,81 @@
+version: '3.9'
+
+services:
+  #ALL DATABASES AND ADMINER, MONGO-EXPRESS
+  # adminer:
+  #   extends:
+  #     file: ./compose/docker-compose-db.yml
+  #     service: adminer
+
+  # mongo:
+  #   extends:
+  #     file: ./compose/docker-compose-db.yml
+  #     service: mongo
+
+  # postgres:
+  #   extends:
+  #     file: ./compose/docker-compose-db.yml
+  #     service: postgres
+
+  #ALL APIs
+  gateway-api:
+    extends:
+      file: ./compose/docker-compose-service.prod.yml
+      service: gateway-api
+
+  # analytic-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.prod.yml
+  #     service: analytic-api
+
+  # training-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.prod.yml
+  #     service: training-api
+  #   depends_on:
+  #     - postgres
+
+  # nutrition-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.prod.yml
+  #     service: nutrition-api
+  #   depends_on:
+  #     - postgres
+
+  # user-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.prod.yml
+  #     service: user-api
+  #   depends_on:
+  #     - mongo
+
+  # token-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.prod.yml
+  #     service: token-api
+  #   depends_on:
+  #     - mongo
+
+  # permission-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.prod.yml
+  #     service: permission-api
+
+  # mailer-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.prod.yml
+  #     service: mailer-api
+
+  # messenger-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.prod.yml
+  #     service: messenger-api
+  #   depends_on:
+  #     - mongo
+
+  # subscription-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.prod.yml
+  #     service: subscription-api
+  #   depends_on:
+  #     - postgres

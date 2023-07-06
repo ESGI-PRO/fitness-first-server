@@ -1,10 +1,12 @@
 version: '3.9'
 
 services:
-
   gateway-api:
     build:
       context: ../gateway-api
+      platforms:
+        - "linux/amd64"
+        - "linux/x86_64"
       dockerfile: Dockerfile
       target: development-build-stage
     hostname: gateway-api
@@ -19,6 +21,9 @@ services:
   nutrition-api:
     build:
       context: ../nutrition-api
+      platforms:
+        - "linux/amd64"
+        - "linux/x86_64"
       dockerfile: Dockerfile
       target: development-build-stage
     hostname: nutrition-api
@@ -33,6 +38,9 @@ services:
   user-api:
     build:
       context: ../user-api
+      platforms:
+        - "linux/amd64"
+        - "linux/x86_64"
       dockerfile: Dockerfile
       target: development-build-stage
     hostname: user-api
@@ -47,6 +55,9 @@ services:
   training-api:
     build:
       context: ../training-api
+      platforms:
+        - "linux/amd64"
+        - "linux/x86_64"
       dockerfile: Dockerfile
       target: development-build-stage
     hostname: training-api
@@ -61,6 +72,9 @@ services:
   analytic-api:
     build:
       context: ../analytic-api
+      platforms:
+        - "linux/amd64"
+        - "linux/x86_64"
       dockerfile: Dockerfile
       target: development-build-stage
     hostname: analytic-api
@@ -75,6 +89,9 @@ services:
   token-api:
     build:
       context: ../token-api
+      platforms:
+        - "linux/amd64"
+        - "linux/x86_64"
       dockerfile: Dockerfile
       target: development-build-stage
     hostname: token-api
@@ -89,6 +106,9 @@ services:
   permission-api:
     build:
       context: ../permission-api
+      platforms:
+        - "linux/amd64"
+        - "linux/x86_64"
       dockerfile: Dockerfile
       target: development-build-stage
     hostname: permission-api
@@ -103,6 +123,9 @@ services:
   mailer-api:
     build:
       context: ../mailer-api
+      platforms:
+        - "linux/amd64"
+        - "linux/x86_64"
       dockerfile: Dockerfile
       target: development-build-stage
     hostname: mailer-api
@@ -117,6 +140,9 @@ services:
   subscription-api:
     build:
       context: ../subscription-api
+      platforms:
+        - "linux/amd64"
+        - "linux/x86_64"
       dockerfile: Dockerfile
       target: development-build-stage
     hostname: subscription-api
@@ -131,6 +157,9 @@ services:
   messenger-api:
     build:
       context: ../messenger-api
+      platforms:
+        - "linux/amd64"
+        - "linux/x86_64"
       dockerfile: Dockerfile
       target: development-build-stage
     hostname: messenger-api

@@ -1,0 +1,128 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.VideoMeetingController = void 0;
+const common_1 = require("@nestjs/common");
+const microservices_1 = require("@nestjs/microservices");
+const video_meeting_service_1 = require("./video-meeting.service");
+const create_video_meeting_dto_1 = require("./dto/create-video-meeting.dto");
+const update_video_meeting_dto_1 = require("./dto/update-video-meeting.dto");
+const AccessToken = require('twilio').jwt.AccessToken;
+let VideoMeetingController = class VideoMeetingController {
+    constructor(videoMeetingService) {
+        this.videoMeetingService = videoMeetingService;
+    }
+    async create(createVideoMeetingDto) {
+        const data = await this.videoMeetingService.create(createVideoMeetingDto);
+        console.log("create_video_meeting", data);
+        if (data) {
+            return {
+                status: common_1.HttpStatus.OK,
+                data: data,
+                errors: null
+            };
+        }
+        else {
+            return {
+                status: common_1.HttpStatus.BAD_REQUEST,
+                data: null,
+                errors: null
+            };
+        }
+    }
+    async findAllUserMeetings(id) {
+        const data = await this.videoMeetingService.findAllUserMeetings(id);
+        if (data) {
+            return {
+                status: common_1.HttpStatus.OK,
+                data: data,
+                errors: null
+            };
+        }
+        else {
+            return {
+                status: common_1.HttpStatus.BAD_REQUEST,
+                data: null,
+                errors: null
+            };
+        }
+    }
+    async update(updateVideoMeetingDto) {
+        const data = await this.videoMeetingService.updateMeeting(updateVideoMeetingDto.id, updateVideoMeetingDto);
+        console.log("update_video_meeting", data);
+        if (data) {
+            return {
+                status: common_1.HttpStatus.OK,
+                data: data,
+                errors: null
+            };
+        }
+        else {
+            return {
+                status: common_1.HttpStatus.BAD_REQUEST,
+                data: null,
+                errors: null
+            };
+        }
+    }
+    async getTwilioToken(id) {
+        const VideoGrant = AccessToken.VideoGrant;
+        const videoGrant = new VideoGrant();
+        const token = new AccessToken(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_API_KEY_SID, process.env.TWILIO_API_KEY_SECRET, { identity: id });
+        token.identity = id;
+        token.addGrant(videoGrant);
+        console.log("get_twilio_token", token);
+        return {
+            status: common_1.HttpStatus.OK,
+            data: {
+                token: token.toJwt()
+            },
+            errors: null
+        };
+    }
+};
+__decorate([
+    (0, microservices_1.MessagePattern)('create_video_meeting'),
+    __param(0, (0, microservices_1.Payload)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_video_meeting_dto_1.CreateVideoMeetingDto]),
+    __metadata("design:returntype", Promise)
+], VideoMeetingController.prototype, "create", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('find_all_video_meeting'),
+    __param(0, (0, microservices_1.Payload)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], VideoMeetingController.prototype, "findAllUserMeetings", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('update_video_meeting'),
+    __param(0, (0, microservices_1.Payload)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [update_video_meeting_dto_1.UpdateVideoMeetingDto]),
+    __metadata("design:returntype", Promise)
+], VideoMeetingController.prototype, "update", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('get_twilio_token'),
+    __param(0, (0, microservices_1.Payload)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], VideoMeetingController.prototype, "getTwilioToken", null);
+VideoMeetingController = __decorate([
+    (0, common_1.Controller)(),
+    __metadata("design:paramtypes", [video_meeting_service_1.VideoMeetingService])
+], VideoMeetingController);
+exports.VideoMeetingController = VideoMeetingController;
+//# sourceMappingURL=video-meeting.controller.js.map

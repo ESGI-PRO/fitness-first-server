@@ -2,17 +2,17 @@
 # COMMON
 ###################
 
-FROM node:16.14.2-alpine as common-build-stage
+FROM node:18.15-alpine as common-build-stage
 
-WORKDIR /var/www/subscriptions-api
+WORKDIR /var/www/subscription-api
 
 COPY package*.json ./
 
 RUN npm install
 
-RUN npm install -g concurrently
-
 COPY . .
+
+RUN npm run build
 
 EXPOSE 8009
 
@@ -24,17 +24,26 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
+CMD npm run start:dev \
+    npm run prisma:generate \
+    npm run prisma:migrate \
+    npm run prisma:seed
 
-CMD [ "concurrently","npm:prisma:generate", "npm:prisma:migrate", "npm:prisma:seed", "npm:start:dev" ]
+#CMD [ "concurrently","npm:prisma:generate", "npm:prisma:migrate", "npm:prisma:seed", "npm:start:dev" ]
 
 ###################
 # PRODUCTION
 ###################
 
 FROM common-build-stage as production-build-stage
+WORKDIR /var/www/subscription-api
 
 ENV NODE_ENV=production
+COPY --from=common-build-stage /var/www/subscription-api/node_modules ./node_modules
+COPY --from=common-build-stage /var/www/subscription-api/dist ./dist
+COPY --from=common-build-stage /var/www/subscription-api/prisma ./prisma
+COPY --from=common-build-stage /var/www/subscription-api/package*.json ./
 
-RUN npm build
+#RUN npm run build
 
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "npm", "run", "start:migrate:prod" ]

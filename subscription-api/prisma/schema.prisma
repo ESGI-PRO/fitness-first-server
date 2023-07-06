@@ -22,7 +22,6 @@ model Subscription {
   updatedAt        DateTime? @updatedAt
   @@index([userId(sort: Asc)])
 }
-
 model Plan {
   id           String   @id @default(uuid())
   name         String         @db.VarChar(75)

@@ -1,0 +1,37 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#     name: gateway
+#     namespace: challengespace
+#     annotations:
+#         service.beta.kubernetes.io/azure-dns-label-name: lb-10C0CBD6-4DFC-4AE4-AC88-0CCD2798AC5C
+# spec:
+#     ports:
+#     - port: 443
+#       protocol: TCP
+#       targetPort: 8000
+#     selector:
+#         app: gateway
+#         tier: api
+#     type: LoadBalancer
+
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: gateway
+#   namespace: "challengespace"
+#   labels:
+#     name: gateway
+#     app: gateway
+# spec:
+#   type: NodePort
+#   ports:
+#     - name: http
+#       port: 80
+#       targetPort: 80
+#   selector:
+#     app: gateway
+
+
+

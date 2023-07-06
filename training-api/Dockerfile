@@ -2,23 +2,18 @@
 # COMMON
 ###################
 
-FROM node:16.14.2-alpine as common-build-stage
+FROM node:18.15-alpine as common-build-stage
 
 WORKDIR /var/www/training-api
 
-<<<<<<< HEAD
 COPY package*.json ./
 
+RUN npm install npm@latest -g
 RUN npm install
 
-RUN npm install -g concurrently
-
 COPY . .
-=======
-ADD . /var/www/training-api/
-RUN pnpm install 
-# RUN npx prisma generate
->>>>>>> origin/feature/recettes_by_api
+
+RUN npm run build
 
 EXPOSE 8003
 
@@ -30,7 +25,12 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-CMD [ "concurrently", "npm:start:dev","npm:prisma:generate", "npm:prisma:migrate", "npm:prisma:seed" ]
+CMD npm run start:dev \
+    npm run prisma:generate \
+    npm run prisma:migrate \
+    npm run prisma:seed
+
+#CMD [ "concurrently", "npm:start:dev","npm:prisma:generate", "npm:prisma:migrate", "npm:prisma:seed" ]
 
 ###################
 # PRODUCTION
@@ -39,7 +39,11 @@ CMD [ "concurrently", "npm:start:dev","npm:prisma:generate", "npm:prisma:migrate
 FROM common-build-stage as production-build-stage
 
 ENV NODE_ENV=production
+COPY --from=common-build-stage /var/www/training-api/node_modules ./node_modules
+COPY --from=common-build-stage /var/www/training-api/dist ./dist
+COPY --from=common-build-stage /var/www/training-api/prisma ./prisma
+COPY --from=common-build-stage /var/www/training-api/package*.json ./
 
-RUN npm build
+#RUN npm run build
 
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "npm", "run", "start:migrate:prod" ]
