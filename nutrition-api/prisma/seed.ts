@@ -7,23 +7,24 @@ import { faker } from '@faker-js/faker';
 const prisma = new PrismaClient();
 
 function insertCategories() {
-    categories.map((n) =>
-      prisma.categories.create({
+  categories.forEach((n) =>
+    prisma.categories
+      .create({
         data: n,
-      }),
-    )
-    .then(() => {
-      console.info('[SEED] Succussfully create categories records');
-    })
-    .catch((e) =>
-      console.error('[SEED] Failed to create categories records', e),
-    );
+      })
+      .then(() => {
+        console.info('[SEED] Succussfully create categories records');
+      })
+      .catch((e) =>
+        console.error('[SEED] Failed to create categories records', e),
+      ),
+  );
 }
 
 function insertIngredients() {
-  finals
-    .map((n) =>
-      prisma.ingredients.create({
+  finals.forEach((n) =>
+    prisma.ingredients
+      .create({
         data: {
           name: n.name,
           calories: n.calories,
@@ -39,14 +40,14 @@ function insertIngredients() {
           fiber_g: n.fiber_g,
           sugar_g: n.sugar_g,
         },
-      }),
-    )
-    .then(() => {
-      console.info('[SEED] Succussfully create ingredients records');
-    })
-    .catch((e) =>
-      console.error('[SEED] Failed to create ingredients records', e),
-    );
+      })
+      .then(() => {
+        console.info('[SEED] Succussfully create ingredients records');
+      })
+      .catch((e) =>
+        console.error('[SEED] Failed to create ingredients records', e),
+      ),
+  );
 }
 
 function insertRecettes() {
