@@ -47,7 +47,6 @@ function insertIngredients() {
   )
     .then(() => {
       console.info('[SEED] Succussfully create ingredients records');
-      insertRecettes();
     })
     .catch((e) =>
       console.error('[SEED] Failed to create ingredients records', e),
@@ -62,7 +61,7 @@ function insertRecettes() {
         .create({
           data: {
             title: faker.lorem.text(),
-            UserId: faker.number.int({ max: 160 }),
+            UserId: faker.string.uuid(),
             instructions: [
               {
                 order: faker.number.int({ max: 160 }),
@@ -86,5 +85,5 @@ function insertRecettes() {
     console.log(e);
   }
 }
-// insertCategories();
+insertCategories();
 insertRecettes();

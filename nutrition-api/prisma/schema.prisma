@@ -38,6 +38,6 @@ model Ingredients {
 model Recettes {
   id Int @id @default(autoincrement())
   title String 
-  UserId Int
+  UserId String
   instructions Json[]
 }
