@@ -69,7 +69,7 @@ export class UserController {
         result = {
           status: HttpStatus.OK,
           message: 'user_get_by_id_success',
-          user,
+          user: user,
         };
       } else {
         result = {
@@ -272,6 +272,30 @@ export class UserController {
       return result;
     }
 
+    @MessagePattern('user_get_all')
+    public async getAllUsers(): Promise<any> {  
+      const users = await this.userService.getAllUsers();
+      return users;
+    }
+
+    @MessagePattern('get_user_by_id')
+    public async getByUserId(id: string): Promise<any> {
+      const user = await this.userService.getByUserId(id);
+      return user;
+    }
+
+    @MessagePattern('user_delete_by_id')
+    public async deleteUser(id: string): Promise<any> {
+      const user = await this.userService.deleteUserById(id);
+      return user;
+    }
+
+    @MessagePattern('user_update_by_id')
+    public async updateUserById(id: string, user: any): Promise<any> {
+      const updatedUser = await this.userService.updateUserById(id, user);
+      return updatedUser;
+    }
+    
   // search user by params object
   @MessagePattern('user_search_by_params')
   public async searchUserByParams(userParams: any): Promise<any> {

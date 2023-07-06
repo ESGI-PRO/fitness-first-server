@@ -39,6 +39,8 @@ export class ExercicesService {
   }
 
   async findAllByCategory(id) {
+
+    console.log('findAllByCategory', id);
     return new Promise(async (resolve, reject) => {
       try {
         const exercices = await prisma.exercices.findMany({

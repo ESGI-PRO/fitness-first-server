@@ -1,10 +1,11 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnModuleInit, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ConfigService } from './config/config.service';
 import { IUser } from '../interfaces/user.interface';
 import { IUserLink } from '../interfaces/user-link.interface';
 import * as data from "../mock/users.json";
+import { UserSchema } from 'src/schemas/user.schema';
 
 @Injectable()
 export class UserService implements OnModuleInit {
@@ -49,10 +50,15 @@ export class UserService implements OnModuleInit {
 
    //cleardb()
    this.userModel.countDocuments({}).then(async (count) => {
-      //console.log(' count is ' + count + '', await this.userModel.find({}).exec());
       if (count < 2) {
-        //console.log('Seeding db', data);
-        await this.userModel.insertMany(data.users);
+        //encrypt all users password
+        let userList = []
+        for (let i = 0; i < data.users.length; i++) {
+          const user = data.users[i];
+          user.password = await UserSchema.methods.getEncryptedPassword(user.password);
+          userList = [...userList, user]
+        }
+        await this.userModel.insertMany(userList);
         await seedAlgo()
       }else{
         await seedAlgo()
@@ -110,4 +116,28 @@ export class UserService implements OnModuleInit {
       'gatewayPort',
     )}/users/confirm/${link}`;
   }
+
+  public async getAllUsers(): Promise<IUser[]> {
+    const users = await this.userModel.find({}).exec();
+    return users;
+  }
+
+  public async getByUserId(id: string): Promise<IUser> {
+    const user = await this.userModel.findById(id).exec();
+    if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    return user;
+  }
+
+  public async deleteUserById(id: string): Promise<IUser> {
+    const user = await this.userModel.findByIdAndDelete(id).exec();
+    if (!user) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    return user;  
+  }
+
+  public async updateUser(id: string, user: IUser): Promise<IUser> {
+    const updatedUser = await this.userModel.findByIdAndUpdate(id, user);
+    if (!updatedUser) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    return updatedUser;
+  }
+
 }

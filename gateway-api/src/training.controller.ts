@@ -66,6 +66,24 @@ export class TrainingController {
     };
   }
 
+  @Get('/exercices/category/')
+  @Authorization(false)
+  @ApiOkResponse({
+    type: GetExercicesResponseDto,
+  })
+  public async getCategoryExercices(): Promise<GetExercicesResponseDto> {
+    const exercicesResponse: GetExercicesResponseDto = await firstValueFrom(
+      this.trainingServiceClient.send('get_category_exercices', {}),
+    );
+    return {
+      message: exercicesResponse.message,
+      data: {
+        exercices: exercicesResponse.data.exercices,
+      },
+      errors: null,
+    };
+  }
+
   @Post('/')
   @Authorization(false)
   @ApiOkResponse({
@@ -218,23 +236,6 @@ export class TrainingController {
     };
   }
 
-  @Get('/exercices/category/')
-  @Authorization(false)
-  @ApiOkResponse({
-    type: GetExercicesResponseDto,
-  })
-  public async getCategoryExercices(): Promise<GetExercicesResponseDto> {
-    const exercicesResponse: GetExercicesResponseDto = await firstValueFrom(
-      this.trainingServiceClient.send('get_category_exercices', {}),
-    );
-    return {
-      message: exercicesResponse.message,
-      data: {
-        exercices: exercicesResponse.data.exercices,
-      },
-      errors: null,
-    };
-  }
 
   @Get('/exercices/category/:id')
   @Authorization(false)
