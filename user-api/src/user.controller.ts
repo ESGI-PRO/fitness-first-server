@@ -28,7 +28,8 @@ export class UserController {
       });
 
       if (user && user[0]) {
-        if (user[0].compareEncryptedPassword(searchParams.password)) {
+        const isValidePassword = await user[0].compareEncryptedPassword(searchParams.password)
+        if (isValidePassword) {
           result = {
             status: HttpStatus.OK,
             message: 'user_search_by_credentials_success',
