@@ -8,23 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var TokenController_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TokenController = void 0;
 const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
 const token_service_1 = require("./services/token.service");
 const token_types_1 = require("./services/config/token.types");
-let TokenController = class TokenController {
+let TokenController = TokenController_1 = class TokenController {
     constructor(tokenService) {
         this.tokenService = tokenService;
+        this.logger = new common_1.Logger(TokenController_1.name);
     }
     async createToken(data) {
         let result;
-        console.log('createToken', data);
+        this.logger.log('createToken', data);
         if (data && data.userId) {
             try {
                 const createResult = await this.tokenService.createToken(data.userId);
-                console.log('createResult', data.userId, createResult);
+                this.logger.log('createResult', data.userId, createResult);
                 result = {
                     status: common_1.HttpStatus.CREATED,
                     message: 'token_create_success',
@@ -32,6 +34,7 @@ let TokenController = class TokenController {
                 };
             }
             catch (e) {
+                this.logger.error(e.message, e);
                 result = {
                     status: common_1.HttpStatus.BAD_REQUEST,
                     message: 'token_create_bad_request',
@@ -40,7 +43,7 @@ let TokenController = class TokenController {
             }
         }
         else {
-            console.log('BAD_REQUEST', data);
+            this.logger.log('BAD_REQUEST', data);
             result = {
                 status: common_1.HttpStatus.BAD_REQUEST,
                 message: 'token_create_bad_request',
@@ -101,8 +104,9 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], TokenController.prototype, "verifyToken", null);
-TokenController = __decorate([
+TokenController = TokenController_1 = __decorate([
     (0, common_1.Controller)('token'),
+    (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [token_service_1.TokenService])
 ], TokenController);
 exports.TokenController = TokenController;

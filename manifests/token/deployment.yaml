@@ -35,7 +35,7 @@ spec:
           - name: MONGO_DSN
             value: mongodb://44.212.32.217:27017/token_db
           - name: JWT_SECRET
-            value:  thisisasamplesecret
+            value: thisisasamplesecret
           - name: JWT_ACCESS_EXPIRATION_MINUTES
             value: "360"
           - name: JWT_REFRESH_EXPIRATION_DAYS

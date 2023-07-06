@@ -5,6 +5,7 @@ import { ITokenDestroyResponse } from './interfaces/token-destroy-response.inter
 export declare class TokenController {
     private readonly tokenService;
     constructor(tokenService: TokenService);
+    private readonly logger;
     createToken(data: {
         userId: string;
     }): Promise<ITokenResponse>;
