@@ -46,11 +46,24 @@ export class AppService {
 
           // for each room create 10 messages
           for (let k = 0; k < 10; k++) {
-            const message = await this.messageModel.create({
+            await this.messageModel.create({
               sender_id: members[Math.floor(Math.random() * 2)],
               room_id: room.id,
               message: faker.lorem.sentence(),
             });
+                // for each trainer and trainee create 2 meetings
+                for (let k = 0; k < 2; k++) {
+                  await this.meetingModel.create({
+                    sender_id: traineeId,
+                    members: [trainer.id, traineeId],
+                    date:  faker.date.soon().toISOString(),
+                    time: faker.date.anytime(),
+                    description: faker.lorem.sentence({
+                      min: 20,
+                      max: 30
+                    })
+                   });
+                }
 
             // for each trainer and trainee create 2 meetings
             for (let k = 0; k < 2; k++) {

@@ -304,7 +304,8 @@ export class UserController {
 
     // get users from array of ids
     @MessagePattern('user_get_by_ids')
-    public async getUsersByIds(ids: string[]): Promise<any> {
+    public async getUsersByIds(data:{ids: string[]}): Promise<any> {
+      const {ids} = data;
       return await this.userService.getUsersByIds(ids);
     }
 
