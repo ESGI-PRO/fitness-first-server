@@ -10,7 +10,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { Authorization } from './decorators/authorization.decorator';
 import { firstValueFrom } from 'rxjs';
 import { GetTrainingResponseDto } from './interfaces-requests-responses/training/dto/get-training-response.dto';
@@ -19,7 +19,7 @@ import { getTrainingIdDTO } from './interfaces-requests-responses/training/dto/g
 import { GetExercicesResponseDto } from './interfaces-requests-responses/training/dto/get-exercices-response.dto';
 import { getExercicesIdDTO } from './interfaces-requests-responses/training/dto/get-exercices-id-dto';
 import { getTrainingUserIdDTO } from './interfaces-requests-responses/training/dto/get-training-userId-dto';
-
+import { Permission } from './decorators/permission.decorator';
 @Controller('training')
 @ApiTags('training')
 export class TrainingController {
@@ -31,7 +31,9 @@ export class TrainingController {
   //! FETCH TRAININGS ----------------------------------------------------------------
 
   @Get('/')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_trainings')
   @ApiOkResponse({
     type: GetTrainingResponseDto,
   })
@@ -49,7 +51,9 @@ export class TrainingController {
   }
 
   @Get('/exercices')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_exercices')
   @ApiOkResponse({
     type: GetExercicesResponseDto,
   })
@@ -67,7 +71,9 @@ export class TrainingController {
   }
 
   @Get('/exercices/category/')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_category_exercices')
   @ApiOkResponse({
     type: GetExercicesResponseDto,
   })
@@ -85,7 +91,9 @@ export class TrainingController {
   }
 
   @Post('/')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('create_training')
   @ApiOkResponse({
     type: GetTrainingResponseDto,
   })
@@ -105,7 +113,9 @@ export class TrainingController {
   }
 
   @Get('/:id')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_training_by_id')
   @ApiOkResponse({
     type: GetTrainingResponseDto,
   })
@@ -127,7 +137,9 @@ export class TrainingController {
   }
 
   @Get('/user/:userId')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_training_by_user_id')
   @ApiOkResponse({
     type: GetTrainingResponseDto,
   })
@@ -135,7 +147,7 @@ export class TrainingController {
     @Param() params: getTrainingUserIdDTO,
   ): Promise<GetTrainingResponseDto> {
     const trainingResponse: GetTrainingResponseDto = await firstValueFrom(
-      this.trainingServiceClient.send('get_training_by_UserId', {
+      this.trainingServiceClient.send('get_training_by_user_id', {
         userId: params.userId,
       }),
     );
@@ -149,7 +161,9 @@ export class TrainingController {
   }
 
   @Put('/:id')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('update_training_by_id')
   @ApiOkResponse({
     type: GetTrainingResponseDto,
   })
@@ -171,7 +185,9 @@ export class TrainingController {
   }
 
   @Delete('/:id')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('delete_training_by_id')
   @ApiOkResponse({
     type: GetTrainingResponseDto,
   })
@@ -195,7 +211,9 @@ export class TrainingController {
   //! FETCH EXERCICES ----------------------------------------------------------------
 
   @Post('/exercices')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('create_exercice')
   @ApiOkResponse({
     type: GetExercicesResponseDto,
   })
@@ -215,7 +233,9 @@ export class TrainingController {
   }
 
   @Get('/exercices/:id')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_exercice_by_id')
   @ApiOkResponse({
     type: GetExercicesResponseDto,
   })
@@ -238,7 +258,9 @@ export class TrainingController {
 
 
   @Get('/exercices/category/:id')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_exercices_by_category')
   @ApiOkResponse({
     type: GetExercicesResponseDto,
   })

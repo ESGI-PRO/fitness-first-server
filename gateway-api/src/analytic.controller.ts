@@ -1,23 +1,17 @@
 import {
   Controller,
   Post,
-  Put,
   Get,
   Body,
-  Req,
   Inject,
-  HttpStatus,
-  HttpException,
-  Param,
-  ParseUUIDPipe,
-  HttpCode,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { ApiTags, ApiOkResponse, ApiCreatedResponse, ApiBody } from '@nestjs/swagger';
-import { AnalyticInterface, CreateAnalyticDto, CreateAnalyticVisitorsCountDto, GetAllAnalyticsDto, GetAnalyticDto } from './interfaces-requests-responses/analytic/analytic.request';
-import {IAnalyticCreateResponse , IAnalyticResponse, IAnalyticsResponse, IAnalyticsVisitorResponse, IAnalyticsVisitorCreateResponse } from './interfaces-requests-responses/analytic/analytic.response';
+import { ApiTags, ApiOkResponse, ApiCreatedResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { CreateAnalyticDto, CreateAnalyticVisitorsCountDto } from './interfaces-requests-responses/analytic/analytic.request';
+import {IAnalyticCreateResponse , IAnalyticsResponse, IAnalyticsVisitorResponse, IAnalyticsVisitorCreateResponse } from './interfaces-requests-responses/analytic/analytic.response';
 import { firstValueFrom } from 'rxjs';
-
+import { Authorization } from './decorators/authorization.decorator';
+import { Permission } from './decorators/permission.decorator';
 @Controller('analytics')
 @ApiTags('analytics')
 export class AnalyticController {
@@ -27,6 +21,9 @@ export class AnalyticController {
 
   //create analytics - count visitors
   @Post("/create_analytics")
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('create_analytics')
   @ApiCreatedResponse({
     type: IAnalyticCreateResponse
   })
@@ -36,6 +33,9 @@ export class AnalyticController {
 
   //create visitors
   @Post("/create_visitors")
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('create_visitors')
   @ApiCreatedResponse({
     type: IAnalyticsVisitorCreateResponse
   })
@@ -45,6 +45,9 @@ export class AnalyticController {
   }
 
   @Post("/update_analytics_visitors")
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('update_analytics_visitors')
   @ApiCreatedResponse({
     type: IAnalyticsVisitorResponse
   })
@@ -57,6 +60,9 @@ export class AnalyticController {
 
   //get analytics - visitors count
   @Get("/find_all_analytics")
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('find_all_analytics')
   @ApiOkResponse({
       type: IAnalyticsResponse
   })
@@ -67,6 +73,9 @@ export class AnalyticController {
 
   // get analytics visitors count
   @Get("/analytics_visitors")
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('find_all_analytics_visitors')
   @ApiOkResponse({
     type: IAnalyticsVisitorResponse
   })
@@ -77,6 +86,9 @@ export class AnalyticController {
 
   // get analytics by body params
   @Post("/find_analytics_by_params")
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('find_analytics_by_params')
   @ApiOkResponse({
     type: IAnalyticsResponse
   })
@@ -84,9 +96,12 @@ export class AnalyticController {
     const analytics = await firstValueFrom(this.analyticServiceClient.send('find_analytics_by_params', data));
     return analytics
   }
-  
+
   // get analytics visitors by body params
   @Post("/find_analytics_visitors_by_params")
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('find_analytics_visitors_by_params')
   @ApiOkResponse({
     type: IAnalyticsVisitorResponse
   })

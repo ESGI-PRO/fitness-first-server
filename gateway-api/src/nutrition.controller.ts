@@ -1,6 +1,6 @@
 import { Controller, Inject, Get, Param, Post, Body, Delete, Put } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { ApiTags, ApiOkResponse, ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOkResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { Authorization } from './decorators/authorization.decorator';
 import { GetNutritionResponseDto } from './interfaces-requests-responses/nutrition/dto/get-nutrition-response.dto';
 import { firstValueFrom } from 'rxjs';
@@ -9,6 +9,8 @@ import { getIngredientIdDTO } from './interfaces-requests-responses//nutrition/d
 import { getIngredientUserIdDTO } from './interfaces-requests-responses/nutrition/dto/getIngredientUserID';
 import { getCategorieIdDTO } from './interfaces-requests-responses/nutrition/dto/get-categorie-id-dto';
 import { createRecetteDTO } from './interfaces-requests-responses/nutrition/dto/create-recette.dto';
+import { Permission } from './decorators/permission.decorator';
+
 @Controller('nutrition')
 @ApiTags('nutrition')
 export class NutritionController {
@@ -20,7 +22,9 @@ export class NutritionController {
   //! FETCH RECETTES
 
   @Get('/')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_recettes')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -38,7 +42,9 @@ export class NutritionController {
   }
 
   @Post('/')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('create_recette')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -59,6 +65,8 @@ export class NutritionController {
 
   @Get('/ingredients')
   @Authorization(false)
+  @ApiBearerAuth('access-token')
+  @Permission('get_ingredients')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -76,7 +84,9 @@ export class NutritionController {
   }
 
   @Post('/ingredients')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('create_ingredient')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -118,7 +128,9 @@ export class NutritionController {
   }
 
   @Get('/categories/')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_categories')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -136,7 +148,9 @@ export class NutritionController {
   }
 
   @Get('/:id')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_recettes_by_id')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -156,7 +170,9 @@ export class NutritionController {
   }
 
   @Get('/ingredients/:id')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_ingredients_by_id')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -223,7 +239,9 @@ export class NutritionController {
 
 
   @Get('/categories/:id')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_categorie_by_id')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -245,7 +263,9 @@ export class NutritionController {
   }
 
   @Get('/:userId/user')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_recettes_by_userId')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
