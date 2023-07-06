@@ -7,7 +7,7 @@ FROM node:18.15-alpine as common-build-stage
 WORKDIR /var/www/user-api
 
 COPY package*.json ./
-RUN npm install npm@latest -g
+
 RUN npm install
 
 COPY . .
