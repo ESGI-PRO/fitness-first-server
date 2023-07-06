@@ -3,4 +3,5 @@ export declare class CreateVideoMeetingDto {
     members: Array<string>;
     date: string;
     time: string;
+    description: string;
 }

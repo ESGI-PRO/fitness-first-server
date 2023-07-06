@@ -22,6 +22,8 @@ const get_user_subscriptions_response_dto_1 = require("./interfaces-requests-res
 const get_user_subcriptions_dto_1 = require("./interfaces-requests-responses/subscription/dto/get-user-subcriptions.dto");
 const get_user_invoices_response_dto_1 = require("./interfaces-requests-responses/subscription/dto/get-user-invoices-response.dto");
 const get_user_invoices_dto_1 = require("./interfaces-requests-responses/subscription/dto/get-user-invoices.dto");
+const authorization_decorator_1 = require("./decorators/authorization.decorator");
+const permission_decorator_1 = require("./decorators/permission.decorator");
 let SubscriptionController = class SubscriptionController {
     constructor(subscriptionServiceClient) {
         this.subscriptionServiceClient = subscriptionServiceClient;
@@ -69,7 +71,7 @@ let SubscriptionController = class SubscriptionController {
     }
     async findSubscriptionByUserId(req) {
         const { userId } = req;
-        const response = await (0, rxjs_1.firstValueFrom)(this.subscriptionServiceClient.send('findUserSubcriptions', userId));
+        const response = await (0, rxjs_1.firstValueFrom)(this.subscriptionServiceClient.send('find_user_subscriptions', userId));
         return {
             status: response.status,
             message: response.message,
@@ -79,13 +81,29 @@ let SubscriptionController = class SubscriptionController {
     }
     async findUserInvoices(req) {
         const { userId } = req;
-        const response = await (0, rxjs_1.firstValueFrom)(this.subscriptionServiceClient.send('findInvoicesByUserId', userId));
+        const response = await (0, rxjs_1.firstValueFrom)(this.subscriptionServiceClient.send('find_invoices_by_userId', userId));
         return {
             status: response.status,
             message: response.message,
             invoices: response.invoices,
             errors: null
         };
+    }
+    async findAllSubscriptions() {
+        const response = await this.subscriptionServiceClient.send('find_all_subscriptions', {});
+        return response;
+    }
+    async findAllInvoices() {
+        const response = await this.subscriptionServiceClient.send('find_all_invoices', {});
+        return response;
+    }
+    async findAllPlans() {
+        const response = await this.subscriptionServiceClient.send('find_all_plans', {});
+        return response;
+    }
+    async createPlan(req) {
+        const response = await this.subscriptionServiceClient.send('create_plan', req);
+        return response;
     }
 };
 __decorate([
@@ -101,7 +119,10 @@ __decorate([
     (0, swagger_1.ApiOkResponse)({
         type: get_user_subscriptions_response_dto_1.GetUserSubscriptionResponseDto,
     }),
-    (0, common_1.Post)('/find-user-subscriptions'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, common_1.Post)('/find_user_subscriptions'),
+    (0, permission_decorator_1.Permission)('find_user_subscriptions'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [get_user_subcriptions_dto_1.GetUserSubscriptionsDto]),
@@ -111,12 +132,40 @@ __decorate([
     (0, swagger_1.ApiOkResponse)({
         type: get_user_invoices_response_dto_1.GetUserInvoicesResponseDto,
     }),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('find_invoices_by_userId'),
     (0, common_1.Post)('/find-user-invoices'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [get_user_invoices_dto_1.GetUserInvoicesDto]),
     __metadata("design:returntype", Promise)
 ], SubscriptionController.prototype, "findUserInvoices", null);
+__decorate([
+    (0, common_1.Get)('/find-all-subscriptions'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], SubscriptionController.prototype, "findAllSubscriptions", null);
+__decorate([
+    (0, common_1.Get)('/find-all-invoices'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], SubscriptionController.prototype, "findAllInvoices", null);
+__decorate([
+    (0, common_1.Get)('/find-all-plans'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], SubscriptionController.prototype, "findAllPlans", null);
+__decorate([
+    (0, common_1.Post)('/create-plan'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SubscriptionController.prototype, "createPlan", null);
 SubscriptionController = __decorate([
     (0, common_1.Controller)('subscription'),
     (0, swagger_1.ApiTags)('subscription'),

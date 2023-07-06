@@ -94,7 +94,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TrainingController.prototype, "getTraining", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('get_training_by_UserId'),
+    (0, microservices_1.MessagePattern)('get_training_by_user_id'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)

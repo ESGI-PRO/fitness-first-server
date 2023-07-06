@@ -9,4 +9,7 @@ export declare class RoomsController {
     getAllRoomsByUserId(data: {
         userId: string;
     }): Promise<IRoomsGetResponse>;
+    getRoomsByIds(data: {
+        ids: string[];
+    }): Promise<any>;
 }

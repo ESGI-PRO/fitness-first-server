@@ -9,26 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RoomsService = void 0;
-const common_1 = require("@nestjs/common");
-const rooms_repository_1 = require("./rooms.repository");
-let RoomsService = class RoomsService {
-    constructor(roomsRepository) {
-        this.roomsRepository = roomsRepository;
-    }
-    async createRoom(createRoomDto) {
-        return await this.roomsRepository.createRoom(createRoomDto);
-    }
-    async findAllRooms(id) {
-        return await this.roomsRepository.findAllRooms(id);
-    }
-    async getRoomsByIds(ids) {
-        return await this.roomsRepository.getRoomsByIds(ids);
-    }
-};
-RoomsService = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [rooms_repository_1.RoomsRepository])
-], RoomsService);
-exports.RoomsService = RoomsService;
-//# sourceMappingURL=rooms.service.js.map
+exports.getIngredientNameDTO = void 0;
+const swagger_1 = require("@nestjs/swagger");
+class getIngredientNameDTO {
+}
+__decorate([
+    (0, swagger_1.ApiProperty)(),
+    __metadata("design:type", String)
+], getIngredientNameDTO.prototype, "name", void 0);
+exports.getIngredientNameDTO = getIngredientNameDTO;
+//# sourceMappingURL=getIngredientName.js.map

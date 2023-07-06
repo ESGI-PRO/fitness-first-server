@@ -37,11 +37,11 @@ let IngredientsController = class IngredientsController {
             errors: null,
         };
     }
-    async create(data) {
+    async create(ingredientData) {
         return {
             message: 'success message from nutritionResponse',
             data: {
-                nutrition: await this.ingredientsApi.createIngredient(data)
+                nutrition: await this.ingredientsApi.createIngredient(ingredientData)
             },
             errors: null,
         };
@@ -52,6 +52,28 @@ let IngredientsController = class IngredientsController {
             message: 'success message from nutritionResponse',
             data: {
                 nutrition: await this.ingredientsApi.getIngredientForUserByID(params.userId)
+            },
+            errors: null,
+        };
+    }
+    async updateIngredient(params) {
+        console.log(params.id, params.ingredientData);
+        const updatedIngredient = await this.ingredientsApi.updateIngredient(params.id, params.ingredientData);
+        return {
+            message: 'success update ingredient',
+            data: {
+                nutrition: updatedIngredient,
+            },
+            errors: null,
+        };
+    }
+    async deleteIngredient(data) {
+        const { id } = data;
+        const deletedIngredient = await this.ingredientsApi.deleteIngredient(id);
+        return {
+            message: 'success delete ingredient',
+            data: {
+                nutrition: deletedIngredient,
             },
             errors: null,
         };
@@ -81,6 +103,18 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], IngredientsController.prototype, "getIngredientForUserByID", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('edit_ingredient'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], IngredientsController.prototype, "updateIngredient", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('delete_ingredient'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], IngredientsController.prototype, "deleteIngredient", null);
 IngredientsController = __decorate([
     (0, common_1.Controller)('ingredients'),
     __metadata("design:paramtypes", [ingredients_service_1.IngredientsService])

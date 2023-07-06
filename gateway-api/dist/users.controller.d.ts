@@ -23,4 +23,8 @@ export declare class UsersController {
     getByUserId(id: string): Promise<any>;
     updateUser(id: string, user: any): Promise<any>;
     deleteUser(id: string): Promise<any>;
+    createNewUser(user: any): Promise<any>;
+    getUsersByIds(data: {
+        ids: string[];
+    }): Promise<any>;
 }

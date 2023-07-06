@@ -8,7 +8,11 @@ const helmet_1 = require("helmet");
 const raw_body_middleware_1 = require("./middlewares/raw-body.middleware");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
-    app.enableCors();
+    app.enableCors({
+        origin: true,
+        credentials: true,
+        exposedHeaders: 'X-Total-Count',
+    });
     const options = new swagger_1.DocumentBuilder()
         .setTitle('API docs')
         .addTag('users')

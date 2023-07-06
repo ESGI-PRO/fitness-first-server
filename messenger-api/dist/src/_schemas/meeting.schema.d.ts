@@ -29,6 +29,7 @@ export declare class Meeting {
     members: [ObjectId];
     date: String;
     time: String;
+    description: String;
 }
 export declare const MeetingSchema: import("mongoose").Schema<Meeting, import("mongoose").Model<Meeting, any, any, any, Document<unknown, any, Meeting> & Omit<Meeting & {
     _id: import("mongoose").Types.ObjectId;

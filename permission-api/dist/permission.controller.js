@@ -13,7 +13,6 @@ exports.PermissionController = void 0;
 const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
 const confirmed_strategy_service_1 = require("./services/confirmed-strategy.service");
-const permissions_1 = require("./constants/permissions");
 let PermissionController = class PermissionController {
     constructor(confirmedStrategy) {
         this.confirmedStrategy = confirmedStrategy;
@@ -28,7 +27,7 @@ let PermissionController = class PermissionController {
             };
         }
         else {
-            const allowedPermissions = this.confirmedStrategy.getAllowedPermissions(permissionParams.user, permissions_1.permissions);
+            const allowedPermissions = this.confirmedStrategy.getAllowedPermissions(permissionParams.user);
             const isAllowed = allowedPermissions.includes(permissionParams.permission);
             result = {
                 status: isAllowed ? common_1.HttpStatus.OK : common_1.HttpStatus.FORBIDDEN,

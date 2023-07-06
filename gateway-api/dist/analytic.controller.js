@@ -19,6 +19,8 @@ const swagger_1 = require("@nestjs/swagger");
 const analytic_request_1 = require("./interfaces-requests-responses/analytic/analytic.request");
 const analytic_response_1 = require("./interfaces-requests-responses/analytic/analytic.response");
 const rxjs_1 = require("rxjs");
+const authorization_decorator_1 = require("./decorators/authorization.decorator");
+const permission_decorator_1 = require("./decorators/permission.decorator");
 let AnalyticController = class AnalyticController {
     constructor(analyticServiceClient) {
         this.analyticServiceClient = analyticServiceClient;
@@ -53,6 +55,9 @@ let AnalyticController = class AnalyticController {
 };
 __decorate([
     (0, common_1.Post)("/create_analytics"),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('create_analytics'),
     (0, swagger_1.ApiCreatedResponse)({
         type: analytic_response_1.IAnalyticCreateResponse
     }),
@@ -63,6 +68,9 @@ __decorate([
 ], AnalyticController.prototype, "createAnalytics", null);
 __decorate([
     (0, common_1.Post)("/create_visitors"),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('create_visitors'),
     (0, swagger_1.ApiCreatedResponse)({
         type: analytic_response_1.IAnalyticsVisitorCreateResponse
     }),
@@ -73,6 +81,9 @@ __decorate([
 ], AnalyticController.prototype, "createVisitors", null);
 __decorate([
     (0, common_1.Post)("/update_analytics_visitors"),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('update_analytics_visitors'),
     (0, swagger_1.ApiCreatedResponse)({
         type: analytic_response_1.IAnalyticsVisitorResponse
     }),
@@ -83,6 +94,9 @@ __decorate([
 ], AnalyticController.prototype, "updateAnalyticsVisitors", null);
 __decorate([
     (0, common_1.Get)("/find_all_analytics"),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('find_all_analytics'),
     (0, swagger_1.ApiOkResponse)({
         type: analytic_response_1.IAnalyticsResponse
     }),
@@ -92,6 +106,9 @@ __decorate([
 ], AnalyticController.prototype, "findAllAnalytics", null);
 __decorate([
     (0, common_1.Get)("/analytics_visitors"),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('find_all_analytics_visitors'),
     (0, swagger_1.ApiOkResponse)({
         type: analytic_response_1.IAnalyticsVisitorResponse
     }),
@@ -101,6 +118,9 @@ __decorate([
 ], AnalyticController.prototype, "findAllAnalyticsVisitors", null);
 __decorate([
     (0, common_1.Post)("/find_analytics_by_params"),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('find_analytics_by_params'),
     (0, swagger_1.ApiOkResponse)({
         type: analytic_response_1.IAnalyticsResponse
     }),
@@ -111,6 +131,9 @@ __decorate([
 ], AnalyticController.prototype, "findAnalyticsBy", null);
 __decorate([
     (0, common_1.Post)("/find_analytics_visitors_by_params"),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('find_analytics_visitors_by_params'),
     (0, swagger_1.ApiOkResponse)({
         type: analytic_response_1.IAnalyticsVisitorResponse
     }),

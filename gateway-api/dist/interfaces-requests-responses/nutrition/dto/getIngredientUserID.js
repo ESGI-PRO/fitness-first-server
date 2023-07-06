@@ -15,7 +15,7 @@ class getIngredientUserIdDTO {
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], getIngredientUserIdDTO.prototype, "userId", void 0);
 exports.getIngredientUserIdDTO = getIngredientUserIdDTO;
 //# sourceMappingURL=getIngredientUserID.js.map

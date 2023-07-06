@@ -32,41 +32,66 @@ let AppService = class AppService {
             this.messageModel.deleteMany({}).exec();
         };
         const seedAlgo = async () => {
-            const trainers = await (0, rxjs_1.firstValueFrom)(this.userServiceClient.send('user_search_by_params', { isTrainer: true }));
+            const trainers = await (0, rxjs_1.firstValueFrom)(this.userServiceClient.send('user_search_by_params', {
+                isTrainer: true,
+            }));
             for (let i = 0; i < trainers.length; i++) {
                 const trainer = trainers[i];
                 const trainees = trainer.traineeIds;
                 for (let j = 0; j < trainees.length; j++) {
                     const traineeId = trainees[j];
+                    const members = [trainer.id, traineeId];
                     const room = await this.roomModel.create({
                         sender_id: traineeId,
-                        members: [trainer.id, traineeId]
+                        members: members,
                     });
-                    for (let k = 0; k < 2; k++) {
-                        await this.meetingModel.create({
-                            sender_id: traineeId,
-                            members: [trainer.id, traineeId],
-                            date: faker_1.faker.date.soon().toISOString(),
-                            time: faker_1.faker.date.anytime()
-                        });
-                    }
                     for (let k = 0; k < 10; k++) {
                         await this.messageModel.create({
-                            sender_id: trainer.id,
+                            sender_id: members[Math.floor(Math.random() * 2)],
                             room_id: room.id,
-                            message: faker_1.faker.lorem.sentence()
+                            message: faker_1.faker.lorem.sentence(),
                         });
+                        for (let k = 0; k < 2; k++) {
+                            await this.meetingModel.create({
+                                sender_id: traineeId,
+                                members: [trainer.id, traineeId],
+                                date: faker_1.faker.date.soon().toISOString(),
+                                time: faker_1.faker.date.anytime(),
+                                description: faker_1.faker.lorem.sentence({
+                                    min: 20,
+                                    max: 30
+                                })
+                            });
+                        }
+                        for (let k = 0; k < 2; k++) {
+                            await this.meetingModel.create({
+                                sender_id: traineeId,
+                                members: [trainer.id, traineeId],
+                                date: faker_1.faker.date.soon().toISOString(),
+                                time: faker_1.faker.date.anytime(),
+                            });
+                        }
+                        for (let k = 0; k < 10; k++) {
+                            await this.messageModel.create({
+                                sender_id: trainer.id,
+                                room_id: room.id,
+                                message: faker_1.faker.lorem.sentence(),
+                            });
+                        }
                     }
                 }
             }
+            this.roomModel
+                .countDocuments({})
+                .then(async (count) => {
+                if (count < 1) {
+                    await seedAlgo();
+                }
+            })
+                .catch((err) => {
+                console.log(err);
+            });
         };
-        this.roomModel.countDocuments({}).then(async (count) => {
-            if (count < 1) {
-                await seedAlgo();
-            }
-        }).catch((err) => {
-            console.log(err);
-        });
     }
 };
 AppService = __decorate([

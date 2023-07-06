@@ -35,13 +35,19 @@ let RecettesService = class RecettesService {
         });
     }
     async getRecetteForUserByID(userId) {
+        console.log("userId", userId);
         return new Promise(async (resolve, reject) => {
-            const recettes = await prisma.recettes.findUnique({
+            const recettes = await prisma.recettes.findMany({
                 where: {
-                    id: Number(userId),
+                    UserId: String(userId),
                 },
             });
             resolve(recettes);
+        });
+    }
+    async deleteRecette(id) {
+        return prisma.recettes.delete({
+            where: { id: id },
         });
     }
 };

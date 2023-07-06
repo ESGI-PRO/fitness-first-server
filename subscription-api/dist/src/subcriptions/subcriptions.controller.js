@@ -56,41 +56,41 @@ let SubcriptionsController = class SubcriptionsController {
     }
 };
 __decorate([
-    (0, microservices_1.MessagePattern)('createSubcription'),
+    (0, microservices_1.MessagePattern)('create_subscription'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_subcription_dto_1.CreateSubcriptionDto]),
     __metadata("design:returntype", void 0)
 ], SubcriptionsController.prototype, "create", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('findAllSubcriptions'),
+    (0, microservices_1.MessagePattern)('find_all_subscriptions'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], SubcriptionsController.prototype, "findAll", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('findUserSubcriptions'),
+    (0, microservices_1.MessagePattern)('find_user_subscriptions'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], SubcriptionsController.prototype, "findByUserId", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('findOneSubcription'),
+    (0, microservices_1.MessagePattern)('find_one_subscription'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], SubcriptionsController.prototype, "findOne", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('updateSubcription'),
+    (0, microservices_1.MessagePattern)('update_subscription'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [update_subcription_dto_1.UpdateSubcriptionDto]),
     __metadata("design:returntype", void 0)
 ], SubcriptionsController.prototype, "update", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('removeSubcription'),
+    (0, microservices_1.MessagePattern)('remove_subscription'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

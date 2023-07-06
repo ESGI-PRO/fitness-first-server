@@ -93,6 +93,14 @@ let RoomsController = class RoomsController {
         }
         return result;
     }
+    async getRoomsByIds(data) {
+        const { ids } = data;
+        let result;
+        if (ids && ids.length > 0) {
+            result = await this.roomsService.getRoomsByIds(ids);
+        }
+        return result;
+    }
 };
 __decorate([
     (0, microservices_1.MessagePattern)('create_room'),
@@ -106,6 +114,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], RoomsController.prototype, "getAllRoomsByUserId", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('get_rooms_by_member_ids'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], RoomsController.prototype, "getRoomsByIds", null);
 RoomsController = __decorate([
     (0, common_1.Controller)('rooms'),
     __metadata("design:paramtypes", [rooms_service_1.RoomsService])

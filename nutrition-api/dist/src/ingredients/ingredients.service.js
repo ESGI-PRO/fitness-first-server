@@ -33,7 +33,8 @@ let IngredientsService = class IngredientsService {
     }
     async createIngredient(data) {
         return new Promise(async (resolve, reject) => {
-            const ingredients = await prisma.ingredients.findMany();
+            console.log(data);
+            const ingredients = await prisma.ingredients.create({ data });
             resolve(ingredients);
         });
     }
@@ -45,6 +46,17 @@ let IngredientsService = class IngredientsService {
                 },
             });
             resolve(ingredients);
+        });
+    }
+    async updateIngredient(id, data) {
+        return prisma.ingredients.update({
+            where: { id: id },
+            data: Object.assign({}, data),
+        });
+    }
+    async deleteIngredient(id) {
+        return prisma.ingredients.delete({
+            where: { id: id },
         });
     }
 };

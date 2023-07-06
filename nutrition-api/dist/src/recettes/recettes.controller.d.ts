@@ -7,5 +7,10 @@ export declare class RecettesController {
         id: number;
     }): Promise<any>;
     create(data: any): Promise<any>;
-    getRecetteForUserByID(userId: number): Promise<any>;
+    getRecetteForUserByID(params: {
+        userId: string;
+    }): Promise<any>;
+    deleteIngredient(data: {
+        id: number;
+    }): Promise<any>;
 }

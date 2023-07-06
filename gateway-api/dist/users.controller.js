@@ -27,6 +27,7 @@ const logout_user_response_dto_1 = require("./interfaces-requests-responses/user
 const confirm_user_dto_1 = require("./interfaces-requests-responses/user/dto/confirm-user.dto");
 const confirm_user_response_dto_1 = require("./interfaces-requests-responses/user/dto/confirm-user-response.dto");
 const refresh_token_1 = require("./interfaces-requests-responses/user/dto/refresh-token");
+const permission_decorator_1 = require("./decorators/permission.decorator");
 let UsersController = class UsersController {
     constructor(tokenServiceClient, userServiceClient) {
         this.tokenServiceClient = tokenServiceClient;
@@ -157,20 +158,28 @@ let UsersController = class UsersController {
         }
     }
     async getAllUsers() {
-        const users = await this.userServiceClient.send('user_get_all', {});
+        const users = await (0, rxjs_1.firstValueFrom)(this.userServiceClient.send('user_get_all', {}));
         return users;
     }
     async getByUserId(id) {
-        const user = await this.userServiceClient.send('get_user_by_id', id);
+        const user = await (0, rxjs_1.firstValueFrom)(this.userServiceClient.send('get_user_by_id', id));
         return user;
     }
     async updateUser(id, user) {
-        const updatedUser = await this.userServiceClient.send('user_update_by_id', { id, user });
+        const updatedUser = await (0, rxjs_1.firstValueFrom)(this.userServiceClient.send('user_update_by_id', { id, user }));
         return updatedUser;
     }
     async deleteUser(id) {
-        const deletedUser = await this.userServiceClient.send('user_delete_by_id', id);
+        const deletedUser = await (0, rxjs_1.firstValueFrom)(this.userServiceClient.send('user_delete_by_id', id));
         return deletedUser;
+    }
+    async createNewUser(user) {
+        const createdUser = await (0, rxjs_1.firstValueFrom)(this.userServiceClient.send('user_new', user));
+        return createdUser;
+    }
+    async getUsersByIds(data) {
+        const users = await (0, rxjs_1.firstValueFrom)(this.userServiceClient.send('user_get_by_ids', data));
+        return users;
     }
 };
 __decorate([
@@ -190,7 +199,6 @@ __decorate([
     (0, swagger_1.ApiCreatedResponse)({
         type: create_user_response_dto_1.CreateUserResponseDto,
     }),
-    (0, authorization_decorator_1.Authorization)(false),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
@@ -201,7 +209,6 @@ __decorate([
     (0, swagger_1.ApiCreatedResponse)({
         type: login_user_response_dto_1.LoginUserResponseDto,
     }),
-    (0, authorization_decorator_1.Authorization)(false),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [login_user_dto_1.LoginUserDto]),
@@ -224,6 +231,8 @@ __decorate([
     (0, swagger_1.ApiCreatedResponse)({
         type: confirm_user_response_dto_1.ConfirmUserResponseDto,
     }),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
     __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [confirm_user_dto_1.ConfirmUserDto]),
@@ -234,6 +243,8 @@ __decorate([
     (0, swagger_1.ApiCreatedResponse)({
         type: login_user_response_dto_1.LoginUserResponseDto,
     }),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [refresh_token_1.RefreshTokenDto]),
@@ -241,12 +252,18 @@ __decorate([
 ], UsersController.prototype, "refreshToken", null);
 __decorate([
     (0, common_1.Get)(),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('user_get_all'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getAllUsers", null);
 __decorate([
     (0, common_1.Get)(':id'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('user_get_by_id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -254,6 +271,9 @@ __decorate([
 ], UsersController.prototype, "getByUserId", null);
 __decorate([
     (0, common_1.Put)(':id'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('user_update_by_id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -262,11 +282,31 @@ __decorate([
 ], UsersController.prototype, "updateUser", null);
 __decorate([
     (0, common_1.Delete)(':id'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('user_delete_by_id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "deleteUser", null);
+__decorate([
+    (0, common_1.Post)('/new_user'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "createNewUser", null);
+__decorate([
+    (0, common_1.Post)('/get_users_by_ids'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('user_get_by_ids'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "getUsersByIds", null);
 UsersController = __decorate([
     (0, common_1.Controller)('users'),
     (0, swagger_1.ApiTags)('users'),

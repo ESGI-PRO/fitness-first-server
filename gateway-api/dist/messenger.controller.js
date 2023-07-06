@@ -25,6 +25,8 @@ const get_all_room_messages_response_dto_1 = require("./interfaces-requests-resp
 const get_all_rooms_response_dto_1 = require("./interfaces-requests-responses/messenger/dto/get-all-rooms-response.dto");
 const video_meeting_request_1 = require("./interfaces-requests-responses/messenger/dto/video-meeting.request");
 const video_meeting_response_1 = require("./interfaces-requests-responses/messenger/dto/video-meeting.response");
+const authorization_decorator_1 = require("./decorators/authorization.decorator");
+const permission_decorator_1 = require("./decorators/permission.decorator");
 let MessengerController = class MessengerController {
     constructor(messengerServiceClient) {
         this.messengerServiceClient = messengerServiceClient;
@@ -61,9 +63,16 @@ let MessengerController = class MessengerController {
         const response = await (0, rxjs_1.firstValueFrom)(this.messengerServiceClient.send("get_twilio_token", userId));
         return response;
     }
+    async getRoomsByIds(data) {
+        const response = await (0, rxjs_1.firstValueFrom)(this.messengerServiceClient.send("get_rooms_by_member_ids", data));
+        return response;
+    }
 };
 __decorate([
     (0, common_1.Post)('/create_message'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('create_message'),
     (0, swagger_1.ApiCreatedResponse)({
         type: create_message_response_dto_1.CreateMessageResponseDto,
     }),
@@ -74,6 +83,9 @@ __decorate([
 ], MessengerController.prototype, "send", null);
 __decorate([
     (0, common_1.Post)('/create_room'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('create_room'),
     (0, swagger_1.ApiCreatedResponse)({
         type: create_room_response_dto_1.CreateRoomResponseDto,
     }),
@@ -84,6 +96,9 @@ __decorate([
 ], MessengerController.prototype, "createRoom", null);
 __decorate([
     (0, common_1.Get)('/get-room-messages/:roomId'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('get_room_messages'),
     (0, swagger_1.ApiOkResponse)({
         type: get_all_room_messages_response_dto_1.GetAllRoomMessagesResponseDto,
     }),
@@ -94,6 +109,9 @@ __decorate([
 ], MessengerController.prototype, "getRoomMessages", null);
 __decorate([
     (0, common_1.Get)('/get-all-rooms/:userId'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('get_all_rooms'),
     (0, swagger_1.ApiOkResponse)({
         type: get_all_rooms_response_dto_1.GetAllRoomsResponseDto,
     }),
@@ -104,6 +122,9 @@ __decorate([
 ], MessengerController.prototype, "getAllRooms", null);
 __decorate([
     (0, common_1.Post)('/create_meeting'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('create_video_meeting'),
     (0, swagger_1.ApiCreatedResponse)({
         type: video_meeting_response_1.CreateMeetingResponseDto,
     }),
@@ -114,6 +135,9 @@ __decorate([
 ], MessengerController.prototype, "createMeeting", null);
 __decorate([
     (0, common_1.Put)('/update_meeting'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('update_video_meeting'),
     (0, swagger_1.ApiCreatedResponse)({
         type: video_meeting_response_1.UpdateMeetingResponseDto,
     }),
@@ -124,6 +148,9 @@ __decorate([
 ], MessengerController.prototype, "updateMeeting", null);
 __decorate([
     (0, common_1.Get)('/get-all-meetings/:userId'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('find_all_video_meeting'),
     (0, swagger_1.ApiOkResponse)({
         type: get_all_rooms_response_dto_1.GetAllRoomsResponseDto,
     }),
@@ -134,6 +161,9 @@ __decorate([
 ], MessengerController.prototype, "getAllMeetings", null);
 __decorate([
     (0, common_1.Get)('/get-twilio-token/:userId'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('get_twilio_token'),
     (0, swagger_1.ApiOkResponse)({
         type: video_meeting_response_1.GetTwilioTokenResponseDto,
     }),
@@ -142,8 +172,20 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], MessengerController.prototype, "getTwilioToken", null);
+__decorate([
+    (0, common_1.Post)('/get_rooms_by_member_ids'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('get_rooms_by_member_ids'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], MessengerController.prototype, "getRoomsByIds", null);
 MessengerController = __decorate([
     (0, common_1.Controller)('messenger'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
     (0, swagger_1.ApiTags)('messenger'),
     __param(0, (0, common_1.Inject)('MESSENGER_SERVICE')),
     __metadata("design:paramtypes", [microservices_1.ClientProxy])

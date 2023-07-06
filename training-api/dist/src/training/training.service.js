@@ -41,6 +41,10 @@ let TrainingService = class TrainingService {
                 where: {
                     userId: String(userId)
                 },
+                include: {
+                    trainingOnExercices: true,
+                    muscle: true
+                }
             });
             return training;
         }

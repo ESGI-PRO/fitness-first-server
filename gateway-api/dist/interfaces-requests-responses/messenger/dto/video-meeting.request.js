@@ -35,6 +35,11 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateMeetingDto.prototype, "time", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: "This is a description" }),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateMeetingDto.prototype, "description", void 0);
 exports.CreateMeetingDto = CreateMeetingDto;
 class UpdateMeetingDto {
 }
@@ -64,5 +69,10 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], UpdateMeetingDto.prototype, "time", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: "This is a description" }),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], UpdateMeetingDto.prototype, "description", void 0);
 exports.UpdateMeetingDto = UpdateMeetingDto;
 //# sourceMappingURL=video-meeting.request.js.map

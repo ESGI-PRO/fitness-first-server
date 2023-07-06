@@ -29,7 +29,8 @@ let UserController = class UserController {
                 email: searchParams.email,
             });
             if (user && user[0]) {
-                if (user[0].compareEncryptedPassword(searchParams.password)) {
+                const isValidePassword = await user[0].compareEncryptedPassword(searchParams.password);
+                if (isValidePassword) {
                     result = {
                         status: common_1.HttpStatus.OK,
                         message: 'user_search_by_credentials_success',
@@ -257,12 +258,21 @@ let UserController = class UserController {
         const user = await this.userService.deleteUserById(id);
         return user;
     }
-    async updateUserById(id, user) {
-        const updatedUser = await this.userService.updateUserById(id, user);
+    async updateUserById(data) {
+        const { id, user } = data;
+        const updatedUser = await this.userService.updateUser(id, user);
         return updatedUser;
+    }
+    async newUser(user) {
+        const newUser = await this.userService.newUser(user);
+        return newUser;
     }
     async searchUserByParams(userParams) {
         return await this.userService.searchUser(userParams);
+    }
+    async getUsersByIds(data) {
+        const { ids } = data;
+        return await this.userService.getUsersByIds(ids);
     }
     async connectUserToTrainer(data) {
         let result;
@@ -365,15 +375,27 @@ __decorate([
 __decorate([
     (0, microservices_1.MessagePattern)('user_update_by_id'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateUserById", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('user_new'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "newUser", null);
 __decorate([
     (0, microservices_1.MessagePattern)('user_search_by_params'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "searchUserByParams", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('user_get_by_ids'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getUsersByIds", null);
 __decorate([
     (0, microservices_1.MessagePattern)('user_connect_to_trainer'),
     __metadata("design:type", Function),

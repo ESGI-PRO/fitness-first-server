@@ -43,7 +43,6 @@ let VideoMeetingController = class VideoMeetingController {
     }
     async findAllUserMeetings(id) {
         const data = await this.videoMeetingService.findAllUserMeetings(id);
-        console.log("find_all_video_meeting", data);
         if (data) {
             return {
                 status: common_1.HttpStatus.OK,

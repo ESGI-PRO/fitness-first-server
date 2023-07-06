@@ -56,20 +56,20 @@ let InvoicesController = class InvoicesController {
     }
 };
 __decorate([
-    (0, microservices_1.MessagePattern)('createInvoice'),
+    (0, microservices_1.MessagePattern)('create_invoice'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_invoice_dto_1.CreateInvoiceDto]),
     __metadata("design:returntype", void 0)
 ], InvoicesController.prototype, "create", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('findAllInvoices'),
+    (0, microservices_1.MessagePattern)('find_all_invoices'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], InvoicesController.prototype, "findAll", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('findInvoicesByUserId'),
+    (0, microservices_1.MessagePattern)('find_invoices_by_userId'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

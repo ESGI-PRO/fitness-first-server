@@ -18,4 +18,7 @@ export declare class MessengerController {
     updateMeeting(meeting: UpdateMeetingDto): Promise<UpdateMeetingResponseDto>;
     getAllMeetings(userId: string): Promise<GetAllMeetingResponseDto>;
     getTwilioToken(userId: string): Promise<GetTwilioTokenResponseDto>;
+    getRoomsByIds(data: {
+        ids: string[];
+    }): Promise<any>;
 }

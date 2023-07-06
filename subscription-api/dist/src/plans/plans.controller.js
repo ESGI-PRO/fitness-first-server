@@ -39,34 +39,34 @@ let PlansController = class PlansController {
     }
 };
 __decorate([
-    (0, microservices_1.MessagePattern)('createPlan'),
+    (0, microservices_1.MessagePattern)('create_plan'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_plan_dto_1.CreatePlanDto]),
     __metadata("design:returntype", void 0)
 ], PlansController.prototype, "create", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('findAllPlans'),
+    (0, microservices_1.MessagePattern)('find_all_plans'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], PlansController.prototype, "findAll", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('findOnePlan'),
+    (0, microservices_1.MessagePattern)('find_one_plan'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], PlansController.prototype, "findOne", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('updatePlan'),
+    (0, microservices_1.MessagePattern)('update_plan'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [update_plan_dto_1.UpdatePlanDto]),
     __metadata("design:returntype", void 0)
 ], PlansController.prototype, "update", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('removePlan'),
+    (0, microservices_1.MessagePattern)('remove_plan'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

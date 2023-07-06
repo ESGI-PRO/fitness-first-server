@@ -19,15 +19,54 @@ const mongoose_2 = require("mongoose");
 const config_service_1 = require("./config/config.service");
 const data = require("../mock/users.json");
 const user_schema_1 = require("../schemas/user.schema");
+const microservices_1 = require("@nestjs/microservices");
+const faker_1 = require("@faker-js/faker");
+const rxjs_1 = require("rxjs");
 let UserService = class UserService {
-    constructor(userModel, userLinkModel, configService) {
+    constructor(userModel, userLinkModel, subscriptionServiceClient, configService) {
         this.userModel = userModel;
         this.userLinkModel = userLinkModel;
+        this.subscriptionServiceClient = subscriptionServiceClient;
         this.configService = configService;
     }
     onModuleInit() {
         const cleardb = () => {
             this.userModel.deleteMany({}).exec();
+        };
+        const subscriptionGenerate = async () => {
+            const subscriptions = await (0, rxjs_1.firstValueFrom)(this.subscriptionServiceClient.send('find_all_subscriptions', {}));
+            console.log('subscriptions-all', subscriptions);
+            if ((subscriptions === null || subscriptions === void 0 ? void 0 : subscriptions.length) < 1) {
+                const users = await this.userModel.find({}).exec();
+                for (let i = 0; i < users.length; i++) {
+                    const user = users[i];
+                    const plans = await (0, rxjs_1.firstValueFrom)(this.subscriptionServiceClient.send('find_all_plans', {}));
+                    console.log('plans', plans);
+                    const activeList = [true, false];
+                    const stripeId = faker_1.faker.string.uuid();
+                    const subscription = await (0, rxjs_1.firstValueFrom)(this.subscriptionServiceClient.send('create_subscription', {
+                        userId: user.id,
+                        stripeId: stripeId,
+                        planId: plans[Math.floor(Math.random() * plans.length)].id,
+                        active: activeList[Math.floor(Math.random() * activeList.length)],
+                        currentPeriodStart: faker_1.faker.date.past(),
+                        currentPeriodEnd: faker_1.faker.date.future(),
+                    }));
+                    console.log("subscription", subscription);
+                    const planAmountList = plans.reduce((acc, plan) => {
+                        return [...acc, plan.price];
+                    }, []);
+                    const invoice = await (0, rxjs_1.firstValueFrom)(this.subscriptionServiceClient.send('create_invoice', {
+                        userId: user.id,
+                        stripeId: stripeId,
+                        amountPaid: planAmountList[Math.floor(Math.random() * planAmountList.length)],
+                        number: `${faker_1.faker.number.int({ max: 300 })}`,
+                        hostedInvoiceUrl: faker_1.faker.internet.url(),
+                        subscriptionId: subscription.id
+                    }));
+                    console.log("invoice", invoice);
+                }
+            }
         };
         const seedAlgo = async () => {
             const users = await this.userModel.find({ isTrainer: false, isAdmin: false, trainerId: null }).exec();
@@ -78,8 +117,9 @@ let UserService = class UserService {
         return this.userModel.findById(id).exec();
     }
     async updateUserById(id, userParams) {
-        console.log("update called", id, userParams);
-        this.userModel.updateOne({ _id: id }, userParams).exec();
+        const user = await this.userModel.findById(id).exec();
+        const isAdmin = user.isAdmin ? user.isAdmin : false;
+        this.userModel.updateOne({ _id: id }, Object.assign(Object.assign({}, userParams), { isAdmin: isAdmin })).exec();
         return this.userModel.findById(id).exec();
     }
     async createUser(user) {
@@ -119,18 +159,28 @@ let UserService = class UserService {
         return user;
     }
     async updateUser(id, user) {
-        const updatedUser = await this.userModel.findByIdAndUpdate(id, user);
+        const updatedUser = await this.userModel.findByIdAndUpdate(id, user, { new: true }).exec();
         if (!updatedUser)
             throw new common_1.HttpException('User not found', common_1.HttpStatus.NOT_FOUND);
         return updatedUser;
+    }
+    async newUser(user) {
+        const newUser = new this.userModel(user);
+        return await newUser.save();
+    }
+    async getUsersByIds(userIds) {
+        const users = await this.userModel.find({ _id: { $in: userIds } }).exec();
+        return users;
     }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)('User')),
     __param(1, (0, mongoose_1.InjectModel)('UserLink')),
+    __param(2, (0, common_1.Inject)('SUBSCRIPTION_SERVICE')),
     __metadata("design:paramtypes", [mongoose_2.Model,
         mongoose_2.Model,
+        microservices_1.ClientProxy,
         config_service_1.ConfigService])
 ], UserService);
 exports.UserService = UserService;

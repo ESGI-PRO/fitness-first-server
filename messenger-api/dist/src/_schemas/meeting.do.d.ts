@@ -5,5 +5,6 @@ export declare class MeetingDo {
     members: Array<Types.ObjectId>;
     date: String;
     time: String;
+    description: String;
     constructor(props: Partial<MeetingDo>);
 }

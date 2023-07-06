@@ -1,1 +1,2 @@
-export declare const permissions: string[];
+export declare const adminPermissions: string[];
+export declare const userPermissions: string[];

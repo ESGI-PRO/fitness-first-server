@@ -25,8 +25,15 @@ export declare class UserController {
     getAllUsers(): Promise<any>;
     getByUserId(id: string): Promise<any>;
     deleteUser(id: string): Promise<any>;
-    updateUserById(id: string, user: any): Promise<any>;
+    updateUserById(data: {
+        id: string;
+        user: any;
+    }): Promise<any>;
+    newUser(user: any): Promise<any>;
     searchUserByParams(userParams: any): Promise<any>;
+    getUsersByIds(data: {
+        ids: string[];
+    }): Promise<any>;
     connectUserToTrainer(data: {
         userId: string;
         trainerId: string;

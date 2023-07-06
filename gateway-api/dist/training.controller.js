@@ -25,6 +25,7 @@ const get_training_id_dto_1 = require("./interfaces-requests-responses/training/
 const get_exercices_response_dto_1 = require("./interfaces-requests-responses/training/dto/get-exercices-response.dto");
 const get_exercices_id_dto_1 = require("./interfaces-requests-responses/training/dto/get-exercices-id-dto");
 const get_training_userId_dto_1 = require("./interfaces-requests-responses/training/dto/get-training-userId-dto");
+const permission_decorator_1 = require("./decorators/permission.decorator");
 let TrainingController = class TrainingController {
     constructor(trainingServiceClient) {
         this.trainingServiceClient = trainingServiceClient;
@@ -41,6 +42,16 @@ let TrainingController = class TrainingController {
     }
     async getExercices() {
         const exercicesResponse = await (0, rxjs_1.firstValueFrom)(this.trainingServiceClient.send('get_exercices', {}));
+        return {
+            message: exercicesResponse.message,
+            data: {
+                exercices: exercicesResponse.data.exercices,
+            },
+            errors: null,
+        };
+    }
+    async getCategoryExercices() {
+        const exercicesResponse = await (0, rxjs_1.firstValueFrom)(this.trainingServiceClient.send('get_category_exercices', {}));
         return {
             message: exercicesResponse.message,
             data: {
@@ -72,7 +83,7 @@ let TrainingController = class TrainingController {
         };
     }
     async getTrainingByUserID(params) {
-        const trainingResponse = await (0, rxjs_1.firstValueFrom)(this.trainingServiceClient.send('get_training_by_UserId', {
+        const trainingResponse = await (0, rxjs_1.firstValueFrom)(this.trainingServiceClient.send('get_training_by_user_id', {
             userId: params.userId,
         }));
         return {
@@ -129,16 +140,6 @@ let TrainingController = class TrainingController {
             errors: null,
         };
     }
-    async getCategoryExercices() {
-        const exercicesResponse = await (0, rxjs_1.firstValueFrom)(this.trainingServiceClient.send('get_category_exercices', {}));
-        return {
-            message: exercicesResponse.message,
-            data: {
-                exercices: exercicesResponse.data.exercices,
-            },
-            errors: null,
-        };
-    }
     async getExercicesgByCategory(params) {
         const exercicesResponse = await (0, rxjs_1.firstValueFrom)(this.trainingServiceClient.send('get_exercices_by_category', {
             id: params.id,
@@ -154,7 +155,9 @@ let TrainingController = class TrainingController {
 };
 __decorate([
     (0, common_1.Get)('/'),
-    (0, authorization_decorator_1.Authorization)(false),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('get_trainings'),
     (0, swagger_1.ApiOkResponse)({
         type: get_training_response_dto_1.GetTrainingResponseDto,
     }),
@@ -164,7 +167,9 @@ __decorate([
 ], TrainingController.prototype, "getTrainings", null);
 __decorate([
     (0, common_1.Get)('/exercices'),
-    (0, authorization_decorator_1.Authorization)(false),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('get_exercices'),
     (0, swagger_1.ApiOkResponse)({
         type: get_exercices_response_dto_1.GetExercicesResponseDto,
     }),
@@ -173,8 +178,22 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TrainingController.prototype, "getExercices", null);
 __decorate([
+    (0, common_1.Get)('/exercices/category/'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('get_category_exercices'),
+    (0, swagger_1.ApiOkResponse)({
+        type: get_exercices_response_dto_1.GetExercicesResponseDto,
+    }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], TrainingController.prototype, "getCategoryExercices", null);
+__decorate([
     (0, common_1.Post)('/'),
-    (0, authorization_decorator_1.Authorization)(false),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('create_training'),
     (0, swagger_1.ApiOkResponse)({
         type: get_training_response_dto_1.GetTrainingResponseDto,
     }),
@@ -185,7 +204,9 @@ __decorate([
 ], TrainingController.prototype, "createTraining", null);
 __decorate([
     (0, common_1.Get)('/:id'),
-    (0, authorization_decorator_1.Authorization)(false),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('get_training_by_id'),
     (0, swagger_1.ApiOkResponse)({
         type: get_training_response_dto_1.GetTrainingResponseDto,
     }),
@@ -196,7 +217,9 @@ __decorate([
 ], TrainingController.prototype, "getTrainingByID", null);
 __decorate([
     (0, common_1.Get)('/user/:userId'),
-    (0, authorization_decorator_1.Authorization)(false),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('get_training_by_user_id'),
     (0, swagger_1.ApiOkResponse)({
         type: get_training_response_dto_1.GetTrainingResponseDto,
     }),
@@ -207,7 +230,9 @@ __decorate([
 ], TrainingController.prototype, "getTrainingByUserID", null);
 __decorate([
     (0, common_1.Put)('/:id'),
-    (0, authorization_decorator_1.Authorization)(false),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('update_training_by_id'),
     (0, swagger_1.ApiOkResponse)({
         type: get_training_response_dto_1.GetTrainingResponseDto,
     }),
@@ -218,7 +243,9 @@ __decorate([
 ], TrainingController.prototype, "updateTrainingByID", null);
 __decorate([
     (0, common_1.Delete)('/:id'),
-    (0, authorization_decorator_1.Authorization)(false),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('delete_training_by_id'),
     (0, swagger_1.ApiOkResponse)({
         type: get_training_response_dto_1.GetTrainingResponseDto,
     }),
@@ -229,7 +256,9 @@ __decorate([
 ], TrainingController.prototype, "deleteTrainingByID", null);
 __decorate([
     (0, common_1.Post)('/exercices'),
-    (0, authorization_decorator_1.Authorization)(false),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('create_exercice'),
     (0, swagger_1.ApiOkResponse)({
         type: get_exercices_response_dto_1.GetExercicesResponseDto,
     }),
@@ -240,7 +269,9 @@ __decorate([
 ], TrainingController.prototype, "createExercices", null);
 __decorate([
     (0, common_1.Get)('/exercices/:id'),
-    (0, authorization_decorator_1.Authorization)(false),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('get_exercice_by_id'),
     (0, swagger_1.ApiOkResponse)({
         type: get_exercices_response_dto_1.GetExercicesResponseDto,
     }),
@@ -250,18 +281,10 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], TrainingController.prototype, "getExercicesgByID", null);
 __decorate([
-    (0, common_1.Get)('/exercices/category/'),
-    (0, authorization_decorator_1.Authorization)(false),
-    (0, swagger_1.ApiOkResponse)({
-        type: get_exercices_response_dto_1.GetExercicesResponseDto,
-    }),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], TrainingController.prototype, "getCategoryExercices", null);
-__decorate([
     (0, common_1.Get)('/exercices/category/:id'),
-    (0, authorization_decorator_1.Authorization)(false),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('get_exercices_by_category'),
     (0, swagger_1.ApiOkResponse)({
         type: get_exercices_response_dto_1.GetExercicesResponseDto,
     }),

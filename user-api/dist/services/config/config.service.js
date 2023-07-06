@@ -17,6 +17,13 @@ class ConfigService {
             },
             transport: microservices_1.Transport.TCP,
         };
+        this.envConfig.subscriptionService = {
+            options: {
+                port: process.env.SUBSCRIPTION_SERVICE_PORT,
+                host: process.env.SUBSCRIPTION_SERVICE_HOST,
+            },
+            transport: microservices_1.Transport.TCP,
+        };
     }
     get(key) {
         return this.envConfig[key];

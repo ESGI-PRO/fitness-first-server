@@ -6,8 +6,15 @@ export declare class IngredientsController {
     getbyID(params: {
         id: number;
     }): Promise<any>;
-    create(data: any): Promise<any>;
+    create(ingredientData: any): Promise<any>;
     getIngredientForUserByID(params: {
         userId: number;
+    }): Promise<any>;
+    updateIngredient(params: {
+        id: number;
+        ingredientData: any;
+    }): Promise<any>;
+    deleteIngredient(data: {
+        id: number;
     }): Promise<any>;
 }

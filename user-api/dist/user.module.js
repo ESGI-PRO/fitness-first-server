@@ -42,6 +42,14 @@ UserModule = __decorate([
             user_service_1.UserService,
             config_service_1.ConfigService,
             {
+                provide: 'SUBSCRIPTION_SERVICE',
+                useFactory: (configService) => {
+                    const subscriptionServiceOptions = configService.get('subscriptionService');
+                    return microservices_1.ClientProxyFactory.create(subscriptionServiceOptions);
+                },
+                inject: [config_service_1.ConfigService],
+            },
+            {
                 provide: 'MAILER_SERVICE',
                 useFactory: (configService) => {
                     const mailerServiceOptions = configService.get('mailerService');

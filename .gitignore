@@ -24,6 +24,13 @@
 ./training-api/.env.*
 ./user-api/.env.*
 
+#ignore env in manifest
+./manifest/**/.env
+./manifest/**/.env.*
+./manifest/**/.env.local
+./manifest/**/.env.*.local
+
+
 
 ./analytic-api/node_modules
 ./auth-api/node_modules

@@ -30,6 +30,10 @@ __decorate([
     (0, mongoose_1.Prop)({ type: String }),
     __metadata("design:type", String)
 ], Meeting.prototype, "time", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: String }),
+    __metadata("design:type", String)
+], Meeting.prototype, "description", void 0);
 Meeting = __decorate([
     (0, mongoose_1.Schema)({ versionKey: false, timestamps: true })
 ], Meeting);

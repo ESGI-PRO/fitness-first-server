@@ -12,4 +12,8 @@ export declare class SubscriptionController {
     webhook(signature: string, req: RequestWithRawBody, res: Response): Promise<Response<any, Record<string, any>>>;
     findSubscriptionByUserId(req: GetUserSubscriptionsDto): Promise<GetUserSubscriptionResponseDto>;
     findUserInvoices(req: GetUserInvoicesDto): Promise<GetUserInvoicesResponseDto>;
+    findAllSubscriptions(): Promise<import("rxjs").Observable<any>>;
+    findAllInvoices(): Promise<import("rxjs").Observable<any>>;
+    findAllPlans(): Promise<import("rxjs").Observable<any>>;
+    createPlan(req: any): Promise<import("rxjs").Observable<any>>;
 }

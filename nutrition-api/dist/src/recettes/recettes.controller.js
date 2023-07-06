@@ -8,9 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RecettesController = void 0;
 const recettes_service_1 = require("./recettes.service");
@@ -26,7 +23,7 @@ let RecettesController = class RecettesController {
         return {
             message: 'success get ingredients',
             data: {
-                nutrition: await this.recettesApi.getRecettes()
+                nutrition: await this.recettesApi.getRecettes(),
             },
             errors: null,
         };
@@ -44,16 +41,27 @@ let RecettesController = class RecettesController {
         return {
             message: 'success get ingredients',
             data: {
-                nutrition: await this.recettesApi.createRecette(data)
+                nutrition: await this.recettesApi.createRecette(data),
             },
             errors: null,
         };
     }
-    async getRecetteForUserByID(userId) {
+    async getRecetteForUserByID(params) {
         return {
             message: 'success get ingredients',
             data: {
-                nutrition: await this.recettesApi.getRecetteForUserByID(userId)
+                nutrition: await this.recettesApi.getRecetteForUserByID(params.userId),
+            },
+            errors: null,
+        };
+    }
+    async deleteIngredient(data) {
+        const { id } = data;
+        const deletedIngredient = await this.recettesApi.deleteRecette(id);
+        return {
+            message: 'success delete recette',
+            data: {
+                nutrition: deletedIngredient,
             },
             errors: null,
         };
@@ -79,11 +87,16 @@ __decorate([
 ], RecettesController.prototype, "create", null);
 __decorate([
     (0, microservices_1.MessagePattern)('get_recettes_by_userId'),
-    __param(0, (0, common_1.Param)('userId')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], RecettesController.prototype, "getRecetteForUserByID", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('delete_recette'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], RecettesController.prototype, "deleteIngredient", null);
 RecettesController = __decorate([
     (0, common_1.Controller)('recettes'),
     __metadata("design:paramtypes", [recettes_service_1.RecettesService])

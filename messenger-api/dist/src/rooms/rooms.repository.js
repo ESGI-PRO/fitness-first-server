@@ -45,6 +45,10 @@ let RoomsRepository = class RoomsRepository {
         }));
         return rooms;
     }
+    async getRoomsByIds(ids) {
+        const rooms = await this.roomModel.find({ members: { $all: ids } });
+        return rooms;
+    }
 };
 RoomsRepository = __decorate([
     __param(0, (0, mongoose_1.InjectModel)('Room')),

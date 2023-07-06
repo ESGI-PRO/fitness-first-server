@@ -1,3 +1,3 @@
 export declare class getIngredientUserIdDTO {
-    userId: number;
+    userId: string;
 }

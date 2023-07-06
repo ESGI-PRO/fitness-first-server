@@ -11,6 +11,7 @@ export declare class TrainingController {
     constructor(trainingServiceClient: ClientProxy);
     getTrainings(): Promise<GetTrainingResponseDto>;
     getExercices(): Promise<GetExercicesResponseDto>;
+    getCategoryExercices(): Promise<GetExercicesResponseDto>;
     createTraining(trainingData: CreateTrainingDTO): Promise<GetTrainingResponseDto>;
     getTrainingByID(params: getTrainingIdDTO): Promise<GetTrainingResponseDto>;
     getTrainingByUserID(params: getTrainingUserIdDTO): Promise<GetTrainingResponseDto>;
@@ -18,6 +19,5 @@ export declare class TrainingController {
     deleteTrainingByID(params: getTrainingIdDTO): Promise<GetTrainingResponseDto>;
     createExercices(exercicesData: CreateExercicesDTO): Promise<GetExercicesResponseDto>;
     getExercicesgByID(params: getExercicesIdDTO): Promise<GetExercicesResponseDto>;
-    getCategoryExercices(): Promise<GetExercicesResponseDto>;
     getExercicesgByCategory(params: getExercicesIdDTO): Promise<GetExercicesResponseDto>;
 }

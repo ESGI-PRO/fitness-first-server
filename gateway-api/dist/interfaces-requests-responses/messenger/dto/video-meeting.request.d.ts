@@ -3,6 +3,7 @@ declare class CreateMeetingDto {
     members: Array<string>;
     date: string;
     time: string;
+    description: string;
 }
 declare class UpdateMeetingDto {
     id: string;
@@ -10,5 +11,6 @@ declare class UpdateMeetingDto {
     members: Array<string>;
     date: string;
     time: string;
+    description: string;
 }
 export { CreateMeetingDto, UpdateMeetingDto };

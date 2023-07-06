@@ -5,4 +5,5 @@ export declare class RoomsService {
     constructor(roomsRepository: RoomsRepository);
     createRoom(createRoomDto: CreateRoomDto): Promise<any>;
     findAllRooms(id: string): Promise<any>;
+    getRoomsByIds(ids: string[]): Promise<any>;
 }

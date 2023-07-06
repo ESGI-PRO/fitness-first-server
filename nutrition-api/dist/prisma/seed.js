@@ -1,23 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const finals = require('../datas/final');
+const ingredients = require('../datas/final');
 const categories = require('../datas/categories');
 const recettes = require('../datas/recettes');
 const client_1 = require("@prisma/client");
 const faker_1 = require("@faker-js/faker");
 const prisma = new client_1.PrismaClient();
 function insertCategories() {
-    Promise.all(categories.map((n) => prisma.categories.create({
+    categories.forEach((n) => prisma.categories
+        .create({
         data: n,
-    })))
+    })
         .then(() => {
         console.info('[SEED] Succussfully create categories records');
-        insertIngredients();
     })
-        .catch((e) => console.error('[SEED] Failed to create categories records', e));
+        .catch((e) => console.error('[SEED] Failed to create categories records', e)));
 }
 function insertIngredients() {
-    Promise.all(finals.map((n) => prisma.ingredients.create({
+    finals.forEach((n) => prisma.ingredients
+        .create({
         data: {
             name: n.name,
             calories: n.calories,
@@ -33,12 +35,11 @@ function insertIngredients() {
             fiber_g: n.fiber_g,
             sugar_g: n.sugar_g,
         },
-    })))
+    })
         .then(() => {
         console.info('[SEED] Succussfully create ingredients records');
-        insertRecettes();
     })
-        .catch((e) => console.error('[SEED] Failed to create ingredients records', e));
+        .catch((e) => console.error('[SEED] Failed to create ingredients records', e)));
 }
 function insertRecettes() {
     try {
@@ -47,7 +48,7 @@ function insertRecettes() {
                 .create({
                 data: {
                     title: faker_1.faker.lorem.text(),
-                    UserId: faker_1.faker.number.int({ max: 160 }),
+                    UserId: faker_1.faker.string.uuid(),
                     instructions: [
                         {
                             order: faker_1.faker.number.int({ max: 160 }),
@@ -66,9 +67,11 @@ function insertRecettes() {
                 .catch((e) => console.error('[SEED] Failed to create ingredients records', e));
         }
     }
-    catch (e) {
-        console.log(e);
+    catch (error) {
+        console.log(error);
     }
 }
+insertCategories();
+insertIngredients();
 insertRecettes();
 //# sourceMappingURL=seed.js.map

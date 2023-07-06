@@ -7,4 +7,5 @@ export declare class RoomsRepository {
     constructor(roomModel: Model<RoomDo>, userServiceClient: ClientProxy);
     createRoom(room: any): Promise<any>;
     findAllRooms(id: any): Promise<any>;
+    getRoomsByIds(ids: string[]): Promise<any>;
 }
