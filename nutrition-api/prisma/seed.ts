@@ -7,16 +7,13 @@ import { faker } from '@faker-js/faker';
 const prisma = new PrismaClient();
 
 function insertCategories() {
-  Promise.all(
     categories.map((n) =>
       prisma.categories.create({
         data: n,
       }),
-    ),
-  )
+    )
     .then(() => {
       console.info('[SEED] Succussfully create categories records');
-      insertIngredients();
     })
     .catch((e) =>
       console.error('[SEED] Failed to create categories records', e),
@@ -24,8 +21,8 @@ function insertCategories() {
 }
 
 function insertIngredients() {
-  Promise.all(
-    finals.map((n) =>
+  finals
+    .map((n) =>
       prisma.ingredients.create({
         data: {
           name: n.name,
@@ -43,8 +40,7 @@ function insertIngredients() {
           sugar_g: n.sugar_g,
         },
       }),
-    ),
-  )
+    )
     .then(() => {
       console.info('[SEED] Succussfully create ingredients records');
     })
@@ -55,8 +51,7 @@ function insertIngredients() {
 
 function insertRecettes() {
   try {
-    for (var i = 0; i < 170 ; i++) {
-      
+    for (var i = 0; i < 170; i++) {
       prisma.recettes
         .create({
           data: {
@@ -86,4 +81,5 @@ function insertRecettes() {
   }
 }
 insertCategories();
+insertIngredients();
 insertRecettes();
