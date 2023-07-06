@@ -28,7 +28,8 @@ export class UserController {
       });
 
       if (user && user[0]) {
-        if (user[0].compareEncryptedPassword(searchParams.password)) {
+        const isValidePassword = await user[0].compareEncryptedPassword(searchParams.password)
+        if (isValidePassword) {
           result = {
             status: HttpStatus.OK,
             message: 'user_search_by_credentials_success',
@@ -311,7 +312,8 @@ export class UserController {
 
     // get users from array of ids
     @MessagePattern('user_get_by_ids')
-    public async getUsersByIds(ids: string[]): Promise<any> {
+    public async getUsersByIds(data:{ids: string[]}): Promise<any> {
+      const {ids} = data;
       return await this.userService.getUsersByIds(ids);
     }
 

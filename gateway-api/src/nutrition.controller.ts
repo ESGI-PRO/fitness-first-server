@@ -1,6 +1,6 @@
-import { Controller, Inject, Get, Param, Post, Body } from '@nestjs/common';
+import { Controller, Inject, Get, Param, Post, Body, Delete, Put } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { ApiTags, ApiOkResponse, ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOkResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { Authorization } from './decorators/authorization.decorator';
 import { GetNutritionResponseDto } from './interfaces-requests-responses/nutrition/dto/get-nutrition-response.dto';
 import { firstValueFrom } from 'rxjs';
@@ -9,6 +9,8 @@ import { getIngredientIdDTO } from './interfaces-requests-responses//nutrition/d
 import { getIngredientUserIdDTO } from './interfaces-requests-responses/nutrition/dto/getIngredientUserID';
 import { getCategorieIdDTO } from './interfaces-requests-responses/nutrition/dto/get-categorie-id-dto';
 import { createRecetteDTO } from './interfaces-requests-responses/nutrition/dto/create-recette.dto';
+import { Permission } from './decorators/permission.decorator';
+
 @Controller('nutrition')
 @ApiTags('nutrition')
 export class NutritionController {
@@ -20,7 +22,9 @@ export class NutritionController {
   //! FETCH RECETTES
 
   @Get('/')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_recettes')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -37,9 +41,10 @@ export class NutritionController {
     };
   }
 
-
   @Post('/')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('create_recette')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -60,6 +65,8 @@ export class NutritionController {
 
   @Get('/ingredients')
   @Authorization(false)
+  @ApiBearerAuth('access-token')
+  @Permission('get_ingredients')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -77,7 +84,9 @@ export class NutritionController {
   }
 
   @Post('/ingredients')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('create_ingredient')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -96,8 +105,32 @@ export class NutritionController {
     };
   }
 
-  @Get('/categories/')
+
+  @Put('/ingredients/:id')
   @Authorization(false)
+  @ApiOkResponse({
+    type: GetNutritionResponseDto,
+  })
+  public async updateIngredient(
+    @Param() params: getIngredientIdDTO,
+    @Body() ingredientData: any,
+  ): Promise<GetNutritionResponseDto> {
+    const nutritionResponse: any = await firstValueFrom(
+      this.nutritionServiceClient.send('edit_ingredient', { id: Number(params.id), ingredientData }),
+    );
+    return {
+      message: nutritionResponse.message,
+      data: {
+        nutrition: nutritionResponse.data.nutrition,
+      },
+      errors: null,
+    };
+  }
+
+  @Get('/categories/')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_categories')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -115,7 +148,9 @@ export class NutritionController {
   }
 
   @Get('/:id')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_recettes_by_id')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -134,9 +169,10 @@ export class NutritionController {
     };
   }
 
-
   @Get('/ingredients/:id')
-  @Authorization(false)
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_ingredients_by_id')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -159,8 +195,53 @@ export class NutritionController {
   }
 
 
-  @Get('/categories/:id')
+
+  @Delete('/ingredients/:id')
   @Authorization(false)
+  @ApiOkResponse({
+    type: GetNutritionResponseDto,
+  })
+  public async deleteIngredient(
+    @Param('id') id: string,
+  ): Promise<GetNutritionResponseDto> {
+    const nutritionResponse: any = await firstValueFrom(
+      this.nutritionServiceClient.send('delete_ingredient', { id: Number(id) }),
+    );
+    return {
+      message: nutritionResponse.message,
+      data: {
+        nutrition: nutritionResponse.data.nutrition,
+      },
+      errors: null,
+    };
+  }
+
+
+  @Delete('/:id')
+  @Authorization(false)
+  @ApiOkResponse({
+    type: GetNutritionResponseDto,
+  })
+  public async deleteRecette(
+    @Param('id') id: string,
+  ): Promise<GetNutritionResponseDto> {
+    const nutritionResponse: any = await firstValueFrom(
+      this.nutritionServiceClient.send('delete_recette', { id: Number(id) }),
+    );
+    return {
+      message: nutritionResponse.message,
+      data: {
+        nutrition: nutritionResponse.data.nutrition,
+      },
+      errors: null,
+    };
+  }
+
+
+  @Get('/categories/:id')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_categorie_by_id')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -181,27 +262,29 @@ export class NutritionController {
     };
   }
 
-  // @Post('/ingredients/:userId/user')
-  // @Authorization(false)
-  // @ApiOkResponse({
-  //   type: GetNutritionResponseDto,
-  // })
-  // public async getIngredientByUserId(
-  //   @Param() params: getIngredientUserIdDTO,
-  // ): Promise<GetNutritionResponseDto> {
-  //   const nutritionResponse: GetNutritionResponseDto = await firstValueFrom(
-  //     this.nutritionServiceClient.send('get_ingredients_for_userId', {
-  //       userId: params.userId,
-  //     }),
-  //   );
-  //   return {
-  //     message: nutritionResponse.message,
-  //     data: {
-  //       nutrition: nutritionResponse.data.nutrition,
-  //     },
-  //     errors: null,
-  //   };
-  // }
+  @Get('/:userId/user')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_recettes_by_userId')
+  @ApiOkResponse({
+    type: GetNutritionResponseDto,
+  })
+  public async getRecettesByUserId(
+    @Param() params: getIngredientUserIdDTO,
+  ): Promise<GetNutritionResponseDto> {
+    const nutritionResponse: GetNutritionResponseDto = await firstValueFrom(
+      this.nutritionServiceClient.send('get_recettes_by_userId', {
+        userId: params.userId,
+      }),
+    );
+    return {
+      message: nutritionResponse.message,
+      data: {
+        nutrition: nutritionResponse.data.nutrition,
+      },
+      errors: null,
+    };
+  }
 
   // @Get()
   // public async getIngredients(): Promise<any> {

@@ -34,6 +34,7 @@ import { ConfirmUserDto } from './interfaces-requests-responses/user/dto/confirm
 import { ConfirmUserResponseDto } from './interfaces-requests-responses/user/dto/confirm-user-response.dto';
 import { RefreshTokenDto } from './interfaces-requests-responses/user/dto/refresh-token';
 import { ITokenDataResponse } from './interfaces-requests-responses/token/token-data-response.interface';
+import { Permission } from './decorators/permission.decorator';
 
 @Controller('users')
 @ApiTags('users')
@@ -71,7 +72,6 @@ export class UsersController {
   @ApiCreatedResponse({
     type: CreateUserResponseDto,
   })
-  @Authorization(false)
   public async createUser(
     @Body() userRequest: CreateUserDto,
   ): Promise<CreateUserResponseDto> {
@@ -112,7 +112,6 @@ export class UsersController {
   @ApiCreatedResponse({
     type: LoginUserResponseDto,
   })
-  @Authorization(false)
   public async loginUser(
     @Body() loginRequest: LoginUserDto,
   ): Promise<LoginUserResponseDto> {
@@ -186,6 +185,8 @@ export class UsersController {
   @ApiCreatedResponse({
     type: ConfirmUserResponseDto,
   })
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
   public async confirmUser(
     @Param() params: ConfirmUserDto,
   ): Promise<ConfirmUserResponseDto> {
@@ -217,6 +218,8 @@ export class UsersController {
   @ApiCreatedResponse({
     type: LoginUserResponseDto,
   })
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
   public async refreshToken(
     @Body() refreshTokenRequest: RefreshTokenDto,
   ): Promise<LoginUserResponseDto> {
@@ -280,24 +283,36 @@ export class UsersController {
   }
 
   @Get()
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('user_get_all')
   public async getAllUsers(): Promise<any> {
     const users = await firstValueFrom(this.userServiceClient.send('user_get_all', {}));
     return users;
   }
 
   @Get(':id')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('user_get_by_id')
   public async getByUserId(@Param('id') id: string): Promise<any> {
     const user = await firstValueFrom(this.userServiceClient.send('get_user_by_id', id));
     return user;
   }
 
   @Put(':id')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('user_update_by_id')
   public async updateUser(@Param('id') id: string, @Body() user: any): Promise<any> {
     const updatedUser = await firstValueFrom(this.userServiceClient.send('user_update_by_id', { id, user }));
     return updatedUser;
   }
 
   @Delete(':id')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('user_delete_by_id')
   public async deleteUser(@Param('id') id: string): Promise<any> {
     const deletedUser = await firstValueFrom(this.userServiceClient.send('user_delete_by_id', id));
     return deletedUser;
@@ -311,8 +326,11 @@ export class UsersController {
 
   // get users from array of ids
   @Post('/get_users_by_ids')
-  public async getUsersByIds(@Body() ids: string[]): Promise<any> {
-    const users = await firstValueFrom(this.userServiceClient.send('user_get_by_ids', ids));
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('user_get_by_ids')
+  public async getUsersByIds(@Body() data: {ids: string[]}): Promise<any> {
+    const users = await firstValueFrom(this.userServiceClient.send('user_get_by_ids', data));
     return users;
   }
 }

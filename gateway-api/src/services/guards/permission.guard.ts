@@ -24,11 +24,13 @@ export class PermissionGuard implements CanActivate {
       context.getHandler(),
     );
 
+
     if (!permission) {
       return true;
     }
 
     const request = context.switchToHttp().getRequest();
+
 
     const permissionInfo = await firstValueFrom(
       this.permissionServiceClient.send('permission_check', {

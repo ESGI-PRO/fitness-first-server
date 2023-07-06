@@ -8,7 +8,7 @@ import {
   Param,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { ApiTags, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
+import { ApiTags, ApiCreatedResponse, ApiOkResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { CreateMessageDto } from './interfaces-requests-responses/messenger/dto/create-message.dto';
 import { firstValueFrom } from 'rxjs';
 import { CreateRoomDto } from './interfaces-requests-responses/messenger/dto/create-room.dto'
@@ -18,9 +18,12 @@ import { GetAllRoomMessagesResponseDto } from './interfaces-requests-responses/m
 import { GetAllRoomsResponseDto } from './interfaces-requests-responses/messenger/dto/get-all-rooms-response.dto';
 import { CreateMeetingDto, UpdateMeetingDto } from './interfaces-requests-responses/messenger/dto/video-meeting.request';
 import { CreateMeetingResponseDto, UpdateMeetingResponseDto, GetTwilioTokenResponseDto, GetAllMeetingResponseDto  } from './interfaces-requests-responses/messenger/dto/video-meeting.response';
-
+import { Authorization } from './decorators/authorization.decorator';
+import { Permission } from './decorators/permission.decorator';
 
 @Controller('messenger')
+@Authorization(true)
+@ApiBearerAuth('access-token')
 @ApiTags('messenger')
 export class MessengerController {
   constructor(
@@ -29,6 +32,9 @@ export class MessengerController {
   }
 
   @Post('/create_message')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('create_message')
   @ApiCreatedResponse({
     type: CreateMessageResponseDto,
   })
@@ -38,6 +44,9 @@ export class MessengerController {
   }
 
   @Post('/create_room')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('create_room')
   @ApiCreatedResponse({
     type: CreateRoomResponseDto,
   })
@@ -47,6 +56,9 @@ export class MessengerController {
   }
 
   @Get('/get-room-messages/:roomId')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_room_messages')
   @ApiOkResponse({
     type: GetAllRoomMessagesResponseDto,
   })
@@ -56,6 +68,9 @@ export class MessengerController {
   }
 
   @Get('/get-all-rooms/:userId')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_all_rooms')
   @ApiOkResponse({
     type: GetAllRoomsResponseDto,
   })
@@ -66,6 +81,9 @@ export class MessengerController {
 
   // create a meeting
   @Post('/create_meeting')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('create_video_meeting')
   @ApiCreatedResponse({
     type: CreateMeetingResponseDto,
   })
@@ -75,6 +93,9 @@ export class MessengerController {
   }
   // update a meeting
   @Put('/update_meeting')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('update_video_meeting')
   @ApiCreatedResponse({
     type: UpdateMeetingResponseDto,
   })
@@ -84,6 +105,9 @@ export class MessengerController {
   }
   // get all meeting of a user
   @Get('/get-all-meetings/:userId')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('find_all_video_meeting')
   @ApiOkResponse({
     type: GetAllRoomsResponseDto,
   })
@@ -94,6 +118,9 @@ export class MessengerController {
 
   // get twilio token for user
   @Get('/get-twilio-token/:userId')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_twilio_token')
   @ApiOkResponse({
     type: GetTwilioTokenResponseDto,
   })
@@ -104,8 +131,11 @@ export class MessengerController {
 
   // get rooms from ids list
   @Post('/get_rooms_by_member_ids')
-  async getRoomsByIds(@Body() ids: string[]): Promise<any> {
-    const response = await firstValueFrom(this.messengerServiceClient.send("get_rooms_by_member_ids", { ids }));
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_rooms_by_member_ids')
+  async getRoomsByIds(@Body() data: {ids: string[]}): Promise<any> {
+    const response = await firstValueFrom(this.messengerServiceClient.send("get_rooms_by_member_ids", data));
     return response;
   }
 

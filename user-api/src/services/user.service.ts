@@ -135,8 +135,12 @@ export class UserService implements OnModuleInit {
     id: string,
     userParams: any,
   ): Promise<IUser> {
-    console.log("update called", id, userParams)
-    this.userModel.updateOne({ _id: id }, userParams).exec()
+    const user = await this.userModel.findById(id).exec();
+    const isAdmin = user.isAdmin ? user.isAdmin : false;
+    this.userModel.updateOne({ _id: id }, {
+      ...userParams,
+      isAdmin: isAdmin
+    }).exec()
     return this.userModel.findById(id).exec();
   }
 
