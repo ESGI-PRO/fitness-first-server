@@ -44,7 +44,8 @@ export class AppService {
                     sender_id: traineeId,
                     members: [trainer.id, traineeId],
                     date:  faker.date.soon().toISOString(),
-                    time: faker.date.anytime()
+                    time: faker.date.anytime(),
+                    description: faker.lorem.sentence()
                    });
                 }
 

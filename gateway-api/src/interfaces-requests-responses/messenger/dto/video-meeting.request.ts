@@ -15,6 +15,9 @@ import { ApiProperty } from '@nestjs/swagger';
   @ApiProperty({ example: "08:12" })
   @IsNotEmpty()
   time: string;
+  @ApiProperty({ example: "This is a description" })
+  @IsNotEmpty()
+  description: string;
 }
 
 class UpdateMeetingDto {
@@ -34,6 +37,9 @@ class UpdateMeetingDto {
     @ApiProperty({ example: "08:12" })
     @IsNotEmpty()
     time: string;
+    @ApiProperty({ example: "This is a description" })
+    @IsNotEmpty()
+    description: string;
 }
 
 export {

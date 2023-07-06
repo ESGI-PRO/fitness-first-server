@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, OnModuleInit, HttpException, HttpStatus, Inject } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ConfigService } from './config/config.service';
@@ -6,12 +6,16 @@ import { IUser } from '../interfaces/user.interface';
 import { IUserLink } from '../interfaces/user-link.interface';
 import * as data from "../mock/users.json";
 import { UserSchema } from 'src/schemas/user.schema';
+import { ClientProxy } from '@nestjs/microservices';
+import { faker } from '@faker-js/faker';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class UserService implements OnModuleInit {
   constructor(
     @InjectModel('User') private readonly userModel: Model<IUser>,
     @InjectModel('UserLink') private readonly userLinkModel: Model<IUserLink>,
+    @Inject('SUBSCRIPTION_SERVICE') private readonly subscriptionServiceClient: ClientProxy,
     private readonly configService: ConfigService,
   ) { }
 
@@ -19,7 +23,52 @@ export class UserService implements OnModuleInit {
    const  cleardb = () => {
       this.userModel.deleteMany({}).exec();
     }
+    const subscriptionGenerate = async () => {
+                // find all subscriptions
+                const subscriptions = await firstValueFrom(this.subscriptionServiceClient.send('find_all_subscriptions', {}))
+                console.log('subscriptions-all', subscriptions);
+                if(subscriptions?.length < 1){
+               // find all users
+               const users = await this.userModel.find({}).exec();
+               for(let i = 0; i < users.length; i++){
+                   const user = users[i];
+                   // get all plans
+                   const plans = await firstValueFrom(this.subscriptionServiceClient.send('find_all_plans', {}));
+                   console.log('plans', plans);
+                  // add a stripeId to all users and create a subcription and invoice for each user
+                  const activeList = [true, false];
+                  const stripeId = faker.string.uuid()
+                  const subscription = await firstValueFrom(this.subscriptionServiceClient.send('create_subscription', {
+                     userId: user.id,
+                     stripeId: stripeId,
+                     planId: plans[Math.floor(Math.random() * plans.length)].id,
+                     active: activeList[Math.floor(Math.random() * activeList.length)],
+                     currentPeriodStart: faker.date.past(),
+                     currentPeriodEnd: faker.date.future(),
+                   }));
+
+                   console.log("subscription", subscription)
+     
+                   // create invoice
+                   const planAmountList = plans.reduce((acc, plan)=>{
+                     return [...acc, plan.price]
+                   }, [])
+                   const invoice = await firstValueFrom(this.subscriptionServiceClient.send('create_invoice', {
+                     userId: user.id,
+                     stripeId: stripeId,
+                     amountPaid: planAmountList[Math.floor(Math.random() * planAmountList.length)],
+                     number: `${faker.number.int({ max: 300 })}`,
+                     hostedInvoiceUrl: faker.internet.url(),
+                     subscriptionId: subscription.id
+                   }));
+     
+                   console.log("invoice", invoice)
+                }
+
+               }
+    }
      const seedAlgo = async () => {
+
            // for all users where !isTrainer and trainerId is null add a valid random user id to trainerId field
            const users = await this.userModel.find({ isTrainer: false, isAdmin: false, trainerId: null }).exec();
            console.log('users', users);
@@ -30,8 +79,9 @@ export class UserService implements OnModuleInit {
              const randomTrainer = trainers[Math.floor(Math.random() * trainers.length)];
              console.log('randomTrainer', randomTrainer);
              user.trainerId = randomTrainer.id;
-             await user.save();
-           }
+
+              await user.save();
+      }
 
            // for all trainers add some valid random users id to traineeIds field
            const trainers = await this.userModel.find({ isTrainer: true, isAdmin: false }).exec();
@@ -50,6 +100,9 @@ export class UserService implements OnModuleInit {
 
    //cleardb()
    this.userModel.countDocuments({}).then(async (count) => {
+
+      //await subscriptionGenerate()
+
       if (count < 2) {
         //encrypt all users password
         let userList = []
@@ -75,7 +128,7 @@ export class UserService implements OnModuleInit {
   }
 
   public async searchUserById(id: string): Promise<IUser> {
-    return this.userModel.findById(id).exec();
+    return this.userModel.findById(id).exec()
   }
 
   public async updateUserById(
@@ -138,6 +191,11 @@ export class UserService implements OnModuleInit {
     const updatedUser = await this.userModel.findByIdAndUpdate(id, user);
     if (!updatedUser) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     return updatedUser;
+  }
+
+  public async getUsersByIds(userIds: string[]): Promise<IUser[]> {
+    const users = await this.userModel.find({ _id: { $in: userIds } }).exec();
+    return users;
   }
 
 }
