@@ -6,7 +6,7 @@ export declare class StripeController {
         session: any;
         type: string;
     }): Promise<{
-        status: import("@nestjs/common").HttpStatus;
+        status: any;
         message: string;
     }>;
 }

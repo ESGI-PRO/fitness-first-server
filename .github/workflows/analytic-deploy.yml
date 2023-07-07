@@ -5,7 +5,7 @@ on:
     types:
       - completed
   push:
-    branches: ["feature/yateraaa"]
+    branches: ["feature/yatera"]
     paths:
       - ".github/workflows/analytic-deploy.yml"
       - "analytic-api/**"

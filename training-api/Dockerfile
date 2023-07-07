@@ -25,11 +25,7 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-CMD npm run start:dev \
-    npm run prisma:generate \
-    npm run prisma:migrate \
-    npm run prisma:seed
-
+CMD [ "npm", "run", "start:dev" ]
 #CMD [ "concurrently", "npm:start:dev","npm:prisma:generate", "npm:prisma:migrate", "npm:prisma:seed" ]
 
 ###################

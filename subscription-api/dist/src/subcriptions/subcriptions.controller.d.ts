@@ -5,60 +5,10 @@ import { ISubcriptionResponse } from '../interfaces/findSubscriptionsByUserId.in
 export declare class SubcriptionsController {
     private readonly subcriptionsService;
     constructor(subcriptionsService: SubcriptionsService);
-    create(createSubcriptionDto: CreateSubcriptionDto): import(".prisma/client").Prisma.Prisma__SubscriptionClient<import("@prisma/client/runtime").GetResult<{
-        id: string;
-        stripeId: string;
-        userId: string;
-        planId: string;
-        active: boolean;
-        currentPeriodStart: Date;
-        currentPeriodEnd: Date;
-        createdAt: Date;
-        updatedAt: Date;
-    }, unknown, never> & {}, never, import("@prisma/client/runtime").DefaultArgs>;
-    findAll(): import(".prisma/client").Prisma.PrismaPromise<(import("@prisma/client/runtime").GetResult<{
-        id: string;
-        stripeId: string;
-        userId: string;
-        planId: string;
-        active: boolean;
-        currentPeriodStart: Date;
-        currentPeriodEnd: Date;
-        createdAt: Date;
-        updatedAt: Date;
-    }, unknown, never> & {})[]>;
+    create(createSubcriptionDto: CreateSubcriptionDto): any;
+    findAll(): any;
     findByUserId(id: string): Promise<ISubcriptionResponse>;
-    findOne(id: string): import(".prisma/client").Prisma.Prisma__SubscriptionClient<import("@prisma/client/runtime").GetResult<{
-        id: string;
-        stripeId: string;
-        userId: string;
-        planId: string;
-        active: boolean;
-        currentPeriodStart: Date;
-        currentPeriodEnd: Date;
-        createdAt: Date;
-        updatedAt: Date;
-    }, unknown, never> & {}, never, import("@prisma/client/runtime").DefaultArgs>;
-    update(updateSubcriptionDto: UpdateSubcriptionDto): import(".prisma/client").Prisma.Prisma__SubscriptionClient<import("@prisma/client/runtime").GetResult<{
-        id: string;
-        stripeId: string;
-        userId: string;
-        planId: string;
-        active: boolean;
-        currentPeriodStart: Date;
-        currentPeriodEnd: Date;
-        createdAt: Date;
-        updatedAt: Date;
-    }, unknown, never> & {}, never, import("@prisma/client/runtime").DefaultArgs>;
-    remove(id: string): import(".prisma/client").Prisma.Prisma__SubscriptionClient<import("@prisma/client/runtime").GetResult<{
-        id: string;
-        stripeId: string;
-        userId: string;
-        planId: string;
-        active: boolean;
-        currentPeriodStart: Date;
-        currentPeriodEnd: Date;
-        createdAt: Date;
-        updatedAt: Date;
-    }, unknown, never> & {}, never, import("@prisma/client/runtime").DefaultArgs>;
+    findOne(id: string): any;
+    update(updateSubcriptionDto: UpdateSubcriptionDto): any;
+    remove(id: string): any;
 }
