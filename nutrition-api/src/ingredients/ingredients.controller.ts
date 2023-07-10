@@ -1,0 +1,92 @@
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { IngredientsService } from './ingredients.service';
+import { MessagePattern } from '@nestjs/microservices';
+import { getIngredientDTO } from 'src/dto/getIngredientsDTO';
+
+@Controller('ingredients')
+export class IngredientsController {
+  constructor(private readonly ingredientsApi: IngredientsService) {}
+
+  @MessagePattern('get_ingredients')
+  public async get(): Promise<any> {
+    console.log('this.ingredientsApi');
+    // return this.ingredientsApi.getIngredients();
+    return {
+      message: 'success get ingredients',
+      data: {
+        nutrition: await this.ingredientsApi.getIngredients(),
+      },
+      errors: null,
+    };
+  }
+
+  @MessagePattern('get_ingredients_by_id')
+  public async getbyID(params: {
+    id: number;
+  }): Promise<any> {
+    console.log("id : " + params.id);
+    return {
+      message: 'success message from nutritionResponse',
+      data: {
+        nutrition: await this.ingredientsApi.getIngredientByID(params.id),
+      },
+      errors: null,
+    };
+  }
+
+  @MessagePattern('create_ingredient')
+  public async create(ingredientData: any): Promise<any> {
+    return {
+      message: 'success message from nutritionResponse',
+      data: {
+        nutrition: await this.ingredientsApi.createIngredient(ingredientData)
+      },
+      errors: null,
+    };
+  }
+
+  @MessagePattern('get_ingredients_for_userId')
+  public async getIngredientForUserByID(
+    params: {
+      userId: number;
+    }
+  ): Promise<any> {
+    console.log("userId : " + params.userId);
+    return {
+      message: 'success message from nutritionResponse',
+      data: {
+        nutrition: await this.ingredientsApi.getIngredientForUserByID(params.userId)
+      },
+      errors: null,
+    };
+
+  }
+
+
+  @MessagePattern('edit_ingredient')
+  public async updateIngredient(params: { id: number, ingredientData: any }): Promise<any> {
+    console.log(params.id, params.ingredientData);
+    const updatedIngredient = await this.ingredientsApi.updateIngredient(params.id, params.ingredientData);
+    return {
+      message: 'success update ingredient',
+      data: {
+        nutrition: updatedIngredient,
+      },
+      errors: null,
+    };
+  }
+
+  @MessagePattern('delete_ingredient')
+  public async deleteIngredient(data: { id: number }): Promise<any> {
+    const { id } = data;
+    const deletedIngredient = await this.ingredientsApi.deleteIngredient(id);
+    return {
+      message: 'success delete ingredient',
+      data: {
+        nutrition: deletedIngredient,
+      },
+      errors: null,
+    };
+  }
+
+}

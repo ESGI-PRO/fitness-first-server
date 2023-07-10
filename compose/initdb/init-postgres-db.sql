@@ -1,0 +1,7 @@
+CREATE DATABASE auth;
+CREATE DATABASE users;
+CREATE DATABASE analytic;
+CREATE DATABASE subscription;
+CREATE DATABASE training;
+CREATE DATABASE nutrition;
+CREATE DATABASE messenger;

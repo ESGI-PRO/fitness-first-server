@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nutrition
+  #namespace: "challengespace"
+  namespace: "ingress-nginx"
+  labels:
+    name: nutrition
+    app: nutrition
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8001
+      targetPort: 80
+  selector:
+    app: nutrition

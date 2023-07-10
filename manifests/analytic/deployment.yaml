@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: analytic
+  #namespace: "challengespace"
+  namespace: "ingress-nginx"
+  labels:
+    app: analytic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: analytic
+  template:
+    metadata:
+      labels:
+        app: analytic
+    spec:
+      containers:
+      - name: analytic
+        image: mychallengeregistry.azurecr.io/challenge-analytic:latest
+        imagePullPolicy: Always
+        #image: idboubacar/challenge-semestre2-analytic-api
+        env:
+          - name: ANALYTICS_SERVICE_PORT
+            value: "80"
+          - name: MONGO_DSN
+            value: mongodb://44.212.32.217:27017/analytic_db
+        ports:
+          - containerPort: 80

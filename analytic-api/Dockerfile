@@ -1,28 +1,43 @@
+###################
+# COMMON
+###################
+
 FROM node:18.15-alpine as common-build-stage
 
-RUN npm install -g pnpm
+WORKDIR /var/www/analytic-api
 
-WORKDIR /app
+COPY package*.json ./
 
-COPY package.json pnpm-lock.yaml ./
-
-RUN pnpm install
-RUN npm i -g @nestjs/cli
+RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+RUN npm run build
 
-# Development build stage
+EXPOSE 8005
+
+###################
+# DEVELOPMENT
+###################
+
 FROM common-build-stage as development-build-stage
-
 ENV NODE_ENV=development
 
-CMD ["pnpm", "run", "start:dev"]
+CMD [ "npm", "run", "start:dev" ]
 
-# Production build stage
+###################
+# PRODUCTION
+###################
+
 FROM common-build-stage as production-build-stage
+WORKDIR /var/www/analytic-api
+ENV NODE_ENV=production
+COPY --from=common-build-stage /var/www/analytic-api/node_modules ./node_modules
+COPY --from=common-build-stage /var/www/analytic-api/dist ./dist
+COPY --from=common-build-stage  /var/www/analytic-api/package*.json ./
 
-ENV NODE_ENV production
+EXPOSE 8005
 
-CMD ["pnpm", "run", "start:prod"]
+#RUN npm build
+
+CMD [ "npm", "run", "start:prod" ]

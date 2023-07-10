@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: permission
+  #namespace: "challengespace"
+  namespace: "ingress-nginx"
+  labels:
+    app: permission
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: permission
+  template:
+    metadata:
+      labels:
+        app: permission
+    spec:
+      containers:
+      - name: permission
+        image: mychallengeregistry.azurecr.io/challenge-permission:latest
+        imagePullPolicy: Always
+        #image: idboubacar/challenge-semestre2-permission-api
+        # ressource:
+        # limits:
+        #   cpu: 500m
+        #   memory: 128Mi
+        # requests:
+        #   cpu: 250m
+        #   memory: 128Mi
+
+        env:
+          - name: PERMISSION_SERVICE_PORT
+            value: "80"
+        ports:
+          - containerPort: 80
