@@ -7,8 +7,6 @@ import { IUserLink } from '../interfaces/user-link.interface';
 import * as data from "../mock/users.json";
 import { UserSchema } from 'src/schemas/user.schema';
 import { ClientProxy } from '@nestjs/microservices';
-import { faker } from '@faker-js/faker';
-import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class UserService implements OnModuleInit {
@@ -22,50 +20,6 @@ export class UserService implements OnModuleInit {
   onModuleInit() {
    const  cleardb = () => {
       this.userModel.deleteMany({}).exec();
-    }
-    const subscriptionGenerate = async () => {
-                // find all subscriptions
-                const subscriptions = await firstValueFrom(this.subscriptionServiceClient.send('find_all_subscriptions', {}))
-                console.log('subscriptions-all', subscriptions);
-                if(subscriptions?.length < 1){
-               // find all users
-               const users = await this.userModel.find({}).exec();
-               for(let i = 0; i < users.length; i++){
-                   const user = users[i];
-                   // get all plans
-                   const plans = await firstValueFrom(this.subscriptionServiceClient.send('find_all_plans', {}));
-                   console.log('plans', plans);
-                  // add a stripeId to all users and create a subcription and invoice for each user
-                  const activeList = [true, false];
-                  const stripeId = faker.string.uuid()
-                  const subscription = await firstValueFrom(this.subscriptionServiceClient.send('create_subscription', {
-                     userId: user.id,
-                     stripeId: stripeId,
-                     planId: plans[Math.floor(Math.random() * plans.length)].id,
-                     active: activeList[Math.floor(Math.random() * activeList.length)],
-                     currentPeriodStart: faker.date.past(),
-                     currentPeriodEnd: faker.date.future(),
-                   }));
-
-                   console.log("subscription", subscription)
-     
-                   // create invoice
-                   const planAmountList = plans.reduce((acc, plan)=>{
-                     return [...acc, plan.price]
-                   }, [])
-                   const invoice = await firstValueFrom(this.subscriptionServiceClient.send('create_invoice', {
-                     userId: user.id,
-                     stripeId: stripeId,
-                     amountPaid: planAmountList[Math.floor(Math.random() * planAmountList.length)],
-                     number: `${faker.number.int({ max: 300 })}`,
-                     hostedInvoiceUrl: faker.internet.url(),
-                     subscriptionId: subscription.id
-                   }));
-     
-                   console.log("invoice", invoice)
-                }
-
-               }
     }
      const seedAlgo = async () => {
 
@@ -100,9 +54,6 @@ export class UserService implements OnModuleInit {
 
    //cleardb()
    this.userModel.countDocuments({}).then(async (count) => {
-
-      //await subscriptionGenerate()
-
       if (count < 2) {
         //encrypt all users password
         let userList = []

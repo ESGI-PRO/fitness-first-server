@@ -19,6 +19,7 @@ import { PlansService } from './plans/plans.service';
 import { PrismaService } from './prisma/prisma.service';
 import { ConfigService } from './services/config/config.service';
 import { ClientProxyFactory } from '@nestjs/microservices';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ClientProxyFactory } from '@nestjs/microservices';
    controllers: [StripeController, SubcriptionsController, InvoicesController, PlansController],
    providers: [PrismaService, StripeService, SubcriptionsService, InvoicesService, PlansService,
     ConfigService,
+    AppService,
     {
       provide: 'USER_SERVICE',
       useFactory: (configService: ConfigService) => {
