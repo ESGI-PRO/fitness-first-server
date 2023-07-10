@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StripeService = void 0;
 const common_1 = require("@nestjs/common");
@@ -119,8 +120,7 @@ let StripeService = class StripeService {
 StripeService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, common_1.Inject)('USER_SERVICE')),
-    __metadata("design:paramtypes", [microservices_1.ClientProxy,
-        subcriptions_service_1.SubcriptionsService,
+    __metadata("design:paramtypes", [typeof (_a = typeof microservices_1.ClientProxy !== "undefined" && microservices_1.ClientProxy) === "function" ? _a : Object, subcriptions_service_1.SubcriptionsService,
         plans_service_1.PlansService,
         invoices_service_1.InvoicesService])
 ], StripeService);

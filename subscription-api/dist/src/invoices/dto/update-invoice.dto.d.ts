@@ -1,5 +1,4 @@
-import { CreateInvoiceDto } from './create-invoice.dto';
-declare const UpdateInvoiceDto_base: import("@nestjs/mapped-types").MappedType<Partial<CreateInvoiceDto>>;
+declare const UpdateInvoiceDto_base: any;
 export declare class UpdateInvoiceDto extends UpdateInvoiceDto_base {
     id: string;
 }

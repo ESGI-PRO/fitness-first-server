@@ -5,7 +5,7 @@ on:
     types:
       - completed
   push:
-    branches: ["feature/yateraaa"]
+    branches: ["feature/yateraaaa"]
     paths:
       - ".github/workflows/training-deploy.yml"
       - "training-api/**"

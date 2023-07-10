@@ -1,4 +1,3 @@
-import { HttpStatus } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { SubcriptionsService } from '../subcriptions/subcriptions.service';
 import { PlansService } from '../plans/plans.service';
@@ -14,7 +13,7 @@ export declare class StripeService {
         session: any;
         type: string;
     }): Promise<{
-        status: HttpStatus;
+        status: any;
         message: string;
     }>;
 }

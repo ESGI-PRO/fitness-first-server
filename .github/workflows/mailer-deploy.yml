@@ -5,7 +5,7 @@ on:
     types:
       - completed
   push:
-    branches: ["feature/yateraaa"]
+    branches: ["feature/yateraaaa"]
     paths:
       - ".github/workflows/mailer-deploy.yml"
       - "mailer-api/**"
