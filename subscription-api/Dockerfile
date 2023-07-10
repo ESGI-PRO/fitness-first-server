@@ -24,7 +24,8 @@ FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
 
-#CMD [ "concurrently","npm:prisma:generate", "npm:prisma:migrate", "npm:prisma:seed", "npm:start:dev" ]
+
+CMD [ "concurrently","npm:prisma:generate", "npm:prisma:migrate", "npm:start:dev" ]
 
 ###################
 # PRODUCTION
