@@ -2,7 +2,7 @@ name: Pushing images on docker hub
 
 on:
   push:
-    branches: dev
+    branches: deveee
 
 jobs:
   BuildAndPush:   
