@@ -13,4 +13,7 @@ async function bootstrap() {
   } as TcpOptions);
   await app.listen();
 }
+
+console.log('new ConfigService() port', new ConfigService().get('port'))
+
 bootstrap();
