@@ -5,7 +5,7 @@ on:
     types:
       - completed
   push:
-    branches: ["feature/yateraaaa"]
+    branches: ["recette-ttest"]
     paths:
       - ".github/workflows/nutrition-deploy.yml"
       - "nutrition-api/**"

@@ -40,4 +40,5 @@ model Recettes {
   title String 
   UserId String
   instructions Json[]
+  studentIds String[] 
 }

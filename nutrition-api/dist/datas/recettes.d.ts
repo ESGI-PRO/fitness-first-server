@@ -1,5 +1,17 @@
 export = recettes;
-declare const recettes: {
+declare const recettes: ({
+    title: string;
+    UserId: string;
+    StudentIds: string[];
+    instructions: {
+        order: number;
+        produits: {
+            quantite: number;
+            ingredients: number;
+        }[];
+        description: string;
+    }[];
+} | {
     title: string;
     UserId: number;
     instructions: {
@@ -36,4 +48,5 @@ declare const recettes: {
             description: string;
         };
     };
-}[];
+    StudentIds?: undefined;
+})[];

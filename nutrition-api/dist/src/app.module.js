@@ -20,13 +20,21 @@ const config_service_1 = require("./services/config/config.service");
 const categories_controller_1 = require("./categories/categories.controller");
 const categories_service_1 = require("./categories/categories.service");
 const categories_module_1 = require("./categories/categories.module");
+const microservices_1 = require("@nestjs/microservices");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [ingredients_module_1.IngredientsModule, recettes_module_1.RecettesModule, categories_module_1.CategoriesModule],
         controllers: [app_controller_1.AppController, ingredients_controller_1.IngredientsController, recettes_controller_1.RecettesController, categories_controller_1.CategoriesController],
-        providers: [config_service_1.ConfigService, app_service_1.AppService, ingredients_service_1.IngredientsService, recettes_service_1.RecettesService, categories_service_1.CategoriesService],
+        providers: [config_service_1.ConfigService, app_service_1.AppService, ingredients_service_1.IngredientsService, recettes_service_1.RecettesService, categories_service_1.CategoriesService, {
+                provide: 'USER_SERVICE',
+                useFactory: (configService) => {
+                    const userServiceOptions = configService.get('userService');
+                    return microservices_1.ClientProxyFactory.create(userServiceOptions);
+                },
+                inject: [config_service_1.ConfigService],
+            }],
     })
 ], AppModule);
 exports.AppModule = AppModule;
