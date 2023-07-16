@@ -10,4 +10,5 @@ export declare class ExercisesController {
         user_id: string;
         trainer_id: string;
     }): Promise<IExercisesGetResponse>;
+    getAllExercises(): Promise<IExercisesGetResponse>;
 }

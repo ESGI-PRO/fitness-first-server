@@ -8,4 +8,5 @@ export declare class ExercisesService {
         user_id: string;
         trainer_id: string;
     }): Promise<any>;
+    findAllExercises(): Promise<any>;
 }

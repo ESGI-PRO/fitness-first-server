@@ -8,9 +8,9 @@ import { MongoConfigService } from './services/config/mongo-config.service';
 import { RoomSchema } from './_schemas/room.schema';
 import { MessageSchema } from './_schemas/message.schema';
 import { MeetingSchema } from './_schemas/meeting.schema';
-import { AppService } from './app.service';
 import { ClientProxyFactory } from '@nestjs/microservices';
 import { VideoMeetingModule } from './video-meeting/video-meeting.module';
+import { AppService } from './app.service';
 
 @Module({
   controllers: [],

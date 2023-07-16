@@ -22,6 +22,9 @@ let ExercisesService = class ExercisesService {
     async findUserCurrentExercises(data) {
         return await this.exercisesRepository.findUserCurrentExercises(data);
     }
+    async findAllExercises() {
+        return await this.exercisesRepository.findAllExercises();
+    }
 };
 ExercisesService = __decorate([
     (0, common_1.Injectable)(),

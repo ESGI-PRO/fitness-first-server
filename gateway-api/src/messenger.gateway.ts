@@ -43,13 +43,13 @@ import {
       this.server.emit('response_message', payload);
     }
 
-    @SubscribeMessage('get-room-messages')
+    @SubscribeMessage('get_room_messages')
     async handleGetRoomMessages(
       @ConnectedSocket() client: Socket,
       @MessageBody() payload: GetAllRoomMessagesDto,
     ): Promise<void> {
-      const response = await firstValueFrom(this.messengerServiceClient.send("get-room-messages", payload));
-      this.server.emit('response-get-room-messages', response);
+      const response = await firstValueFrom(this.messengerServiceClient.send("get_room_messages", payload));
+      this.server.emit('response-get_room_messages', response);
     }
 
 
@@ -62,13 +62,13 @@ import {
       this.server.emit('response_room', payload);
     }
 
-    @SubscribeMessage('get-all-rooms')
+    @SubscribeMessage('get_all_rooms')
     async handleGetAllRooms(
       @ConnectedSocket() client: Socket,
       @MessageBody() payload: GetAllRoomsDto,
     ): Promise<void> {
-      const response = await firstValueFrom(this.messengerServiceClient.send("get-all-rooms", payload));
-      this.server.emit('response-get-all-rooms', response);
+      const response = await firstValueFrom(this.messengerServiceClient.send("get_all_rooms", payload));
+      this.server.emit('response-get_all_rooms', response);
     }
 
     afterInit(server: Server) {

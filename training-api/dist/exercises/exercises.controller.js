@@ -82,9 +82,34 @@ let ExercisesController = class ExercisesController {
         }
         return result;
     }
+    async getAllExercises() {
+        let result;
+        const exercises = await this.exercisesService.findAllExercises();
+        if (exercises) {
+            result = {
+                status: common_1.HttpStatus.OK,
+                message: 'all_exercises_get_success',
+                data: {
+                    exercises: exercises,
+                },
+                errors: null,
+            };
+        }
+        else {
+            result = {
+                status: common_1.HttpStatus.NOT_FOUND,
+                message: 'all_exercises_get_not_found',
+                data: {
+                    exercises: null,
+                },
+                errors: null,
+            };
+        }
+        return result;
+    }
 };
 __decorate([
-    (0, microservices_1.MessagePattern)('create_exercise'),
+    (0, microservices_1.MessagePattern)('create_exercises'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_exercise_dto_1.CreateExerciseDto]),
     __metadata("design:returntype", Promise)
@@ -95,6 +120,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ExercisesController.prototype, "getUserCurrentExercises", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('get_all_exercises'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ExercisesController.prototype, "getAllExercises", null);
 ExercisesController = __decorate([
     (0, common_1.Controller)('exercises'),
     __metadata("design:paramtypes", [exercises_service_1.ExercisesService])

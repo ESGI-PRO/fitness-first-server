@@ -21,12 +21,23 @@ let ExercisesRepository = class ExercisesRepository {
         this.exerciseModel = exerciseModel;
     }
     async createExercises(exercises) {
-        const createOne = await this.exerciseModel.insertMany(exercises);
-        return createOne;
+        let exercisesInserted = [];
+        exercises.forEach(async (exercise) => {
+            const exerciseExists = await this.exerciseModel.exists({ user_id: exercise.user_id, trainer_id: exercise.trainer_id, content: exercise.content });
+            if (!exerciseExists) {
+                const exerciseDo = new this.exerciseModel(exercise);
+                await exerciseDo.save();
+                exercisesInserted.push(exercise);
+            }
+        });
+        return exercisesInserted;
     }
     async findUserCurrentExercises({ user_id, trainer_id, }) {
         const exercises = await this.exerciseModel.find({ user_id, trainer_id });
         return exercises;
+    }
+    async findAllExercises() {
+        return await this.exerciseModel.find({}).exec();
     }
 };
 ExercisesRepository = __decorate([

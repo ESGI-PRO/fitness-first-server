@@ -9,4 +9,5 @@ export declare class ExercisesRepository {
         user_id: string;
         trainer_id: string;
     }): Promise<any>;
+    findAllExercises(): Promise<any>;
 }

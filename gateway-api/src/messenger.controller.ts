@@ -55,7 +55,7 @@ export class MessengerController {
     return response;
   }
 
-  @Get('/get-room-messages/:roomId')
+  @Get('/get_room_messages/:roomId')
   @Authorization(true)
   @ApiBearerAuth('access-token')
   @Permission('get_room_messages')
@@ -63,11 +63,11 @@ export class MessengerController {
     type: GetAllRoomMessagesResponseDto,
   })
   async getRoomMessages(@Param('roomId') roomId: string): Promise<GetAllRoomMessagesResponseDto> {
-    const response = await firstValueFrom(this.messengerServiceClient.send("get-room-messages", { roomId }));
+    const response = await firstValueFrom(this.messengerServiceClient.send("get_room_messages", { roomId }));
     return response;
   }
 
-  @Get('/get-all-rooms/:userId')
+  @Get('/get_all_rooms/:userId')
   @Authorization(true)
   @ApiBearerAuth('access-token')
   @Permission('get_all_rooms')
@@ -75,7 +75,7 @@ export class MessengerController {
     type: GetAllRoomsResponseDto,
   })
   async getAllRooms(@Param('userId') userId: string): Promise<GetAllRoomsResponseDto> {
-    const response = await firstValueFrom(this.messengerServiceClient.send("get-all-rooms", { userId }));
+    const response = await firstValueFrom(this.messengerServiceClient.send("get_all_rooms", { userId }));
     return response;
   }
 
