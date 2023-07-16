@@ -6,7 +6,6 @@ FROM node:16.14.2-alpine as common-build-stage
 
 WORKDIR /var/www/training-api
 
-<<<<<<< HEAD
 COPY package*.json ./
 
 RUN npm install
@@ -14,11 +13,6 @@ RUN npm install
 RUN npm install -g concurrently
 
 COPY . .
-=======
-ADD . /var/www/training-api/
-RUN pnpm install 
-# RUN npx prisma generate
->>>>>>> origin/feature/recettes_by_api
 
 EXPOSE 8003
 
