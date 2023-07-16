@@ -14,14 +14,13 @@ export class AppService {
     @Inject('USER_SERVICE') private readonly userServiceClient: ClientProxy,
     @InjectModel('Room') private readonly roomModel: Model<IRoom>,
     @InjectModel('Message') private readonly messageModel: Model<IMessage>,
-    @InjectModel('Meeting')
-    private readonly meetingModel: Model<IMeetingCreate>,
-  ) {}
+    @InjectModel('Meeting') private readonly meetingModel: Model<IMeetingCreate>,
+  ) { }
 
   onModuleInit() {
-    const cleardb = () => {
-      this.roomModel.deleteMany({}).exec();
-      this.messageModel.deleteMany({}).exec();
+    const cleardb = async () => {
+      await this.roomModel.deleteMany({}).exec();
+      await this.messageModel.deleteMany({}).exec();
     };
     const seedAlgo = async () => {
       //get all users which are trainers
@@ -44,6 +43,21 @@ export class AppService {
             members: members,
           });
 
+          // for each trainer and trainee create 2 meetings
+          for (let k = 0; k < 2; k++) {
+            await this.meetingModel.create({
+              sender_id: traineeId,
+              members: [trainer.id, traineeId],
+              date: faker.date.soon().toISOString(),
+              time: faker.date.anytime().toISOString(),
+              description: faker.lorem.sentence({
+                min: 20,
+                max: 30
+              })
+            });
+          }
+
+
           // for each room create 10 messages
           for (let k = 0; k < 10; k++) {
             await this.messageModel.create({
@@ -51,54 +65,22 @@ export class AppService {
               room_id: room.id,
               message: faker.lorem.sentence(),
             });
-                // for each trainer and trainee create 2 meetings
-                for (let k = 0; k < 2; k++) {
-                  await this.meetingModel.create({
-                    sender_id: traineeId,
-                    members: [trainer.id, traineeId],
-                    date:  faker.date.soon().toISOString(),
-                    time: faker.date.anytime(),
-                    description: faker.lorem.sentence({
-                      min: 20,
-                      max: 30
-                    })
-                   });
-                }
-
-            // for each trainer and trainee create 2 meetings
-            for (let k = 0; k < 2; k++) {
-              await this.meetingModel.create({
-                sender_id: traineeId,
-                members: [trainer.id, traineeId],
-                date: faker.date.soon().toISOString(),
-                time: faker.date.anytime(),
-              });
-            }
-
-            // for each room create 10 messages
-            for (let k = 0; k < 10; k++) {
-              await this.messageModel.create({
-                sender_id: trainer.id,
-                room_id: room.id,
-                message: faker.lorem.sentence(),
-              });
-            }
           }
+
         }
       }
-
-      // cleardb()
-      this.roomModel
-        .countDocuments({})
-        .then(async (count) => {
-          //console.log(' count is ' + count + '', await this.roomModel.find({}).exec());
-          if (count < 1) {
-            await seedAlgo();
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     };
-  }
+
+    // cleardb()
+    this.roomModel.countDocuments({})
+      .then(async (count) => {
+        //console.log(' count is ' + count + '', await this.roomModel.find({}).exec());
+        if (count < 1) {
+          await seedAlgo();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 }

@@ -42,7 +42,7 @@ export class MessagesController {
   }
 
 
-  @MessagePattern('get-room-messages')
+  @MessagePattern('get_room_messages')
   async getAllMessagesByRoomId(data: {roomId: string}) {
     const { roomId } = data
     let result: IMessagesGetResponse;

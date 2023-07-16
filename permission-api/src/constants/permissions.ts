@@ -45,8 +45,8 @@ export const adminPermissions = [
   // messenger
   'create_message',
   'create_room',
-  'get-room-messages',
-  'get-all-rooms',
+  'get_room_messages',
+  'get_all_rooms',
   'create_video_meeting',
   'update_video_meeting',
   'find_all_video_meeting',
@@ -107,8 +107,8 @@ export const userPermissions = [
   // messenger
   'create_message',
   'create_room',
-  'get-room-messages',
-  'get-all-rooms',
+  'get_room_messages',
+  'get_all_rooms',
   'create_video_meeting',
   'update_video_meeting',
   'find_all_video_meeting',

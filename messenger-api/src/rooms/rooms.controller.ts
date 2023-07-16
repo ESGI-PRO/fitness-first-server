@@ -54,7 +54,7 @@ export class RoomsController {
   }
 
 
-  @MessagePattern('get-all-rooms')
+  @MessagePattern('get_all_rooms')
   async getAllRoomsByUserId(data: { userId: string}) {
     const { userId } = data
     let result: IRoomsGetResponse;
