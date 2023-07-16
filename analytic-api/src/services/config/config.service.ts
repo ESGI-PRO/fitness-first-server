@@ -3,7 +3,7 @@ export class ConfigService {
 
   constructor() {
     this.envConfig = {
-      port: process.env.ANALYTICS_SERVICE_PORT,
+      port: process.env.ANALYTIC_SERVICE_PORT
     };
     this.envConfig.mongoDnsDb = process.env.MONGO_DSN;
     this.envConfig.baseUri = process.env.BASE_URI;
