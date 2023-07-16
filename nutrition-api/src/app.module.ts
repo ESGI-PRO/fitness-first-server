@@ -11,10 +11,18 @@ import { ConfigService } from './services/config/config.service';
 import { CategoriesController } from './categories/categories.controller';
 import { CategoriesService } from './categories/categories.service';
 import { CategoriesModule } from './categories/categories.module';
+import { ClientProxyFactory } from '@nestjs/microservices';
 
 @Module({
   imports: [IngredientsModule, RecettesModule, CategoriesModule],
   controllers: [AppController, IngredientsController, RecettesController, CategoriesController],
-  providers: [ConfigService, AppService, IngredientsService, RecettesService, CategoriesService],
+  providers: [ConfigService, AppService, IngredientsService, RecettesService, CategoriesService, {
+    provide: 'USER_SERVICE',
+    useFactory: (configService: ConfigService) => {
+      const userServiceOptions = configService.get('userService');
+      return ClientProxyFactory.create(userServiceOptions);
+    },
+    inject: [ConfigService],
+  }],
 })
 export class AppModule {}
