@@ -11,7 +11,7 @@ To run this project, you will need to add the following environment variables to
 API_GATEWAY_PORT=8000
 API_GATEWAY_HOST=gateway-api
 
-ANALYTICS_SERVICE_PORT=8005
+ANALYTIC_SERVICE_PORT=8005
 ANALYTIC_SERVICE_HOST=analytic-api
 
 MAILER_SERVICE_PORT=8008
