@@ -37,8 +37,8 @@ model Ingredients {
 
 model Recettes {
   id Int @id @default(autoincrement())
-  title String 
-  UserId String
+  title String
+  UserId Float
   instructions Json[]
   studentIds String[] 
 }

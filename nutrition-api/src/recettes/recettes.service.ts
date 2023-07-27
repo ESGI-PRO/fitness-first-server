@@ -48,7 +48,7 @@ export class RecettesService {
     return new Promise(async (resolve, reject) => {
       const recettes = await prisma.recettes.findMany({
         where: {
-          UserId: String(userId),
+          UserId: parseFloat(userId),
         },
       })
       resolve(recettes)

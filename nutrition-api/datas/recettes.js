@@ -1,8 +1,8 @@
 const recettes = [
   {
     title: 'Ma premiere recette de nutrition pour mes eleves !',
-    UserId: 'ccxcxcxcx',
-    StudentIds: ['Student1', 'Student2'],
+    UserId: 8,
+    // StudentIds: ['Student1', 'Student2'],
     instructions: [
       {
         order: 1,

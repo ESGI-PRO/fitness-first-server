@@ -5,6 +5,7 @@ const recettes = require('../datas/recettes');
 import { PrismaClient } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 
+
 const prisma = new PrismaClient();
 
 async function insertCategories() {
@@ -52,18 +53,18 @@ async function insertRecettes() {
     for(let recette of recettes) {
       await prisma.recettes.create({
         data: {
-          title: faker.lorem.text(),
-          UserId: faker.number.int({ max: 160 }),
+          title: recette.title,
+          UserId: recette.UserId,
           instructions: [
             {
-              order: faker.number.int({ max: 160 }),
+              order: recette.order,
               produits: [
                 {
-                  quantite: faker.number.int({ max: 360 }),
-                  ingredients: faker.number.int({ max: 191 }),
+                  quantite: recette.quantite,
+                  ingredients: recette.ingredients,
                 },
               ],
-              description: faker.lorem.paragraph(),
+              description: recette.description,
             },
           ],
         }
@@ -74,14 +75,15 @@ async function insertRecettes() {
   }
 }
 
-
- insertCategories()
- .then(() => {
-  insertIngredients()
-  insertRecettes()
- })
- .catch(e => {
-  console.log(e);
-  process.exit(1)
- })
-
+insertCategories()
+  .then(() => {
+    insertIngredients().then(() => {
+      insertRecettes().finally(() => {
+        prisma.$disconnect(); // Close the Prisma client connection after seeding
+      });
+    });
+  })
+  .catch((e) => {
+    console.log(e);
+    process.exit(1);
+  });
