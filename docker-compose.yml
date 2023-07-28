@@ -42,24 +42,24 @@ services:
     depends_on:
       - postgres
 
-  # user-api:
-  #   extends:
-  #     file: ./compose/docker-compose-service.yml
-  #     service: user-api
-  #   depends_on:
-  #     - mongo
+  user-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: user-api
+    depends_on:
+      - mongo
 
-  # token-api:
-  #   extends:
-  #     file: ./compose/docker-compose-service.yml
-  #     service: token-api
-  #   depends_on:
-  #     - mongo
+  token-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: token-api
+    depends_on:
+      - mongo
 
-  # permission-api:
-  #   extends:
-  #     file: ./compose/docker-compose-service.yml
-  #     service: permission-api
+  permission-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: permission-api
 
   # mailer-api:
   #   extends:

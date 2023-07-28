@@ -19,8 +19,8 @@ import { ClientProxyFactory } from '@nestjs/microservices';
   providers: [ConfigService, AppService, IngredientsService, RecettesService, CategoriesService, {
     provide: 'USER_SERVICE',
     useFactory: (configService: ConfigService) => {
-      const userServiceOptions = configService.get('userService');
-      return ClientProxyFactory.create(userServiceOptions);
+      // const userServiceOptions = configService.get('userService');
+      // return ClientProxyFactory.create(userServiceOptions);
     },
     inject: [ConfigService],
   }],
