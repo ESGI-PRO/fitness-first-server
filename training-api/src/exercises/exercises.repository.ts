@@ -25,4 +25,8 @@ export class ExercisesRepository {
     const exercises = await this.exerciseModel.find({ user_id, trainer_id});
     return exercises;
   }
+
+  async findAllExercises() : Promise<any> {
+    return await this.exerciseModel.find({}).exec();
+  }
 }
