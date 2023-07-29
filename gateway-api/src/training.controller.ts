@@ -27,7 +27,7 @@ export class TrainingController {
   @Post('/exercices')
   @Authorization(true)
   @ApiBearerAuth('access-token')
-  @Permission('create_exercice')
+  @Permission('create_exercises')
   @ApiOkResponse({
     type: CreateExercicesResponseDto,
   })
@@ -35,7 +35,7 @@ export class TrainingController {
     @Body() exercicesData: CreateExercicesDto,
   ): Promise<CreateExercicesResponseDto> {
     const exercicesResponse: CreateExercicesResponseDto = await firstValueFrom(
-      this.trainingServiceClient.send('create_exercise', exercicesData),
+      this.trainingServiceClient.send('create_exercises', exercicesData),
     );
     return {
       message: exercicesResponse.message,
@@ -63,6 +63,20 @@ export class TrainingController {
     }
     const exercicesResponse: GetUserCurrentExercisesResponseDto = await firstValueFrom(
       this.trainingServiceClient.send('get_user_current_exercises', data),
+    );
+    return exercicesResponse;
+  }
+
+  @Get('/exercices')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_all_exercises')
+  @ApiOkResponse({
+    type: GetUserCurrentExercisesResponseDto,
+  })
+  public async getAllExercices(): Promise<GetUserCurrentExercisesResponseDto> {
+    const exercicesResponse: GetUserCurrentExercisesResponseDto = await firstValueFrom(
+      this.trainingServiceClient.send('get_all_exercises', {}),
     );
     return exercicesResponse;
   }

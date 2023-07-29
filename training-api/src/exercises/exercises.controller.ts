@@ -10,7 +10,7 @@ export class ExercisesController {
   constructor(private readonly exercisesService: ExercisesService) {}
 
 
-  @MessagePattern('create_exercise')
+  @MessagePattern('create_exercises')
   async createExercises(createExerciseDto: CreateExerciseDto) {
     let result: IExerciseCreateResponse;
 
@@ -71,6 +71,34 @@ export class ExercisesController {
       result = {
         status: HttpStatus.BAD_REQUEST,
         message: 'user_current_exercises_get_bad_request',
+        data: {
+          exercises: null,
+        },
+        errors: null,
+      };
+    }
+
+    return result
+  }
+
+  @MessagePattern('get_all_exercises')
+  async getAllExercises() {
+    let result: IExercisesGetResponse;
+
+    const exercises =  await this.exercisesService.findAllExercises();
+    if (exercises) {
+      result = {
+        status: HttpStatus.OK,
+        message: 'all_exercises_get_success',
+        data: {
+          exercises: exercises,
+        },
+        errors: null,
+      };
+    } else {
+      result = {
+        status: HttpStatus.NOT_FOUND,
+        message: 'all_exercises_get_not_found',
         data: {
           exercises: null,
         },

@@ -13,4 +13,8 @@ export class ExercisesService {
   async findUserCurrentExercises(data: { user_id: string; trainer_id: string }) {
     return await this.exercisesRepository.findUserCurrentExercises(data);
   }
+
+  async findAllExercises() {
+    return await this.exercisesRepository.findAllExercises();
+  }
 }
