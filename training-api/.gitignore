@@ -2,11 +2,6 @@
 /dist
 /node_modules
 
-#env
-.env
-.env.local
-.env.*.local
-
 # Logs
 logs
 *.log
@@ -40,3 +35,8 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 .pnpm-store
+
+#env
+.env
+.env.local
+.env.*.local
