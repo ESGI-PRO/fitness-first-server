@@ -1,21 +1,41 @@
-import { ExercicesController } from './exercices/exercices.controller';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TrainingModule } from './training/training.module';
-import { PrismaService } from './prisma.service';
-import { ExercicesService } from './exercices/exercices.service';
-import { ExercicesModule } from './exercices/exercices.module';
-import { ExercicesOnTrainingService } from './exercices-on-training/exercices-on-training.service';
-import { ExercicesOnTrainingModule } from './exercices-on-training/exercices-on-training.module';
-import { ExercicesOnTrainingController } from './exercices-on-training/exercices-on-training.controller';
-import { TrainingController } from './training/training.controller';
+import { ConfigModule } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ExercisesModule } from './exercises/exercises.module';
 import { ConfigService } from './services/config/config.service';
-import { TrainingService } from './training/training.service';
+import { MongoConfigService } from './services/config/mongo-config.service';
+import { ExerciseSchema } from './_schemas/exercise.schema';
+import { ClientProxyFactory } from '@nestjs/microservices';
+import { AppService } from './app.service';
 
 @Module({
-  imports: [TrainingModule, ExercicesModule, ExercicesOnTrainingModule],
-  controllers: [AppController , ExercicesOnTrainingController , ExercicesController , TrainingController],
-  providers: [ConfigService, AppService, ExercicesService, ExercicesOnTrainingService, TrainingService],
+  controllers: [],
+  imports: [
+    ConfigModule.forRoot(),
+    MongooseModule.forRootAsync({
+      useClass: MongoConfigService,
+    }),
+    MongooseModule.forFeature([
+      {
+        name: 'Exercise',
+        schema: ExerciseSchema,
+        collection: 'exercises',
+      }
+    ]),
+    ExercisesModule
+  ],
+  providers: [
+    ConfigService,
+    AppService,
+    {
+      provide: 'USER_SERVICE',
+      useFactory: (configService: ConfigService) => {
+        const userServiceOptions = configService.get('userService');
+        return ClientProxyFactory.create(userServiceOptions);
+      },
+      inject: [ConfigService],
+    }
+  ],
 })
+
 export class AppModule {}
