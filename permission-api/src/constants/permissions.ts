@@ -14,17 +14,8 @@ export const adminPermissions = [
   'user_get_by_ids',
 
   //training
-  'get_trainings',
-  'get_exercices',
-  'get_category_exercices',
-  'create_training',
-  'get_training_by_id',
-  'get_training_by_user_id',
-  'update_training_by_id',
-  'delete_training_by_id',
   'create_exercice',
-  'get_exercice_by_id',
-  'get_exercices_by_category',
+  'get_user_current_exercises',
 
   // subscription
   'webhook_stripe',
@@ -78,17 +69,9 @@ export const userPermissions = [
   'user_get_by_ids',
 
   //training
-  'get_trainings',
-  'get_exercices',
-  'get_category_exercices',
-  'create_training',
-  'get_training_by_id',
-  'get_training_by_user_id',
-  'update_training_by_id',
-  'delete_training_by_id',
   'create_exercice',
-  'get_exercice_by_id',
-  'get_exercices_by_category',
+  'get_user_current_exercises',
+
 
   // subscription
   'webhook_stripe',
