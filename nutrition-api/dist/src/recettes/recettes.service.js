@@ -28,7 +28,21 @@ let RecettesService = class RecettesService {
             resolve(recettes);
         });
     }
+    async updateRecette(data) {
+        console.log("UPDATEEEE ", data);
+        return new Promise(async (resolve, reject) => {
+            const recettes = await prisma.recettes.update({
+                where: {
+                    id: Number(data.id),
+                },
+                data
+            });
+            resolve(recettes);
+        });
+    }
     async createRecette(data) {
+        console.log("data========");
+        console.log(data);
         return new Promise(async (resolve, reject) => {
             const recettes = await prisma.recettes.create({ data: Object.assign({}, data) });
             resolve(recettes);

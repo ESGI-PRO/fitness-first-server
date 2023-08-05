@@ -40,7 +40,19 @@ let NutritionController = class NutritionController {
         };
     }
     async createRecettes(recettesData) {
+        console.log("recettesData====================");
+        console.log(recettesData);
         const nutritionResponse = await (0, rxjs_1.firstValueFrom)(this.nutritionServiceClient.send('create_recette', recettesData));
+        return {
+            message: nutritionResponse.message,
+            data: {
+                nutrition: nutritionResponse.data.nutrition,
+            },
+            errors: null,
+        };
+    }
+    async updateRecette(data) {
+        const nutritionResponse = await (0, rxjs_1.firstValueFrom)(this.nutritionServiceClient.send('update_recette', data));
         return {
             message: nutritionResponse.message,
             data: {
@@ -171,9 +183,6 @@ __decorate([
 ], NutritionController.prototype, "getRecettes", null);
 __decorate([
     (0, common_1.Post)('/'),
-    (0, authorization_decorator_1.Authorization)(true),
-    (0, swagger_1.ApiBearerAuth)('access-token'),
-    (0, permission_decorator_1.Permission)('create_recette'),
     (0, swagger_1.ApiOkResponse)({
         type: get_nutrition_response_dto_1.GetNutritionResponseDto,
     }),
@@ -183,10 +192,19 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], NutritionController.prototype, "createRecettes", null);
 __decorate([
+    (0, common_1.Put)('/:id'),
+    (0, authorization_decorator_1.Authorization)(false),
+    (0, swagger_1.ApiOkResponse)({
+        type: get_nutrition_response_dto_1.GetNutritionResponseDto,
+    }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], NutritionController.prototype, "updateRecette", null);
+__decorate([
     (0, common_1.Get)('/ingredients'),
     (0, authorization_decorator_1.Authorization)(false),
-    (0, swagger_1.ApiBearerAuth)('access-token'),
-    (0, permission_decorator_1.Permission)('get_ingredients'),
     (0, swagger_1.ApiOkResponse)({
         type: get_nutrition_response_dto_1.GetNutritionResponseDto,
     }),

@@ -37,9 +37,18 @@ let RecettesController = class RecettesController {
             errors: null,
         };
     }
+    async update(data) {
+        return {
+            message: 'success update ingredients',
+            data: {
+                nutrition: await this.recettesApi.updateRecette(data),
+            },
+            errors: null,
+        };
+    }
     async create(data) {
         return {
-            message: 'success get ingredients',
+            message: 'success create ingredients',
             data: {
                 nutrition: await this.recettesApi.createRecette(data),
             },
@@ -48,7 +57,7 @@ let RecettesController = class RecettesController {
     }
     async getRecetteForUserByID(params) {
         return {
-            message: 'success get ingredients',
+            message: 'success get ingredients by userid ',
             data: {
                 nutrition: await this.recettesApi.getRecetteForUserByID(params.userId),
             },
@@ -79,6 +88,12 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], RecettesController.prototype, "getbyID", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('update_recette'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], RecettesController.prototype, "update", null);
 __decorate([
     (0, microservices_1.MessagePattern)('create_recette'),
     __metadata("design:type", Function),

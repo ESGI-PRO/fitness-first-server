@@ -17,6 +17,13 @@ class ConfigService {
             },
             transport: microservices_1.Transport.TCP,
         };
+        this.envConfig.userService = {
+            options: {
+                port: process.env.USER_SERVICE_PORT,
+                host: process.env.USER_SERVICE_HOST,
+            },
+            transport: microservices_1.Transport.TCP,
+        };
     }
     get(key) {
         return this.envConfig[key];

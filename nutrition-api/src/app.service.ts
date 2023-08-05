@@ -2,6 +2,8 @@ import { faker } from '@faker-js/faker';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { PrismaClient } from '@prisma/client';
+import categories from 'datas/categories';
+import finals from 'datas/final';
 import { firstValueFrom } from 'rxjs';
 
 const prisma = new PrismaClient();
@@ -16,7 +18,7 @@ export class AppService {
     return 'Hello World!';
   }
 
-  ModuleInit() {
+  onModuleInit() {
     const seeders = async () => {
       const trainers = await firstValueFrom(
         this.userServiceClient.send('user_search_by_params', {
@@ -24,42 +26,77 @@ export class AppService {
         }),
       );
 
+      const students = await firstValueFrom(
+        this.userServiceClient.send('user_search_by_params', {
+          isTrainer: false,
+        }),
+      );
+
+
       trainers.forEach(async (trainer) => {
-        var recettes;
+      var randomUserID = Math.floor(Math.random() * trainer.traineeIds.length)
+
         for (let i = 0; i < 5; i++) {
-          const recette = await prisma.recettes.create({
-            data: {
-              title: faker.lorem.text(),
-              UserId: trainer.id,
-              // studentsIds: [],
-              instructions: [
-                {
-                  order: faker.number.int({ max: 160 }),
-                  produits: [
-                    {
-                      quantite: faker.number.int({ max: 360 }),
-                      ingredients: faker.number.int({ max: 191 }),
-                    },
+          await prisma.recettes
+            .create({
+              data: {
+                title: faker.lorem.text(),
+                UserId: trainer.id,
+                studentIds: [
+                  trainer.traineeIds[
+                    randomUserID
                   ],
-                  description: faker.lorem.paragraph(),
-                },
-              ],
-            },
-          });
-          recettes = [...recettes, recette];
+                ],
+                instructions: [
+                  {
+                    order: faker.number.int({ max: 5 }),
+                    produits: [
+                      {
+                        quantite: faker.number.int({ max: 360 }),
+                        ingredients: faker.number.int({ max: 191 }),
+                      },
+                    ],
+                    description: faker.lorem.paragraph(),
+                  },
+
+                  {
+                    order: faker.number.int({ max: 5 }),
+                    produits: [
+                      {
+                        quantite: faker.number.int({ max: 360 }),
+                        ingredients: faker.number.int({ max: 191 }),
+                      },
+                    ],
+                    description: faker.lorem.paragraph(),
+                  },
+
+                  {
+                    order: faker.number.int({ max: 5 }),
+                    produits: [
+                      {
+                        quantite: faker.number.int({ max: 360 }),
+                        ingredients: faker.number.int({ max: 191 }),
+                      },
+                    ],
+                    description: faker.lorem.paragraph(),
+                  },
+                ],
+              },
+            })
+            .then(() => {
+              console.log(
+                'recette cree par ' +
+                  trainer.id +
+                  ' pour le student ' +
+                  trainer.traineeIds[
+                    randomUserID
+                  ],
+              );
+            });
         }
-
-      //   const trainees = trainer.traineeIds;
-      //     for (let j = 0; j < trainees.length; j++) {
-      //       const updated = prisma.recettes.update({}, {
-      //         data: {
-
-      //         }
-      //       })
-      //     }
       });
     };
 
-    seeders();
+    // seeders();
   }
 }

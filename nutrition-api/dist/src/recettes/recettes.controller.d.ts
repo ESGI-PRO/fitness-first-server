@@ -6,6 +6,7 @@ export declare class RecettesController {
     getbyID(params: {
         id: number;
     }): Promise<any>;
+    update(data: any): Promise<any>;
     create(data: any): Promise<any>;
     getRecetteForUserByID(params: {
         userId: string;

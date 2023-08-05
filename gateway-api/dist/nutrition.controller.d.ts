@@ -10,6 +10,7 @@ export declare class NutritionController {
     constructor(nutritionServiceClient: ClientProxy);
     getRecettes(): Promise<GetNutritionResponseDto>;
     createRecettes(recettesData: createRecetteDTO): Promise<GetNutritionResponseDto>;
+    updateRecette(data: any): Promise<GetNutritionResponseDto>;
     getIngredients(): Promise<GetNutritionResponseDto>;
     createIngredient(ingredientData: CreateIngredientDTO): Promise<GetNutritionResponseDto>;
     updateIngredient(params: getIngredientIdDTO, ingredientData: any): Promise<GetNutritionResponseDto>;

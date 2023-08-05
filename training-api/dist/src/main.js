@@ -14,5 +14,6 @@ async function bootstrap() {
     });
     await app.listen();
 }
+console.log('new ConfigService() port', new config_service_1.ConfigService().get('port'));
 bootstrap();
 //# sourceMappingURL=main.js.map

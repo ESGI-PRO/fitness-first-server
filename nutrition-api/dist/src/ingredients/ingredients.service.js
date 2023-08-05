@@ -16,6 +16,9 @@ let IngredientsService = class IngredientsService {
             const ingredients = await prisma.ingredients.findMany({
                 include: {
                     category: true
+                },
+                orderBy: {
+                    name: "asc"
                 }
             });
             resolve(ingredients);

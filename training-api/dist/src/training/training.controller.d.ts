@@ -31,7 +31,7 @@ export declare class TrainingController {
     createTraining(data: any): Promise<{
         message: string;
         data: {
-            training: any;
+            training: import(".prisma/client").Training;
         };
         errors: any;
     }>;
@@ -49,7 +49,7 @@ export declare class TrainingController {
     }): Promise<{
         message: string;
         data: {
-            training: any;
+            training: import(".prisma/client").Training;
         };
         errors: any;
     }>;

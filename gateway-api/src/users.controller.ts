@@ -146,7 +146,7 @@ export class UsersController {
     };
   }
 
-  @Put('/logout')
+  @Post('/logout')
   @Authorization(true)
   @ApiBearerAuth('access-token')
   @ApiCreatedResponse({

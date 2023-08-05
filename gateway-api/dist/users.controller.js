@@ -215,7 +215,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "loginUser", null);
 __decorate([
-    (0, common_1.Put)('/logout'),
+    (0, common_1.Post)('/logout'),
     (0, authorization_decorator_1.Authorization)(true),
     (0, swagger_1.ApiBearerAuth)('access-token'),
     (0, swagger_1.ApiCreatedResponse)({

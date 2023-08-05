@@ -26,21 +26,48 @@ let AppService = class AppService {
     getHello() {
         return 'Hello World!';
     }
-    ModuleInit() {
+    onModuleInit() {
         const seeders = async () => {
             const trainers = await (0, rxjs_1.firstValueFrom)(this.userServiceClient.send('user_search_by_params', {
                 isTrainer: true,
             }));
+            const students = await (0, rxjs_1.firstValueFrom)(this.userServiceClient.send('user_search_by_params', {
+                isTrainer: false,
+            }));
             trainers.forEach(async (trainer) => {
-                var recettes;
+                var randomUserID = Math.floor(Math.random() * trainer.traineeIds.length);
                 for (let i = 0; i < 5; i++) {
-                    const recette = await prisma.recettes.create({
+                    await prisma.recettes
+                        .create({
                         data: {
                             title: faker_1.faker.lorem.text(),
                             UserId: trainer.id,
+                            studentIds: [
+                                trainer.traineeIds[randomUserID],
+                            ],
                             instructions: [
                                 {
-                                    order: faker_1.faker.number.int({ max: 160 }),
+                                    order: faker_1.faker.number.int({ max: 5 }),
+                                    produits: [
+                                        {
+                                            quantite: faker_1.faker.number.int({ max: 360 }),
+                                            ingredients: faker_1.faker.number.int({ max: 191 }),
+                                        },
+                                    ],
+                                    description: faker_1.faker.lorem.paragraph(),
+                                },
+                                {
+                                    order: faker_1.faker.number.int({ max: 5 }),
+                                    produits: [
+                                        {
+                                            quantite: faker_1.faker.number.int({ max: 360 }),
+                                            ingredients: faker_1.faker.number.int({ max: 191 }),
+                                        },
+                                    ],
+                                    description: faker_1.faker.lorem.paragraph(),
+                                },
+                                {
+                                    order: faker_1.faker.number.int({ max: 5 }),
                                     produits: [
                                         {
                                             quantite: faker_1.faker.number.int({ max: 360 }),
@@ -51,12 +78,16 @@ let AppService = class AppService {
                                 },
                             ],
                         },
+                    })
+                        .then(() => {
+                        console.log('recette cree par ' +
+                            trainer.id +
+                            ' pour le student ' +
+                            trainer.traineeIds[randomUserID]);
                     });
-                    recettes = [...recettes, recette];
                 }
             });
         };
-        seeders();
     }
 };
 AppService = __decorate([

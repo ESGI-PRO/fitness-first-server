@@ -23,7 +23,7 @@ __decorate([
 ], createRecetteDTO.prototype, "title", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], createRecetteDTO.prototype, "UserId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
