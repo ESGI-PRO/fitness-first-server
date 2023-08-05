@@ -85,4 +85,8 @@ function insertRecettes() {
 }
 insertCategories();
 insertIngredients();
+<<<<<<< HEAD
 // insertRecettes();
+=======
+// insertRecettes();
+>>>>>>> 54de6e31f (modification get ingredients for web -3)
