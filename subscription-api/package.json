@@ -12,7 +12,15 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start --watch",
+<<<<<<< HEAD
     "start:dev": "npx prisma generate && npx prisma migrate dev && npm run start",
+=======
+<<<<<<< HEAD
+    "start:dev": "npx prisma generate && npx prisma migrate dev && npm run start",
+=======
+    "start:dev": "npx prisma generate && npx prisma migrate dev && npx prisma db seed && nest start --watch",
+>>>>>>> 07b84fb83 (pushing on dev without ...)
+>>>>>>> origin/recette
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main",
     "start:migrate:prod": "npx prisma generate && npx prisma migrate deploy && npx prisma db seed && npm run start:prod",

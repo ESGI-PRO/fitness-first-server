@@ -1,5 +1,4 @@
 const finals = require('../datas/final');
-const ingredients = require('../datas/final');
 const categories = require('../datas/categories');
 const recettes = require('../datas/recettes');
 import { PrismaClient } from '@prisma/client';
@@ -11,6 +10,7 @@ function insertCategories() {
   categories.forEach((n) =>
     prisma.categories
       .create({
+
         data: n,
       })
       .then(() => {
@@ -59,6 +59,7 @@ function insertRecettes() {
           data: {
             title: faker.lorem.text(),
             UserId: faker.string.uuid(),
+            
             instructions: [
               {
                 order: faker.number.int({ max: 160 }),
@@ -78,8 +79,8 @@ function insertRecettes() {
           console.error('[SEED] Failed to create ingredients records', e),
         );
     }
-  } catch (error) {
-    console.log(error)
+  } catch (e) {
+    console.log(e);
   }
 }
 insertCategories();

@@ -53,10 +53,21 @@ export class RecettesController {
     };
   }
 
+  @MessagePattern('update_recette')
+  public async update(data): Promise<any> {
+    return {
+      message: 'success update ingredients',
+      data: {
+        nutrition: await this.recettesApi.updateRecette(data),
+      },
+      errors: null,
+    };
+  }
+
   @MessagePattern('create_recette')
   public async create(data): Promise<any> {
     return {
-      message: 'success get ingredients',
+      message: 'success create ingredients',
       data: {
         nutrition: await this.recettesApi.createRecette(data),
       },
@@ -67,7 +78,7 @@ export class RecettesController {
   @MessagePattern('get_recettes_by_userId')
   public async getRecetteForUserByID(params: { userId: string }): Promise<any> {
     return {
-      message: 'success get ingredients',
+      message: 'success get ingredients by userid ',
       data: {
         nutrition: await this.recettesApi.getRecetteForUserByID(params.userId),
       },

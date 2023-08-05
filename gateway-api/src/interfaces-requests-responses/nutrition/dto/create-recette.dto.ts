@@ -6,7 +6,7 @@ export class createRecetteDTO {
   @ApiProperty()
   title: string;
   @ApiProperty()
-  UserId: number;
+  UserId: string;
   @ApiProperty()
   instructions: object;
 }

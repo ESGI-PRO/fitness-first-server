@@ -51,8 +51,30 @@ export class NutritionController {
   public async createRecettes(
     @Body() recettesData: createRecetteDTO,
   ): Promise<GetNutritionResponseDto> {
+    console.log("recettesData====================")
+    console.log(recettesData)
     const nutritionResponse: GetNutritionResponseDto = await firstValueFrom(
       this.nutritionServiceClient.send('create_recette', recettesData),
+    );
+    return {
+      message: nutritionResponse.message,
+      data: {
+        nutrition: nutritionResponse.data.nutrition,
+      },
+      errors: null,
+    };
+  }
+
+  @Put('/:id')
+  @Authorization(false)
+  @ApiOkResponse({
+    type: GetNutritionResponseDto,
+  })
+  public async updateRecette(
+    @Body() data: any,
+  ): Promise<GetNutritionResponseDto> {
+    const nutritionResponse: any = await firstValueFrom(
+      this.nutritionServiceClient.send('update_recette', data),
     );
     return {
       message: nutritionResponse.message,
