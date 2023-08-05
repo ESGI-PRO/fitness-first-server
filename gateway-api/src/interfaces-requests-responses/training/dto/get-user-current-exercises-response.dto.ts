@@ -8,7 +8,7 @@ export class GetUserCurrentExercisesResponseDto {
   message: string;
   @ApiProperty({
     example: {
-      exercices: [
+      exercises: [
         {
           "bodyPart": "back",
           "equipment": "weighted",
@@ -22,7 +22,7 @@ export class GetUserCurrentExercisesResponseDto {
     nullable: true,
   })
   data: {
-    exercices: Array<IExercise>;
+    exercises: Array<IExercise>;
   };
   @ApiProperty({ example: null, nullable: true })
   errors: { [key: string]: any };

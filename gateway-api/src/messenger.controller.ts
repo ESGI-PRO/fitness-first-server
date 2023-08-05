@@ -104,7 +104,7 @@ export class MessengerController {
     return response;
   }
   // get all meeting of a user
-  @Get('/get-all-meetings/:userId')
+  @Get('/get_all_meetings/:userId')
   @Authorization(true)
   @ApiBearerAuth('access-token')
   @Permission('find_all_video_meeting')
@@ -117,7 +117,7 @@ export class MessengerController {
   }
 
   // get twilio token for user
-  @Get('/get-twilio-token/:userId')
+  @Get('/get_twilio_token/:userId')
   @Authorization(true)
   @ApiBearerAuth('access-token')
   @Permission('get_twilio_token')
