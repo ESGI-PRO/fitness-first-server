@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const finals = require('../datas/final');
-const ingredients = require('../datas/final');
 const categories = require('../datas/categories');
 const recettes = require('../datas/recettes');
 const client_1 = require("@prisma/client");
@@ -67,8 +66,8 @@ function insertRecettes() {
                 .catch((e) => console.error('[SEED] Failed to create ingredients records', e));
         }
     }
-    catch (error) {
-        console.log(error);
+    catch (e) {
+        console.log(e);
     }
 }
 insertCategories();
