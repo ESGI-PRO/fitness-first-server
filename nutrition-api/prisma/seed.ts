@@ -84,4 +84,4 @@ function insertRecettes() {
 }
 insertCategories();
 insertIngredients();
-insertRecettes();
+// insertRecettes();
