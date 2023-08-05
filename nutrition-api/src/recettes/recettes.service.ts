@@ -66,6 +66,9 @@ export class RecettesService {
         where: {
           UserId: String(userId),
         },
+        orderBy: {
+          id: "desc"
+        }
       })
       resolve(recettes)
     })
