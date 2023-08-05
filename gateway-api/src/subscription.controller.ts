@@ -5,6 +5,7 @@ import {
   Req,
   Res,
   Body,
+  Param,
   Inject,
   Headers,
   BadRequestException,
@@ -92,11 +93,9 @@ export class SubscriptionController {
   })
   @Authorization(true)
   @ApiBearerAuth('access-token')
-  @Post('/find_user_subscriptions')
+  @Get('/find_user_subscriptions/:user_id')
   @Permission('find_user_subscriptions')
-  public async findSubscriptionByUserId(@Body() req: GetUserSubscriptionsDto): Promise<GetUserSubscriptionResponseDto>  {
-    const { userId } = req;
-
+  public async findSubscriptionByUserId(@Param('user_id') userId: string ): Promise<GetUserSubscriptionResponseDto>  {
     const response = await firstValueFrom(
       this.subscriptionServiceClient.send('find_user_subscriptions', userId),
     );

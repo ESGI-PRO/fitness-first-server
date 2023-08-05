@@ -11,9 +11,9 @@ import { ClientProxy } from '@nestjs/microservices';
 import { ApiOkResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { Authorization } from './decorators/authorization.decorator';
 import { firstValueFrom } from 'rxjs';
-import { CreateExercicesDto } from './interfaces-requests-responses/training/dto/create-exercices.dto';
-import { CreateExercicesResponseDto } from './interfaces-requests-responses/training/dto/create-exercice-response.dto';
-import { GetUserCurrentExercisesResponseDto } from './interfaces-requests-responses/training/dto/get-user-current-exercices-response.dto';
+import { CreateExercicesDto } from './interfaces-requests-responses/training/dto/create-exercises.dto';
+import { CreateExercicesResponseDto } from './interfaces-requests-responses/training/dto/create-exercise-response.dto';
+import { GetUserCurrentExercisesResponseDto } from './interfaces-requests-responses/training/dto/get-user-current-exercises-response.dto';
 import { Permission } from './decorators/permission.decorator';
 
 @Controller('training')
@@ -24,7 +24,7 @@ export class TrainingController {
     private readonly trainingServiceClient: ClientProxy,
   ) {}
 
-  @Post('/exercices')
+  @Post('/exercises')
   @Authorization(true)
   @ApiBearerAuth('access-token')
   @Permission('create_exercises')
@@ -40,13 +40,13 @@ export class TrainingController {
     return {
       message: exercicesResponse.message,
       data: {
-        exercices: exercicesResponse.data.exercices,
+        exercises: exercicesResponse.data.exercises,
       },
       errors: exercicesResponse.errors,
     };
   }
 
-  @Get('/exercices/:trainer_id')
+  @Get('/exercises/:trainer_id')
   @Authorization(true)
   @ApiBearerAuth('access-token')
   @Permission('get_user_current_exercises')
@@ -67,7 +67,28 @@ export class TrainingController {
     return exercicesResponse;
   }
 
-  @Get('/exercices')
+  @Get('/exercises/trainer/:user_id')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('get_user_current_exercises')
+  @ApiOkResponse({
+    type: GetUserCurrentExercisesResponseDto,
+  })
+  public async getUserExercicesByUserID(
+    @Param('user_id') user_id: string,
+    @Request() req,
+  ): Promise<GetUserCurrentExercisesResponseDto> {
+    const data = {
+      trainer_id: req.user.id,
+      user_id
+    }
+    const exercicesResponse: GetUserCurrentExercisesResponseDto = await firstValueFrom(
+      this.trainingServiceClient.send('get_user_current_exercises', data),
+    );
+    return exercicesResponse;
+  }
+
+  @Get('/exercises')
   @Authorization(true)
   @ApiBearerAuth('access-token')
   @Permission('get_all_exercises')
