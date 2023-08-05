@@ -14,8 +14,20 @@ export class ExercisesRepository {
   ) {}
 
   async createExercises(exercises: IExercise[]): Promise<any> {
-    const createOne = await this.exerciseModel.insertMany(exercises);
-    return createOne;
+    // for each exercise insert only if it doesn't exist
+    let exercisesInserted = []
+
+    exercises.forEach(async (exercise) => {
+      const exerciseExists = await this.exerciseModel.exists({ user_id: exercise.user_id, trainer_id: exercise.trainer_id, content: exercise.content });
+      if (!exerciseExists) {
+        const exerciseDo = new this.exerciseModel(exercise);
+        await exerciseDo.save()
+        exercisesInserted.push(exercise)
+      }
+    });
+
+    return exercisesInserted;
+
   }
 
   async findUserCurrentExercises({
