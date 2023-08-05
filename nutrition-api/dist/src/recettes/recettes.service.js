@@ -55,9 +55,12 @@ let RecettesService = class RecettesService {
                 where: {
                     UserId: String(userId),
                 },
+<<<<<<< HEAD
                 orderBy: {
                     id: "desc"
                 }
+=======
+>>>>>>> b776f9860 (modification get ingredients for web)
             });
             resolve(recettes);
         });
