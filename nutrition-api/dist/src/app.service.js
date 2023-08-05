@@ -88,6 +88,7 @@ let AppService = class AppService {
                 }
             });
         };
+        seeders();
     }
 };
 AppService = __decorate([

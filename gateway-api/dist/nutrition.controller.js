@@ -183,6 +183,9 @@ __decorate([
 ], NutritionController.prototype, "getRecettes", null);
 __decorate([
     (0, common_1.Post)('/'),
+    (0, authorization_decorator_1.Authorization)(true),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('create_recette'),
     (0, swagger_1.ApiOkResponse)({
         type: get_nutrition_response_dto_1.GetNutritionResponseDto,
     }),
@@ -205,6 +208,8 @@ __decorate([
 __decorate([
     (0, common_1.Get)('/ingredients'),
     (0, authorization_decorator_1.Authorization)(false),
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, permission_decorator_1.Permission)('get_ingredients'),
     (0, swagger_1.ApiOkResponse)({
         type: get_nutrition_response_dto_1.GetNutritionResponseDto,
     }),

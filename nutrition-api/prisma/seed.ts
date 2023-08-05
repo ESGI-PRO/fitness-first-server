@@ -83,6 +83,6 @@ function insertRecettes() {
     console.log(e);
   }
 }
-// insertCategories();
-// insertIngredients();
+insertCategories();
+insertIngredients();
 // insertRecettes();

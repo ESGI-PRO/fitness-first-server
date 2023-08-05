@@ -70,4 +70,6 @@ function insertRecettes() {
         console.log(e);
     }
 }
+insertCategories();
+insertIngredients();
 //# sourceMappingURL=seed.js.map

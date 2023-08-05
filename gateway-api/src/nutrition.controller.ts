@@ -42,9 +42,9 @@ export class NutritionController {
   }
 
   @Post('/')
-  // @Authorization(true)
-  // @ApiBearerAuth('access-token')
-  // @Permission('create_recette')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('create_recette')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
@@ -87,8 +87,8 @@ export class NutritionController {
 
   @Get('/ingredients')
   @Authorization(false)
-  // @ApiBearerAuth('access-token')
-  // @Permission('get_ingredients')
+  @ApiBearerAuth('access-token')
+  @Permission('get_ingredients')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
