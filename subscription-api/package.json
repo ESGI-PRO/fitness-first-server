@@ -5,25 +5,14 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
-  },
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start --watch",
-<<<<<<< HEAD
-    "start:dev": "npx prisma generate && npx prisma migrate dev && npm run start",
-=======
-<<<<<<< HEAD
-    "start:dev": "npx prisma generate && npx prisma migrate dev && npm run start",
-=======
-    "start:dev": "npx prisma generate && npx prisma migrate dev && npx prisma db seed && nest start --watch",
->>>>>>> 07b84fb83 (pushing on dev without ...)
->>>>>>> origin/recette
+    "start:dev": "npx prisma generate && npx prisma migrate deploy && npm run start",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main",
-    "start:migrate:prod": "npx prisma generate && npx prisma migrate deploy && npx prisma db seed && npm run start:prod",
+    "start:migrate:prod": "npx prisma generate && npx prisma migrate deploy && npm run start:prod",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
