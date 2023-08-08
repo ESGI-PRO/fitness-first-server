@@ -26,13 +26,9 @@ export class AppService {
         const allPlans = await this.prisma.plan.findMany();
         console.log("allPlans", allPlans)
         if(allPlans.length === 0){
-          Promise.all(
-            plans.map((item) =>
-              this.prisma.plan.create({
-                data: item,
-              }),
-            ),
-          ).then(() => {
+          this.prisma.plan.createMany({
+            data: plans,
+          }).then(() => {
               console.info('[SEED] Successfully create plans records')
             })
             .catch((e) =>

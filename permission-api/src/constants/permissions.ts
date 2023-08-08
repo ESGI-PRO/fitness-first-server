@@ -12,6 +12,7 @@ export const adminPermissions = [
   'user_update_by_id',
   'user_delete_by_id',
   'user_get_by_ids',
+  "user_new",
 
   //training
   'create_exercises',
@@ -64,10 +65,12 @@ export const userPermissions = [
   'user_search_by_credentials',
   'token_destroy',
   'token_verify',
+  'user_get_all',
   'get_user_by_id',
   'user_update_by_id',
   'user_delete_by_id',
   'user_get_by_ids',
+  "user_new",
 
   //training
   'create_exercises',

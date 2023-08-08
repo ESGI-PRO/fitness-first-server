@@ -71,13 +71,13 @@ export class StripeService {
                             userId: user?.id,
                             planId: plan[0].id,
                             stripeId: subscriptionStripe.id,
-                            currentPeriodStart: new Date(subscriptionStripe.current_period_start),
-                            currentPeriodEnd: new Date(subscriptionStripe.current_period_end),
+                            currentPeriodStart: new Date(subscriptionStripe.current_period_start * 1000),
+                            currentPeriodEnd: new Date(subscriptionStripe.current_period_end * 1000),
                             active: true
                         })
 
                         // update user stripeId
-                        const usr = await firstValueFrom(this.userServiceClient.send('user_update', {
+                        await firstValueFrom(this.userServiceClient.send('user_update', {
                             id: user?.id,
                             userParams: { stripeId: session.customer }
                         }))
@@ -106,7 +106,7 @@ export class StripeService {
                         const getSubscription = () => {
                             setTimeout(async () => {
                               subscription = await this.subcriptionsService.findByStripeId(session.subscription)
-                              if (subscription && subscription.length > 0 || count > 4) {
+                              if (subscription && subscription.length > 0) {
                                 await this.invoicesService.create({
                                     subscriptionId: subscription[0].id,
                                     userId: user?.id,
@@ -116,9 +116,11 @@ export class StripeService {
                                     hostedInvoiceUrl: session.hosted_invoice_url,
                                 })
                                 return
-                              }else{
+                              }else if(count < 5){
                                 count++;
                                 getSubscription();
+                              }else{
+                                return
                               }
 
                             }, 3000);

@@ -18,7 +18,10 @@ export class SubcriptionsService {
   }
 
   findByUserId(id: string) {
-    return this.prisma.subscription.findMany({ where: { userId: id } });
+    return this.prisma.subscription.findMany({ where: { userId: id,
+     },include: {
+      plan: true
+    }});
   }
 
   findOne(id: string) {
