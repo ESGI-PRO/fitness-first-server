@@ -86,7 +86,7 @@ export class NutritionController {
   @Post('/ingredients')
   @Authorization(true)
   @ApiBearerAuth('access-token')
-  @Permission('create_ingredient')
+  // @Permission('create_ingredient')
   @ApiOkResponse({
     type: GetNutritionResponseDto,
   })
