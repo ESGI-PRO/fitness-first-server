@@ -7,6 +7,7 @@ A simple messenger app built with Node.js, Express.js, MongoDB, and Socket.io
 To run this project, you will need to add the following environment variables to your .env file
 
 ```bash
+
 API_GATEWAY_PORT=8000
 API_GATEWAY_HOST=gateway-api
 
@@ -24,6 +25,9 @@ MONGO_HOST=mongo
 MONGO_DSN=mongodb://mongo:27017/training_db
 
 BASE_URI=http://localhost
+
+REACT_APP_RAPID_API_KEY=d40c138c32mshb179702566cbeecp1be977jsn752b54603514
+
 
 
 ```
