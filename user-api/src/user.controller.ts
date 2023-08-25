@@ -371,4 +371,47 @@ export class UserController {
     return result;
   }
 
+  @MessagePattern('user_request_role_change')
+  public async requestRoleChange(id: string): Promise<IUserSearchResponse> {
+    try {
+      await this.userService.requestTrainerRoleChange(id);
+      return {
+        status: HttpStatus.OK,
+        message: 'user_request_role_change_success',
+        user: null,
+      };
+    } catch (error) {
+      return {
+        status: HttpStatus.BAD_REQUEST,
+        message: 'user_request_role_change_failed',
+        user: null,
+      };
+    }
+  }
+
+  @MessagePattern('list_role_change_requests')
+  public async listRoleChangeRequests(): Promise<any> {
+    const requests = await this.userService.listRoleChangeRequests();
+    return requests;
+  }
+
+  @MessagePattern('approve_role_change_request')
+  public async approveRoleChangeRequest(id: string): Promise<any> {
+    // return await this.userService.approveRoleChangeRequest(id);
+    try {
+      await this.userService.approveRoleChangeRequest(id);
+      return {
+        status: HttpStatus.OK,
+        message: 'approve_role_change_request_success',
+        user: null,
+      };
+    } catch (error) {
+      return {
+        status: HttpStatus.BAD_REQUEST,
+        message: 'approve_role_change_request_failed',
+        user: null,
+      };
+    }
+  }
+
 }
