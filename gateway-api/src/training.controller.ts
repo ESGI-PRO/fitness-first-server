@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Inject,
   Param,
@@ -99,6 +100,29 @@ export class TrainingController {
     const exercicesResponse: GetUserCurrentExercisesResponseDto = await firstValueFrom(
       this.trainingServiceClient.send('get_all_exercises', {}),
     );
+    return exercicesResponse;
+  }
+
+  // @Delete('/exercises/:id')
+  // @Authorization(true)
+  // @ApiBearerAuth('access-token')
+  // @Permission('delete_exercise')
+  // @ApiOkResponse({
+  //   type: GetUserCurrentExercisesResponseDto,
+  // })
+  // public async deleteExercise(@Param('id') id: string): Promise<any> {
+  //   const exercicesResponse: any = await firstValueFrom(
+  //     this.trainingServiceClient.send('delete_exercise', id),
+  //   );
+  //   return exercicesResponse;
+  // }
+
+  @Delete('/exercises/:id')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  @Permission('training_delete_by_id')
+  public async deleteExercice(@Param('id') id: string): Promise<any> {
+    const exercicesResponse = await firstValueFrom(this.trainingServiceClient.send('training_delete_by_id', id));
     return exercicesResponse;
   }
 }

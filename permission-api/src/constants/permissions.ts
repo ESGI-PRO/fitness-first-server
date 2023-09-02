@@ -18,6 +18,7 @@ export const adminPermissions = [
   'create_exercises',
   'get_user_current_exercises',
   'get_all_exercises',
+  'training_delete_by_id',
 
   // subscription
   'webhook_stripe',
@@ -76,6 +77,7 @@ export const userPermissions = [
   'create_exercises',
   'get_user_current_exercises',
   'get_all_exercises',
+  'training_delete_by_id',
 
 
   // subscription

@@ -1,4 +1,4 @@
-import { Controller, HttpStatus } from '@nestjs/common';
+import { Controller, Delete, HttpStatus, NotFoundException, Param, Query } from '@nestjs/common';
 import { ExercisesService } from './exercises.service';
 import { CreateExerciseDto } from './dto/create-exercise.dto';
 import { MessagePattern } from '@nestjs/microservices';
@@ -7,7 +7,7 @@ import { IExerciseCreateResponse } from '../interfaces-requests-responses/respon
 
 @Controller('exercises')
 export class ExercisesController {
-  constructor(private readonly exercisesService: ExercisesService) {}
+  constructor(private readonly exercisesService: ExercisesService) { }
 
 
   @MessagePattern('create_exercises')
@@ -15,7 +15,7 @@ export class ExercisesController {
     let result: IExerciseCreateResponse;
 
     if (createExerciseDto) {
-      const exercises =  await this.exercisesService.createExercises(createExerciseDto.exercises);
+      const exercises = await this.exercisesService.createExercises(createExerciseDto.exercises);
 
       if (exercises) {
         result = {
@@ -43,11 +43,11 @@ export class ExercisesController {
 
 
   @MessagePattern('get_user_current_exercises')
-  async getUserCurrentExercises(data: {user_id: string, trainer_id: string}) {
+  async getUserCurrentExercises(data: { user_id: string, trainer_id: string }) {
     let result: IExercisesGetResponse;
 
     if (data) {
-      const exercises =  await this.exercisesService.findUserCurrentExercises(data);
+      const exercises = await this.exercisesService.findUserCurrentExercises(data);
       if (exercises) {
         result = {
           status: HttpStatus.OK,
@@ -85,7 +85,7 @@ export class ExercisesController {
   async getAllExercises() {
     let result: IExercisesGetResponse;
 
-    const exercises =  await this.exercisesService.findAllExercises();
+    const exercises = await this.exercisesService.findAllExercises();
     if (exercises) {
       result = {
         status: HttpStatus.OK,
@@ -108,4 +108,38 @@ export class ExercisesController {
 
     return result
   }
+
+
+  // @MessagePattern('delete_exercise')
+  // async deleteExercise(@Param('id') id: string): Promise<void> {
+
+  //   try {
+  //     return await this.exercisesService.deleteExercise(id);
+  //   } catch (error) {
+  //     throw new NotFoundException("l'erreur est : " + error.message);
+  //   }
+  // }
+
+  // @MessagePattern('delete_exercise')
+  // async deleteExercise(@Query('id') id: string): Promise<void> {
+  //   try {
+  //     await this.exercisesService.deleteExercise(id);
+  //   } catch (error) {
+  //     throw new NotFoundException("l'erreur est : " + error.message);
+  //   }
+  // }
+
+
+  @MessagePattern('training_delete_by_id')
+  public async deleteExercise(id: string): Promise<any> {
+    try {
+      const exercice = await this.exercisesService.deleteExercise(id);
+      return exercice;
+      
+    } catch (error) {
+      throw new NotFoundException("l'erreur est : " + error.message);
+
+    }
+  }
+
 }
