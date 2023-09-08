@@ -1,9 +1,10 @@
-import { Controller, Delete, HttpStatus, NotFoundException, Param, Query } from '@nestjs/common';
+import { Body, Controller, Delete, HttpStatus, NotFoundException, Param, Query } from '@nestjs/common';
 import { ExercisesService } from './exercises.service';
 import { CreateExerciseDto } from './dto/create-exercise.dto';
 import { MessagePattern } from '@nestjs/microservices';
 import { IExercisesGetResponse } from '../interfaces-requests-responses/responses/get-all-exercises-response'
 import { IExerciseCreateResponse } from '../interfaces-requests-responses/responses/exercise-create-response'
+import { UpdateExerciseDto } from './dto/update-exercise.dto';
 
 @Controller('exercises')
 export class ExercisesController {
@@ -109,37 +110,33 @@ export class ExercisesController {
     return result
   }
 
-
-  // @MessagePattern('delete_exercise')
-  // async deleteExercise(@Param('id') id: string): Promise<void> {
-
-  //   try {
-  //     return await this.exercisesService.deleteExercise(id);
-  //   } catch (error) {
-  //     throw new NotFoundException("l'erreur est : " + error.message);
-  //   }
-  // }
-
-  // @MessagePattern('delete_exercise')
-  // async deleteExercise(@Query('id') id: string): Promise<void> {
-  //   try {
-  //     await this.exercisesService.deleteExercise(id);
-  //   } catch (error) {
-  //     throw new NotFoundException("l'erreur est : " + error.message);
-  //   }
-  // }
-
-
   @MessagePattern('training_delete_by_id')
   public async deleteExercise(id: string): Promise<any> {
     try {
       const exercice = await this.exercisesService.deleteExercise(id);
       return exercice;
-      
+
     } catch (error) {
       throw new NotFoundException("l'erreur est : " + error.message);
 
     }
+  }
+
+  // @MessagePattern('training_edit_by_id')
+  // public async updateExercise(
+  //   @Param('id') id: string,
+  //   @Body() updateExerciseDto: UpdateExerciseDto,
+  // ) {
+  //   // Appelez le service pour effectuer la mise à jour de l'exercice
+  //   const updatedExercise = await this.exercisesService.updateExercise(id, updateExerciseDto);
+  //   return updatedExercise;
+  // }
+
+  /// CONTROLLER EXERCICES
+  @MessagePattern('training_find_by_id')
+  public async findExerciseById(id: string): Promise<any> {
+    const exercice = await this.exercisesService.findExerciseById(id);
+    return exercice;
   }
 
 }

@@ -5,7 +5,9 @@ import {
   Get,
   Inject,
   Param,
+  Patch,
   Post,
+  Put,
   Request
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
@@ -16,6 +18,7 @@ import { CreateExercicesDto } from './interfaces-requests-responses/training/dto
 import { CreateExercicesResponseDto } from './interfaces-requests-responses/training/dto/create-exercise-response.dto';
 import { GetUserCurrentExercisesResponseDto } from './interfaces-requests-responses/training/dto/get-user-current-exercises-response.dto';
 import { Permission } from './decorators/permission.decorator';
+//import { UpdateExerciseDto} from '../../training-api/src/exercises/dto/update-exercise.dto';
 
 @Controller('training')
 @ApiTags('training')
@@ -125,4 +128,33 @@ export class TrainingController {
     const exercicesResponse = await firstValueFrom(this.trainingServiceClient.send('training_delete_by_id', id));
     return exercicesResponse;
   }
+
+
+  /// CONTROLLER TRAINING GATEWAY
+  @Get('/exercises/f/:id')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  public async getExerciceById(@Param('id') id: string): Promise<any> {
+    const exercicesResponse = await firstValueFrom(this.trainingServiceClient.send('training_find_by_id', id));
+    return exercicesResponse;
+  }
+
+
+  // @Put('/exercises/:id')
+  // @Authorization(true)
+  // @ApiBearerAuth('access-token')
+  // @Permission('training_edit_by_id')
+  // public async updateExercise(
+  //   @Param('id') id: string,
+  //   @Body() updateExerciseDto: UpdateExerciseDto,
+  // ): Promise<any> {
+  //   const updatedExerciseResponse: any = await firstValueFrom(
+  //     this.trainingServiceClient.send('training_edit_by_id', {
+  //       id, // Pass the exercise ID in the message
+  //       updateExerciseDto, // Pass the update data in the message
+  //     }),
+  //   );
+  //   return updatedExerciseResponse;
+  // }
+
 }
