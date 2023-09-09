@@ -25,9 +25,13 @@ EXPOSE 8001
 FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
+<<<<<<< HEAD
 CMD [ "concurrently", "npm:start:dev","npm:prisma:generate", "npm:prisma:migrate" ]
+=======
+#CMD [ "concurrently", "npm:start:dev","npm:prisma:generate", "npm:prisma:migrate" ]
+>>>>>>> dev
 
-#CMD [ "npm", "run", "start:dev" ]
+CMD [ "npm", "run", "start:dev" ]
 
 ###################
 # PRODUCTION

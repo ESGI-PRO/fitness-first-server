@@ -41,6 +41,7 @@ services:
       service: nutrition-api
     depends_on:
       - postgres
+      - user-api
 
   user-api:
     extends:

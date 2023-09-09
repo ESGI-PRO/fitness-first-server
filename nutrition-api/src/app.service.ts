@@ -2,8 +2,6 @@ import { faker } from '@faker-js/faker';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { PrismaClient } from '@prisma/client';
-import categories from 'datas/categories';
-import finals from 'datas/final';
 import { firstValueFrom } from 'rxjs';
 
 const prisma = new PrismaClient();
@@ -26,14 +24,7 @@ export class AppService {
         }),
       );
 
-      const students = await firstValueFrom(
-        this.userServiceClient.send('user_search_by_params', {
-          isTrainer: false,
-        }),
-      );
-
-
-      trainers.forEach(async (trainer) => {
+      trainers.forEach(async (trainer: any) => {
       var randomUserID = Math.floor(Math.random() * trainer.traineeIds.length)
 
         for (let i = 0; i < 5; i++) {

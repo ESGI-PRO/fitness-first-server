@@ -6,13 +6,13 @@
   "private": true,
   "license": "UNLICENSED",
   "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+    "seed": "ts-node prisma/seed.ts"
   },
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start --watch",
-    "start:dev": "npx prisma generate && npx prisma migrate deploy && npx prisma db seed && npm run start",
+    "start:dev": "npx prisma generate && npx prisma migrate deploy && npm run start",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main",
     "start:migrate:prod": "npx prisma generate && npx prisma migrate deploy && npx prisma db seed && npm run start:prod",
