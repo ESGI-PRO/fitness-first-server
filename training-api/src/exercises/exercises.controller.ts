@@ -108,4 +108,22 @@ export class ExercisesController {
 
     return result
   }
+
+  @MessagePattern('training_delete_by_id')
+  public async deleteExercise(id: string): Promise<any> {
+    const exercice = await this.exercisesService.deleteExercise(id);
+    return exercice;
+  }
+
+  @MessagePattern('training_find_by_id')
+  public async findExerciseById(id: string): Promise<any> {
+    const exercice = await this.exercisesService.findExerciseById(id);
+    return exercice;
+  }
+
+  @MessagePattern('training_update_by_id')
+  public async updateExerciseById(data: {id: string, exerciseParams: any}): Promise<any> {
+    const exercice = await this.exercisesService.updateExerciseById(data.id, data.exerciseParams);
+    return exercice;
+  }
 }
