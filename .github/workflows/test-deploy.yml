@@ -5,7 +5,7 @@ on:
     types:
       - completed
   push:
-    branches: ["feature/testdocker"]
+    branches: ["feature/ttt"]
     paths:
       - ".github/workflows/gateway-deploy.yml"
       - "gateway-api/**"
