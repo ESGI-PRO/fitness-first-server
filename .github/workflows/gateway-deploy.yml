@@ -44,7 +44,6 @@ jobs:
           AZURECRPASSWORD: ${{ secrets.AZURE_CREDENTIALS }}
         run: |
           az aks get-credentials --resource-group challenge_iw3 --name myAKSCluster
-          kubectl delete namespaces challengespace
           kubectl create namespace challengespace
           kubectl apply -f ./manifests/gateway/
           kubectl get pods -n challengespace
