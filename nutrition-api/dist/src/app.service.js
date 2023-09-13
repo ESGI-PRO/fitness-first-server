@@ -31,9 +31,6 @@ let AppService = class AppService {
             const trainers = await (0, rxjs_1.firstValueFrom)(this.userServiceClient.send('user_search_by_params', {
                 isTrainer: true,
             }));
-            const students = await (0, rxjs_1.firstValueFrom)(this.userServiceClient.send('user_search_by_params', {
-                isTrainer: false,
-            }));
             trainers.forEach(async (trainer) => {
                 var randomUserID = Math.floor(Math.random() * trainer.traineeIds.length);
                 for (let i = 0; i < 5; i++) {
