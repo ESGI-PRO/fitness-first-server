@@ -1,4 +1,4 @@
-name: Gateway deployment --- azure ---
+name: test deployement
 on:
   workflow_run:
     workflows: ["Docker Image CI"]
@@ -29,7 +29,6 @@ jobs:
         run: |
           docker build "./gateway-api" -f  "./gateway-api/Dockerfile" -t challengeiw3.azurecr.io/challenge-gateway:latest
           docker push challengeiw3.azurecr.io/challenge-gateway:latest
-
           az acr repository list --name challengeiw3 --output table
           az acr repository show-tags --name challengeiw3 --repository challenge-gateway --output table
 
@@ -47,28 +46,4 @@ jobs:
           kubectl get service -n challengespace
           kubectl get deployments -n challengespace
 
-      # kubectl rollout restart deployment gateway -n ingress-nginx
-
-
-
-
-
-
-
-
-
-
-
-      # - uses: Azure/aks-set-context@v1
-      #   with:
-      #       creds: '${{ secrets.AZURE_CREDENTIALS }}'
-      #       cluster-name: myAKSCluster
-      #       resource-group: myVoteGroup
-
-      # - uses: azure/k8s-deploy@v1.2
-      #   with:
-      #     namespace: "default"
-      #     manifests: |
-      #       manifests/deployment-azure.yaml
-      #     images: |
-      #       idboubacar/challenge-semestre2-gateway-api:latest
+      # kubectl rollout restart deployment gateway -n challengespace
