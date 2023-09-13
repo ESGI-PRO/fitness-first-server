@@ -20,6 +20,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - run: |
+          az login 
           az account show 
           az acr login -n challengeiw3
           az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
