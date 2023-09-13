@@ -39,18 +39,16 @@ jobs:
           az acr repository list --name challengeiw3 --output table
           az acr repository show-tags --name challengeiw3 --repository challenge-gateway --output table
 
-      # - name: Deploy to AKS
-      #   env: 
-      #     AZURECRNAME: challengeiw3
-      #     AZURECRUSERNAME: challengeiw3
-      #     AZURECRPASSWORD: ${{ secrets.AZURE_CREDENTIALS }}
-      #   run: |
-      #     az aks get-credentials --resource-group Challenge_RG --name myAKSCluster
-      #     kubectl rollout restart deployment gateway -n ingress-nginx
-
-      # kubectl delete namespaces challengespace
-      # kubectl create namespace challengespace
-      # kubectl apply -f ./manifests/gateway/
+      - name: Deploy to AKS
+        env: 
+          AZURECRNAME: challengeiw3
+          AZURECRUSERNAME: challengeiw3
+          AZURECRPASSWORD: ${{ secrets.AZURE_CREDENTIALS }}
+        run: |
+          az aks get-credentials --resource-group Challenge_RG --name myAKSCluster
+          kubectl delete namespaces challengespace
+          kubectl create namespace challengespace
+          kubectl apply -f ./manifests/gateway/
 
 
       # - uses: Azure/aks-set-context@v1
