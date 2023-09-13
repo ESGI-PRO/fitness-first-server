@@ -14,6 +14,7 @@ async function bootstrap() {
       port:  new ConfigService().get('port')
     },
   } as TcpOptions);
+  
   await app.listen();
 
   // const app = await NestFactory.create(AppModule);
