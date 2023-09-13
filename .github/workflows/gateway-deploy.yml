@@ -20,6 +20,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - run: |
+          az account show 
           az acr login -n challengeiw3
           az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
           az aks get-credentials --resource-group challenge_iw3 --name myAKSCluster
@@ -31,14 +32,14 @@ jobs:
           az acr repository list --name challengeiw3 --output table
           az acr repository show-tags --name challengeiw3 --repository challenge-gateway --output table
 
-      - name: Deploy to AKS
-        env: 
-          AZURECRNAME: challengeiw3
-          AZURECRUSERNAME: challengeiw3
-          AZURECRPASSWORD: ${{ secrets.AZURE_CREDENTIALS }}
-        run: |
-          az aks get-credentials --resource-group Challenge_RG --name myAKSCluster
-          kubectl rollout restart deployment gateway -n ingress-nginx
+      # - name: Deploy to AKS
+      #   env: 
+      #     AZURECRNAME: challengeiw3
+      #     AZURECRUSERNAME: challengeiw3
+      #     AZURECRPASSWORD: ${{ secrets.AZURE_CREDENTIALS }}
+      #   run: |
+      #     az aks get-credentials --resource-group Challenge_RG --name myAKSCluster
+      #     kubectl rollout restart deployment gateway -n ingress-nginx
 
       # kubectl delete namespaces challengespace
       # kubectl create namespace challengespace
