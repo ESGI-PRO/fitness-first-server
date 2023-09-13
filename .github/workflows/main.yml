@@ -1,8 +1,8 @@
-name: Pushing images on docker hub 
+name: Pushing images on docker hub
 
 on:
   push:
-    branches: deveee
+    branches: [deveee]
 
 jobs:
   BuildAndPush:   
