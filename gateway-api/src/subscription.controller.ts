@@ -38,7 +38,7 @@ export class SubscriptionController {
   }
 
 
-  // create subscription
+  
   @Post('/webhook/stripe')
   public async webhook( @Headers('stripe-signature') signature: string,
   @Req() req: RequestWithRawBody, @Res() res: Response){
