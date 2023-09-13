@@ -16,15 +16,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: azure/login@v1
+      # - uses: azure/login@v1
+      #   with:
+      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - uses: azure/docker-login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - run: |
-          az login 
-          az account show 
-          az acr login -n challengeiw3
-          az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
-          az aks get-credentials --resource-group challenge_iw3 --name myAKSCluster
+          login-server: challengeiw3.azurecr.io
+          username: challengeiw3
+          password: NQKUHlqpCO3r8l/jt0vlrsPmUnHDhNIAR9Q7MqcR6/+ACRDBVPUJ
+          
+      # - run: |
+      #     az login 
+      #     az account show 
+      #     az acr login -n challengeiw3
+      #     az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
+      #     az aks get-credentials --resource-group challenge_iw3 --name myAKSCluster
       
       - name: Build and push
         run: |
