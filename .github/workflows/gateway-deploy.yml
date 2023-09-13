@@ -5,7 +5,7 @@ on:
     types:
       - completed
   push:
-    branches: ["feature/testdocker"]
+    branches: ["feature/testdockerttt"]
     paths:
       - ".github/workflows/gateway-deploy.yml"
       - "gateway-api/**"
@@ -26,6 +26,7 @@ jobs:
 
       - run: |
           az login
+          az acr login -n challengeiw3
           az account set --subscription 3e16dd7c-61e5-4d26-946a-5e09d779e669
           az aks get-credentials --resource-group challenge_iw3 --name myAKSCluster
       
@@ -36,15 +37,14 @@ jobs:
           az acr repository list --name challengeiw3 --output table
           az acr repository show-tags --name challengeiw3 --repository challenge-gateway --output table
 
-
-      # - name: Deploy to AKS
-      #   env: 
-      #     AZURECRNAME: challengeiw3
-      #     AZURECRUSERNAME: challengeiw3
-      #     AZURECRPASSWORD: ${{ secrets.AZURE_CREDENTIALS }}
-      #   run: |
-      #     az aks get-credentials --resource-group Challenge_RG --name myAKSCluster
-      #     kubectl delete namespaces challengespace
-      #     kubectl create namespace challengespace
-      #     kubectl apply -f ./manifests/gateway/
+      - name: Deploy to AKS
+        env: 
+          AZURECRNAME: challengeiw3
+          AZURECRUSERNAME: challengeiw3
+          AZURECRPASSWORD: ${{ secrets.AZURE_CREDENTIALS }}
+        run: |
+          az aks get-credentials --resource-group Challenge_RG --name myAKSCluster
+          kubectl delete namespaces challengespace
+          kubectl create namespace challengespace
+          kubectl apply -f ./manifests/gateway/
   #     kubectl rollout restart deployment gateway -n ingress-nginx
