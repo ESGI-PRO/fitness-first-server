@@ -16,7 +16,7 @@ describe('AppController (e2e)', () => {
   });
 
   it('/ (GET)', () => {
-    //test 1
+    //testing the deply
     return request(app.getHttpServer())
       .get('/')
       .expect(200)
