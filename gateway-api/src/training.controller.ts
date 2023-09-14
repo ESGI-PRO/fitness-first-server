@@ -5,7 +5,9 @@ import {
   Inject,
   Param,
   Post,
-  Request
+  Request,
+  Delete,
+  Put
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiOkResponse, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
@@ -99,6 +101,31 @@ export class TrainingController {
     const exercicesResponse: GetUserCurrentExercisesResponseDto = await firstValueFrom(
       this.trainingServiceClient.send('get_all_exercises', {}),
     );
+    return exercicesResponse;
+  }
+
+  @Delete('/exercises/:id')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  public async deleteExercice(@Param('id') id: string): Promise<any> {
+    const exercicesResponse = await firstValueFrom(this.trainingServiceClient.send('training_delete_by_id', id));
+    return exercicesResponse;
+  }
+
+
+  @Get('/exercises/f/:id')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  public async getExerciceById(@Param('id') id: string): Promise<any> {
+    const exercicesResponse = await firstValueFrom(this.trainingServiceClient.send('training_find_by_id', id));
+    return exercicesResponse;
+  }
+
+  @Put('/exercises/:id')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  public async updateExerciceById(@Param('id') id: string, @Body() exerciceParams: any): Promise<any> {
+    const exercicesResponse = await firstValueFrom(this.trainingServiceClient.send('training_update_by_id', { id, exerciceParams }));
     return exercicesResponse;
   }
 }

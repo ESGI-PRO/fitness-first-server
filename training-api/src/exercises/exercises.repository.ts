@@ -41,4 +41,22 @@ export class ExercisesRepository {
   async findAllExercises() : Promise<any> {
     return await this.exerciseModel.find({}).exec();
   }
+
+  async deleteExercise(id: string) : Promise<any> {
+    return await this.exerciseModel.deleteOne({ _id: id }).exec();
+  }
+
+  async findExerciseById(id: string) : Promise<any> {
+    return await this.exerciseModel.findOne({ _id: id }).exec();
+  }
+
+  async updateExerciseById(id: string, exerciseParams: any): Promise<any> {
+      const result = await this.exerciseModel.findOneAndUpdate({ _id: id }, {
+        ...exerciseParams,
+      }).exec();
+      return result;
+  }
+  
+  
+
 }
