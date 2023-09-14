@@ -1,0 +1,105 @@
+# name: Azure K8S deployment --- azure --- port gateway 3000
+# on:
+#   workflow_run:
+#     workflows: ["Docker Image CI"]
+#     types:
+#       - completed
+#   push:
+#     branches: ["feature/yatera"]
+#     paths:
+#       - ".github/workflows/azure-aks-deploy.yml"
+#       - "manifests/**"
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+
+#       - uses: azure/login@v1
+#         with:
+#           creds: ${{ secrets.AZURE_CREDENTIALS }}
+#       - run: |
+#           az acr login -n mychallengeregistry
+#           az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
+#           az aks get-credentials --resource-group Challenge_RG --name myAKSCluster
+      
+#       - name: Build and push
+#         run: |
+#           docker build "./gateway-api" -f  "./gateway-api/Dockerfile" -t mychallengeregistry.azurecr.io/challenge-gateway:latest
+#           docker build "./analytic-api" -f  "./analytic-api/Dockerfile" -t mychallengeregistry.azurecr.io/challenge-analytic:latest
+#           docker build "./mailer-api" -f  "./mailer-api/Dockerfile" -t mychallengeregistry.azurecr.io/challenge-mailer:latest
+#           docker build "./messenger-api" -f  "./messenger-api/Dockerfile" -t mychallengeregistry.azurecr.io/challenge-messenger:latest
+#           docker build "./nutrition-api" -f  "./nutrition-api/Dockerfile" -t mychallengeregistry.azurecr.io/challenge-nutrition:latest
+#           docker build "./user-api" -f  "./user-api/Dockerfile" -t mychallengeregistry.azurecr.io/challenge-user:latest
+#           docker build "./permission-api" -f  "./permission-api/Dockerfile" -t mychallengeregistry.azurecr.io/challenge-permission:latest
+#           docker build "./subscription-api" -f  "./subscription-api/Dockerfile" -t mychallengeregistry.azurecr.io/challenge-subscription:latest
+#           docker build "./token-api" -f  "./token-api/Dockerfile" -t mychallengeregistry.azurecr.io/challenge-token:latest
+#           docker build "./training-api" -f  "./training-api/Dockerfile" -t mychallengeregistry.azurecr.io/challenge-training:latest
+#           docker push mychallengeregistry.azurecr.io/challenge-gateway:latest
+#           docker push mychallengeregistry.azurecr.io/challenge-analytic:latest
+#           docker push mychallengeregistry.azurecr.io/challenge-mailer:latest
+#           docker push mychallengeregistry.azurecr.io/challenge-messenger:latest
+#           docker push mychallengeregistry.azurecr.io/challenge-nutrition:latest
+#           docker push mychallengeregistry.azurecr.io/challenge-user:latest
+#           docker push mychallengeregistry.azurecr.io/challenge-permission:latest
+#           docker push mychallengeregistry.azurecr.io/challenge-subscription:latest
+#           docker push mychallengeregistry.azurecr.io/challenge-token:latest
+#           docker push mychallengeregistry.azurecr.io/challenge-training:latest
+#           az acr repository list --name mychallengeregistry --output table
+#           az acr repository show-tags --name mychallengeregistry --repository challenge-gateway --output table
+#           az acr repository show-tags --name mychallengeregistry --repository challenge-analytic --output table
+#           az acr repository show-tags --name mychallengeregistry --repository challenge-mailer --output table
+#           az acr repository show-tags --name mychallengeregistry --repository challenge-messenger --output table
+#           az acr repository show-tags --name mychallengeregistry --repository challenge-nutrition --output table
+#           az acr repository show-tags --name mychallengeregistry --repository challenge-user --output table
+#           az acr repository show-tags --name mychallengeregistry --repository challenge-permission --output table
+#           az acr repository show-tags --name mychallengeregistry --repository challenge-subscription --output table
+#           az acr repository show-tags --name mychallengeregistry --repository challenge-token --output table
+#           az acr repository show-tags --name mychallengeregistry --repository challenge-training --output table
+          
+#       # - name: Deploy to AKS
+#       #   env: 
+#       #     AZURECRNAME: mychallengeregistry
+#       #     AZURECRUSERNAME: mychallengeregistry
+#       #     AZURECRPASSWORD: ${{ secrets.AZURE_CREDENTIALS }}
+#       #   run: |
+#       #     az aks get-credentials --resource-group myVoteGroup --name myAKSCluster
+#       #     kubectl delete namespaces challengespace
+#       #     kubectl create namespace challengespace
+#       #     kubectl apply -f ./manifests/gateway/
+#       #     kubectl apply -f ./manifests/analytic/
+#       #     kubectl apply -f ./manifests/mailer/
+#       #     kubectl apply -f ./manifests/messenger/
+#       #     kubectl apply -f ./manifests/nutrition/
+#       #     kubectl apply -f ./manifests/user/
+#       #     kubectl apply -f ./manifests/permission/
+#       #     kubectl apply -f ./manifests/subscription/
+#       #     kubectl apply -f ./manifests/token/
+#       #     kubectl apply -f ./manifests/training/
+#       #     kubectl get pods -n challengespace
+#       #     kubectl get service -n challengespace
+#       #     kubectl get deployments -n challengespace
+
+
+
+
+
+
+
+
+
+
+#       # - uses: Azure/aks-set-context@v1
+#       #   with:
+#       #       creds: '${{ secrets.AZURE_CREDENTIALS }}'
+#       #       cluster-name: myAKSCluster
+#       #       resource-group: myVoteGroup
+
+#       # - uses: azure/k8s-deploy@v1.2
+#       #   with:
+#       #     namespace: "default"
+#       #     manifests: |
+#       #       manifests/deployment-azure.yaml
+#       #     images: |
+#       #       idboubacar/challenge-semestre2-gateway-api:latest
