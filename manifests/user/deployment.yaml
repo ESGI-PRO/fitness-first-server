@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: user
-  namespace: "ingress-nginx"
+  namespace: "challengespace"
   labels:
     app: user
 spec:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: user
-        image: mychallengeregistry.azurecr.io/challenge-user:latest
+        image: challengeiw3.azurecr.io/challenge-user:latest
         imagePullPolicy: Always
         #image: idboubacar/challenge-semestre2-user-api
         env:

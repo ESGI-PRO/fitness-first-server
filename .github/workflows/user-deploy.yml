@@ -5,7 +5,7 @@ on:
     types:
       - completed
   push:
-    branches: ["feature/yateraaaa"]
+    branches: ["feature/testdocker"]
     paths:
       - ".github/workflows/user-deploy.yml"
       - "user-api/**"
@@ -20,31 +20,34 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - run: |
-          az acr login -n mychallengeregistry
-          az account set --subscription e354bc29-fa51-443a-be90-a1191487a664
-          az aks get-credentials --resource-group Challenge_RG --name myAKSCluster
+          az login
+          az acr login -n challengeiw3
+          az account set --subscription 3e16dd7c-61e5-4d26-946a-5e09d779e669
+          az aks get-credentials --resource-group challenge_iw3 --name myAKSCluster
       
       - name: Build and push
         run: |
-          docker build "./user-api" -f  "./user-api/Dockerfile" -t mychallengeregistry.azurecr.io/challenge-user:latest
+          docker build "./user-api" -f  "./user-api/Dockerfile" -t challengeiw3.azurecr.io/challenge-user:latest
 
-          docker push mychallengeregistry.azurecr.io/challenge-user:latest
+          docker push challengeiw3.azurecr.io/challenge-user:latest
 
-          az acr repository list --name mychallengeregistry --output table
-          az acr repository show-tags --name mychallengeregistry --repository challenge-user --output table
+          az acr repository list --name challengeiw3 --output table
+          az acr repository show-tags --name challengeiw3 --repository challenge-user --output table
 
       - name: Deploy to AKS
         env: 
-          AZURECRNAME: mychallengeregistry
-          AZURECRUSERNAME: mychallengeregistry
+          AZURECRNAME: challengeiw3
+          AZURECRUSERNAME: challengeiw3
           AZURECRPASSWORD: ${{ secrets.AZURE_CREDENTIALS }}
         run: |
-          az aks get-credentials --resource-group Challenge_RG --name myAKSCluster
-          kubectl rollout restart deployment user -n ingress-nginx
+          az aks get-credentials --resource-group challenge_iw3 --name myAKSCluster
+          kubectl get namespace | grep -q "^challengespace " || kubectl create namespace challengespace
+          kubectl apply -f ./manifests/user/
+          kubectl get pods -n challengespace
+          kubectl get service -n challengespace
+          kubectl get deployments -n challengespace        
+      # kubectl rollout restart deployment user -n challengespace
 
-      # kubectl delete namespaces challengespace
-      # kubectl create namespace challengespace
-      # kubectl apply -f ./manifests/user/
 
 
 
