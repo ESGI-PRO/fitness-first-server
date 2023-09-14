@@ -7,7 +7,7 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    //deploy - on one main 1
+    //deploy - on one main 2
     return this.appService.getHello();
   }
 }
