@@ -19,6 +19,12 @@ jobs:
       - uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - uses: azure/docker-login@v1
+        with:
+          login-server: challengeiw3.azurecr.io
+          username: challengeiw3
+          password: NQKUHlqpCO3r8l/jt0vlrsPmUnHDhNIAR9Q7MqcR6/+ACRDBVPUJ
+          
       - run: |
           az login
           az acr login -n challengeiw3
