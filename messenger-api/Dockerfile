@@ -35,7 +35,6 @@ RUN npm run build
 ENV NODE_ENV=production
 
 COPY --from=common-build-stage /var/www/messenger-api/node_modules ./node_modules
-
 COPY --from=common-build-stage /var/www/messenger-api/dist ./dist
 
 #RUN npm run build
