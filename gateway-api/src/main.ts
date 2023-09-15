@@ -36,7 +36,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 
-  //   app.useGlobalPipes(new ValidationPipe());
   app.use(helmet());
   app.use(rawBodyMiddleware());
   await app.listen(new ConfigService().get('port'), '0.0.0.0');

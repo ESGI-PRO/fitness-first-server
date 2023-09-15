@@ -12,6 +12,8 @@ RUN npm install
 
 COPY . .
 
+RUN npm run build
+
 EXPOSE 9000
 
 ###################
@@ -30,7 +32,7 @@ CMD [ "npm", "run", "start:dev" ]
 
 FROM common-build-stage as production-build-stage
 
-RUN npm run build
+WORKDIR /var/www/messenger-api
 
 ENV NODE_ENV=production
 
