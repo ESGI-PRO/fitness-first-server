@@ -37,6 +37,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   app.use(helmet());
+  // parse application/x-www-form-urlencoded
   app.use(rawBodyMiddleware());
   await app.listen(new ConfigService().get('port'), '0.0.0.0');
 }

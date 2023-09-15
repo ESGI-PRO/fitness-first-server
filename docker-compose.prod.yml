@@ -1,6 +1,6 @@
-version: '3.9'
+# version: '3.9'
 
-services:
+# services:
   #ALL DATABASES AND ADMINER, MONGO-EXPRESS
   # adminer:
   #   extends:
@@ -18,10 +18,10 @@ services:
   #     service: postgres
 
   #ALL APIs
-  gateway-api:
-    extends:
-      file: ./compose/docker-compose-service.prod.yml
-      service: gateway-api
+  # gateway-api:
+  #   extends:
+  #     file: ./compose/docker-compose-service.prod.yml
+  #     service: gateway-api
 
   # analytic-api:
   #   extends:
