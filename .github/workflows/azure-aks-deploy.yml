@@ -22,7 +22,6 @@ jobs:
 
       - run: |
           az login          
-          az acr login -n challengeiw3
           az account set --subscription 3e16dd7c-61e5-4d26-946a-5e09d779e669
           az aks get-credentials --resource-group challenge_iw3 --name myAKSCluster
   
