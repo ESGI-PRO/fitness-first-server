@@ -2,8 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: token
-  #namespace: "challengespace"
-  namespace: "ingress-nginx"
+  namespace: "challengespace"
   labels:
     app: token
 spec:
@@ -20,8 +19,8 @@ spec:
       - name: token
         image: idboubacar/challenge-semestre2-token-api
         imagePullPolicy: Always
-        envFrom:
-          - secretRef:
-            name: production-secret
-        ports:
-          - containerPort: 80
+      envFrom:
+        - secretRef:
+          name: production-secret
+      ports:
+        - containerPort: 80

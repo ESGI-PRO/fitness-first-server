@@ -2,8 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: subscription
-  #namespace: "challengespace"
-  namespace: "ingress-nginx"
+  namespace: "challengespace"
   labels:
     app: subscription
 spec:
@@ -18,10 +17,10 @@ spec:
     spec:
       containers:
       - name: subscription
-        image: idboubacar/challenge-semestre2-subscription-api:latest
-        imagePullPolicy: Always
-        envFrom:
-          - secretRef:
-            name: production-secret
-        ports:
-          - containerPort: 80
+        image: idboubacar/challenge-semestre2-subscription-api
+      imagePullPolicy: Always
+      envFrom:
+        - secretRef:
+          name: production-secret
+      ports:
+        - containerPort: 80

@@ -17,10 +17,10 @@ spec:
     spec:
       containers:
       - name: gateway
-        image: idboubacar/challenge-semestre2-gateway-api:latest
+        image: idboubacar/challenge-semestre2-gateway-api
         imagePullPolicy: Always
-        envFrom:
-          - secretRef:
-            name: production-secret
-        ports:
-          - containerPort: 8000
+      envFrom:
+        - secretRef:
+          name: production-secret
+      ports:
+        - containerPort: 8000

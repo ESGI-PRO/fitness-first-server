@@ -18,10 +18,10 @@ spec:
     spec:
       containers:
       - name: messenger
-        image: idboubacar/challenge-semestre2-messenger-api:latest
+        image: idboubacar/challenge-semestre2-messenger-api
         imagePullPolicy: Always
-        envFrom:
-          - secretRef:
-            name: production-secret
-        ports:
-          - containerPort: 80
+      envFrom:
+        - secretRef:
+          name: production-secret
+      ports:
+        - containerPort: 80
