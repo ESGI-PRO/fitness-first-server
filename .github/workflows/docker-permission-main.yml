@@ -2,7 +2,7 @@ name: Pushing permission on docker hub
 
 on:
   push:
-    branches: "feature/testdocker"
+    branches: "feature/testdockerrr"
 
 jobs:
   BuildAndPush:   

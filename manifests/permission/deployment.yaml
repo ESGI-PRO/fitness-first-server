@@ -2,8 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: permission
-  #namespace: "challengespace"
-  namespace: "ingress-nginx"
+  namespace: "challengespace"
   labels:
     app: permission
 spec:
@@ -18,7 +17,7 @@ spec:
     spec:
       containers:
       - name: permission
-        image: mychallengeregistry.azurecr.io/challenge-permission:latest
+        image: idboubacar/challenge-semestre2-permission-api:latest
         imagePullPolicy: Always
         envFrom:
           - secretRef:

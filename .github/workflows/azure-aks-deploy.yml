@@ -72,6 +72,13 @@ jobs:
           kubectl apply -f ./manifests/gateway/
           kubectl apply -f ./manifests/user/
           kubectl apply -f ./manifests/analytic/
+          kubectl apply -f ./manifests/mailer/
+          kubectl apply -f ./manifests/messenger/
+          kubectl apply -f ./manifests/nutrition/
+          kubectl apply -f ./manifests/permission/
+          kubectl apply -f ./manifests/subscription/
+          kubectl apply -f ./manifests/token/
+          kubectl apply -f ./manifests/training/
           kubectl get pods -n challengespace
           kubectl get service -n challengespace
           kubectl get deployments -n challengespace

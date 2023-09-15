@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: subscription
-        image: idboubacar/challenge-semestre2-subscription-api
+        image: idboubacar/challenge-semestre2-subscription-api:latest
         imagePullPolicy: Always
         envFrom:
           - secretRef:

@@ -17,7 +17,6 @@ spec:
     spec:
       containers:
       - name: analytic
-        # image: mychallengeregistry.azurecr.io/challenge-analytic:latest
         image: idboubacar/challenge-semestre2-analytic-api:latest
         imagePullPolicy: Always
         envFrom:
