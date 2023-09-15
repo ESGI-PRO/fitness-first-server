@@ -14,7 +14,7 @@ async function bootstrap() {
     },
   } as TcpOptions);
   await app.listen();
-  // je deploy en utilisant les 
+  // je deploy en utilisant les images from docker hub
 }
 bootstrap();
 
