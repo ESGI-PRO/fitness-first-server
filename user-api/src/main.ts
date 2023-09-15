@@ -4,6 +4,7 @@ import { Transport, TcpOptions } from '@nestjs/microservices';
 
 import { ConfigService } from './services/config/config.service';
 
+// pushing user
 async function bootstrap() {
   const app = await NestFactory.createMicroservice(UserModule, {
     transport: Transport.TCP,
