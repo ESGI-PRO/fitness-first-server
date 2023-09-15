@@ -2,8 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mailer
-  #namespace: "challengespace"
-  namespace: "ingress-nginx"
+  namespace: "challengespace"
   labels:
     app: mailer
 spec:
