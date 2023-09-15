@@ -20,8 +20,8 @@ spec:
       - name: mailer
         image: idboubacar/challenge-semestre2-mailer-api
         imagePullPolicy: Always
-      envFrom:
+        envFrom:
         - secretRef:
-          name: production-secret
-      ports:
+            name: production-secret
+        ports:
         - containerPort: 80

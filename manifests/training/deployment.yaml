@@ -19,8 +19,8 @@ spec:
       - name: training
         image: idboubacar/challenge-semestre2-training-api
         imagePullPolicy: Always
-      envFrom:
+        envFrom:
         - secretRef:
-          name: production-secret
-      ports:
-        - containerPort: 80
+            name: production-secret
+        ports:
+        - containerPort: 80                

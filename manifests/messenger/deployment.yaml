@@ -20,8 +20,8 @@ spec:
       - name: messenger
         image: idboubacar/challenge-semestre2-messenger-api
         imagePullPolicy: Always
-      envFrom:
+        envFrom:
         - secretRef:
-          name: production-secret
-      ports:
+            name: production-secret
+        ports:
         - containerPort: 80
