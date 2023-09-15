@@ -2,8 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nutrition
-  #namespace: "challengespace"
-  namespace: "ingress-nginx"
+  namespace: "challengespace"
   labels:
     app: nutrition
 spec:
@@ -18,25 +17,10 @@ spec:
     spec:
       containers:
       - name: nutrition
-        image: mychallengeregistry.azurecr.io/challenge-nutrition:latest
+        image: idboubacar/challenge-semestre2-nutrition-api:latest
         imagePullPolicy: Always
-        #image: idboubacar/challenge-semestre2-nutrition-api
-        env:
-          - name: NUTRITION_SERVICE_PORT
-            value: "80"
-          - name: DATABASE_URL
-            value: postgresql://postgres:password@44.212.32.217:5432/nutrition?schema=public
-          - name: API_GATEWAY_PORT
-            value: "8000"
-          - name: API_GATEWAY_HOST
-            value: gateway-api
-          - name: PERMISSION_SERVICE_PORT
-            value: "8007"
-          - name: PERMISSION_SERVICE_HOST
-            value: permission-api
-          - name: MAILER_SERVICE_PORT
-            value: "8008"
-          - name: MAILER_SERVICE_HOST
-            value: mailer-api
+        envFrom:
+          - secretRef:
+            name: production-secret
         ports:
           - containerPort: 80

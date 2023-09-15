@@ -11,6 +11,7 @@ export class AppController {
   async createAnalytics(data: CreateAnalyticsDto): Promise<IAnalyticResponse> {
     let result: IAnalyticResponse;
     try{
+      // analytics
       const analytics = await this.appService.createAnalytics(data);
       result = {
         status: HttpStatus.CREATED,

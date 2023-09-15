@@ -18,29 +18,10 @@ spec:
     spec:
       containers:
       - name: token
-        image: mychallengeregistry.azurecr.io/challenge-token:latest
+        image: idboubacar/challenge-semestre2-token-api
         imagePullPolicy: Always
-        #image: idboubacar/challenge-semestre2-token-api
         envFrom:
-        - secretRef:
-            name: production-secret-token
-        # env:
-        #   - name: JWT_SECRET
-        #     valueFrom:
-        #       secretKeyRef:
-        #         name: production-secret
-        #         key: JWT_SECRET
-#           - name: TOKEN_SERVICE_PORT
-#             value: "80"
-#           - name: MONGO_DSN
-#             value: mongodb://44.212.32.217:27017/token_db
-# #          - name: JWT_ACCESS_EXPIRATION_MINUTES
-#             #value: "360"
-#           - name: JWT_REFRESH_EXPIRATION_DAYS
-#             value: "60"    
-#           - name: JWT_RESET_PASSWORD_EXPIRATION_MINUTES
-#             value: "10"
-#           - name: JWT_VERIFY_EMAIL_EXPIRATION_MINUTES
-#             value: "10"
+          - secretRef:
+            name: production-secret
         ports:
           - containerPort: 80

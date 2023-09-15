@@ -20,10 +20,8 @@ spec:
         # image: mychallengeregistry.azurecr.io/challenge-analytic:latest
         image: idboubacar/challenge-semestre2-analytic-api:latest
         imagePullPolicy: Always
-        env:
-          - name: ANALYTICS_SERVICE_PORT
-            value: "80"
-          - name: MONGO_DSN
-            value: mongodb://44.212.32.217:27017/analytic_db
+        envFrom:
+          - secretRef:
+            name: production-secret
         ports:
           - containerPort: 80

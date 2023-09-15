@@ -18,39 +18,10 @@ spec:
     spec:
       containers:
       - name: subscription
-        image: mychallengeregistry.azurecr.io/challenge-subscription:latest
+        image: idboubacar/challenge-semestre2-subscription-api
         imagePullPolicy: Always
-        #image: idboubacar/challenge-semestre2-subscription-api
-        # ressource:
-        # limits:
-        #   cpu: 500m
-        #   memory: 128Mi
-        # requests:
-        #   cpu: 250m
-        #   memory: 128Mi
-
-        env:
-          - name: SUBSCRIPTION_SERVICE_PORT
-            value: "80"
-          - name: DATABASE_URL
-            value: postgresql://postgres:password@44.212.32.217:5432/subscription?schema=public
-          - name: API_GATEWAY_PORT
-            value: "8000"
-          - name: API_GATEWAY_HOST
-            value: gateway-api
-          - name: USER_SERVICE_PORT
-            value: "8002"
-          - name: USER_SERVICE_HOST
-            value: user-api
-          - name: MAILER_SERVICE_PORT
-            value: "8008"
-          - name: MAILER_SERVICE_HOST
-            value: mailer-api
-          - name: SUBSCRIPTION_SERVICE_HOST
-            value: subscription-api
-          - name: STRIPE_SECRET_KEY
-            value: SECRET_KEY_YOU_GET_FROM_STRIPE_DASHBOARD
-          - name: WEBHOOK_SECRET
-            value: YOUR_WEBHOOK_SECRET
+        envFrom:
+          - secretRef:
+            name: production-secret
         ports:
           - containerPort: 80

@@ -18,29 +18,10 @@ spec:
     spec:
       containers:
       - name: messenger
-        image: mychallengeregistry.azurecr.io/challenge-messenger:latest
+        image: idboubacar/challenge-semestre2-messenger-api:latest
         imagePullPolicy: Always
-        #image: idboubacar/challenge-semestre2-messenger-api
-        # ressource:
-        # limits:
-        #   cpu: 500m
-        #   memory: 128Mi
-        # requests:
-        #   cpu: 250m
-        #   memory: 128Mi
-
-        env:
-          - name: MESSENGER_SERVICE_PORT
-            value: "80"
-          - name: MONGO_DSN
-            value: mongodb://44.212.32.217:27017/messenger
-          - name: API_GATEWAY_PORT
-            value: "8000"
-          - name: API_GATEWAY_HOST
-            value: gateway-api
-          - name: MAILER_SERVICE_PORT
-            value: "8008"
-          - name: MAILER_SERVICE_HOST
-            value: mailer-api
+        envFrom:
+          - secretRef:
+            name: production-secret
         ports:
           - containerPort: 80
