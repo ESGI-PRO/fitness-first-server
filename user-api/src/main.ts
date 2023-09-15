@@ -14,7 +14,7 @@ async function bootstrap() {
     },
   } as TcpOptions);
   await app.listen();
-  // je 
+  // je deploy 
 }
 bootstrap();
 

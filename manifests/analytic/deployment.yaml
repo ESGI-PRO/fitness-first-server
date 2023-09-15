@@ -19,8 +19,8 @@ spec:
       - name: analytic
         image: idboubacar/challenge-semestre2-analytic-api
         imagePullPolicy: Always
-      envFrom:
+        envFrom:
         - secretRef:
-          name: production-secret
-      ports:
+            name: production-secret
+        ports:
         - containerPort: 80
