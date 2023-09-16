@@ -1,7 +1,7 @@
 name: Azure K8S deployment -- deploy
 on:
   push:
-    branches: ["feature/deployToAks"]
+    branches: "feature/deployToAks"
     paths:
       - ".github/workflows/azure-aks-deploy.yml"
       - "manifests/**"
@@ -25,42 +25,6 @@ jobs:
           az account set --subscription 3e16dd7c-61e5-4d26-946a-5e09d779e669
           az aks get-credentials --resource-group challenge_iw3 --name myAKSCluster
   
-      # - name: Build and push
-      #   run: |
-      #     docker build "./gateway-api" -f  "./gateway-api/Dockerfile" -t challengeiw3.azurecr.io/challenge-gateway:latest
-      #     docker build "./analytic-api" -f  "./analytic-api/Dockerfile" -t challengeiw3.azurecr.io/challenge-analytic:latest
-      #     docker build "./mailer-api" -f  "./mailer-api/Dockerfile" -t challengeiw3.azurecr.io/challenge-mailer:latest
-      #     docker build "./messenger-api" -f  "./messenger-api/Dockerfile" -t challengeiw3.azurecr.io/challenge-messenger:latest
-      #     docker build "./nutrition-api" -f  "./nutrition-api/Dockerfile" -t challengeiw3.azurecr.io/challenge-nutrition:latest
-      #     docker build "./user-api" -f  "./user-api/Dockerfile" -t challengeiw3.azurecr.io/challenge-user:latest
-      #     docker build "./permission-api" -f  "./permission-api/Dockerfile" -t challengeiw3.azurecr.io/challenge-permission:latest
-      #     docker build "./subscription-api" -f  "./subscription-api/Dockerfile" -t challengeiw3.azurecr.io/challenge-subscription:latest
-      #     docker build "./token-api" -f  "./token-api/Dockerfile" -t challengeiw3.azurecr.io/challenge-token:latest
-      #     docker build "./training-api" -f  "./training-api/Dockerfile" -t challengeiw3.azurecr.io/challenge-training:latest
-      #     docker push challengeiw3.azurecr.io/challenge-gateway:latest
-      #     docker push challengeiw3.azurecr.io/challenge-analytic:latest
-      #     docker push challengeiw3.azurecr.io/challenge-mailer:latest
-      #     docker push challengeiw3.azurecr.io/challenge-messenger:latest
-      #     docker push challengeiw3.azurecr.io/challenge-nutrition:latest
-      #     docker push challengeiw3.azurecr.io/challenge-user:latest
-      #     docker push challengeiw3.azurecr.io/challenge-permission:latest
-      #     docker push challengeiw3.azurecr.io/challenge-subscription:latest
-      #     docker push challengeiw3.azurecr.io/challenge-token:latest
-      #     docker push challengeiw3.azurecr.io/challenge-training:latest
-
-      #     az acr repository list --name challengeiw3 --output table
-      #     az acr repository show-tags --name challengeiw3 --repository challenge-gateway --output table
-      #     az acr repository show-tags --name challengeiw3 --repository challenge-analytic --output table
-      #     az acr repository show-tags --name challengeiw3 --repository challenge-mailer --output table
-      #     az acr repository show-tags --name challengeiw3 --repository challenge-messenger --output table
-      #     az acr repository show-tags --name challengeiw3 --repository challenge-nutrition --output table
-      #     az acr repository show-tags --name challengeiw3 --repository challenge-user --output table
-      #     az acr repository show-tags --name challengeiw3 --repository challenge-permission --output table
-      #     az acr repository show-tags --name challengeiw3 --repository challenge-subscription --output table
-      #     az acr repository show-tags --name challengeiw3 --repository challenge-token --output table
-      #     az acr repository show-tags --name challengeiw3 --repository challenge-training --output table
-
-
       - name: Deploy to AKS
         env: 
           AZURECRNAME: challengeiw3
@@ -81,15 +45,13 @@ jobs:
           kubectl get pods -n challengespace
           kubectl get service -n challengespace
           kubectl get deployments -n challengespace
-      # kubectl rollout restart deployment gateway -n ingress-nginx
-      # kubectl rollout restart deployment analytic -n ingress-nginx
-      # kubectl rollout restart deployment mailer -n ingress-nginx
-      # kubectl rollout restart deployment messenger -n ingress-nginx
-      # kubectl rollout restart deployment nutrition -n ingress-nginx
-      # kubectl rollout restart deployment user -n ingress-nginx
-      # kubectl rollout restart deployment permission -n ingress-nginx
-      # kubectl rollout restart deployment subscription -n ingress-nginx
-      # kubectl rollout restart deployment token -n ingress-nginx
-      # kubectl rollout restart deployment training -n ingress-nginx
-      # kubectl delete namespaces challengespace
-      # kubectl create namespace challengespace
+          kubectl rollout restart deployment gateway -n challengespace
+          kubectl rollout restart deployment analytic -n challengespace
+          kubectl rollout restart deployment mailer -n challengespace
+          kubectl rollout restart deployment messenger -n challengespace
+          kubectl rollout restart deployment nutrition -n challengespace
+          kubectl rollout restart deployment user -n challengespace
+          kubectl rollout restart deployment permission -n challengespace
+          kubectl rollout restart deployment subscription -n challengespace
+          kubectl rollout restart deployment token -n challengespace
+          kubectl rollout restart deployment training -n challengespace

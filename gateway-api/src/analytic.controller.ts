@@ -20,6 +20,7 @@ export class AnalyticController {
   ) {}
 
   //create analytics - count visitors
+  // analytics for user trafic
   @Post("/create_analytics")
   // @Authorization(true)
   // @ApiBearerAuth('access-token')
