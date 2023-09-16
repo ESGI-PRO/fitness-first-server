@@ -2,7 +2,7 @@ name: Pushing training on docker hub
 
 on:
   push:
-    branches: "feature/testdockerrr"
+    branches: "feature/testdocker"
 
 jobs:
   BuildAndPush:   
