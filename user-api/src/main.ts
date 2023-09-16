@@ -12,7 +12,6 @@ async function bootstrap() {
     },
   } as TcpOptions);
   await app.listen();
-  // on deploy to aks with 
 }
 bootstrap();
 
