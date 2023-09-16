@@ -39,6 +39,6 @@ ENV NODE_ENV=production
 COPY --from=common-build-stage /var/www/user-api/node_modules ./node_modules
 COPY --from=common-build-stage /var/www/user-api/dist ./dist
 
-#RUN npm run build
+EXPOSE 8002
 
 CMD [ "npm", "run", "start:prod" ]

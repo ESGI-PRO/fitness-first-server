@@ -4,7 +4,7 @@
 
 FROM node:18.15-alpine as common-build-stage
 
-WORKDIR /var/www/messenger-api
+WORKDIR /var/www/training-api
 
 COPY package*.json ./
 
@@ -12,7 +12,9 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 9000
+RUN npm run build
+
+EXPOSE 8003
 
 ###################
 # DEVELOPMENT
@@ -29,14 +31,12 @@ CMD [ "npm", "run", "start:dev" ]
 ###################
 
 FROM common-build-stage as production-build-stage
-
-RUN npm run build
-
+WORKDIR /var/www/training-api
 ENV NODE_ENV=production
 
-COPY --from=common-build-stage /var/www/messenger-api/node_modules ./node_modules
-COPY --from=common-build-stage /var/www/messenger-api/dist ./dist
+COPY --from=common-build-stage /var/www/training-api/node_modules ./node_modules
+COPY --from=common-build-stage /var/www/training-api/dist ./dist
 
-#RUN npm run build
+EXPOSE 8003
 
 CMD [ "npm", "run", "start:prod" ]
