@@ -11,11 +11,7 @@ const common_1 = require("@nestjs/common");
 const exercises_service_1 = require("./exercises.service");
 const exercises_controller_1 = require("./exercises.controller");
 const mongoose_1 = require("@nestjs/mongoose");
-<<<<<<< HEAD
-const exercise_schema_1 = require("src/_schemas/exercise.schema");
-=======
 const exercise_schema_1 = require("../_schemas/exercise.schema");
->>>>>>> b776f9860 (modification get ingredients for web)
 const exercises_repository_1 = require("./exercises.repository");
 const config_service_1 = require("../services/config/config.service");
 const microservices_1 = require("@nestjs/microservices");
