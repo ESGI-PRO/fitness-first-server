@@ -1,7 +1,7 @@
-name: Azure K8S deployment -- deploy
+name: Azure K8S deployments
 on:
   push:
-    branches: "feature/deployToAks"
+    branches: ["feature/deployToAks"]
     paths:
       - ".github/workflows/azure-aks-deploy.yml"
       - "manifests/**"
