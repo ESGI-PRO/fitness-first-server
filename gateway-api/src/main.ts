@@ -39,6 +39,5 @@ async function bootstrap() {
   app.use(helmet());
   app.use(rawBodyMiddleware());
   await app.listen(new ConfigService().get('port'), '0.0.0.0');
-  //commit for pushing
 }
 bootstrap();
