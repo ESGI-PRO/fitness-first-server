@@ -36,7 +36,7 @@ export class SubscriptionController {
         apiVersion: "2022-11-15"
       })
   }
-// subscription post controller
+// subscription post controller 
 
   @Post('/webhook/stripe')
   public async webhook( @Headers('stripe-signature') signature: string,
@@ -130,6 +130,8 @@ export class SubscriptionController {
     }
   }
 
+
+// get all subscriptions
   @Get('/find-all-subscriptions')
   public async findAllSubscriptions() {
     const response = await this.subscriptionServiceClient.send('find_all_subscriptions', {});
