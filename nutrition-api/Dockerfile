@@ -25,7 +25,6 @@ EXPOSE 8001
 FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
-#CMD [ "concurrently", "npm:start:dev","npm:prisma:generate", "npm:prisma:migrate" ]
 
 CMD [ "npm", "run", "start:dev" ]
 
@@ -41,7 +40,5 @@ COPY --from=common-build-stage /var/www/nutrition-api/node_modules ./node_module
 COPY --from=common-build-stage /var/www/nutrition-api/dist ./dist
 COPY --from=common-build-stage /var/www/nutrition-api/prisma ./prisma
 COPY --from=common-build-stage /var/www/nutrition-api/package*.json ./
-
-#RUN npm run build
 
 CMD [ "npm", "run", "start:migrate:prod" ]
