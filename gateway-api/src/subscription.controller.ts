@@ -36,7 +36,7 @@ export class SubscriptionController {
         apiVersion: "2022-11-15"
       })
   }
-
+// subscription post controller
 
   @Post('/webhook/stripe')
   public async webhook( @Headers('stripe-signature') signature: string,
