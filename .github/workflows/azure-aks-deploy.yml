@@ -1,4 +1,4 @@
-name: Azure K8S deployments
+name: Azure -- docker image --> aks
 on:
   push:
     branches: ["feature/deployToAks"]
