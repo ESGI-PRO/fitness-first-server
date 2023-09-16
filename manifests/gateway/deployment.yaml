@@ -21,6 +21,6 @@ spec:
         imagePullPolicy: Always
         envFrom:
         - secretRef:
-            name: production-secret
+            name: production-secret-gateway
         ports:
         - containerPort: 8000
