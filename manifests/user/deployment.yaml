@@ -24,3 +24,69 @@ spec:
             name: production-secret-user
         ports:
         - containerPort: 80  
+        env:
+        - name: API_GATEWAY_PORT
+          valueFrom: 
+            configMapKeyRef:
+              name: my-app-config-subscription
+              key: API_GATEWAY_PORT
+              
+        - name: API_GATEWAY_HOST
+          valueFrom: 
+            configMapKeyRef:
+              name: my-app-config-subscription
+              key: API_GATEWAY_HOST
+              
+        - name: USER_SERVICE_PORT
+          valueFrom: 
+            configMapKeyRef:
+              name: my-app-config-subscription
+              key: USER_SERVICE_PORT
+              
+        - name: USER_SERVICE_HOST
+          valueFrom: 
+            configMapKeyRef:
+              name: my-app-config-subscription
+              key: USER_SERVICE_HOST
+              
+        - name: MAILER_SERVICE_PORT
+          valueFrom: 
+            configMapKeyRef:
+              name: my-app-config-subscription
+              key: MAILER_SERVICE_PORT
+              
+        - name: MAILER_SERVICE_HOST
+          valueFrom: 
+            configMapKeyRef:
+              name: my-app-config-subscription
+              key: MAILER_SERVICE_HOST
+
+        - name: SUBSCRIPTION_SERVICE_PORT
+          valueFrom: 
+            configMapKeyRef:
+              name: my-app-config-subscription
+              key: SUBSCRIPTION_SERVICE_PORT
+
+        - name: SUBSCRIPTION_SERVICE_HOST
+          valueFrom: 
+            configMapKeyRef:
+              name: my-app-config-subscription
+              key: SUBSCRIPTION_SERVICE_HOST
+
+        - name: STRIPE_SECRET_KEY
+          valueFrom: 
+            configMapKeyRef:
+              name: my-app-config-subscription
+              key: STRIPE_SECRET_KEY
+
+        - name: WEBHOOK_SECRET
+          valueFrom: 
+            configMapKeyRef:
+              name: my-app-config-subscription
+              key: WEBHOOK_SECRET
+
+        - name: DATABASE_URL
+          valueFrom: 
+            configMapKeyRef:
+              name: my-app-config-subscription
+              key: DATABASE_URL

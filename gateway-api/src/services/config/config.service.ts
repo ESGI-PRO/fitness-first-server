@@ -13,6 +13,7 @@ export class ConfigService {
       },
       transport: Transport.TCP,
     };
+
     this.envConfig.userService = {
       options: {
         port: process.env.USER_SERVICE_PORT,
@@ -20,6 +21,7 @@ export class ConfigService {
       },
       transport: Transport.TCP,
     };
+
     this.envConfig.permissionService = {
       options: {
         port: process.env.PERMISSION_SERVICE_PORT,
@@ -27,6 +29,7 @@ export class ConfigService {
       },
       transport: Transport.TCP,
     };
+
     this.envConfig.analyticService = {
       options: {
         port: process.env.ANALYTIC_SERVICE_PORT,
@@ -34,6 +37,7 @@ export class ConfigService {
       },
       transport: Transport.TCP,
     };
+
     this.envConfig.nutritionService = {
       options: {
         port: process.env.NUTRITION_SERVICE_PORT,
@@ -41,6 +45,7 @@ export class ConfigService {
       },
       transport: Transport.TCP,
     };
+    
     this.envConfig.trainingService = {
       options: {
         port: process.env.TRAINING_SERVICE_PORT,

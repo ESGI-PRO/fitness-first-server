@@ -11,6 +11,10 @@ async function bootstrap() {
       port: new ConfigService().get('port'),
     },
   } as TcpOptions);
+
+  console.log('new ConfigService()', new ConfigService().get('port'))
+  console.log("subscriptionService", new ConfigService().get('subscriptionService'))
+  console.log("mailerService", new ConfigService().get('mailerService'))
   await app.listen();
 }
 bootstrap();

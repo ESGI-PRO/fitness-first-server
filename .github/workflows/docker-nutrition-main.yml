@@ -2,7 +2,7 @@ name: Pushing nutrition on docker hub
 
 on:
   push:
-    branches: "feature/testdockerrr"
+    branches: "feature/deployToAks"
 
 jobs:
   BuildAndPush:   
@@ -41,4 +41,33 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
+
+# docker tag challenge-semestre2-nutrition-api:latest idboubacar/challenge-semestre2-nutrition-api:latest
+# docker push idboubacar/challenge-semestre2-nutrition-api:latest
+
+# docker tag challenge-semestre2-gateway-api:latest idboubacar/challenge-semestre2-gateway-api:latest
+# docker push idboubacar/challenge-semestre2-gateway-api:latest
+
+# docker tag challenge-semestre2-user-api:latest idboubacar/challenge-semestre2-user-api:latest
+# docker push idboubacar/challenge-semestre2-user-api:latest
+
+# docker tag challenge-semestre2-training-api:latest idboubacar/challenge-semestre2-training-api:latest
+# docker push idboubacar/challenge-semestre2-training-api:latest
+
+# docker tag challenge-semestre2-subscription-api:latest idboubacar/challenge-semestre2-subscription-api:latest
+# docker push idboubacar/challenge-semestre2-subscription-api:latest
     
+# docker tag challenge-semestre2-messenger-api:latest idboubacar/challenge-semestre2-messenger-api:latest
+# docker push idboubacar/challenge-semestre2-messenger-api:latest
+
+# docker tag challenge-semestre2-analytic-api:latest idboubacar/challenge-semestre2-analytic-api:latest
+# docker push idboubacar/challenge-semestre2-analytic-api:latest
+
+# docker tag challenge-semestre2-mailer-api:latest idboubacar/challenge-semestre2-mailer-api:latest
+# docker push idboubacar/challenge-semestre2-mailer-api:latest
+
+# docker tag challenge-semestre2-permission-api:latest idboubacar/challenge-semestre2-permission-api:latest
+# docker push idboubacar/challenge-semestre2-permission-api:latest
+
+# docker tag challenge-semestre2-token-api:latest idboubacar/challenge-semestre2-token-api:latest
+# docker push idboubacar/challenge-semestre2-token-api:latest
