@@ -1,7 +1,7 @@
 name: Azure -- docker image --> aks
 on:
   push:
-    branches: ["feature/deployToAks"]
+    branches: ["feature/aksBoubacar"]
     paths:
       - ".github/workflows/azure-aks-deploy.yml"
       - "manifests/**"

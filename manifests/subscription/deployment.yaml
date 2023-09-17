@@ -287,6 +287,6 @@ spec:
   type: NodePort
   ports:
     - port: 8009
-      targetPort: 80
+      targetPort: 8009
   selector:
     app: subscription

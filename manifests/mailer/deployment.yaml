@@ -282,6 +282,6 @@ spec:
   type: NodePort
   ports:
     - port: 8008
-      targetPort: 80
+      targetPort: 8008
   selector:
     app: mailer

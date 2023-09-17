@@ -272,6 +272,11 @@ spec:
                 configMapKeyRef:
                   name: my-app-config
                   key: MONGO_DSN_TRAINING
+            - name: REACT_APP_RAPID_API_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: REACT_APP_RAPID_API_KEY
 
 ---
 
@@ -287,6 +292,6 @@ spec:
   type: NodePort
   ports:
     - port: 8003
-      targetPort: 80
+      targetPort: 8003
   selector:
     app: training

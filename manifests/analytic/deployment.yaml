@@ -287,6 +287,6 @@ spec:
   type: NodePort
   ports:
     - port: 8005
-      targetPort: 80
+      targetPort: 8005
   selector:
     app: analytic

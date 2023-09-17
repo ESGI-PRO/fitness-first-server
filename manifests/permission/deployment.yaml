@@ -282,6 +282,6 @@ spec:
   type: NodePort
   ports:
     - port: 8007
-      targetPort: 80
+      targetPort: 8007
   selector:
     app: permission
