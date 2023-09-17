@@ -17,4 +17,16 @@ export class ExercisesService {
   async findAllExercises() {
     return await this.exercisesRepository.findAllExercises();
   }
+
+  async deleteExercise(id: string) {
+    return await this.exercisesRepository.deleteExercise(id);
+  }
+
+  async findExerciseById(id: string) {
+    return await this.exercisesRepository.findExerciseById(id);
+  }
+
+  async updateExerciseById(id: string, exerciseParams: any) {
+    return await this.exercisesRepository.updateExerciseById(id, exerciseParams);
+  }
 }

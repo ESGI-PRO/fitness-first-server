@@ -333,4 +333,29 @@ export class UsersController {
     const users = await firstValueFrom(this.userServiceClient.send('user_get_by_ids', data));
     return users;
   }
+
+  @Post('/role/change_request/:id')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  public async requestTrainerRoleChange(@Param('id') id: string): Promise<any> {
+    const user = await firstValueFrom(this.userServiceClient.send('user_request_role_change', id));
+    return user;
+  };
+
+  @Get('/role/change_requests')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  public async getAllRoleChangeRequests(): Promise<any> {
+    const users = await firstValueFrom(this.userServiceClient.send('list_role_change_requests', {}));
+    return users;
+  };
+
+  @Post('/role/change_approval/:id')
+  @Authorization(true)
+  @ApiBearerAuth('access-token')
+  public async approveTrainerRoleChange(@Param('id') id: string): Promise<any> {
+    const user = await firstValueFrom(this.userServiceClient.send('approve_role_change_request', id));
+    return user;
+  };
+
 }
