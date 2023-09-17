@@ -152,11 +152,6 @@ spec:
                 configMapKeyRef:
                   name: my-app-config
                   key: MONGO_HOST
-            - name: MONGO_DSN
-              valueFrom:
-                configMapKeyRef:
-                  name: my-app-config
-                  key: MONGO_DSN
             - name: BASE_URI
               valueFrom:
                 configMapKeyRef:
@@ -197,11 +192,6 @@ spec:
                 configMapKeyRef:
                   name: my-app-config
                   key: POSTGRES_HOST
-            - name: DATABASE_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: my-app-config
-                  key: DATABASE_URL
             - name: STRIPE_SECRET_KEY
               valueFrom:
                 configMapKeyRef:

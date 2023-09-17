@@ -13,6 +13,9 @@ async function bootstrap() {
     },
     logger: ['error', 'warn', 'log']
   } as TcpOptions);
+  console.log('new ConfigService()', new ConfigService().get('port'))
+  console.log("mailerService", new ConfigService().get('mailerService'))
+  console.log("userService", new ConfigService().get('userService'))
   await app.listen();
 }
 bootstrap();
