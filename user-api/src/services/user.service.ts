@@ -158,4 +158,70 @@ export class UserService implements OnModuleInit {
     return users;
   }
 
+  public async requestTrainerRoleChange(id: string): Promise<void> {
+    try {
+      const user = await this.userModel.findById(id).exec();
+  
+      if (!user) {
+        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      }
+  
+      if (user.isTrainer) {
+        throw new HttpException('User is already a trainer', HttpStatus.BAD_REQUEST);
+      }
+  
+      if (user.isAdmin) {
+        throw new HttpException('Admin users cannot request role changes', HttpStatus.BAD_REQUEST);
+      }
+  
+      if (user.isTrainerRequested) {
+        throw new HttpException('Role change request already submitted', HttpStatus.BAD_REQUEST);
+      }
+  
+      user.isTrainerRequested = true;
+      await user.save();
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException('An error occurred', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+  
+  public async listRoleChangeRequests(): Promise<any[]> {
+    const requests = await this.userModel.find({ isTrainerRequested: true }).exec();
+    return requests;
+  }
+
+  public async approveRoleChangeRequest(id: string): Promise<any> {
+    try {
+      const user = await this.userModel.findById(id).exec();
+  
+      if (!user) {
+        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      }
+  
+      if (user.isTrainer) {
+        throw new HttpException('User is already a trainer', HttpStatus.BAD_REQUEST);
+      }
+  
+      if (user.isAdmin) {
+        throw new HttpException('Admin users cannot request role changes', HttpStatus.BAD_REQUEST);
+      }
+  
+      if (!user.isTrainerRequested) {
+        throw new HttpException('User has not requested a role change', HttpStatus.BAD_REQUEST);
+      }
+  
+      user.isTrainer = true;
+      user.isTrainerRequested = false;
+      await user.save();
+    } catch (error) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+      throw new HttpException('An error occurred', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+  
 }

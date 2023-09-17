@@ -14,6 +14,7 @@ export interface IUserSchema extends mongoose.Document {
   userName: string;
   mobileNumber: string;
   isTrainer: Boolean;
+  isTrainerRequested: Boolean;
   isAdmin: Boolean;
   trainerSpeciality: string;
   trainerId: string;
@@ -57,6 +58,10 @@ export const UserSchema = new mongoose.Schema<IUserSchema>(
     isTrainer: {
       type: Boolean,
       required: [false, ''],
+    },
+    isTrainerRequested: {
+      type: Boolean,
+      default: false,
     },
     isAdmin: {
       type: Boolean,
