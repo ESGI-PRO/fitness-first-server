@@ -284,9 +284,9 @@ metadata:
     name: user
     app: user
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 8002
-      targetPort: 80
+      targetPort: 8002
   selector:
     app: user

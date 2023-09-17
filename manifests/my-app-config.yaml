@@ -11,7 +11,7 @@ data:
   NUTRITION_SERVICE_HOST: "nutrition-api"
 
   USER_SERVICE_PORT: "8002"
-  USER_SERVICE_HOST: "user-api"
+  USER_SERVICE_HOST: "user"
 
   TRAINING_SERVICE_PORT: "8003"
   TRAINING_SERVICE_HOST: "training-api"

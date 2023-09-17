@@ -284,7 +284,7 @@ metadata:
     name: training
     app: training
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 8003
       targetPort: 80

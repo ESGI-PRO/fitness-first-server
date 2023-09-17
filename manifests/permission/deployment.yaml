@@ -279,7 +279,7 @@ metadata:
     name: permission
     app: permission
 spec:
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 8007
       targetPort: 80
