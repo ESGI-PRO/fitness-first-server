@@ -47,20 +47,23 @@ export class AppService {
         for (let j = 0; j < trainees.length; j++) {
           const traineeId = trainees[j];
 
-          // get 5 random unique exerxise from mock data without faker
-          const exercises = data.sort(() => Math.random() - Math.random()).slice(0, 5);
+     // get 5 random unique exercise from mock data without faker
+     const exercises = data?.sort(() => Math.random() - Math.random()).slice(0, 5) || [];
 
 
-          // for each trainer and trainee create 5 exercises
-          for (let k = 0; k < 5; k++) {
-            await this.exerciseModel.create({
-              user_id: traineeId,
-              trainer_id: trainer.id,
-              content: exercises[k],
-            });
-          }
+     // for each trainer and trainee create 5 exercises
+     if(exercises.length > 0) {
+       for (let k = 0; k < 5; k++) {
+         await this.exerciseModel.create({
+           user_id: traineeId,
+           trainer_id: trainer.id,
+           content: exercises[k],
+         });
+       }
 
-        }
+     }
+
+   }
       }
     };
 
