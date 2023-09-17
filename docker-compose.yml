@@ -23,10 +23,10 @@ services:
       file: ./compose/docker-compose-service.yml
       service: gateway-api
 
-  # analytic-api:
-  #   extends:
-  #     file: ./compose/docker-compose-service.yml
-  #     service: analytic-api
+  analytic-api:
+      extends:
+        file: ./compose/docker-compose-service.yml
+        service: analytic-api
 
   training-api:
     extends:
@@ -35,13 +35,13 @@ services:
     depends_on:
       - postgres
 
-  # nutrition-api:
-  #   extends:
-  #     file: ./compose/docker-compose-service.yml
-  #     service: nutrition-api
-  #   depends_on:
-  #     - postgres
-  #     - user-api
+  nutrition-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: nutrition-api
+    depends_on:
+      - postgres
+      - user-api
 
   user-api:
     extends:
@@ -50,35 +50,35 @@ services:
     depends_on:
       - mongo
 
-  # token-api:
-  #   extends:
-  #     file: ./compose/docker-compose-service.yml
-  #     service: token-api
-  #   depends_on:
-  #     - mongo
+  token-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: token-api
+    depends_on:
+      - mongo
 
-  # permission-api:
-  #   extends:
-  #     file: ./compose/docker-compose-service.yml
-  #     service: permission-api
+  permission-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: permission-api
 
-  # mailer-api:
-  #   extends:
-  #     file: ./compose/docker-compose-service.yml
-  #     service: mailer-api
+  mailer-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: mailer-api
 
-  # messenger-api:
-  #   extends:
-  #     file: ./compose/docker-compose-service.yml
-  #     service: messenger-api
-  #   depends_on:
-  #     - mongo
-  #     - user-api
+  messenger-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: messenger-api
+    depends_on:
+      - mongo
+      - user-api
 
-  # subscription-api:
-  #   extends:
-  #     file: ./compose/docker-compose-service.yml
-  #     service: subscription-api
-  #   depends_on:
-  #     - postgres
-  #     - user-api
+  subscription-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: subscription-api
+    depends_on:
+      - postgres
+      - user-api

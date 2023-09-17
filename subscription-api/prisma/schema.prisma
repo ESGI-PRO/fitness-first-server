@@ -1,50 +1,54 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x", "linux-musl-arm64-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL_SUBSCRIPTION")
 }
 
 model Subscription {
-  id                 String   @id @default(uuid())
+  id                 String    @id @default(uuid())
   stripeId           String
   userId             String
-  plan               Plan?    @relation(fields: [planId], references: [id])
+  plan               Plan?     @relation(fields: [planId], references: [id])
   planId             String?
-  active             Boolean  @default(false)
-  invoice           Invoice[]
+  active             Boolean   @default(false)
+  invoice            Invoice[]
   currentPeriodStart DateTime
   currentPeriodEnd   DateTime
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime? @updatedAt
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime? @updatedAt
+
   @@index([userId(sort: Asc)])
 }
+
 model Plan {
-  id           String   @id @default(uuid())
+  id           String         @id @default(uuid())
   name         String         @db.VarChar(75)
   slug         String         @db.VarChar(100)
   stripeId     String
-  price        Int           @default(0)
-  paymentLink  String        @db.VarChar(255)
+  price        Int            @default(0)
+  paymentLink  String         @db.VarChar(255)
   Subscription Subscription[]
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime? @updatedAt
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime?      @updatedAt
+
   @@index([id(sort: Asc)])
 }
 
 model Invoice {
-  id               String   @id @default(uuid())
+  id               String        @id @default(uuid())
   stripeId         String
   userId           String?
-  subscription     Subscription?   @relation(fields: [subscriptionId], references: [id])
-  subscriptionId  String?
+  subscription     Subscription? @relation(fields: [subscriptionId], references: [id])
+  subscriptionId   String?
   amountPaid       Int
   number           String
   hostedInvoiceUrl String
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime? @updatedAt
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime?     @updatedAt
+
   @@index([createdAt(sort: Asc)])
 }

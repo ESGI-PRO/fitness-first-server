@@ -6,7 +6,7 @@ import {
 export class MongoConfigService implements MongooseOptionsFactory {
   createMongooseOptions(): MongooseModuleOptions {
     return {
-      uri: process.env.MONGO_DSN,
+      uri: process.env.MONGO_DSN_TOKEN,
     };
   }
 }

@@ -2,6 +2,7 @@ version: '3.9'
 
 services:
   gateway-api:
+    container_name: challenge-semestre2-gateway-api
     build:
       context: ../gateway-api
       # platforms:
@@ -11,14 +12,15 @@ services:
       target: development-build-stage
     hostname: gateway-api
     env_file:
-      - ../gateway-api/.env
+      - ../.env
     volumes:
       - ../gateway-api:/var/www/gateway-api
       - /var/www/gateway-api/node_modules
     ports:
-      - 8000:8000
+      - "8000:8000"
 
   nutrition-api:
+    container_name: challenge-semestre2-nutrition-api
     build:
       context: ../nutrition-api
       # platforms:
@@ -28,14 +30,15 @@ services:
       target: development-build-stage
     hostname: nutrition-api
     env_file:
-      - ../nutrition-api/.env
+      - ../.env
     volumes:
       - ../nutrition-api:/var/www/nutrition-api
       - /var/www/nutrition-api/node_modules
     ports:
-      - 8001:8001
+      - "8001:8001"
 
   user-api:
+    container_name: challenge-semestre2-user-api
     build:
       context: ../user-api
       # platforms:
@@ -45,14 +48,15 @@ services:
       target: development-build-stage
     hostname: user-api
     env_file:
-      - ../user-api/.env
+      - ../.env
     volumes:
       - ../user-api:/var/www/user-api
       - /var/www/user-api/node_modules
     ports:
-      - 8002:8002
+      - "8002:8002"
 
   training-api:
+    container_name: challenge-semestre2-training-api
     build:
       context: ../training-api
       # platforms:
@@ -62,14 +66,15 @@ services:
       target: development-build-stage
     hostname: training-api
     env_file:
-      - ../training-api/.env
+      - ../.env
     volumes:
       - ../training-api:/var/www/training-api
       - /var/www/training-api/node_modules
     ports:
-      - 8003:8003
+      - "8003:8003"
 
   analytic-api:
+    container_name: challenge-semestre2-analytic-api
     build:
       context: ../analytic-api
       # platforms:
@@ -79,14 +84,15 @@ services:
       target: development-build-stage
     hostname: analytic-api
     env_file:
-      - ../analytic-api/.env
+      - ../.env
     volumes:
       - ../analytic-api:/var/www/analytic-api
       - /var/www/analytic-api/node_modules
     ports:
-      - 8005:8005
+      - "8005:8005"
 
   token-api:
+    container_name: challenge-semestre2-token-api
     build:
       context: ../token-api
       # platforms:
@@ -96,14 +102,15 @@ services:
       target: development-build-stage
     hostname: token-api
     env_file:
-      - ../token-api/.env
+      - ../.env
     volumes:
-        - ../token-api:/var/www/token-api
-        - /var/www/token-api/node_modules
+      - ../token-api:/var/www/token-api
+      - /var/www/token-api/node_modules
     ports:
-      - 8006:8006
+      - "8006:8006"
 
   permission-api:
+    container_name: challenge-semestre2-permission-api
     build:
       context: ../permission-api
       # platforms:
@@ -113,14 +120,15 @@ services:
       target: development-build-stage
     hostname: permission-api
     env_file:
-      - ../permission-api/.env
+      - ../.env
     volumes:
-        - ../permission-api:/var/www/permission-api
-        - /var/www/permission-api/node_modules
+      - ../permission-api:/var/www/permission-api
+      - /var/www/permission-api/node_modules
     ports:
-      - 8007:8007
+      - "8007:8007"
 
   mailer-api:
+    container_name: challenge-semestre2-mailer-api
     build:
       context: ../mailer-api
       # platforms:
@@ -130,14 +138,15 @@ services:
       target: development-build-stage
     hostname: mailer-api
     env_file:
-      - ../mailer-api/.env
+      - ../.env
     volumes:
-        - ../mailer-api:/var/www/mailer-api
-        - /var/www/mailer-api/node_modules
+      - ../mailer-api:/var/www/mailer-api
+      - /var/www/mailer-api/node_modules
     ports:
-      - 8008:8008
+      - "8008:8008"
 
   subscription-api:
+    container_name: challenge-semestre2-subscription-api
     build:
       context: ../subscription-api
       # platforms:
@@ -147,14 +156,15 @@ services:
       target: development-build-stage
     hostname: subscription-api
     env_file:
-      - ../subscription-api/.env
+      - ../.env
     volumes:
-        - ../subscription-api:/var/www/subscription-api
-        - /var/www/subscription-api/node_modules
+      - ../subscription-api:/var/www/subscription-api
+      - /var/www/subscription-api/node_modules
     ports:
-      - 8009:8009
+      - "8009:8009"
 
   messenger-api:
+    container_name: challenge-semestre2-messenger-api
     build:
       context: ../messenger-api
       # platforms:
@@ -164,9 +174,9 @@ services:
       target: development-build-stage
     hostname: messenger-api
     env_file:
-      - ../messenger-api/.env
+      - ../.env
     volumes:
-        - ../messenger-api:/var/www/messenger-api
-        - /var/www/messenger-api/node_modules
+      - ../messenger-api:/var/www/messenger-api
+      - /var/www/messenger-api/node_modules
     ports:
-      - 9000:9000
+      - "9000:9000"

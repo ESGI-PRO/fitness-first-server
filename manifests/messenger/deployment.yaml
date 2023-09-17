@@ -16,11 +16,287 @@ spec:
         app: messenger
     spec:
       containers:
-      - name: messenger
-        image: idboubacar/challenge-semestre2-messenger-api
-        imagePullPolicy: Always
-        envFrom:
-        - secretRef:
-            name: production-secret-messenger
-        ports:
-        - containerPort: 80
+        - name: messenger
+          image: idboubacar/challenge-semestre2-messenger-api
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: API_GATEWAY_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: API_GATEWAY_PORT
+            - name: API_GATEWAY_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: API_GATEWAY_HOST
+            - name: NUTRITION_SERVICE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: NUTRITION_SERVICE_PORT
+            - name: NUTRITION_SERVICE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: NUTRITION_SERVICE_HOST
+            - name: USER_SERVICE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: USER_SERVICE_PORT
+            - name: USER_SERVICE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: USER_SERVICE_HOST
+            - name: TRAINING_SERVICE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: TRAINING_SERVICE_PORT
+            - name: TRAINING_SERVICE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: TRAINING_SERVICE_HOST
+            - name: AUTH_SERVICE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: AUTH_SERVICE_PORT
+            - name: AUTH_SERVICE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: AUTH_SERVICE_HOST
+            - name: ANALYTIC_SERVICE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: ANALYTIC_SERVICE_PORT
+            - name: ANALYTIC_SERVICE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: ANALYTIC_SERVICE_HOST
+            - name: TOKEN_SERVICE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: TOKEN_SERVICE_PORT
+            - name: TOKEN_SERVICE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: TOKEN_SERVICE_HOST
+            - name: PERMISSION_SERVICE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: PERMISSION_SERVICE_PORT
+            - name: PERMISSION_SERVICE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: PERMISSION_SERVICE_HOST
+            - name: MAILER_SERVICE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: MAILER_SERVICE_PORT
+            - name: MAILER_SERVICE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: MAILER_SERVICE_HOST
+            - name: SUBSCRIPTION_SERVICE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: SUBSCRIPTION_SERVICE_PORT
+            - name: SUBSCRIPTION_SERVICE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: SUBSCRIPTION_SERVICE_HOST
+            - name: MESSENGER_SERVICE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: MESSENGER_SERVICE_PORT
+            - name: MESSENGER_SERVICE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: MESSENGER_SERVICE_HOST
+            - name: MONGO_ROOT_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: MONGO_ROOT_USER
+            - name: MONGO_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: MONGO_ROOT_PASSWORD
+            - name: MONGO_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: MONGO_DATABASE
+            - name: MONGO_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: MONGO_HOST
+            - name: MONGO_DSN
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: MONGO_DSN
+            - name: BASE_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: BASE_URI
+            - name: TWILIO_ACCOUNT_SID
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: TWILIO_ACCOUNT_SID
+            - name: TWILIO_API_KEY_SID
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: TWILIO_API_KEY_SID
+            - name: TWILIO_API_KEY_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: TWILIO_API_KEY_SECRET
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: POSTGRES_DB
+            - name: POSTGRES_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: POSTGRES_HOST
+            - name: DATABASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: DATABASE_URL
+            - name: STRIPE_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: STRIPE_SECRET_KEY
+            - name: WEBHOOK_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: WEBHOOK_SECRET
+            - name: JWT_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: JWT_SECRET
+            - name: JWT_ACCESS_EXPIRATION_MINUTES
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: JWT_ACCESS_EXPIRATION_MINUTES
+            - name: JWT_REFRESH_EXPIRATION_DAYS
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: JWT_REFRESH_EXPIRATION_DAYS
+            - name: JWT_RESET_PASSWORD_EXPIRATION_MINUTES
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: JWT_RESET_PASSWORD_EXPIRATION_MINUTES
+            - name: JWT_VERIFY_EMAIL_EXPIRATION_MINUTES
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: JWT_VERIFY_EMAIL_EXPIRATION_MINUTES
+            - name: MAILER_DISABLED
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: MAILER_DISABLED
+            - name: MAILER_FROM
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: MAILER_FROM
+            - name: MAIL_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: MAIL_USERNAME
+            - name: MAIL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: MAIL_PASSWORD
+            - name: OAUTH_CLIENTID
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: OAUTH_CLIENTID
+            - name: OAUTH_CLIENT_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: OAUTH_CLIENT_SECRET
+            - name: OAUTH_REFRESH_TOKEN
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: OAUTH_REFRESH_TOKEN
+            - name: OAUTH_CLIENTSECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: OAUTH_CLIENTSECRET
+            - name: MONGO_DSN_MESSENGER
+              valueFrom:
+                configMapKeyRef:
+                  name: my-app-config
+                  key: MONGO_DSN_MESSENGER
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: messenger
+  namespace: challengespace
+  labels:
+    name: messenger
+    app: messenger
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8010
+      targetPort: 80
+  selector:
+    app: messenger

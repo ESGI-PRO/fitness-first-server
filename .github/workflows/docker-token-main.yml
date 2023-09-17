@@ -1,12 +1,12 @@
-name: Pushing token on docker hub 
+name: Pushing token on docker hub
 
 on:
   push:
-    branches: "feature/testdockerrr"
+    branches: "feature/Aks"
 
 jobs:
-  BuildAndPush:   
-    runs-on: ubuntu-latest 
+  BuildAndPush:
+    runs-on: ubuntu-latest
     steps:
       - run: | 
           export GIT_SHA=$(git rev-parse HEAD)
@@ -37,8 +37,8 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-token-api:latest
           labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-token-api:latest
           provenance: false
-  
+
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-    
+
