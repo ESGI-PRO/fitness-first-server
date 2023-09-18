@@ -1,12 +1,12 @@
-name: Pushing permission on docker hub 
+name: Pushing permission on docker hub
 
 on:
   push:
     branches: "feature/testdocker"
 
 jobs:
-  BuildAndPush:   
-    runs-on: ubuntu-latest 
+  BuildAndPush:
+    runs-on: ubuntu-latest
     steps:
       - run: | 
           export GIT_SHA=$(git rev-parse HEAD)
@@ -26,7 +26,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-              
+
       - name: Build and push permission-api
         id: docker_build_permission_service
         uses: docker/build-push-action@v4
@@ -37,8 +37,8 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-permission-api:latest
           labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-permission-api:latest
           provenance: false
-  
+
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-    
+

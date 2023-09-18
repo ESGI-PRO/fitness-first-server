@@ -2,13 +2,13 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x", "linux-musl-arm64-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL_NUTRITION")
 }
 
 model Categories {
@@ -36,9 +36,9 @@ model Ingredients {
 }
 
 model Recettes {
-  id Int @id @default(autoincrement())
-  title String 
-  UserId String
+  id           Int      @id @default(autoincrement())
+  title        String
+  UserId       String
   instructions Json[]
-  studentIds String[] 
+  studentIds   String[]
 }
