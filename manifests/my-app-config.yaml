@@ -42,7 +42,7 @@ data:
   MONGO_DATABASE: "user_db"
   MONGO_HOST: "mongo"
 
-  MONGO_DSN: "mongodb://54.242.75.166:27017/analytic_db"
+  MONGO_DSN: "mongodb://204.236.197.111:27017/analytic_db"
 
   BASE_URI: "http://localhost"
 
@@ -54,8 +54,8 @@ data:
   POSTGRES_PASSWORD: "password"
   POSTGRES_DB: "nutrition"
   POSTGRES_HOST: "postgres"
-  DATABASE_URL_NUTRITION: "postgresql://postgres:password@54.242.75.166:5432/nutrition?schema=public"
-  DATABASE_URL_SUBSCRIPTION: "postgresql://postgres:password@54.242.75.166:5432/subscription?schema=public"
+  DATABASE_URL_NUTRITION: "postgresql://postgres:password@204.236.197.111:5432/nutrition?schema=public"
+  DATABASE_URL_SUBSCRIPTION: "postgresql://postgres:password@204.236.197.111:5432/subscription?schema=public"
 
 
   STRIPE_SECRET_KEY: "sk_test_51MTk4ZAor24Sfpgr1YQf3Xfk3oJooRyBSfB1lJWmAxwvqhSWJtZsRqMZCZk3B2b0kCCEe6tHwISkb4XHxBBHEH1O00AzDE8WmD"
@@ -80,10 +80,10 @@ data:
   OAUTH_CLIENT_SECRET: "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"
   OAUTH_REFRESH_TOKEN: "1//049znWotTda2OCgYIARAAGAQSNwF-L9IrZbheUcZK6sDcvcjK-XSAhie677iRgFLVQ8ew1jYOWzjb-7UyY-lOQFJ4PzT8phmKwP0"
   OAUTH_CLIENTSECRET: "GOCSPX-GNKZfBNuccgQP-TYRCtvvxzHcRC"
-  MONGO_DSN_ANALYTICS: "mongodb://54.242.75.166:27017/analytic_db"
-  MONGO_DSN_USER: "mongodb://54.242.75.166:27017/user_db"
-  MONGO_DSN_TRAINING: "mongodb://54.242.75.166:27017/training_db"
-  MONGO_DSN_TOKEN: "mongodb://54.242.75.166:27017/token_db"
-  MONGO_DSN_MESSENGER: "mongodb://54.242.75.166:27017/messenger_db"
+  MONGO_DSN_ANALYTICS: "mongodb://204.236.197.111:27017/analytic_db"
+  MONGO_DSN_USER: "mongodb://204.236.197.111:27017/user_db"
+  MONGO_DSN_TRAINING: "mongodb://204.236.197.111:27017/training_db"
+  MONGO_DSN_TOKEN: "mongodb://204.236.197.111:27017/token_db"
+  MONGO_DSN_MESSENGER: "mongodb://204.236.197.111:27017/messenger_db"
   REACT_APP_RAPID_API_KEY: "d40c138c32mshb179702566cbeecp1be977jsn752b54603514"
   
