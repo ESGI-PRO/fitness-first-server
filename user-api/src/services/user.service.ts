@@ -143,7 +143,8 @@ export class UserService implements OnModuleInit {
   }
 
   public async updateUser(id: string, user: IUser): Promise<IUser> {
-    const updatedUser = await this.userModel.findByIdAndUpdate(id, user, { new: true }).exec();
+    const {isAdmin, ...rest} = user;
+    const updatedUser = await this.userModel.findByIdAndUpdate(id, rest, { new: true }).exec();
     if (!updatedUser) throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     return updatedUser;
   }
