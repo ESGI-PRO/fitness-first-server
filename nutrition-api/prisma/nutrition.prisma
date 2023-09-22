@@ -1,0 +1,7 @@
+
+
+model Ingredient {
+  id    Int     @id @default(autoincrement())
+  name String  @unique
+  calories Int 
+}

@@ -1,7 +1,7 @@
-version: '3.8'
+version: '3.9'
 
 services:
-  #ALL DATABASES AND ADMINER, MONGO-EXPRESS
+  #ALL DATABASES AND ADMINER,MONGO-EXPRESS
   adminer:
     extends:
       file: ./compose/docker-compose-db.yml
@@ -11,14 +11,18 @@ services:
     extends:
       file: ./compose/docker-compose-db.yml
       service: mongo
-  
+
   postgres:
     extends:
       file: ./compose/docker-compose-db.yml
       service: postgres
-  
 
   #ALL APIs
+  gateway-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: gateway-api
+
   analytic-api:
     extends:
       file: ./compose/docker-compose-service.yml
@@ -28,19 +32,53 @@ services:
     extends:
       file: ./compose/docker-compose-service.yml
       service: training-api
-  
+    depends_on:
+      - postgres
+
   nutrition-api:
     extends:
       file: ./compose/docker-compose-service.yml
       service: nutrition-api
+    depends_on:
+      - postgres
+      - user-api
 
-  users-api:
+  user-api:
     extends:
       file: ./compose/docker-compose-service.yml
-      service: users-api
+      service: user-api
+    depends_on:
+      - mongo
 
-  auth-api:
+  token-api:
     extends:
       file: ./compose/docker-compose-service.yml
-      service: auth-api
-  
+      service: token-api
+    depends_on:
+      - mongo
+
+  permission-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: permission-api
+
+  mailer-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: mailer-api
+
+  messenger-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: messenger-api
+    depends_on:
+      - mongo
+      - user-api
+
+  subscription-api:
+    extends:
+      file: ./compose/docker-compose-service.yml
+      service: subscription-api
+    depends_on:
+      - postgres
+      - user-api

@@ -1,28 +1,47 @@
+###################
+# COMMON
+###################
+
 FROM node:18.15-alpine as common-build-stage
 
-RUN npm install -g pnpm
+WORKDIR /var/www/nutrition-api
 
-WORKDIR /app
+COPY package*.json ./
 
-COPY package.json pnpm-lock.yaml ./
+RUN npm install -g concurrently
 
-RUN pnpm install
-RUN npm i -g @nestjs/cli
+RUN npm install
 
 COPY . .
 
-EXPOSE 3001
+RUN npm run build
 
-# Development build stage
+EXPOSE 8001
+
+###################
+# DEVELOPMENT
+###################
+
 FROM common-build-stage as development-build-stage
 
 ENV NODE_ENV=development
+#CMD [ "concurrently", "npm:start:dev","npm:prisma:generate", "npm:prisma:migrate" ]
 
-CMD ["pnpm", "run", "start:dev"]
+CMD [ "npm", "run", "start:dev" ]
 
-# Production build stage
+###################
+# PRODUCTION
+###################
+
 FROM common-build-stage as production-build-stage
+WORKDIR /var/www/nutrition-api
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
+COPY --from=common-build-stage /var/www/nutrition-api/node_modules ./node_modules
+COPY --from=common-build-stage /var/www/nutrition-api/dist ./dist
+COPY --from=common-build-stage /var/www/nutrition-api/prisma ./prisma
+COPY --from=common-build-stage /var/www/nutrition-api/package*.json ./
 
-CMD ["pnpm", "run", "start:prod"]
+#RUN npm run build
+
+CMD [ "npm", "run", "start:migrate:prod" ]

@@ -1,0 +1,144 @@
+name: Pushing images on docker hub 
+
+on:
+  push:
+    branches: deveee
+
+jobs:
+  BuildAndPush:   
+    runs-on: ubuntu-latest 
+    steps:
+      - run: | 
+          export GIT_SHA=$(git rev-parse HEAD)
+          echo $GIT_SHA
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push analytics
+        id: docker_build_analytic_service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./analytic-api
+          platforms: linux/x86_64
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-analytic-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-analytic-api:$GIT_SHA
+          provenance: false
+          
+
+      - name: Build and push gateway
+        id: docker_build_gateway_service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./gateway-api
+          platforms: linux/x86_64
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-gateway-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-gateway-api:latest
+          provenance: false
+          
+      - name: Build and push mailer-api
+        id: docker_build_mailer_service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./mailer-api
+          platforms: linux/x86_64
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-mailer-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-mailer-api:latest
+          provenance: false
+    
+      - name: Build and push messenger-api
+        id: docker_build_messenger_service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./messenger-api
+          platforms: linux/x86_64
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-messenger-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-messenger-api:latest
+          provenance: false
+          
+      - name: Build and push nutrition
+        id: docker_build_prediction_service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./nutrition-api
+          platforms: linux/x86_64
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-nutrition-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-nutrition-api:latest
+          provenance: false
+              
+      - name: Build and push permission-api
+        id: docker_build_permission_service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./permission-api
+          platforms: linux/x86_64
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-permission-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-permission-api:latest
+          provenance: false
+
+      - name: Build and push subscription
+        id: docker_build_subscription_service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./subscription-api
+          platforms: linux/x86_64
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-subscription-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-subscription-api:latest
+          provenance: false
+
+      - name: Build and push token
+        id: docker_build_token_service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./token-api
+          platforms: linux/x86_64
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-token-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-token-api:latest
+          provenance: false
+
+      - name: Build and push training
+        id: docker_build_training_service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./training-api
+          platforms: linux/x86_64
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-training-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-training-api:latest
+          provenance: false
+  
+      - name: Build and push user
+        id: docker_build_user_service
+        uses: docker/build-push-action@v4
+        with:
+          context: ./user-api
+          platforms: linux/x86_64
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-user-api:latest
+          labels: ${{ secrets.DOCKER_USERNAME }}/challenge-semestre2-user-api:latest
+          provenance: false
+  
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
+
+    

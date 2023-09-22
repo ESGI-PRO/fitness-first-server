@@ -1,23 +1,21 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import helmet from 'helmet';
+import { ConfigService } from './services/config/config.service';
+import { TcpOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    cors: true,
-    logger: ['error', 'warn'],
-  });
-
-const config = new DocumentBuilder()
-  .setTitle('Analytic API')
-  .setDescription('Analytic API description')
-  .setVersion('1.0')
-  .build();
-const document = SwaggerModule.createDocument(app, config);
-SwaggerModule.setup('api', app, document);
-
-  app.use(helmet());
-  await app.listen(3000);
+  const app = await NestFactory.createMicroservice(AppModule, {
+    transport: Transport.TCP,
+    options: {
+      host: '0.0.0.0',
+      port: new ConfigService().get('port'),
+    },
+    logger: ['error', 'warn', 'log']
+  } as TcpOptions);
+  await app.listen();
 }
+// console.log("ConfigService().get('port')", new ConfigService().get('port'))
+// console.log("mongoDnsDb", new ConfigService().get('mongoDnsDb'))
+// console.log("process.env.ANALYTIC_SERVICE_PORT", process.env.ANALYTICS_SERVICE_PORT)
+
 bootstrap();
